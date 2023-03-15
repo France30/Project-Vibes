@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-	private CharacterController2D controller;
-
 	[SerializeField] private float runSpeed = 40f;
+
+	private CharacterController2D controller;
 
 	private float horizontalMove = 0f;
 	private bool jump = false;
 	private bool crouch = false;
+
 
     private void Awake()
     {
