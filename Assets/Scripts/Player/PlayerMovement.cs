@@ -11,9 +11,14 @@ public class PlayerMovement : MonoBehaviour {
 	private float horizontalMove = 0f;
 	private bool jump = false;
 	private bool crouch = false;
-	
-	// Update is called once per frame
-	private void Update () 
+
+    private void Awake()
+    {
+		controller = GetComponent<CharacterController2D>();
+    }
+
+    // Update is called once per frame
+    private void Update () 
 	{
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
