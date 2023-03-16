@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject attackObject;
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(Input.GetButton("Fire1") && !attackObject.activeSelf)
+        {
+            attackObject.SetActive(true);
+        }
     }
 }
