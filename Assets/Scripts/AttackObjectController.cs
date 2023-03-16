@@ -9,7 +9,9 @@ public class AttackObjectController : MonoBehaviour
     [SerializeField] private float maxScale = 2f;
     [SerializeField] private float animationSpeed = 4f;
     private Vector3 originalScale;
+    private float damage;
 
+    public float Damage { get; set; }
     public float AnimationSpeed { get; set; }
 
     private void Awake()
