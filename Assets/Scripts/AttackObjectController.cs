@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class AttackObjectController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //might replace variables with scriptable objects
+    //using this format for prototype
+    [SerializeField] private float animationSpeed = 4f;
+
+    public float AnimationSpeed { get; set; }
+
+    private void Awake()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        //scale object size here, multiplied by animation speed
+        float objectScale = animationSpeed * Time.deltaTime;
+        Vector3 scaleChange = new Vector3(objectScale, objectScale, 0);
+        transform.localScale += scaleChange;
     }
 }
