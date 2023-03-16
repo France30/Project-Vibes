@@ -11,7 +11,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - Attack
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 774142143
+    locked: 0
+  - name: Attack
+    uniqueID: 577729755
     locked: 0
