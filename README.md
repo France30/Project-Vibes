@@ -1,7 +1,7 @@
 # Project-Vibes
 
 ### **Unity Guidelines:**
- - Place New GameObjects on the bottom of the scene hierarchy to prevent merge conflicts with scenes
+ - Place New GameObjects on the bottom of the scene hierarchy to lessen merge conflicts with scenes
 
 ### **Repository Guidelines:**
  - **DO NOT PUSH FEATURES TO MAIN**
