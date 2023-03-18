@@ -12,7 +12,6 @@ public class AttackObjectController : MonoBehaviour
     private float damage;
 
     public float Damage { get; set; }
-    public float AnimationSpeed { get; set; }
 
     private void Awake()
     {
