@@ -912,6 +912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackObject: {fileID: 1634425141}
+  chord: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
 --- !u!1 &981602203
 GameObject:
   m_ObjectHideFlags: 0
