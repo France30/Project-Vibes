@@ -11,7 +11,7 @@ public class AttackObjectController : MonoBehaviour
     private Vector3 originalScale;
     private float damage;
 
-    public float Damage { get; set; }
+    public float Damage { get { return damage; } set { damage = value; } }
 
     private void Awake()
     {
