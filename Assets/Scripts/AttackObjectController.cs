@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AttackObjectController : MonoBehaviour
 {
-    //might replace variables with scriptable objects
-    //using this format for prototype
     [SerializeField] private float maxScale = 2f;
     [SerializeField] private float animationSpeed = 4f;
     private Vector3 originalScale;
