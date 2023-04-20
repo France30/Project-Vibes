@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 57551336}
   - component: {fileID: 57551339}
   m_Layer: 0
-  m_Name: BeatImage
+  m_Name: BeatUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 661971027}
   - component: {fileID: 661971030}
   m_Layer: 0
-  m_Name: TickImage
+  m_Name: TickUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -952,8 +952,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beatTime: 4
   beatSpeed: 0.7
-  tickImage: {fileID: 661971026}
-  beatImage: {fileID: 57551335}
+  tickUIObject: {fileID: 661971026}
+  beatUIObject: {fileID: 57551335}
 --- !u!223 &796519851
 Canvas:
   m_ObjectHideFlags: 0

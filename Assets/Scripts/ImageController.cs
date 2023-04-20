@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TempImageController : MonoBehaviour
+public class ImageController : MonoBehaviour
 {
     [SerializeField] private float FadeSpeed = 1f;
 
