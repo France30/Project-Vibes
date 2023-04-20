@@ -952,8 +952,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beatTime: 4
   beatSpeed: 0.7
-  tickImage: {fileID: 661971026}
-  beatImage: {fileID: 57551335}
+  tickUIObject: {fileID: 661971026}
+  beatUIObject: {fileID: 57551335}
 --- !u!223 &796519851
 Canvas:
   m_ObjectHideFlags: 0
