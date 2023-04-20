@@ -39,7 +39,6 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
         AudioManager.Instance.Play("TickBGM");
         currentTime ++;
-        //Debug.Log("current beat time: " + currentTime);
 
         IsBeatPlaying = false;
     }
@@ -51,7 +50,6 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
         AudioManager.Instance.Play("BeatBGM");
         currentTime = 0;
-        //Debug.Log("BEAT PLAYING");
 
         IsBeatPlaying = true;
     }
