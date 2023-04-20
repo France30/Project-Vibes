@@ -7,5 +7,5 @@ using System;
 public class Chord : ScriptableObject
 {
     public float time = 1f;
-    public Sound[] sounds;
+    public ChordClip[] chordClips;
 }

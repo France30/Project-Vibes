@@ -17,14 +17,13 @@ public class PlayerAttack : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        foreach (Sound s in chord.sounds)
+        foreach (ChordClip c in chord.chordClips)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            c.source = gameObject.AddComponent<AudioSource>();
+            c.source.clip = c.clip;
 
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+            c.source.volume = c.volume;
+            c.source.pitch = c.pitch;
         } 
     }
 
@@ -57,13 +56,13 @@ public class PlayerAttack : MonoBehaviour
     {
         isAttacking = true;
 
-        Play(chord.sounds[currentNote].name);
+        chord.chordClips[currentNote].source.Play();
 
-        bool isNotePlaying = chord.sounds[currentNote].clip != null;
+        bool isNotePlaying = chord.chordClips[currentNote].clip != null;
         attackObject.SetActive(isNotePlaying);
         animator.SetBool("Attack", isNotePlaying);
         
-        bool isChordDone = currentNote >= (chord.sounds.Length - 1);
+        bool isChordDone = currentNote >= (chord.chordClips.Length - 1);
         if (!isChordDone)
             currentNote++;
         else
