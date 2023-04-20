@@ -11,10 +11,20 @@ public class AttackObjectController : MonoBehaviour
     private float damage;
 
     public float Damage { get { return damage; } set { damage = value; } }
+    public bool IsBreakableObjectHit { get; set; }
+    public bool IsEnemyHit { get; set; }
 
     private void Awake()
     {
         originalScale = transform.localScale;
+    }
+
+    private void OnEnable()
+    {
+        transform.localScale = originalScale;
+
+        IsBreakableObjectHit = false;
+        IsEnemyHit = false;
     }
 
     private void Update()
@@ -30,5 +40,18 @@ public class AttackObjectController : MonoBehaviour
         float objectScale = animationSpeed * Time.deltaTime;
         Vector3 scaleChange = new Vector3(objectScale, objectScale, 0);
         transform.localScale += scaleChange;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!IsBreakableObjectHit) 
+        {
+            IsBreakableObjectHit = true;
+        }
+
+        if (!IsEnemyHit)
+        {
+            IsEnemyHit = true;
+        }
     }
 }

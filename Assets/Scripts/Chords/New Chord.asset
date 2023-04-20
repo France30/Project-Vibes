@@ -12,5 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
   m_Name: New Chord
   m_EditorClassIdentifier: 
-  time: 0.5
-  playNote: 01010001
+  time: 0.3
+  sounds:
+  - name: First Chord
+    clip: {fileID: 8300000, guid: 62049bba23581fa44b3ce1af1aa0fc5f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Second Chord
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Half Chord
+    clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Rest
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Fifth Chord
+    clip: {fileID: 8300000, guid: 03774f97d9f79e445858f247372f9daf, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Sixth Chord
+    clip: {fileID: 8300000, guid: 35e7b78b3de430746bfd275d5eb8f622, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Seventh
+    clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
