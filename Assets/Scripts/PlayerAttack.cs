@@ -77,15 +77,4 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetButton("Fire1") && currentNote != 0) //continue chord progression
             StartCoroutine(PlayAttack());
     }
-
-    public void Play(string name)
-    {
-        Sound s = Array.Find(chord.sounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.Log("Sound " + name + " not found!");
-            return;
-        }
-        s.source.Play();
-    }
 }
