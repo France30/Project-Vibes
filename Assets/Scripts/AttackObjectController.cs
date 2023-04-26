@@ -38,7 +38,6 @@ public class AttackObjectController : MonoBehaviour
         if (transform.localScale.x >= maxScale && transform.localScale.y >= maxScale)
         {
             transform.localScale = originalScale;
-            gameObject.SetActive(false);
         }
 
         //scale object size here, multiplied by animation speed
