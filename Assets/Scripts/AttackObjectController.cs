@@ -8,6 +8,7 @@ public class AttackObjectController : MonoBehaviour
     [SerializeField] private float animationSpeed = 4f;
 
     private Vector3 originalScale;
+    private float originalAnimationSpeed;
     private float damage;
 
     public float Damage { get { return damage; } set { damage = value; } }
@@ -19,11 +20,13 @@ public class AttackObjectController : MonoBehaviour
     private void Awake()
     {
         originalScale = transform.localScale;
+        originalAnimationSpeed = animationSpeed;
     }
 
     private void OnEnable()
     {
         transform.localScale = originalScale;
+        animationSpeed = originalAnimationSpeed;
 
         IsBreakableObjectHit = false;
         IsEnemyHit = false;
