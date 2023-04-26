@@ -18,10 +18,10 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         IsBeatPlaying = false;
 
-        StartCoroutine(beat());
+        StartCoroutine(beatSystem());
     }
 
-    private IEnumerator beat()
+    private IEnumerator beatSystem()
     {
         yield return new WaitForSeconds(beatSpeed);
 
@@ -30,7 +30,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
         else
             playBeat();
 
-        StartCoroutine(beat());
+        StartCoroutine(beatSystem());
     }
 
     private void playTick()
