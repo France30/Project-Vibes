@@ -55,26 +55,34 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator PlayAttack()
     {
         isAttacking = true;
-
         chord.chordClips[currentNote].source.Play();
 
-        bool isNotePlaying = chord.chordClips[currentNote].clip != null;
-        attackObject.SetActive(isNotePlaying);
-        animator.SetBool("Attack", isNotePlaying);
-        
-        bool isChordDone = currentNote >= (chord.chordClips.Length - 1);
-        if (!isChordDone)
-            currentNote++;
-        else
-            currentNote = 0;
+        bool isChordPlaying = chord.chordClips[currentNote].clip != null;
+        SetAttackBehaviour(isChordPlaying);
+
+        CheckIfSongDone();
 
         yield return new WaitForSeconds(chord.time);
 
-        attackObject.SetActive(false);
-        animator.SetBool("Attack", false);
+        SetAttackBehaviour(false);
         isAttacking = false;
 
         if (Input.GetButton("Fire1") && currentNote != 0) //continue chord progression
             StartCoroutine(PlayAttack());
+    }
+
+    private void SetAttackBehaviour(bool value)
+    {
+        attackObject.SetActive(value);
+        animator.SetBool("Attack", value);
+    }
+
+    private void CheckIfSongDone()
+    {
+        bool isSongDone = currentNote >= (chord.chordClips.Length - 1);
+        if (!isSongDone)
+            currentNote++;
+        else
+            currentNote = 0;
     }
 }
