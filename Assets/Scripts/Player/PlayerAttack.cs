@@ -81,6 +81,12 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(PlayAttack());
     }
 
+    private void SetAttackBehaviour(bool value)
+    {
+        attackObject.SetActive(value);
+        animator.SetBool("Attack", value);
+    }
+
     private void CheckIfChordIsHalfChord()
     {
         bool isPlayingHalfChord = chord.chordClips[currentNote].IsHalfChord;
@@ -88,12 +94,6 @@ public class PlayerAttack : MonoBehaviour
 
         float animationSpeedMultiplier = 2.2f;
         attackObjectController.AnimationSpeed *= animationSpeedMultiplier;
-    }
-
-    private void SetAttackBehaviour(bool value)
-    {
-        attackObject.SetActive(value);
-        animator.SetBool("Attack", value);
     }
 
     private void CheckIfSongDone()
