@@ -1289,6 +1289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackObject: {fileID: 1634425141}
   chord: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
+  missedCooldown: 1.5
 --- !u!95 &820667359
 Animator:
   serializedVersion: 4
@@ -2486,7 +2487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a310a30cbe32cdc408fdf237e5321bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 6
+  maxScale: 12
   animationSpeed: 24
 --- !u!212 &1634425144
 SpriteRenderer:
