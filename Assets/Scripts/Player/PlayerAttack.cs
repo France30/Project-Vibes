@@ -58,9 +58,9 @@ public class PlayerAttack : MonoBehaviour
 
         chord.chordClips[currentNote].source.Play();
 
-        bool isNotePlaying = chord.chordClips[currentNote].clip != null;
-        attackObject.SetActive(isNotePlaying);
-        animator.SetBool("Attack", isNotePlaying);
+        bool isChordPlaying = chord.chordClips[currentNote].clip != null;
+        attackObject.SetActive(isChordPlaying);
+        animator.SetBool("Attack", isChordPlaying);
 
         CheckIfSongDone();
 
