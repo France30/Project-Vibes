@@ -62,8 +62,8 @@ public class PlayerAttack : MonoBehaviour
         attackObject.SetActive(isNotePlaying);
         animator.SetBool("Attack", isNotePlaying);
         
-        bool isChordDone = currentNote >= (chord.chordClips.Length - 1);
-        if (!isChordDone)
+        bool isSongDone = currentNote >= (chord.chordClips.Length - 1);
+        if (!isSongDone)
             currentNote++;
         else
             currentNote = 0;
