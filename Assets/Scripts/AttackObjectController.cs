@@ -8,20 +8,25 @@ public class AttackObjectController : MonoBehaviour
     [SerializeField] private float animationSpeed = 4f;
 
     private Vector3 originalScale;
+    private float originalAnimationSpeed;
     private float damage;
 
     public float Damage { get { return damage; } set { damage = value; } }
     public bool IsBreakableObjectHit { get; set; }
     public bool IsEnemyHit { get; set; }
 
+    public float AnimationSpeed { get { return animationSpeed; } set { animationSpeed = value; } }
+
     private void Awake()
     {
         originalScale = transform.localScale;
+        originalAnimationSpeed = animationSpeed;
     }
 
     private void OnEnable()
     {
         transform.localScale = originalScale;
+        animationSpeed = originalAnimationSpeed;
 
         IsBreakableObjectHit = false;
         IsEnemyHit = false;
@@ -33,7 +38,6 @@ public class AttackObjectController : MonoBehaviour
         if (transform.localScale.x >= maxScale && transform.localScale.y >= maxScale)
         {
             transform.localScale = originalScale;
-            gameObject.SetActive(false);
         }
 
         //scale object size here, multiplied by animation speed

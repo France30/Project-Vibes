@@ -27,7 +27,7 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
     volume: 1
     pitch: 1
-    IsHalfChord: 0
+    IsHalfChord: 1
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
@@ -47,5 +47,5 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
     volume: 1
     pitch: 1
-    IsHalfChord: 0
+    IsHalfChord: 1
     source: {fileID: 0}
