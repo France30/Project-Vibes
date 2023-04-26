@@ -55,7 +55,6 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator PlayAttack()
     {
         isAttacking = true;
-
         chord.chordClips[currentNote].source.Play();
 
         bool isChordPlaying = chord.chordClips[currentNote].clip != null;
