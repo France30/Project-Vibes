@@ -7,10 +7,12 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject attackObject;
     [SerializeField] private Chord chord;
+    [SerializeField] private float missedCooldown = 3.0f;
 
     private Animator animator;
 
     private bool isAttacking = false;
+    private bool didPlayerMissBeat = false;
     private int currentNote = 0;
 
     private void Awake()
@@ -32,9 +34,11 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            if (didPlayerMissBeat) return;
+
             if(!BeatSystemController.Instance.IsBeatPlaying)
             {
-                AttackNotOnBeat();
+                StartCoroutine(AttackNotOnBeat());
                 return;
             }
 
@@ -47,9 +51,14 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    private void AttackNotOnBeat()
+    private IEnumerator AttackNotOnBeat()
     {
+        didPlayerMissBeat = true;
         AudioManager.Instance.Play("PlayerMissedBeat");
+
+        yield return new WaitForSeconds(missedCooldown);
+
+        didPlayerMissBeat = false;
     }
 
     private IEnumerator PlayAttack()
