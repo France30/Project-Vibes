@@ -14,6 +14,8 @@ public class AttackObjectController : MonoBehaviour
     public bool IsBreakableObjectHit { get; set; }
     public bool IsEnemyHit { get; set; }
 
+    public float AnimationSpeed { get { return animationSpeed; } set { animationSpeed = value; } }
+
     private void Awake()
     {
         originalScale = transform.localScale;
