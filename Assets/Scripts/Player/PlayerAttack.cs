@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Chord chord;
     [SerializeField] private float missedCooldown = 3.0f;
 
+    private AttackObjectController attackObjectController;
     private Animator animator;
 
     private bool isAttacking = false;
@@ -18,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        attackObjectController = attackObject.GetComponent<AttackObjectController>();
 
         foreach (ChordClip c in chord.chordClips)
         {
@@ -68,6 +70,7 @@ public class PlayerAttack : MonoBehaviour
 
         bool isChordPlaying = chord.chordClips[currentNote].clip != null;
         SetAttackBehaviour(isChordPlaying);
+        CheckIfChordIsHalfChord();
 
         CheckIfSongDone();
 
@@ -78,6 +81,15 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetButton("Fire1") && currentNote != 0) //continue chord progression
             StartCoroutine(PlayAttack());
+    }
+
+    private void CheckIfChordIsHalfChord()
+    {
+        bool isPlayingHalfChord = chord.chordClips[currentNote].IsHalfChord;
+        if (!isPlayingHalfChord) return;
+
+        float animationSpeedMultiplier = 2.2f;
+        attackObjectController.AnimationSpeed *= animationSpeedMultiplier;
     }
 
     private void SetAttackBehaviour(bool value)
