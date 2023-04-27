@@ -5,7 +5,7 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject attackObject;
     [SerializeField] private Chord chord;
-    [SerializeField] private float missedCooldown = 3.0f;
+    [SerializeField] private float penaltyCooldown = 3.0f;
 
     private AttackObjectController attackObjectController;
     private Animator animator;
@@ -56,7 +56,7 @@ public class PlayerAttack : MonoBehaviour
         didPlayerMissBeat = true;
         AudioManager.Instance.Play("PlayerMissedBeat");
 
-        yield return new WaitForSeconds(missedCooldown);
+        yield return new WaitForSeconds(penaltyCooldown);
 
         didPlayerMissBeat = false;
     }
