@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
 
     private bool isAttacking = false;
     private bool didPlayerMissBeat = false;
-    private int currentNote = 0;
+    private int currentChord = 0;
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         if (Input.GetButtonUp("Fire1"))
-            currentNote = 0;
+            currentChord = 0;
 
     }
 
@@ -64,9 +64,9 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator PlayAttack()
     {
         isAttacking = true;
-        chord.chordClips[currentNote].source.Play();
+        chord.chordClips[currentChord].source.Play();
 
-        bool isChordPlaying = chord.chordClips[currentNote].clip != null;
+        bool isChordPlaying = chord.chordClips[currentChord].clip != null;
         SetAttackBehaviour(isChordPlaying);
         CheckIfChordIsHalfChord();
 
@@ -77,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
         SetAttackBehaviour(false);
         isAttacking = false;
 
-        if (Input.GetButton("Fire1") && currentNote != 0) //continue chord progression
+        if (Input.GetButton("Fire1") && currentChord != 0) //continue chord progression
             StartCoroutine(PlayAttack());
     }
 
@@ -89,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void CheckIfChordIsHalfChord()
     {
-        bool isPlayingHalfChord = chord.chordClips[currentNote].IsHalfChord;
+        bool isPlayingHalfChord = chord.chordClips[currentChord].IsHalfChord;
         if (!isPlayingHalfChord) return;
 
         float animationSpeedMultiplier = 2.2f;
@@ -98,10 +98,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void CheckIfSongDone()
     {
-        bool isSongDone = currentNote >= (chord.chordClips.Length - 1);
+        bool isSongDone = currentChord >= (chord.chordClips.Length - 1);
         if (!isSongDone)
-            currentNote++;
+            currentChord++;
         else
-            currentNote = 0;
+            currentChord = 0;
     }
 }
