@@ -18,22 +18,22 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         IsBeatPlaying = false;
 
-        StartCoroutine(beatSystem());
+        StartCoroutine(BeatSystem());
     }
 
-    private IEnumerator beatSystem()
+    private IEnumerator BeatSystem()
     {
         yield return new WaitForSeconds(beatSpeed);
 
         if (currentTime < beatTime - 1)
-            playTick();
+            PlayTick();
         else
-            playBeat();
+            PlayBeat();
 
-        StartCoroutine(beatSystem());
+        StartCoroutine(BeatSystem());
     }
 
-    private void playTick()
+    private void PlayTick()
     {
         tickUIObject.GetComponent<ImageController>().ImageAlpha = 0.5f;
         beatUIObject.GetComponent<ImageController>().ImageAlpha = 0f;
@@ -44,7 +44,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
         IsBeatPlaying = false;
     }
 
-    private void playBeat()
+    private void PlayBeat()
     {
         beatUIObject.GetComponent<ImageController>().ImageAlpha = 0.5f;
         tickUIObject.GetComponent<ImageController>().ImageAlpha = 0f;
