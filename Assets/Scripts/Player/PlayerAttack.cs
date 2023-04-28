@@ -68,7 +68,8 @@ public class PlayerAttack : MonoBehaviour
 
         bool isChordPlaying = chord.chordClips[currentChord].clip != null;
         SetAttackBehaviour(isChordPlaying);
-        CheckIfChordIsHalfChord();
+
+        if(isChordPlaying) CheckIfChordIsHalfChord();
 
         CheckIfSongDone();
 
