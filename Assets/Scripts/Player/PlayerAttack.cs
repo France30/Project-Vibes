@@ -93,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
         bool isPlayingHalfChord = chord.chordClips[currentChord].IsHalfChord;
         if (!isPlayingHalfChord) return;
 
-        float animationSpeedMultiplier = 2.2f;
+        float animationSpeedMultiplier = 2f;
         attackObjectController.AnimationSpeed *= animationSpeedMultiplier;
         attackObjectController.HitboxScaleResetCounter = 2;
     }
