@@ -2489,7 +2489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a310a30cbe32cdc408fdf237e5321bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 8
+  maxScale: 6
   animationSpeed: 24
 --- !u!212 &1634425144
 SpriteRenderer:
