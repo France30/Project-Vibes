@@ -16,6 +16,7 @@ public class AttackObjectController : MonoBehaviour
     public bool IsEnemyHit { get; set; }
 
     public float AnimationSpeed { get { return animationSpeed; } set { animationSpeed = value; } }
+    public int HitboxScaleResetCounter { get; set; } //amount of times the scale should reset before disabling the object
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class AttackObjectController : MonoBehaviour
 
         IsBreakableObjectHit = false;
         IsEnemyHit = false;
+        HitboxScaleResetCounter = 1;
     }
 
     private void Update()
@@ -38,6 +40,8 @@ public class AttackObjectController : MonoBehaviour
         if (transform.localScale.x >= maxScale && transform.localScale.y >= maxScale)
         {
             transform.localScale = originalScale;
+            HitboxScaleResetCounter--;
+            if (HitboxScaleResetCounter <= 0) gameObject.SetActive(false);
         }
 
         //scale object size here, multiplied by animation speed

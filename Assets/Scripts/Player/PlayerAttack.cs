@@ -95,6 +95,7 @@ public class PlayerAttack : MonoBehaviour
 
         float animationSpeedMultiplier = 2.2f;
         attackObjectController.AnimationSpeed *= animationSpeedMultiplier;
+        attackObjectController.HitboxScaleResetCounter = 2;
     }
 
     private void CheckIfSongDone()
