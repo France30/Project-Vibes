@@ -93,6 +93,8 @@ public class PlayerAttack : MonoBehaviour
         bool isPlayingHalfChord = chord.chordClips[currentChord].IsHalfChord;
         if (!isPlayingHalfChord) return;
 
+        //increase attack hitbox speed if chord is half chord
+        //reset attack hitbox scale twice before disabling the attack hitbox game object
         float animationSpeedMultiplier = 2f;
         attackObjectController.AnimationSpeed *= animationSpeedMultiplier;
         attackObjectController.HitboxScaleResetCounter = 2;
