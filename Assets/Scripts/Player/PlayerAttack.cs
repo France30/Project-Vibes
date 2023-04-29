@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private AttackObjectController attackObjectController;
     private Animator animator;
 
-    private bool isAttacking = false;
+    private bool isAttackCoroutineRunning = false;
     private bool didPlayerMissBeat = false;
     private int currentChord = 0;
 
@@ -42,13 +42,12 @@ public class PlayerAttack : MonoBehaviour
                 return;
             }
 
-            if(!isAttacking)
+            if(!isAttackCoroutineRunning)
                 StartCoroutine(PlayAttack());
         }
 
         if (Input.GetButtonUp("Fire1"))
             currentChord = 0;
-
     }
 
     private IEnumerator AttackNotOnBeat()
@@ -63,7 +62,8 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator PlayAttack()
     {
-        isAttacking = true;
+        isAttackCoroutineRunning = true;
+
         chord.chordClips[currentChord].source.Play();
 
         bool isChordPlaying = chord.chordClips[currentChord].clip != null;
@@ -76,7 +76,8 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(chord.time);
 
         SetAttackBehaviour(false);
-        isAttacking = false;
+
+        isAttackCoroutineRunning = false;
 
         if (Input.GetButton("Fire1") && currentChord != 0) //continue chord progression
             StartCoroutine(PlayAttack());
