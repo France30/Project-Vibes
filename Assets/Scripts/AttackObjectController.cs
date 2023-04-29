@@ -12,8 +12,7 @@ public class AttackObjectController : MonoBehaviour
     private float damage;
 
     public float Damage { get { return damage; } set { damage = value; } }
-    public bool IsBreakableObjectHit { get; set; }
-    public bool IsEnemyHit { get; set; }
+    public bool didPlayerAttackHit { get; set; }
 
     public float AnimationSpeed { get { return animationSpeed; } set { animationSpeed = value; } }
     public int HitboxScaleResetCounter { get; set; } //amount of times the scale should reset before disabling the object
@@ -29,9 +28,8 @@ public class AttackObjectController : MonoBehaviour
         transform.localScale = originalScale;
         animationSpeed = originalAnimationSpeed;
 
-        IsBreakableObjectHit = false;
-        IsEnemyHit = false;
         HitboxScaleResetCounter = 1;
+        didPlayerAttackHit = false;
     }
 
     private void Update()
@@ -52,14 +50,6 @@ public class AttackObjectController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!IsBreakableObjectHit) 
-        {
-            IsBreakableObjectHit = true;
-        }
 
-        if (!IsEnemyHit)
-        {
-            IsEnemyHit = true;
-        }
     }
 }
