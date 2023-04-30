@@ -6,14 +6,14 @@ public class AttackObjectController : MonoBehaviour
 {
     [SerializeField] private float maxScale = 2f;
     [SerializeField] private float animationSpeed = 4f;
+    [SerializeField] private int damage = 1;
 
     private Vector3 originalScale;
     private float originalAnimationSpeed;
-    private float damage;
 
-    public float Damage { get { return damage; } set { damage = value; } }
     public bool IsBreakableObjectHit { get; set; }
     public bool IsEnemyHit { get; set; }
+    public int Damage { get { return damage; } set { damage = value; } }
 
     public float AnimationSpeed { get { return animationSpeed; } set { animationSpeed = value; } }
     public int HitboxScaleResetCounter { get; set; } //amount of times the scale should reset before disabling the object
