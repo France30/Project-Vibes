@@ -11,8 +11,6 @@ public class AttackObjectController : MonoBehaviour
     private Vector3 originalScale;
     private float originalAnimationSpeed;
 
-    public bool IsBreakableObjectHit { get; set; }
-    public bool IsEnemyHit { get; set; }
     public int Damage { get { return damage; } set { damage = value; } }
 
     public float AnimationSpeed { get { return animationSpeed; } set { animationSpeed = value; } }
@@ -29,8 +27,6 @@ public class AttackObjectController : MonoBehaviour
         transform.localScale = originalScale;
         animationSpeed = originalAnimationSpeed;
 
-        IsBreakableObjectHit = false;
-        IsEnemyHit = false;
         HitboxScaleResetCounter = 1;
     }
 
@@ -52,14 +48,10 @@ public class AttackObjectController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!IsBreakableObjectHit) 
         {
-            IsBreakableObjectHit = true;
         }
 
-        if (!IsEnemyHit)
         {
-            IsEnemyHit = true;
         }
     }
 }
