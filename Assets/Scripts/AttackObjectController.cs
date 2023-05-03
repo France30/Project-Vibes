@@ -11,6 +11,8 @@ public class AttackObjectController : MonoBehaviour
     private Vector3 originalScale;
     private float originalAnimationSpeed;
 
+    private List<EnemyController> enemiesHit = new List<EnemyController>();
+
     public int Damage { get { return damage; } set { damage = value; } }
 
     public float AnimationSpeed { get { return animationSpeed; } set { animationSpeed = value; } }
@@ -35,6 +37,8 @@ public class AttackObjectController : MonoBehaviour
         //when the object's local scale exceeds the assigned max scale
         if (transform.localScale.x >= maxScale && transform.localScale.y >= maxScale)
         {
+            ResetEnemyHitFlags();
+
             transform.localScale = originalScale;
             HitboxScaleResetCounter--;
             if (HitboxScaleResetCounter <= 0) gameObject.SetActive(false);
@@ -46,12 +50,27 @@ public class AttackObjectController : MonoBehaviour
         transform.localScale += scaleChange;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void ResetEnemyHitFlags()
     {
+        if (enemiesHit.Count <= 0) return;
+
+        foreach (EnemyController enemy in enemiesHit)
         {
+            enemy.IsHit = false;
+            Debug.Log(enemy.gameObject.name + " hit flag has been reset");
         }
 
+        enemiesHit.Clear();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent<EnemyController>(out EnemyController enemy))
         {
+            if (enemy.IsHit) return;
+
+            enemy.TakeDamage(damage);
+            enemiesHit.Add(enemy);
         }
     }
 }
