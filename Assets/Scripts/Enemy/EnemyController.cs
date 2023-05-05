@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour
 {
-    [SerializeField] private int health = 1;
+    [SerializeField] protected int health = 1;
 
     public bool IsHit { get; set; }
 
