@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EnemyController : MonoBehaviour
 {
     [SerializeField] protected int health = 1;
+    [SerializeField] protected float moveSpeed = 2f;
 
     public bool IsHit { get; set; }
 
@@ -16,8 +17,7 @@ public abstract class EnemyController : MonoBehaviour
 
         if (health <= 0) gameObject.SetActive(false);
     }
-
-    private void Awake()
+    protected virtual void Awake()
     {
         InitializeColliders();       
     }
