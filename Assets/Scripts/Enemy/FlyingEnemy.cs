@@ -23,6 +23,18 @@ public class FlyingEnemy : EnemyController
         rb2D = GetComponent<Rigidbody2D>();
     }
 
+    protected override void MoveToTargetDirection(Transform target)
+    {
+        base.MoveToTargetDirection(target);
+
+        //allows for more free movement
+        moveSpeed = Mathf.Abs(moveSpeed) * -1; //moveSpeed value must always be negative
+        float move = (moveSpeed * Time.fixedDeltaTime) * 3f;
+        Vector2 direction = (transform.position - target.position).normalized;
+        Vector3 targetVelocity = direction * move;
+        rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+    }
+
     private void FixedUpdate()
     {
         if(!isAttacking)
