@@ -23,6 +23,14 @@ public class FlyingEnemy : EnemyController
         rb2D = GetComponent<Rigidbody2D>();
     }
 
+    protected override void Flip()
+    {
+        base.Flip();
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
+
     protected override void MoveToTargetDirection(Transform target)
     {
         base.MoveToTargetDirection(target);
