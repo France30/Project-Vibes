@@ -11,8 +11,9 @@ public class GroundEnemy : EnemyController
         controller = GetComponent<CharacterController2D>();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         controller.Move(moveSpeed * Time.fixedDeltaTime, false, false);
     }
 }

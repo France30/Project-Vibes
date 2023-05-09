@@ -47,8 +47,10 @@ public class FlyingEnemy : EnemyController
         rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, targetVelocity, ref velocity, movementSmoothing);
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if(!isAttacking)
             Hover();
     }
