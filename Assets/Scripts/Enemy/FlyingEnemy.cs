@@ -17,9 +17,13 @@ public class FlyingEnemy : EnemyController
     private bool isAttacking = false;
 
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        //initialize colliders
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+            collider.isTrigger = true;
+
         rb2D = GetComponent<Rigidbody2D>();
     }
 
