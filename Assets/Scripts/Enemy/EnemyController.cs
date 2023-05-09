@@ -16,4 +16,19 @@ public abstract class EnemyController : MonoBehaviour
 
         if (health <= 0) gameObject.SetActive(false);
     }
+
+    private void Awake()
+    {
+        InitializeColliders();       
+    }
+
+    private void InitializeColliders()
+    {
+        //Make sure that enemy colliders are always set to triggers at the start of the game
+        Collider2D ceilingCollider = GetComponent<BoxCollider2D>();
+        ceilingCollider.isTrigger = true;
+
+        Collider2D groundCollider = GetComponent<CircleCollider2D>();
+        groundCollider.isTrigger = true;
+    }
 }
