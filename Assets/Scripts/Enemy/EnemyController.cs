@@ -7,7 +7,10 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] protected int health = 1;
     [SerializeField] protected float moveSpeed = 2f;
 
+    private bool isFacingRight = true;
+    
     public bool IsHit { get; set; }
+
 
     public virtual void TakeDamage(int value)
     {
@@ -17,6 +20,22 @@ public abstract class EnemyController : MonoBehaviour
 
         if (health <= 0) gameObject.SetActive(false);
     }
+
+    protected virtual void MoveToTargetDirection(Transform target)
+    {
+        bool isTargetRight = target.position.x > transform.position.x;
+        if (isTargetRight && !isFacingRight)
+            Flip();
+        if (!isTargetRight && isFacingRight)
+            Flip();
+    }
+
+    protected virtual void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        moveSpeed *= -1;
+    }
+
     protected virtual void Awake()
     {
         InitializeColliders();       
