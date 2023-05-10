@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour
 {
-    [SerializeField] protected int health = 1;
+    [SerializeField] protected int maxHealth = 1;
     [SerializeField] protected float moveSpeed = 2f;
 
     protected bool isAttacking = false;
@@ -16,11 +16,11 @@ public abstract class EnemyController : MonoBehaviour
 
     public virtual void TakeDamage(int value)
     {
-        health -= value;
+        maxHealth -= value;
         IsHit = true;
         Debug.Log(gameObject.name + " has been hit");
 
-        if (health <= 0) gameObject.SetActive(false);
+        if (maxHealth <= 0) gameObject.SetActive(false);
     }
 
     protected virtual void MoveToTargetDirection(Transform target)
