@@ -7,6 +7,8 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] protected int health = 1;
     [SerializeField] protected float moveSpeed = 2f;
 
+    protected bool isAttacking = false;
+
     private bool isFacingRight = true;
     
     public bool IsHit { get; set; }

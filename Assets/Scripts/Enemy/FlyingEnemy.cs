@@ -14,7 +14,6 @@ public class FlyingEnemy : EnemyController
     private float currentHoverDistance;
     private bool isHoveringUp = true;
 
-    private bool isAttacking = false;
 
     protected override void Flip()
     {
