@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ImageController : MonoBehaviour
 {
-    [SerializeField] private float FadeSpeed = 1f;
+    [SerializeField] private float fadeSpeed = 1f;
 
     private Image gameObjectImage;
 
@@ -22,6 +22,6 @@ public class ImageController : MonoBehaviour
         gameObjectImage.color = new Color(gameObjectImage.color.r, gameObjectImage.color.g, gameObjectImage.color.b, ImageAlpha);
 
         if (ImageAlpha > 0)
-            ImageAlpha -= FadeSpeed * Time.deltaTime;
+            ImageAlpha -= fadeSpeed * Time.deltaTime;
     }
 }
