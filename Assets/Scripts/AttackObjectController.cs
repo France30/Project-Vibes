@@ -8,8 +8,8 @@ public class AttackObjectController : MonoBehaviour
     [SerializeField] private float animationSpeed = 4f;
     [SerializeField] private int damage = 1;
 
-    private Vector3 originalScale;
-    private float originalAnimationSpeed;
+    private Vector3 baseScale;
+    private float baseAnimationSpeed;
 
     private List<EnemyController> enemiesHit = new List<EnemyController>();
 
@@ -20,14 +20,14 @@ public class AttackObjectController : MonoBehaviour
 
     private void Awake()
     {
-        originalScale = transform.localScale;
-        originalAnimationSpeed = animationSpeed;
+        baseScale = transform.localScale;
+        baseAnimationSpeed = animationSpeed;
     }
 
     private void OnEnable()
     {
-        transform.localScale = originalScale;
-        animationSpeed = originalAnimationSpeed;
+        transform.localScale = baseScale;
+        animationSpeed = baseAnimationSpeed;
 
         HitboxScaleResetCounter = 1;
     }
@@ -39,7 +39,7 @@ public class AttackObjectController : MonoBehaviour
         {
             ResetEnemyHitFlags();
 
-            transform.localScale = originalScale;
+            transform.localScale = baseScale;
             HitboxScaleResetCounter--;
             if (HitboxScaleResetCounter <= 0) gameObject.SetActive(false);
         }
