@@ -7,19 +7,19 @@ public class ImageController : MonoBehaviour
 {
     [SerializeField] private float fadeSpeed = 1f;
 
-    private Image gameObjectImage;
+    private Image image;
 
     public float ImageAlpha { get; set; }
 
     private void Awake()
     {
-        gameObjectImage = GetComponent<Image>();
+        image = GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameObjectImage.color = new Color(gameObjectImage.color.r, gameObjectImage.color.g, gameObjectImage.color.b, ImageAlpha);
+        image.color = new Color(image.color.r, image.color.g, image.color.b, ImageAlpha);
 
         if (ImageAlpha > 0)
             ImageAlpha -= fadeSpeed * Time.deltaTime;
