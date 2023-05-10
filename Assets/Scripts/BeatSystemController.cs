@@ -7,8 +7,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
     [SerializeField] private float beatTime = 4.0f;
     [SerializeField] private float beatSpeed = 1.0f;
 
-    [SerializeField] private GameObject tickUIObject;
-    [SerializeField] private GameObject beatUIObject;
+    [SerializeField] private ImageController tickUI;
+    [SerializeField] private ImageController beatUI;
 
     private float currentTime = 0;
 
@@ -35,8 +35,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
     private void PlayTick()
     {
-        tickUIObject.GetComponent<ImageController>().ImageAlpha = 0.5f;
-        beatUIObject.GetComponent<ImageController>().ImageAlpha = 0f;
+        tickUI.ImageAlpha = 0.5f;
+        beatUI.ImageAlpha = 0f;
 
         AudioManager.Instance.Play("TickBGM");
         currentTime ++;
@@ -46,8 +46,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
     private void PlayBeat()
     {
-        beatUIObject.GetComponent<ImageController>().ImageAlpha = 0.5f;
-        tickUIObject.GetComponent<ImageController>().ImageAlpha = 0f;
+        beatUI.ImageAlpha = 0.5f;
+        tickUI.ImageAlpha = 0f;
 
         AudioManager.Instance.Play("BeatBGM");
         currentTime = 0;
