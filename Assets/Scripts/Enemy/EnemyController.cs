@@ -36,19 +36,15 @@ public abstract class EnemyController : MonoBehaviour
         moveSpeed *= -1;
     }
 
-    protected virtual void Awake()
+    protected virtual void FixedUpdate()
     {
-        InitializeColliders();       
+        CheckForPlayerCollision();
     }
 
-    private void InitializeColliders()
+    private void CheckForPlayerCollision()
     {
-        //Make sure that enemy colliders are always set to triggers at the start of the game
-        //this allows the player to pass through enemies and prevents objects from getting pushed around
-        Collider2D ceilingCollider = GetComponent<BoxCollider2D>();
-        ceilingCollider.isTrigger = true;
-
-        Collider2D groundCollider = GetComponent<CircleCollider2D>();
-        groundCollider.isTrigger = true;
+        LayerMask player = LayerMask.GetMask("Player");
+        if (Physics2D.BoxCast(transform.position, transform.localScale, 0f, Vector2.zero, 0f, player))
+            Debug.Log("Player Hit");
     }
 }
