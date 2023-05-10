@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController2D))]
 public class PlayerMovement : MonoBehaviour {
 
-	[SerializeField] private float runSpeed = 40f;
+	[SerializeField] private float moveSpeed = 40f;
 
 	private CharacterController2D controller;
 	private Animator animator;
@@ -25,8 +25,8 @@ public class PlayerMovement : MonoBehaviour {
     private void Update () 
 	{
 		//Walk/Run
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+		horizontalMove = Input.GetAxisRaw("Horizontal") * moveSpeed;
 
 		if (Input.GetButtonDown("Jump"))
 		{
