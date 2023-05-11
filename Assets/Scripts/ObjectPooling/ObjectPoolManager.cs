@@ -10,6 +10,13 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     [SerializeField]
     private List<GameObject> _pooledObjects;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        //make sure that the list of pooled objects is always empty at the start of the game
+        _pooledObjects.Clear();
+    }
+
     private void Start()
     {
         //traverse through each objectpoolitem in the list
