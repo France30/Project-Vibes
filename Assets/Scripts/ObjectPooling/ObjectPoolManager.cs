@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
-    public List<ObjectPoolItem> itemsToPool;
+    [SerializeField]
+    private List<ObjectPoolItem> itemsToPool;
     //pool of objects
     [SerializeField]
     private List<GameObject> _pooledObjects;
