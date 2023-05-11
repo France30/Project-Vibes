@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FlyingEnemy : EnemyController
 {
-    [SerializeField] private float hoverSpeed = 1f;
-    [SerializeField] private float hoverDistance = 1f;
-    [Range(0, .3f)] [SerializeField] private float movementSmoothing = 0.05f;
+    [SerializeField] private float _hoverSpeed = 1f;
+    [SerializeField] private float _hoverDistance = 1f;
+    [Range(0, .3f)] [SerializeField] private float _movementSmoothing = 0.05f;
 
-    private Rigidbody2D rb2D;
-    private Vector3 velocity = Vector3.zero;
+    private Rigidbody2D _rb2D;
+    private Vector3 _velocity = Vector3.zero;
 
-    private float currentHoverDistance;
-    private bool isHoveringUp = true;
+    private float _currentHoverDistance;
+    private bool _isHoveringUp = true;
 
 
     protected override void Flip()
@@ -28,18 +28,18 @@ public class FlyingEnemy : EnemyController
         base.MoveToTargetDirection(target);
 
         //allows for more free movement
-        moveSpeed = Mathf.Abs(moveSpeed) * -1; //moveSpeed value must always be negative
-        float move = (moveSpeed * Time.fixedDeltaTime) * 3f;
+        _moveSpeed = Mathf.Abs(_moveSpeed) * -1; //_moveSpeed value must always be negative
+        float move = (_moveSpeed * Time.fixedDeltaTime) * 3f;
         Vector2 direction = (transform.position - target.position).normalized;
         Vector3 targetVelocity = direction * move;
-        rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+        _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, targetVelocity, ref _velocity, _movementSmoothing);
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        if(!isAttacking)
+        if(!_isAttacking)
             Hover();
     }
 
@@ -50,26 +50,26 @@ public class FlyingEnemy : EnemyController
         foreach (Collider2D collider in colliders)
             collider.isTrigger = true;
 
-        rb2D = GetComponent<Rigidbody2D>();
+        _rb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Hover()
     {       
-        float hover = hoverSpeed * Time.fixedDeltaTime;
-        currentHoverDistance += hover;
-        if (currentHoverDistance >= hoverDistance && isHoveringUp)
+        float hover = _hoverSpeed * Time.fixedDeltaTime;
+        _currentHoverDistance += hover;
+        if (_currentHoverDistance >= _hoverDistance && _isHoveringUp)
             FlipHover();
-        else if(currentHoverDistance <= hoverDistance && !isHoveringUp)
+        else if(_currentHoverDistance <= _hoverDistance && !_isHoveringUp)
             FlipHover();
 
-        Vector3 targetVelocity = new Vector2(rb2D.velocity.x, hover);
-        rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+        Vector3 targetVelocity = new Vector2(_rb2D.velocity.x, hover);
+        _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, targetVelocity, ref _velocity, _movementSmoothing);
     }
 
     private void FlipHover()
     {
-        isHoveringUp = !isHoveringUp;
-        hoverDistance *= -1;
-        hoverSpeed *= -1;
+        _isHoveringUp = !_isHoveringUp;
+        _hoverDistance *= -1;
+        _hoverSpeed *= -1;
     }
 }

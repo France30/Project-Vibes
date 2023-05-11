@@ -5,45 +5,45 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController2D))]
 public class PlayerMovement : MonoBehaviour {
 
-	[SerializeField] private float moveSpeed = 40f;
+	[SerializeField] private float _moveSpeed = 40f;
 
-	private CharacterController2D controller;
-	private Animator animator;
+	private CharacterController2D _controller;
+	private Animator _animator;
 
-	private float horizontalMove = 0f;
-	private bool jump = false;
-	private bool crouch = false;
+	private float _horizontalMove = 0f;
+	private bool _jump = false;
+	private bool _crouch = false;
 
 
     private void Awake()
     {
-		controller = GetComponent<CharacterController2D>();
-		animator = GetComponent<Animator>();
+		_controller = GetComponent<CharacterController2D>();
+		_animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     private void Update () 
 	{
 		//Walk/Run
-		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-		horizontalMove = Input.GetAxisRaw("Horizontal") * moveSpeed;
+		_horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
+		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
 		if (Input.GetButtonDown("Jump"))
 		{
-			jump = true;
-			animator.SetBool("Jump", true);
+			_jump = true;
+			_animator.SetBool("Jump", true);
 		}
 	}
 
 	public void OnLanding()
     {
-		animator.SetBool("Jump", false);
+		_animator.SetBool("Jump", false);
 	}
 
 	private void FixedUpdate ()
 	{
 		// Move our character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-		jump = false;
+		_controller.Move(_horizontalMove * Time.fixedDeltaTime, _crouch, _jump);
+		_jump = false;
 	}
 }

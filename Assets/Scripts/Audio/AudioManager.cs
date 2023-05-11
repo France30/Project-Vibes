@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 { 
-    [SerializeField] private Sound[] sounds;
+    [SerializeField] private Sound[] _sounds;
 
     public override void Awake()
     {
         base.Awake();
-        foreach(Sound s in sounds)
+        foreach(Sound s in _sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -22,7 +22,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(_sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.Log("Sound " + name + " not found!");
@@ -33,13 +33,13 @@ public class AudioManager : Singleton<AudioManager>
 
     public bool IsPlaying(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(_sounds, sound => sound.name == name);
         return s.source.isPlaying;
     }
 
     public void Stop(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(_sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.Log("Sound " + name + " not found!");

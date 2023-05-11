@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class ImageController : MonoBehaviour
 {
-    [SerializeField] private float fadeSpeed = 1f;
+    [SerializeField] private float _fadeSpeed = 1f;
 
-    private Image image;
+    private Image _image;
 
     public float ImageAlpha { get; set; }
 
     private void Awake()
     {
-        image = GetComponent<Image>();
+        _image = GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        image.color = new Color(image.color.r, image.color.g, image.color.b, ImageAlpha);
+        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, ImageAlpha);
 
         if (ImageAlpha > 0)
-            ImageAlpha -= fadeSpeed * Time.deltaTime;
+            ImageAlpha -= _fadeSpeed * Time.deltaTime;
     }
 }
