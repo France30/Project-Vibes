@@ -6,7 +6,7 @@ public class AudioManager : Singleton<AudioManager>
 { 
     [SerializeField] private Sound[] _sounds;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
         foreach(Sound s in _sounds)
