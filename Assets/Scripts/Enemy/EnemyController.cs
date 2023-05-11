@@ -4,36 +4,38 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour
 {
-    [SerializeField] protected int health = 1;
-    [SerializeField] protected float moveSpeed = 2f;
+    [SerializeField] protected int _maxHealth = 1;
+    [SerializeField] protected float _moveSpeed = 2f;
 
-    private bool isFacingRight = true;
+    protected bool _isAttacking = false;
+
+    private bool _isFacingRight = true;
     
     public bool IsHit { get; set; }
 
 
     public virtual void TakeDamage(int value)
     {
-        health -= value;
+        _maxHealth -= value;
         IsHit = true;
         Debug.Log(gameObject.name + " has been hit");
 
-        if (health <= 0) gameObject.SetActive(false);
+        if (_maxHealth <= 0) gameObject.SetActive(false);
     }
 
     protected virtual void MoveToTargetDirection(Transform target)
     {
         bool isTargetRight = target.position.x > transform.position.x;
-        if (isTargetRight && !isFacingRight)
+        if (isTargetRight && !_isFacingRight)
             Flip();
-        if (!isTargetRight && isFacingRight)
+        if (!isTargetRight && _isFacingRight)
             Flip();
     }
 
     protected virtual void Flip()
     {
-        isFacingRight = !isFacingRight;
-        moveSpeed *= -1;
+        _isFacingRight = !_isFacingRight;
+        _moveSpeed *= -1;
     }
 
     protected virtual void FixedUpdate()

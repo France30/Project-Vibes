@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BeatSystemController : Singleton<BeatSystemController>
 {
-    [SerializeField] private float beatTime = 4.0f;
-    [SerializeField] private float beatSpeed = 1.0f;
+    [SerializeField] private float _beatTime = 4.0f;
+    [SerializeField] private float _beatSpeed = 1.0f;
 
-    [SerializeField] private GameObject tickUIObject;
-    [SerializeField] private GameObject beatUIObject;
+    [SerializeField] private ImageController _tickUI;
+    [SerializeField] private ImageController _beatUI;
 
-    private float currentTime = 0;
+    private float _currentTime = 0;
 
     public bool IsBeatPlaying { get; set; }
 
@@ -23,9 +23,9 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
     private IEnumerator BeatSystem()
     {
-        yield return new WaitForSeconds(beatSpeed);
+        yield return new WaitForSeconds(_beatSpeed);
 
-        if (currentTime < beatTime - 1)
+        if (_currentTime < _beatTime - 1)
             PlayTick();
         else
             PlayBeat();
@@ -35,22 +35,22 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
     private void PlayTick()
     {
-        tickUIObject.GetComponent<ImageController>().ImageAlpha = 0.5f;
-        beatUIObject.GetComponent<ImageController>().ImageAlpha = 0f;
+        _tickUI.ImageAlpha = 0.5f;
+        _beatUI.ImageAlpha = 0f;
 
         AudioManager.Instance.Play("TickBGM");
-        currentTime ++;
+        _currentTime ++;
 
         IsBeatPlaying = false;
     }
 
     private void PlayBeat()
     {
-        beatUIObject.GetComponent<ImageController>().ImageAlpha = 0.5f;
-        tickUIObject.GetComponent<ImageController>().ImageAlpha = 0f;
+        _beatUI.ImageAlpha = 0.5f;
+        _tickUI.ImageAlpha = 0f;
 
         AudioManager.Instance.Play("BeatBGM");
-        currentTime = 0;
+        _currentTime = 0;
 
         IsBeatPlaying = true;
     }
