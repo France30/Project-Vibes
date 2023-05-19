@@ -15,6 +15,18 @@ public class FlyingEnemy : EnemyController
     private bool _isHoveringUp = true;
 
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        //initialize colliders
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+            collider.isTrigger = true;
+
+        _rb2D = GetComponent<Rigidbody2D>();
+    }
+
     protected override void Flip()
     {
         base.Flip();
@@ -41,16 +53,6 @@ public class FlyingEnemy : EnemyController
 
         if(!_isAttacking)
             Hover();
-    }
-
-    private void Awake()
-    {
-        //initialize colliders
-        Collider2D[] colliders = GetComponents<Collider2D>();
-        foreach (Collider2D collider in colliders)
-            collider.isTrigger = true;
-
-        _rb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Hover()

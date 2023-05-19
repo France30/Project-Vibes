@@ -7,20 +7,26 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] protected int _maxHealth = 1;
     [SerializeField] protected float _moveSpeed = 2f;
 
+    protected Health _health;
     protected bool _isAttacking = false;
 
-    private bool _isFacingRight = true;
+    private bool _isFacingRight = true;   
     
     public bool IsHit { get; set; }
 
 
+    protected virtual void Awake()
+    {
+        _health = new Health(_maxHealth);
+    }
+
     public virtual void TakeDamage(int value)
     {
-        _maxHealth -= value;
+        _health.CurrentHealth -= value;
         IsHit = true;
         Debug.Log(gameObject.name + " has been hit");
 
-        if (_maxHealth <= 0) gameObject.SetActive(false);
+        if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
     }
 
     protected virtual void MoveToTargetDirection(Transform target)
