@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController2D))]
-public class GroundEnemy : EnemyController
+public class GroundEnemy : EnemyBase
 {
     private CharacterController2D _controller;
 
