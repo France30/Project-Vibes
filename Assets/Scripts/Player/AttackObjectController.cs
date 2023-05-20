@@ -11,7 +11,7 @@ public class AttackObjectController : MonoBehaviour
     private Vector3 _baseScale;
     private float _baseAnimationSpeed;
 
-    private List<EnemyController> _enemiesHit = new List<EnemyController>();
+    private List<EnemyBase> _enemiesHit = new List<EnemyBase>();
 
     public int Damage { get { return _damage; } set { _damage = value; } }
 
@@ -54,7 +54,7 @@ public class AttackObjectController : MonoBehaviour
     {
         if (_enemiesHit.Count <= 0) return;
 
-        foreach (EnemyController enemy in _enemiesHit)
+        foreach (EnemyBase enemy in _enemiesHit)
         {
             enemy.IsHit = false;
             Debug.Log(enemy.gameObject.name + " hit flag has been reset");
@@ -65,7 +65,7 @@ public class AttackObjectController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<EnemyController>(out EnemyController enemy))
+        if(collision.TryGetComponent<EnemyBase>(out EnemyBase enemy))
         {
             if (enemy.IsHit) return;
 

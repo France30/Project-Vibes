@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyController : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour
 {
     [SerializeField] protected int _maxHealth = 1;
     [SerializeField] protected float _moveSpeed = 2f;

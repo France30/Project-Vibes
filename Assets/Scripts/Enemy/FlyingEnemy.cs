@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingEnemy : EnemyController
+public class FlyingEnemy : EnemyBase
 {
     [SerializeField] private float _hoverSpeed = 1f;
     [SerializeField] private float _hoverDistance = 1f;
