@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
     [SerializeField]
-    private List<ObjectPoolItem> itemsToPool;
+    private List<ObjectPoolItem> _itemsToPool;
     //pool of objects
     [SerializeField]
     private List<GameObject> _pooledObjects;
@@ -20,7 +20,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     private void Start()
     {
         //traverse through each objectpoolitem in the list
-        foreach(ObjectPoolItem item in itemsToPool)
+        foreach(ObjectPoolItem item in _itemsToPool)
         {
             //instantiate the object's prefab based on the initial amount to Pool
             for(int i = 0; i < item.amountToPool; i++)
@@ -54,7 +54,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
         //if all objects are currently in use
         //check if the object can expand and then instantiate a new object and add it to the pool
-        foreach(ObjectPoolItem item in itemsToPool)
+        foreach(ObjectPoolItem item in _itemsToPool)
         {
             if(item.id == id)
             {
@@ -86,7 +86,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             //put it back to the original parent
             //get the id of the object
             string id = obj.GetComponent<PooledObjectItem>().id;
-            ObjectPoolItem item = itemsToPool.Find(i => i.id == id);
+            ObjectPoolItem item = _itemsToPool.Find(i => i.id == id);
             //itemsToPool.Find(i => i.id == id) is a shortcut for this:
             /*
             for(int i = 0; i < itemsToPool.Count; i++)
