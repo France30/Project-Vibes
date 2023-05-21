@@ -15,6 +15,11 @@ public class PlayerMovement : MonoBehaviour {
 	public float MoveSpeed { get; set; }
 
 
+	public void OnLanding()
+	{
+		_animator.SetBool("Jump", false);
+	}
+
 	private void Start()
     {
 		_controller = GetComponent<CharacterController2D>();
@@ -33,11 +38,6 @@ public class PlayerMovement : MonoBehaviour {
 			_jump = true;
 			_animator.SetBool("Jump", true);
 		}
-	}
-
-	public void OnLanding()
-    {
-		_animator.SetBool("Jump", false);
 	}
 
 	private void FixedUpdate ()
