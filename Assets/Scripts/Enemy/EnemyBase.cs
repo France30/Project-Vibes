@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
     [SerializeField] protected int _maxHealth = 1;
     [SerializeField] protected float _moveSpeed = 2f;
@@ -10,23 +10,24 @@ public abstract class EnemyBase : MonoBehaviour
     protected Health _health;
     protected bool _isAttacking = false;
 
-    private bool _isFacingRight = true;   
-    
+    private bool _isFacingRight = true;
+
+    public GameObject GameObject { get { return gameObject; } }
     public bool IsHit { get; set; }
 
 
-    protected virtual void Awake()
-    {
-        _health = new Health(_maxHealth);
-    }
-
-    public virtual void TakeDamage(int value)
+    public void TakeDamage(int value)
     {
         _health.CurrentHealth -= value;
         IsHit = true;
         Debug.Log(gameObject.name + " has been hit");
 
         if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
+    }
+
+    protected virtual void Awake()
+    {
+        _health = new Health(_maxHealth);
     }
 
     protected virtual void MoveToTargetDirection(Transform target)
