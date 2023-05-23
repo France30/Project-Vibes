@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerController), typeof(CharacterController2D))]
-public class PlayerMovement : MonoBehaviour {
+[RequireComponent(typeof(Rigidbody2D), typeof(CharacterController2D))]
+public class PlayerMovement : MonoBehaviour 
+{
+	[SerializeField] private float _moveSpeed = 40f;
 
 	private CharacterController2D _controller;
 	private Animator _animator;
@@ -11,8 +13,6 @@ public class PlayerMovement : MonoBehaviour {
 	private float _horizontalMove = 0f;
 	private bool _jump = false;
 	private bool _crouch = false;
-
-	public float MoveSpeed { get; set; }
 
 
 	public void OnLanding()
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour {
     private void Update () 
 	{
 		//Walk/Run
-		_horizontalMove = Input.GetAxisRaw("Horizontal") * MoveSpeed;
+		_horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
 		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
 		if (Input.GetButtonDown("Jump"))
