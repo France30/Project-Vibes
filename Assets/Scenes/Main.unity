@@ -2106,7 +2106,7 @@ GameObject:
   - component: {fileID: 1260800313}
   - component: {fileID: 1260800312}
   m_Layer: 3
-  m_Name: Colliders
+  m_Name: PlayerColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5970,7 +5970,7 @@ GameObject:
   - component: {fileID: 2113447624}
   - component: {fileID: 2113447625}
   m_Layer: 3
-  m_Name: Renderer
+  m_Name: PlayerRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
