@@ -68,6 +68,12 @@ public class GroundEnemy : EnemyBase
             base.MoveToTargetDirection(target);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(_wallCheck.position, _wallBoxCastSize);
+        Gizmos.DrawCube(_ceilingCheck.position, _ceilingBoxCastSize);
+    }
+
     private void Patrol()
     {
         Transform currentPatrol = _wayPoints[_currentWayPoint];
