@@ -9,6 +9,7 @@ public class GroundEnemy : EnemyBase
     [SerializeField] private Transform _ceilingCheck;
     [SerializeField] private Transform _wallCheck;
     [SerializeField] private LayerMask _whatIsGround;
+    [SerializeField] private float _fallingThreshold = -5f;
 
     private CharacterController2D _controller;
     private Rigidbody2D _rb2D;
@@ -18,6 +19,13 @@ public class GroundEnemy : EnemyBase
 
     private int _currentWayPoint = 0;
     private bool _canJump = false;
+    private bool _isGrounded = true;
+
+
+    public void OnLanding()
+    {
+        _isGrounded = true;
+    }
 
     protected override void Awake()
     {
@@ -45,6 +53,7 @@ public class GroundEnemy : EnemyBase
         if (isTherePlatform && isTargetAbove)
         {
             _canJump = true;
+            _isGrounded = false;
         }
             
 
@@ -54,6 +63,8 @@ public class GroundEnemy : EnemyBase
 
         if (isTargetAbove && isBelowCeiling) return;
 
+        bool isFalling = _rb2D.velocity.y < _fallingThreshold;
+        if (isFalling || _isGrounded)
             base.MoveToTargetDirection(target);
     }
 
