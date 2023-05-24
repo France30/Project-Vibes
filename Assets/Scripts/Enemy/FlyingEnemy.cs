@@ -37,6 +37,13 @@ public class FlyingEnemy : EnemyBase
 
     protected override void MoveToTargetDirection(Transform target)
     {
+        float distanceFromTarget = Vector2.Distance(transform.position, target.position);
+        if (IsTargetReached(distanceFromTarget)) 
+        {
+            _rb2D.velocity = new Vector2(0,0);
+            return;
+        }
+
         base.MoveToTargetDirection(target);
 
         //allows for more free movement
