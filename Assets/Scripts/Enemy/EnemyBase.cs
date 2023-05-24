@@ -30,6 +30,15 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         _health = new Health(_maxHealth);
     }
 
+    protected bool IsTargetReached(float distanceFromTarget, float targetDistance = 0)
+    {
+        targetDistance = Calculate.RoundedAbsoluteValue(targetDistance);
+        distanceFromTarget = Calculate.RoundedAbsoluteValue(distanceFromTarget);
+
+        //Debug.Log(targetDistance);
+        return distanceFromTarget <= targetDistance;
+    }
+
     protected virtual void MoveToTargetDirection(Transform target)
     {
         bool isTargetRight = target.position.x > transform.position.x;
