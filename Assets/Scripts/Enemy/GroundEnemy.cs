@@ -33,7 +33,15 @@ public class GroundEnemy : EnemyBase
         base.Awake();
         _controller = GetComponent<CharacterController2D>();
         _rb2D = GetComponent<Rigidbody2D>();
+
+        _groundEnemyType.FallingThreshold = _fallingThreshold;
+
+        _groundEnemyType.InitializeEnemy(this);
+        _groundEnemyType.InitializeEnemyPosition(transform);
+        _groundEnemyType.InitializeRigidbody2D(_rb2D);
+
         _wallBoxCastSize = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+        _groundEnemyType.InitializeChecks(_wallCheck, _ceilingCheck, _wallBoxCastSize, _ceilingBoxCastSize, _whatIsPlatform);
     }
 
     protected override void FixedUpdate()
