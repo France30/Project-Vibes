@@ -15,11 +15,16 @@ public class PlayerAttack : MonoBehaviour
     private bool _didPlayerMissBeat = false;
     private int _currentChord = 0;
 
+    private WaitForSeconds _waitForPenaltyCooldown;
+
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _attackObjectController = _attackObject.GetComponent<AttackObjectController>();
+
+        _waitForPenaltyCooldown = new WaitForSeconds(_penaltyCooldown);
+        _chord.waitForTime = new WaitForSeconds(_chord.time);
 
         foreach (ChordClip c in _chord.chordClips)
         {
