@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(CharacterController2D))]
 public class GroundEnemy : EnemyBase
 {
+    [SerializeField] private GroundEnemyType _groundEnemyType;
     [SerializeField] private Transform[] _wayPoints;
     [SerializeField] private Transform _ceilingCheck;
     [SerializeField] private Transform _wallCheck;
@@ -12,7 +13,7 @@ public class GroundEnemy : EnemyBase
     [SerializeField] private float _fallingThreshold = -5f;
 
     private CharacterController2D _controller;
-    private Rigidbody2D _rb2D;
+    private Rigidbody2D _rb2D; 
 
     private Vector2 _ceilingBoxCastSize = new Vector2(1.5f, 1f);
     private Vector2 _wallBoxCastSize;
