@@ -22,6 +22,8 @@ public class GroundEnemy : EnemyBase
     private bool _canJump = false;
     private bool _isGrounded = true;
 
+    public delegate void OnEnemyJump();
+    public event OnEnemyJump OnEnemyJumpEvent;
 
     public void OnLanding()
     {
