@@ -8,7 +8,7 @@ public class GroundEnemy : EnemyBase
     [SerializeField] private Transform[] _wayPoints;
     [SerializeField] private Transform _ceilingCheck;
     [SerializeField] private Transform _wallCheck;
-    [SerializeField] private LayerMask _whatIsGround;
+    [SerializeField] private LayerMask _whatIsPlatform;
     [SerializeField] private float _fallingThreshold = -5f;
 
     private CharacterController2D _controller;
