@@ -52,32 +52,41 @@ public class GroundEnemy : EnemyBase
 
         Patrol();
 
-        _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
+        if(_groundEnemyType.MoveCondition())
+            _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
+        else
+            _controller.Move(0, false, _canJump);
+
         _canJump = false;
     }
 
     protected override void MoveToTargetDirection(Transform target)
     {
+        _groundEnemyType.CurrentTarget = target;
+
+        if (_groundEnemyType.JumpCondition())
+            Jump();
+
+        //Do not update direction if target is on a platform and enemy is underneath the same platform
+        //This is so the enemy doesn't get stuck since ground enemies only follow the x position of the target
         bool isTargetAbove = target.position.y > transform.position.y;
-
-        //jump if platform is found
-        bool isTherePlatform = Physics2D.OverlapBox(_wallCheck.position, _wallBoxCastSize, 0, _whatIsGround);
-        if (isTherePlatform && isTargetAbove)
+        if (isTargetAbove)
         {
-            _canJump = true;
-            _isGrounded = false;
+            bool isBelowPlatform = Physics2D.BoxCast(_ceilingCheck.position, _ceilingBoxCastSize, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
+            if (isBelowPlatform) return;
         }
-            
-
-        //Do not update direction if target is on a platform and enemy object is underneath said platform
-        //Use BoxCast to constantly "sweep"
-        bool isBelowCeiling = Physics2D.BoxCast(_ceilingCheck.position, _ceilingBoxCastSize, 0, _ceilingCheck.position, Mathf.Infinity, _whatIsGround);
-
-        if (isTargetAbove && isBelowCeiling) return;
 
         bool isFalling = _rb2D.velocity.y < _fallingThreshold;
         if (isFalling || _isGrounded)
             base.MoveToTargetDirection(target);
+    }
+
+    private void Jump()
+    {
+        _canJump = true;
+        _isGrounded = false;
+
+        OnEnemyJumpEvent?.Invoke();
     }
 
     private void OnDrawGizmos()
