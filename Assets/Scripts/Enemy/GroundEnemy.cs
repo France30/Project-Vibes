@@ -8,14 +8,14 @@ public class GroundEnemy : EnemyBase
     [SerializeField] private Transform[] _wayPoints;
     [SerializeField] private Transform _ceilingCheck;
     [SerializeField] private Transform _wallCheck;
-    [SerializeField] private LayerMask _whatIsGround;
+    [SerializeField] private LayerMask _whatIsPlatform;
     [SerializeField] private float _fallingThreshold = -5f;
 
     private CharacterController2D _controller;
     private Rigidbody2D _rb2D;
 
-    private Vector2 _wallBoxCastSize = new Vector2(.5f, 1.5f);
     private Vector2 _ceilingBoxCastSize = new Vector2(1.5f, 1f);
+    private Vector2 _wallBoxCastSize;
 
     private int _currentWayPoint = 0;
     private bool _canJump = false;
@@ -32,6 +32,7 @@ public class GroundEnemy : EnemyBase
         base.Awake();
         _controller = GetComponent<CharacterController2D>();
         _rb2D = GetComponent<Rigidbody2D>();
+        _wallBoxCastSize = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
     }
 
     protected override void FixedUpdate()
