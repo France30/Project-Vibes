@@ -62,7 +62,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     private void CheckForPlayerCollision()
     {
         LayerMask player = LayerMask.GetMask("Player");
-        if (Physics2D.BoxCast(transform.position, transform.localScale, 0f, Vector2.zero, 0f, player))
+        if (Physics2D.OverlapBox(transform.position, transform.localScale, 0f, player))
             Debug.Log("Player Hit");
     }
 }
