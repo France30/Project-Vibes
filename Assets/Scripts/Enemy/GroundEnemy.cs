@@ -100,6 +100,11 @@ public class GroundEnemy : EnemyBase
         _groundEnemyType.RegisterEvents();
     }
 
+    private void OnDisable()
+    {
+        _groundEnemyType.UnregisterEvents();
+    }
+
     private void Patrol()
     {
         Transform currentPatrol = _wayPoints[_currentWayPoint];
