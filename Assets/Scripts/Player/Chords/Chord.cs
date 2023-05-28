@@ -8,4 +8,7 @@ public class Chord : ScriptableObject
 {
     public float time = 1f;
     public ChordClip[] chordClips;
+
+    [HideInInspector]
+    public WaitForSeconds waitForTime;
 }

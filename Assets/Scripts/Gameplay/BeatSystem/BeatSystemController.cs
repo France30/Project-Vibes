@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,17 @@ public class BeatSystemController : Singleton<BeatSystemController>
     [SerializeField] private ImageController _beatUI;
 
     private float _currentTime = 0;
+    private WaitForSeconds _waitForBeatSpeed;
+
+    public delegate void OnTick();
+    public event OnTick OnTickEvent;
 
     public bool IsBeatPlaying { get; set; }
 
     private void Start()
     {
         IsBeatPlaying = false;
+        _waitForBeatSpeed = new WaitForSeconds(_beatSpeed);
 
         StartCoroutine(BeatSystem());
     }
@@ -42,6 +48,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _currentTime ++;
 
         IsBeatPlaying = false;
+        OnTickEvent?.Invoke();
     }
 
     private void PlayBeat()
