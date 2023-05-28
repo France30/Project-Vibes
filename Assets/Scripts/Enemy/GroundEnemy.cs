@@ -95,6 +95,11 @@ public class GroundEnemy : EnemyBase
         Gizmos.DrawCube(_ceilingCheck.position, _ceilingBoxCastSize);
     }
 
+    private void OnEnable()
+    {
+        _groundEnemyType.RegisterEvents();
+    }
+
     private void Patrol()
     {
         Transform currentPatrol = _wayPoints[_currentWayPoint];
