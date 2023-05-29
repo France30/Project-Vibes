@@ -11,7 +11,7 @@ public class AttackObjectController : MonoBehaviour
     private Vector3 _baseScale;
     private float _baseAnimationSpeed;
 
-    private List<IDamageable> _damageablesHit = new List<IDamageable>();
+    private List<int> _damageablesHitID = new List<int>();
 
     public int Damage { get { return _damage; } set { _damage = value; } }
 
@@ -37,7 +37,7 @@ public class AttackObjectController : MonoBehaviour
         //when the object's local scale exceeds the assigned max scale
         if (transform.localScale.x >= _maxScale && transform.localScale.y >= _maxScale)
         {
-            ResetDamageableHitFlags();
+            ClearDamageablesHitList();
 
             transform.localScale = _baseScale;
             HitboxScaleResetCounter--;
@@ -50,27 +50,21 @@ public class AttackObjectController : MonoBehaviour
         transform.localScale += scaleChange;
     }
 
-    private void ResetDamageableHitFlags()
+    private void ClearDamageablesHitList()
     {
-        if (_damageablesHit.Count <= 0) return;
+        if (_damageablesHitID.Count <= 0) return;
 
-        foreach (IDamageable damageable in _damageablesHit)
-        {
-            damageable.IsHit = false;
-            Debug.Log(damageable.GameObject.name + " hit flag has been reset");
-        }
-
-        _damageablesHit.Clear();
+        _damageablesHitID.Clear();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            if (damageable.IsHit) return;
+            if (_damageablesHitID.Contains(damageable.InstanceID)) return;
 
             damageable.TakeDamage(_damage);
-            _damageablesHit.Add(damageable);
+            _damageablesHitID.Add(damageable.InstanceID);
         }           
     }
 }

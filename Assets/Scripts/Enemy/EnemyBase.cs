@@ -6,21 +6,21 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
     [SerializeField] protected int _maxHealth = 1;
     [SerializeField] protected float _moveSpeed = 2f;
-
+    
     protected Health _health;
     protected bool _isAttacking = false;
 
+    private int _instanceID = 0;
     private bool _isFacingRight = true;
 
     public GameObject GameObject { get { return gameObject; } }
-    public bool IsHit { get; set; }
+    public int InstanceID { get { return _instanceID; } }
 
 
     public void TakeDamage(int value)
     {
         _health.CurrentHealth -= value;
-        IsHit = true;
-        Debug.Log(gameObject.name + " has been hit");
+        Debug.Log(InstanceID + " has been hit");
 
         if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
     }
