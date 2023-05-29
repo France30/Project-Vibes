@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public abstract class EnemyBase : MonoBehaviour, IDamageable
+public abstract class EnemyBase : StateMachine, IDamageable
 {
     [SerializeField] protected int _maxHealth = 1;
     [SerializeField] protected Image _healthBar = null;
@@ -26,11 +27,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
     }
 
-    protected virtual void Awake()
-    {
-        _health = new Health(_maxHealth);
-    }
-
     public bool IsTargetReached(Transform target, float targetDistance = 1)
     {
         float distanceFromTarget = Vector2.Distance(transform.position, target.position);
@@ -41,13 +37,23 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         return distanceFromTarget <= targetDistance;
     }
 
-    protected virtual void MoveToTargetDirection(Transform target)
+    public virtual void MoveToTargetDirection(Transform target)
     {
         bool isTargetRight = target.position.x > transform.position.x;
         if (isTargetRight && !_isFacingRight)
             Flip();
         if (!isTargetRight && _isFacingRight)
             Flip();
+    }
+
+    protected virtual void Awake()
+    {
+        _health = new Health(_maxHealth, _healthBar);
+
+        if (TryGetComponent<Patrol>(out Patrol patrol))
+            SetState(patrol);
+        else if (TryGetComponent<Chase>(out Chase chase))
+            SetState(chase);
     }
 
     protected virtual void Flip()
