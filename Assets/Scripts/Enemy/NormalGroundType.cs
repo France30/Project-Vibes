@@ -17,11 +17,14 @@ public class NormalGroundType : GroundEnemyType
 
     public override bool MoveCondition()
     {
-        return true;
+        return !_groundEnemy.IsTargetReached(CurrentTarget);
     }
 
     public override bool JumpCondition()
     {
+        //No need to jump if target has been reached
+        if (_groundEnemy.IsTargetReached(CurrentTarget)) return false;
+
         //Always jump if there is a wall obstructing the path
         bool isThereWall = Physics2D.OverlapBox(_wallCheck.position, _wallBoxCastSize, 0, _whatIsPlatform);
         if (isThereWall) return true;
