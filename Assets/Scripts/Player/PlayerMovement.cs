@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 		_animator.SetBool("Jump", false);
 	}
 
-	private void Start()
+	private void Awake()
     {
 		_controller = GetComponent<CharacterController2D>();
 		_animator = GetComponent<Animator>();

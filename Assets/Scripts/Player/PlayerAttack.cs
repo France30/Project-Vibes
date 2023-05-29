@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     private WaitForSeconds _waitForPenaltyCooldown;
 
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
         _attackObjectController = _attackObject.GetComponent<AttackObjectController>();
