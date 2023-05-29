@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageController : MonoBehaviour
+public class BeatSystemUI : MonoBehaviour
 {
     [SerializeField] private float _fadeSpeed = 1f;
 
