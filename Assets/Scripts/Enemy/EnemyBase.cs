@@ -31,12 +31,13 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         _health = new Health(_maxHealth);
     }
 
-    protected bool IsTargetReached(float distanceFromTarget, float targetDistance = 0)
+    public bool IsTargetReached(Transform target, float targetDistance = 1)
     {
-        targetDistance = Calculate.RoundedAbsoluteValue(targetDistance);
+        float distanceFromTarget = Vector2.Distance(transform.position, target.position);
         distanceFromTarget = Calculate.RoundedAbsoluteValue(distanceFromTarget);
+        targetDistance = Calculate.RoundedAbsoluteValue(targetDistance);
 
-        //Debug.Log(targetDistance);
+        Debug.Log(distanceFromTarget);
         return distanceFromTarget <= targetDistance;
     }
 
