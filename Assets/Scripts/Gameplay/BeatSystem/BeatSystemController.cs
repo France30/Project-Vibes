@@ -17,7 +17,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
     public delegate void OnTick();
     public event OnTick OnTickEvent;
 
-    public bool IsBeatPlaying { get; set; }
+    public bool IsBeatPlaying { get; private set; }
+
 
     private void Start()
     {
