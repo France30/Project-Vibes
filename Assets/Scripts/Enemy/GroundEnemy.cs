@@ -103,12 +103,6 @@ public class GroundEnemy : EnemyBase
         OnEnemyJumpEvent?.Invoke();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawCube(_wallCheck.position, _wallBoxCastSize);
-        Gizmos.DrawCube(_ceilingCheck.position, _ceilingBoxCastSize);
-    }
-
     private void OnEnable()
     {
         _groundEnemyType.RegisterEvents();
@@ -119,7 +113,13 @@ public class GroundEnemy : EnemyBase
         _groundEnemyType.UnregisterEvents();
     }
 
+    private void OnDrawGizmos()
     {
+        Vector2 _platformCheck = new Vector2(_wallCheck.position.x, _wallCheck.position.y + _localScale.y + 0.5f);
+        Gizmos.DrawCube(_platformCheck, _localScale);
 
+        Gizmos.DrawCube(_wallCheck.position, _localScale);
+        Gizmos.DrawCube(_ceilingCheck.position, _ceilingBoxCastSize);
+        Gizmos.DrawCube(_groundPlatformCheck.position, _localScale);
     }
 }
