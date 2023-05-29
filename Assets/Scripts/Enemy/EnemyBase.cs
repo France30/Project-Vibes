@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
     [SerializeField] protected int _maxHealth = 1;
+    [SerializeField] protected Image _healthBar = null;
     [SerializeField] protected float _moveSpeed = 2f;
     
     protected Health _health;
