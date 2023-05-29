@@ -6,7 +6,6 @@ using UnityEngine;
 public class GroundEnemy : EnemyBase
 {
     [SerializeField] private GroundEnemyType _groundEnemyType;
-    [SerializeField] private Transform[] _wayPoints;
     [SerializeField] private Transform _ceilingCheck;
     [SerializeField] private Transform _wallCheck;
     [SerializeField] private LayerMask _whatIsPlatform;
@@ -18,7 +17,6 @@ public class GroundEnemy : EnemyBase
     private Vector2 _ceilingBoxCastSize = new Vector2(1.5f, 1f);
     private Vector2 _wallBoxCastSize;
 
-    private int _currentWayPoint = 0;
     private bool _canJump = false;
     private bool _isGrounded = true;
 
@@ -49,8 +47,6 @@ public class GroundEnemy : EnemyBase
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-
-        Patrol();
 
         if(_groundEnemyType.MoveCondition())
             _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
@@ -105,22 +101,7 @@ public class GroundEnemy : EnemyBase
         _groundEnemyType.UnregisterEvents();
     }
 
-    private void Patrol()
     {
-        Transform currentPatrol = _wayPoints[_currentWayPoint];
-        float distanceFromTarget = transform.position.x - currentPatrol.position.x;
-        bool isTargetAbove = currentPatrol.position.y > transform.position.y;
-        if (IsTargetReached(distanceFromTarget) && !isTargetAbove)
-            GoToNextWayPoint();
 
-        MoveToTargetDirection(currentPatrol);   
-    }
-
-    private void GoToNextWayPoint()
-    {
-        _currentWayPoint++;
-
-        if (_currentWayPoint > _wayPoints.Length - 1)
-            _currentWayPoint = 0;
     }
 }
