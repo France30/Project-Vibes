@@ -49,6 +49,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
     protected virtual void Awake()
     {
         _health = new Health(_maxHealth, _healthBar);
+        _instanceID = gameObject.GetInstanceID();
 
         if (TryGetComponent<Patrol>(out Patrol patrol))
             SetState(patrol);
