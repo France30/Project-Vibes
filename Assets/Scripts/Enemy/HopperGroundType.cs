@@ -27,6 +27,9 @@ public class HopperGroundType : GroundEnemyType
     public override void UnregisterEvents()
     {
         _groundEnemy.OnEnemyJumpEvent -= OnJump;
+
+        if (BeatSystemController.Instance == null) return;
+
         BeatSystemController.Instance.OnTickEvent -= ResetJumpCount;
     }
 
