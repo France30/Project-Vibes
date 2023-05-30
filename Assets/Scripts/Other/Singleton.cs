@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
+    private static bool _isApplicationQuit = false;
+
     private static T _instance;
     public static T Instance
     {
         get
         {
+            if (_isApplicationQuit)
+                return null;
+
             if(_instance == null)
             {
                 //Try to find an existing type of object in the scene
@@ -44,5 +49,10 @@ public class Singleton<T> : MonoBehaviour where T : Component
             Destroy(this.gameObject);
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        _isApplicationQuit = true;
     }
 }
