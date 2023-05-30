@@ -13,7 +13,7 @@ public abstract class StateMachine : MonoBehaviour
         CurrentState = state;
     }
 
-    protected virtual void LateUpdate()
+    protected virtual void Update()
     {
         CurrentState.PerformState();
     }
