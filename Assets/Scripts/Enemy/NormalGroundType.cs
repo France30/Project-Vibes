@@ -17,11 +17,15 @@ public class NormalGroundType : GroundEnemyType
 
     public override bool MoveCondition()
     {
+        if (CurrentTarget == null) return false;
+
         return !_groundEnemy.IsTargetReached(CurrentTarget);
     }
 
     public override bool JumpCondition()
     {
+        if (CurrentTarget == null) return false;
+
         //No need to jump if target has been reached
         if (_groundEnemy.IsTargetReached(CurrentTarget)) return false;
 
