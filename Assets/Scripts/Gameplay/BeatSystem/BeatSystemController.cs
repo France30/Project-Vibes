@@ -8,8 +8,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
     [SerializeField] private float _beatTime = 4.0f;
     [SerializeField] private float _beatSpeed = 1.0f;
 
-    [SerializeField] private ImageController _tickUI;
-    [SerializeField] private ImageController _beatUI;
+    [SerializeField] private BeatSystemUI _tickUI;
+    [SerializeField] private BeatSystemUI _beatUI;
 
     private float _currentTime = 0;
     private WaitForSeconds _waitForBeatSpeed;
@@ -17,7 +17,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
     public delegate void OnTick();
     public event OnTick OnTickEvent;
 
-    public bool IsBeatPlaying { get; set; }
+    public bool IsBeatPlaying { get; private set; }
+
 
     private void Start()
     {

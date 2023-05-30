@@ -4,8 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public GameObject GameObject { get; }
-    public bool IsHit { get; set; }
+    public int InstanceID { get; }
 
     public void TakeDamage(int value);
 }
