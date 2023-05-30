@@ -31,20 +31,8 @@ public abstract class GroundEnemyType : ScriptableObject
         if (_groundEnemy != null) return;
 
         _groundEnemy = groundEnemy;
-    }
-
-    public void InitializeRigidbody2D(Rigidbody2D rigidbody2D)
-    {
-        if (_rigidbody2D != null) return;
-
-        _rigidbody2D = rigidbody2D;
-    }
-
-    public void InitializeEnemyPosition(Transform transform)
-    {
-        if (_transform != null) return;
-
-        _transform = transform;
+        _transform = groundEnemy.transform;
+        _rigidbody2D = groundEnemy.GetComponent<Rigidbody2D>();
     }
 
     public void InitializeChecks(Transform wallCheck, Transform ceilingCheck, Vector2 wallBoxCastSize, Vector2 ceilingBoxCastSize, LayerMask whatIsPlatform)
