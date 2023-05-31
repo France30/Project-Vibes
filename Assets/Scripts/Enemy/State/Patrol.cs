@@ -48,6 +48,7 @@ public class Patrol : State
 
     private void CheckTransitionCondition()
     {
+        //Exit Patrol State
         bool nextStateCondition = _enemyBase.IsTargetReached(GameController.Instance.Player.transform, _playerDistanceToNextState);
         if (nextStateCondition)
         {
@@ -55,7 +56,7 @@ public class Patrol : State
             return;
         }
 
-        //check if the enemy is in the next state after patrol
+        //Enter Patrol State
         if (_enemyBase.CurrentState == _nextState)
             _enemyBase.SetState(this);
     }
