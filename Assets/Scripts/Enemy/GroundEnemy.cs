@@ -88,9 +88,6 @@ public class GroundEnemy : EnemyBase
 
     private bool IsTargetOnPlatform(Transform target)
     {
-        //TODO, rewrite the logic so it actually checks if the target is on a platform instead of guessing
-        //check if there is a platform above the enemy
-        //check if player is colliding with the same platform or is higher than it
         bool isTargetAbove = target.position.y > transform.position.y;
         if (isTargetAbove)
         {
