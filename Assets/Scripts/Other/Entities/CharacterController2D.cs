@@ -55,7 +55,7 @@ public class CharacterController2D : MonoBehaviour
 			{
 				m_Grounded = true;
 				if (!wasGrounded)
-					OnLandEvent.Invoke();
+					OnLandEvent?.Invoke();
 			}
 		}
 	}
