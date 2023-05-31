@@ -10,7 +10,13 @@ public class HopperGroundType : GroundEnemyType
 
     public override bool JumpCondition()
     {
-        return BeatSystemController.Instance.IsBeatPlaying && jumpCount <= 0;
+        if(BeatSystemController.Instance.IsBeatPlaying && jumpCount <= 0)
+        {
+            jumpCount++;
+            return true;
+        }
+
+        return false;
     }
 
     public override bool MoveCondition()
@@ -20,14 +26,11 @@ public class HopperGroundType : GroundEnemyType
 
     public override void RegisterEvents()
     {
-        _groundEnemy.OnEnemyJumpEvent += OnJump;
         BeatSystemController.Instance.OnTickEvent += ResetJumpCount;
     }
 
     public override void UnregisterEvents()
     {
-        _groundEnemy.OnEnemyJumpEvent -= OnJump;
-
         if (BeatSystemController.Instance == null) return;
 
         BeatSystemController.Instance.OnTickEvent -= ResetJumpCount;
@@ -37,11 +40,5 @@ public class HopperGroundType : GroundEnemyType
     {
         if (jumpCount > 0)
             jumpCount = 0;
-    }
-
-    private void OnJump()
-    {
-        if(_rigidbody2D.velocity.y <= FallingThreshold)
-            jumpCount++;
     }
 }
