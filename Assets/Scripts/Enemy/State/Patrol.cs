@@ -18,24 +18,24 @@ public class Patrol : State
     {
         Transform currentPatrol = _wayPoints[_currentWayPoint];
         if (_enemyBase.IsTargetReached(currentPatrol))
-            GoToNextWayPoint();
+            currentPatrol = GoToNextWayPoint();
 
         _enemyBase.MoveToTargetDirection(currentPatrol);
     }
 
-    private void GoToNextWayPoint()
+    private Transform GoToNextWayPoint()
     {
         _currentWayPoint++;
 
         if (_currentWayPoint > _wayPoints.Length - 1)
             _currentWayPoint = 0;
 
-        //Debug.Log("current way point:" + _currentWayPoint);
+        return _wayPoints[_currentWayPoint];
     }
 
     private void Start()
     {
-        if(TryGetComponent<Chase>(out Chase chase))
+        if (TryGetComponent<Chase>(out Chase chase))
             _nextState = chase;
     }
 
@@ -48,6 +48,7 @@ public class Patrol : State
 
     private void CheckTransitionCondition()
     {
+        //Exit Patrol State
         bool nextStateCondition = _enemyBase.IsTargetReached(GameController.Instance.Player.transform, _playerDistanceToNextState);
         if (nextStateCondition)
         {
@@ -55,7 +56,7 @@ public class Patrol : State
             return;
         }
 
-        //check if the enemy is in the next state after patrol
+        //Enter Patrol State
         if (_enemyBase.CurrentState == _nextState)
             _enemyBase.SetState(this);
     }
