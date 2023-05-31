@@ -41,30 +41,6 @@ public class GroundEnemy : EnemyBase
             base.MoveToTargetDirection(target);
     }
 
-    private bool IsTargetOnPlatform(Transform target)
-    {
-        bool isTargetAbove = target.position.y > transform.position.y;
-        if (isTargetAbove)
-        {
-            bool isBelowPlatform = Physics2D.BoxCast(_ceilingCheck.position, _ceilingBoxCastSize, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
-            if (isBelowPlatform) return true;
-        }
-
-        return false;
-    }
-
-    private bool IsTargetBelowPlatform(Transform target)
-    {
-        bool isTargetBelow = target.position.y < transform.position.y;
-        if (isTargetBelow)
-        {
-            bool isOnPlatform = Physics2D.BoxCast(_groundPlatformCheck.position, _localScale, 0, _groundPlatformCheck.position, Mathf.Infinity, _whatIsPlatform);
-            if (isOnPlatform) return true;
-        }
-
-        return false;
-    }
-
     protected override void Awake()
     {
         base.Awake();
@@ -90,6 +66,16 @@ public class GroundEnemy : EnemyBase
         _canJump = false;
     }
 
+    private void OnEnable()
+    {
+        _groundEnemyType.RegisterEvents();
+    }
+
+    private void OnDisable()
+    {
+        _groundEnemyType.UnregisterEvents();
+    }
+
     private void Jump()
     {
         _canJump = true;
@@ -100,14 +86,31 @@ public class GroundEnemy : EnemyBase
         _isGrounded = false;
     }
 
-    private void OnEnable()
+    private bool IsTargetOnPlatform(Transform target)
     {
-        _groundEnemyType.RegisterEvents();
+        //TODO, rewrite the logic so it actually checks if the target is on a platform instead of guessing
+        //check if there is a platform above the enemy
+        //check if player is colliding with the same platform or is higher than it
+        bool isTargetAbove = target.position.y > transform.position.y;
+        if (isTargetAbove)
+        {
+            bool isBelowPlatform = Physics2D.BoxCast(_ceilingCheck.position, _ceilingBoxCastSize, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
+            if (isBelowPlatform) return true;
+        }
+
+        return false;
     }
 
-    private void OnDisable()
+    private bool IsTargetBelowPlatform(Transform target)
     {
-        _groundEnemyType.UnregisterEvents();
+        bool isTargetBelow = target.position.y < transform.position.y;
+        if (isTargetBelow)
+        {
+            bool isOnPlatform = Physics2D.BoxCast(_groundPlatformCheck.position, _localScale, 0, _groundPlatformCheck.position, Mathf.Infinity, _whatIsPlatform);
+            if (isOnPlatform) return true;
+        }
+
+        return false;
     }
 
     private void OnDrawGizmos()
