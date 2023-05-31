@@ -31,7 +31,7 @@ public class GroundEnemy : EnemyBase
     {
         _groundEnemyType.CurrentTarget = target;
 
-        if (_groundEnemyType.JumpCondition())
+        if (_groundEnemyType.JumpCondition() && _isGrounded)
             Jump();
 
         if (IsTargetOnPlatform(target) || IsTargetBelowPlatform(target)) return;
