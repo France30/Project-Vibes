@@ -18,24 +18,24 @@ public class Patrol : State
     {
         Transform currentPatrol = _wayPoints[_currentWayPoint];
         if (_enemyBase.IsTargetReached(currentPatrol))
-            GoToNextWayPoint();
+            currentPatrol = GoToNextWayPoint();
 
         _enemyBase.MoveToTargetDirection(currentPatrol);
     }
 
-    private void GoToNextWayPoint()
+    private Transform GoToNextWayPoint()
     {
         _currentWayPoint++;
 
         if (_currentWayPoint > _wayPoints.Length - 1)
             _currentWayPoint = 0;
 
-        //Debug.Log("current way point:" + _currentWayPoint);
+        return _wayPoints[_currentWayPoint];
     }
 
     private void Start()
     {
-        if(TryGetComponent<Chase>(out Chase chase))
+        if (TryGetComponent<Chase>(out Chase chase))
             _nextState = chase;
     }
 
