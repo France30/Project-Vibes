@@ -19,7 +19,6 @@ public abstract class GroundEnemyType : ScriptableObject
     protected Rigidbody2D _rigidbody2D;
 
     public Transform CurrentTarget { get; set; }
-    public float FallingThreshold { get; set; }
 
     public abstract void RegisterEvents();
     public abstract void UnregisterEvents();

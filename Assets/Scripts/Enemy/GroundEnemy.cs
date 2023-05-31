@@ -72,8 +72,6 @@ public class GroundEnemy : EnemyBase
         _controller = GetComponent<CharacterController2D>();
         _rb2D = GetComponent<Rigidbody2D>();
 
-        _groundEnemyType.FallingThreshold = _fallingThreshold;
-
         _groundEnemyType.InitializeEnemy(this);
 
         _localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
