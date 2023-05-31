@@ -21,9 +21,6 @@ public class GroundEnemy : EnemyBase
     private bool _canJump = false;
     private bool _isGrounded = true;
 
-    public delegate void OnEnemyJump();
-    public event OnEnemyJump OnEnemyJumpEvent;
-
 
     public void OnLanding()
     {
@@ -34,7 +31,7 @@ public class GroundEnemy : EnemyBase
     {
         _groundEnemyType.CurrentTarget = target;
 
-        if (_groundEnemyType.JumpCondition())
+        if (_groundEnemyType.JumpCondition() && _isGrounded)
             Jump();
 
         if (IsTargetOnPlatform(target) || IsTargetBelowPlatform(target)) return;
@@ -44,8 +41,56 @@ public class GroundEnemy : EnemyBase
             base.MoveToTargetDirection(target);
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _controller = GetComponent<CharacterController2D>();
+        _rb2D = GetComponent<Rigidbody2D>();
+
+        _groundEnemyType.InitializeEnemy(this);
+
+        _localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+        _groundEnemyType.InitializeChecks(_wallCheck, _ceilingCheck, _localScale, _ceilingBoxCastSize, _whatIsPlatform);
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if(_groundEnemyType.MoveCondition())
+            _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
+        else
+            _controller.Move(0, false, _canJump);
+
+        _canJump = false;
+    }
+
+    private void OnEnable()
+    {
+        _groundEnemyType.RegisterEvents();
+    }
+
+    private void OnDisable()
+    {
+        _groundEnemyType.UnregisterEvents();
+    }
+
+    private void Jump()
+    {
+        _canJump = true;
+
+        //Guard in case method is called, but enemy is not jumping
+        if (_rb2D.velocity.y <= 0) return;
+
+        _isGrounded = false;
+    }
+
     private bool IsTargetOnPlatform(Transform target)
     {
+        //TODO, rewrite the logic so it actually checks if the target is on a platform instead of guessing
+        //check if there is a platform above the enemy
+        //check if player is colliding with the same platform or is higher than it
         bool isTargetAbove = target.position.y > transform.position.y;
         if (isTargetAbove)
         {
@@ -66,51 +111,6 @@ public class GroundEnemy : EnemyBase
         }
 
         return false;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        _controller = GetComponent<CharacterController2D>();
-        _rb2D = GetComponent<Rigidbody2D>();
-
-        _groundEnemyType.FallingThreshold = _fallingThreshold;
-
-        _groundEnemyType.InitializeEnemy(this);
-
-        _localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
-        _groundEnemyType.InitializeChecks(_wallCheck, _ceilingCheck, _localScale, _ceilingBoxCastSize, _whatIsPlatform);
-    }
-
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        if(_groundEnemyType.MoveCondition())
-            _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
-        else
-            _controller.Move(0, false, _canJump);
-
-        _canJump = false;
-    }
-
-    private void Jump()
-    {
-        _canJump = true;
-        _isGrounded = false;
-
-        OnEnemyJumpEvent?.Invoke();
-    }
-
-    private void OnEnable()
-    {
-        _groundEnemyType.RegisterEvents();
-    }
-
-    private void OnDisable()
-    {
-        _groundEnemyType.UnregisterEvents();
     }
 
     private void OnDrawGizmos()
