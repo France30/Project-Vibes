@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Hopper Enemy", menuName = "Enemy/Ground Enemy/Hopper")]
-public class HopperGroundType : GroundEnemyType
+public class HopperGround : GroundEnemy
 {
     private int jumpCount = 0;
 
 
-    public override bool JumpCondition()
+    protected override bool JumpCondition()
     {
         if(BeatSystemController.Instance.IsBeatPlaying && jumpCount <= 0)
         {
@@ -19,17 +18,17 @@ public class HopperGroundType : GroundEnemyType
         return false;
     }
 
-    public override bool MoveCondition()
+    protected override bool MoveCondition()
     {
         return BeatSystemController.Instance.IsBeatPlaying;
     }
 
-    public override void RegisterEvents()
+    private void OnEnable()
     {
         BeatSystemController.Instance.OnTickEvent += ResetJumpCount;
     }
 
-    public override void UnregisterEvents()
+    private void OnDisable()
     {
         if (BeatSystemController.Instance == null) return;
 
