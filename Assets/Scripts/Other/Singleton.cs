@@ -1,58 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
-public class Singleton<T> : MonoBehaviour where T : Component
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static bool _isApplicationQuit = false;
-
     private static T _instance;
     public static T Instance
     {
         get
         {
-            if (_isApplicationQuit)
+            // referencing blocker in the event where the instance is called while OnDestroy
+            if (_applicationIsQuitting)
                 return null;
 
-            if(_instance == null)
-            {
-                //Try to find an existing type of object in the scene
+            if (!_instance)
                 _instance = FindObjectOfType<T>();
-                //If we did not find that object in the scene
-                if(_instance == null)
-                {
-                    //Create a new gameobject of that type 
-                    GameObject obj = new GameObject();
-                    //and rename it according to its type
-                    obj.name = typeof(T).Name;
-                    //and add that type as a component and assign it as our _instance
-                    _instance = obj.AddComponent<T>();
-                }
+
+            if (!_instance)
+            {
+                Debug.Log((typeof(T)).Name);
+                T instance = Resources.Load<T>("System/" + (typeof(T)).Name);
+                _instance = Instantiate(instance);
             }
+
             return _instance;
         }
     }
 
+    private static bool _applicationIsQuitting = false;
+
+    [SerializeField] protected bool _isPersist = false;
+
     protected virtual void Awake()
     {
-        //if there is no _instance yet,
-        if(_instance == null)
+        if (_instance == null) _instance = this as T;
+
+        if (_instance != null)
         {
-            //assign ourselves as the _instance
-            _instance = this as T;
-            //prevent this object from being destroyed
-            DontDestroyOnLoad(this.gameObject);
+            if (_instance != this as T)
+                Destroy(this.gameObject);
         }
-        else
-        {
-            //if there is already an _instance
-            Destroy(this.gameObject);
-        }
+
+        if (_isPersist) DontDestroyOnLoad(this.gameObject);
 
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
-        _isApplicationQuit = true;
+        _applicationIsQuitting = true;
     }
+
 }
