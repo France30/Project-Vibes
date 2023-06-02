@@ -9,35 +9,23 @@ public class HopperGround : GroundEnemy
 
     protected override bool JumpCondition()
     {
+        bool shouldJump = false;
+
         if(BeatSystemController.Instance.IsBeatPlaying && jumpCount <= 0)
         {
             jumpCount++;
-            return true;
+            shouldJump = true;
+        }
+        else if(!BeatSystemController.Instance.IsBeatPlaying && jumpCount > 0)
+        {
+            jumpCount = 0;
         }
 
-        return false;
+        return shouldJump;
     }
 
     protected override bool MoveCondition()
     {
         return BeatSystemController.Instance.IsBeatPlaying;
-    }
-
-    private void OnEnable()
-    {
-        BeatSystemController.Instance.OnTickEvent += ResetJumpCount;
-    }
-
-    private void OnDisable()
-    {
-        if (BeatSystemController.Instance == null) return;
-
-        BeatSystemController.Instance.OnTickEvent -= ResetJumpCount;
-    }
-
-    private void ResetJumpCount()
-    {
-        if (jumpCount > 0)
-            jumpCount = 0;
     }
 }
