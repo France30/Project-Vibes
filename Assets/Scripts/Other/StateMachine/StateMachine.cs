@@ -6,6 +6,7 @@ public abstract class StateMachine : MonoBehaviour
 {
     public State CurrentState { get; private set; }
 
+
     public void SetState(State state)
     {
         if (state == CurrentState) return;
@@ -15,6 +16,8 @@ public abstract class StateMachine : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (CurrentState == null) return;
+
         CurrentState.PerformState();
     }
 }
