@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public abstract class EnemyBase : StateMachine, IDamageable
 {
+    [Header("Enemy Health")]
     [SerializeField] protected int _maxHealth = 1;
     [SerializeField] protected Image _healthBar = null;
+
+    [Header("Enemy Movement")]
     [SerializeField] protected float _moveSpeed = 2f;
     
     protected Health _health;

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class FlyingEnemy : EnemyBase
 {
+    [Range(0, .3f)] [SerializeField] private float _movementSmoothing = 0.05f;
+
+    [Header("Hover")]
     [SerializeField] private float _hoverSpeed = 1f;
     [SerializeField] private float _hoverDistance = 1f;
-    [Range(0, .3f)] [SerializeField] private float _movementSmoothing = 0.05f;
 
     private Rigidbody2D _rb2D;
     private Vector3 _velocity = Vector3.zero;
