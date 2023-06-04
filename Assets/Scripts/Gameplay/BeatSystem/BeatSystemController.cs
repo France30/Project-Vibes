@@ -14,9 +14,6 @@ public class BeatSystemController : Singleton<BeatSystemController>
     private float _currentTime = 0;
     private WaitForSeconds _waitForBeatSpeed;
 
-    public delegate void OnTick();
-    public event OnTick OnTickEvent;
-
     public bool IsBeatPlaying { get; private set; }
 
 
@@ -49,7 +46,6 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _currentTime ++;
 
         IsBeatPlaying = false;
-        OnTickEvent?.Invoke();
     }
 
     private void PlayBeat()
