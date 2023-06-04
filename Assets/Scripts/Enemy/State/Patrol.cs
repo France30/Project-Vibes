@@ -6,16 +6,16 @@ using UnityEngine;
 public class Patrol : State
 {
     [SerializeField] private float _playerDistanceToNextState = 10f;
-
     [SerializeField] private Transform[] _wayPoints;
 
     private int _currentWayPoint = 0;
 
     private State _nextState;
 
-
     public override void PerformState()
     {
+        base.PerformState();
+
         Transform currentPatrol = _wayPoints[_currentWayPoint];
         if (_enemyBase.IsTargetReached(currentPatrol))
             currentPatrol = GoToNextWayPoint();

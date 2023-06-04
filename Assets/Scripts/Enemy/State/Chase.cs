@@ -8,6 +8,8 @@ public class Chase : State
 
     public override void PerformState()
     {
+        base.PerformState();
+
         _enemyBase.MoveToTargetDirection(player);
     }
 
