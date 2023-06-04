@@ -9,7 +9,6 @@ public abstract class State : MonoBehaviour
     
     public delegate void Action();
     protected Action StateAction;   //Callback delegate for state specific actions
-    protected Action StatePhysics;  //Callback delegate for states containing physics (if any)
 
 
     public virtual void PerformState()
@@ -18,10 +17,6 @@ public abstract class State : MonoBehaviour
             StateAction();
     }
 
-    public virtual void PerformPhysics()
-    {
-        if (StatePhysics != null)
-            StatePhysics();
     }
 
     public void SetAction(Action stateAction)
@@ -29,13 +24,6 @@ public abstract class State : MonoBehaviour
         if (StateAction != null) return;
 
         StateAction = stateAction;
-    }
-
-    public void SetPhysics(Action statePhysics)
-    {
-        if (StatePhysics != null) return;
-
-        StatePhysics = statePhysics;
     }
 
     private void Awake()

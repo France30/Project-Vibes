@@ -25,6 +25,5 @@ public abstract class StateMachine : MonoBehaviour
     {
         if (CurrentState == null) return;
 
-        CurrentState.PerformPhysics();
     }
 }
