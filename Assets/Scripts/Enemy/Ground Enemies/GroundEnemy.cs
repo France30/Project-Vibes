@@ -70,10 +70,6 @@ public abstract class GroundEnemy : EnemyBase
     private void Jump()
     {
         _canJump = true;
-
-        //Guard in case method is called, but is not jumping
-        if (_rb2D.velocity.y <= 0) return;
-
         _isGrounded = false;
     }
 
