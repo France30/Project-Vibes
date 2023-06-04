@@ -66,8 +66,10 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _moveSpeed *= -1;
     }
 
-    protected virtual void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         CheckForPlayerCollision();
     }
 

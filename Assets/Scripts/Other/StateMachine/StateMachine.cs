@@ -20,4 +20,11 @@ public abstract class StateMachine : MonoBehaviour
 
         CurrentState.PerformState();
     }
+
+    protected virtual void FixedUpdate()
+    {
+        if (CurrentState == null) return;
+
+        CurrentState.PerformPhysics();
+    }
 }
