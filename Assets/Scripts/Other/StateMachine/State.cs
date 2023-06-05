@@ -9,33 +9,16 @@ public abstract class State : MonoBehaviour
     
     public delegate void Action();
     protected Action StateAction;   //Callback delegate for state specific actions
-    protected Action StatePhysics;  //Callback delegate for states containing physics (if any)
 
 
     public virtual void PerformState()
     {
-        if (StateAction != null)
-            StateAction();
-    }
-
-    public virtual void PerformPhysics()
-    {
-        if (StatePhysics != null)
-            StatePhysics();
+        StateAction?.Invoke();
     }
 
     public void SetAction(Action stateAction)
     {
-        if (StateAction != null) return;
-
         StateAction = stateAction;
-    }
-
-    public void SetPhysics(Action statePhysics)
-    {
-        if (StatePhysics != null) return;
-
-        StatePhysics = statePhysics;
     }
 
     private void Awake()

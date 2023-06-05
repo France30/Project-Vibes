@@ -14,17 +14,10 @@ public abstract class StateMachine : MonoBehaviour
         CurrentState = state;
     }
 
-    protected virtual void Update()
-    {
-        if (CurrentState == null) return;
-
-        CurrentState.PerformState();
-    }
-
     protected virtual void FixedUpdate()
     {
         if (CurrentState == null) return;
 
-        CurrentState.PerformPhysics();
+        CurrentState.PerformState();
     }
 }
