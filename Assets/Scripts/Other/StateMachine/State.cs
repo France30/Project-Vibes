@@ -8,7 +8,7 @@ public abstract class State : MonoBehaviour
     protected EnemyBase _enemyBase;
     
     public delegate void Action();
-    protected Action StateAction;   //Callback delegate for state specific actions
+    private Action StateAction;   //Callback delegate for state specific actions
 
 
     public virtual void PerformState()
