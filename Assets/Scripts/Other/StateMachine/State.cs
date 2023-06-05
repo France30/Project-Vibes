@@ -18,8 +18,6 @@ public abstract class State : MonoBehaviour
 
     public void SetAction(Action stateAction)
     {
-        if (StateAction != null) return;
-
         StateAction = stateAction;
     }
 
