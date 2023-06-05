@@ -13,10 +13,7 @@ public abstract class State : MonoBehaviour
 
     public virtual void PerformState()
     {
-        if (StateAction != null)
-            StateAction();
-    }
-
+        StateAction?.Invoke();
     }
 
     public void SetAction(Action stateAction)
