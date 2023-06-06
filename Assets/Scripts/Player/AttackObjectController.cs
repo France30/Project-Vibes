@@ -34,11 +34,12 @@ public class AttackObjectController : MonoBehaviour
 
     private void Update()
     {
+        if(transform.localScale == _baseScale)
+            ClearDamageablesHitList();
+
         //when the object's local scale exceeds the assigned max scale
         if (transform.localScale.x >= _maxScale && transform.localScale.y >= _maxScale)
         {
-            ClearDamageablesHitList();
-
             transform.localScale = _baseScale;
             HitboxScaleResetCounter--;
             if (HitboxScaleResetCounter <= 0) gameObject.SetActive(false);
