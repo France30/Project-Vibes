@@ -34,6 +34,7 @@ public class AttackObjectController : MonoBehaviour
 
     private void Update()
     {
+        //clear list on initial scale
         if(transform.localScale == _baseScale)
             ClearDamageablesHitList();
 
