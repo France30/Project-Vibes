@@ -49,21 +49,19 @@ public abstract class EnemyBase : StateMachine, IDamageable
             Flip();
     }
 
+    protected virtual void Flip()
+    {
+        _isFacingRight = !_isFacingRight;
+        _moveSpeed *= -1;
+    }
+
+    }
+
     protected virtual void Awake()
     {
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
 
-        if (TryGetComponent<Patrol>(out Patrol patrol))
-            SetState(patrol);
-        else if (TryGetComponent<Chase>(out Chase chase))
-            SetState(chase);
-    }
-
-    protected virtual void Flip()
-    {
-        _isFacingRight = !_isFacingRight;
-        _moveSpeed *= -1;
     }
 
     protected override void FixedUpdate()
