@@ -18,12 +18,6 @@ public class FlyingEnemy : EnemyBase
 
     public override void MoveToTargetDirection(Transform target)
     {
-        /*if (IsTargetReached(target))
-        {
-            _rb2D.velocity = new Vector2(0, 0);
-            return;
-        }*/
-
         base.MoveToTargetDirection(target);
 
         //allows for more free movement
