@@ -17,7 +17,6 @@ public abstract class GroundEnemy : EnemyBase
     protected Vector2 _localScale;
 
     private CharacterController2D _controller;
-    private Rigidbody2D _rb2D; 
 
     private bool _canJump = false;
     private bool _isGrounded = true;
@@ -52,7 +51,6 @@ public abstract class GroundEnemy : EnemyBase
         base.Awake();
 
         _controller = GetComponent<CharacterController2D>();
-        _rb2D = GetComponent<Rigidbody2D>();
     }
 
     protected override void FixedUpdate()

@@ -10,7 +10,6 @@ public class FlyingEnemy : EnemyBase
     [SerializeField] private float _hoverSpeed = 1f;
     [SerializeField] private float _hoverDistance = 1f;
 
-    private Rigidbody2D _rb2D;
     private Vector3 _velocity = Vector3.zero;
 
     private float _currentHoverDistance;
@@ -44,7 +43,6 @@ public class FlyingEnemy : EnemyBase
         foreach (Collider2D collider in colliders)
             collider.isTrigger = true;
 
-        _rb2D = GetComponent<Rigidbody2D>();
     }
 
     protected override void Flip()

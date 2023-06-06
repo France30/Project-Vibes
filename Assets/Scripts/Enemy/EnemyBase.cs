@@ -11,7 +11,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     [Header("Enemy Movement")]
     [SerializeField] protected float _moveSpeed = 2f;
-    
+
+    protected Rigidbody2D _rb2D;
     protected Health _health;
     protected bool _isAttacking = false;
 
@@ -62,6 +63,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
 
+        _rb2D = GetComponent<Rigidbody2D>();
     }
 
     protected override void FixedUpdate()
