@@ -64,6 +64,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _instanceID = gameObject.GetInstanceID();
 
         _rb2D = GetComponent<Rigidbody2D>();
+
+        InitializeState();
     }
 
     protected override void FixedUpdate()
@@ -71,6 +73,17 @@ public abstract class EnemyBase : StateMachine, IDamageable
         base.FixedUpdate();
 
         CheckForPlayerCollision();
+
+    private void InitializeState()
+    {
+        if (TryGetComponent<Idle>(out Idle idle))
+            SetState(idle);
+        else if (TryGetComponent<Patrol>(out Patrol patrol))
+            SetState(patrol);
+        else if (TryGetComponent<Chase>(out Chase chase)) //for test
+            SetState(chase);
+        else if (TryGetComponent<Attack>(out Attack attack)) //for test
+            SetState(attack);
     }
 
     private void CheckForPlayerCollision()
