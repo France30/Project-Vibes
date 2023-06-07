@@ -92,7 +92,7 @@ public abstract class GroundEnemy : EnemyBase
         if (isTargetBelow)
         {
             //Assume the target is below a platform if self is on a platform
-            bool isOnPlatform = Physics2D.BoxCast(_groundPlatformCheck.position, _localScale, 0, _groundPlatformCheck.position, Mathf.Infinity, _whatIsPlatform);
+            bool isOnPlatform = Physics2D.BoxCast(_groundPlatformCheck.position, _localScale, 0, -transform.up, _groundPlatformCheck.position.y, _whatIsPlatform);
             if (isOnPlatform) return true;
         }
 
