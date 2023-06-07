@@ -21,8 +21,10 @@ public class FlyingEnemy : EnemyBase
     {
         base.MoveToTargetDirection(target);
 
-        //allows for more free movement
-        _moveSpeed = Mathf.Abs(_moveSpeed) * -1; //_moveSpeed value must always be negative
+        //Disregard movement if attacking
+        if (_isAttacking) return;
+
+        _moveSpeed = Mathf.Abs(_moveSpeed) * -1; //moveSpeed value must always be negative
         float move = (_moveSpeed * Time.fixedDeltaTime) * 3f;
         Vector3 direction = (transform.position - target.position).normalized;
         _targetVelocity = direction * move;
@@ -46,6 +48,7 @@ public class FlyingEnemy : EnemyBase
         _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, _targetVelocity, ref _velocity, _movementSmoothing);
         
         _targetVelocity = Vector3.zero;
+        _isAttacking = false;
     }
 
     protected override void Flip()
