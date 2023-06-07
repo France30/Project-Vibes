@@ -10,6 +10,9 @@ public class FlyingEnemy : EnemyBase
     [SerializeField] private float _hoverSpeed = 1f;
     [SerializeField] private float _hoverDistance = 1f;
 
+    [Header("Attack Configs")]
+    [SerializeField] private FlyingAttackConfigs _flyingAttackConfigs;
+
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _targetVelocity = Vector3.zero;
 
