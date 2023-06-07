@@ -73,6 +73,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
         base.FixedUpdate();
 
         CheckForPlayerCollision();
+        CheckForOtherEnemyCollision();
+    }
 
     private void InitializeState()
     {
@@ -91,5 +93,16 @@ public abstract class EnemyBase : StateMachine, IDamageable
         LayerMask player = LayerMask.GetMask("Player");
         if (Physics2D.OverlapBox(transform.position, transform.localScale, 0f, player))
             Debug.Log("Player Hit");
+    }
+
+    private void CheckForOtherEnemyCollision()
+    {
+        LayerMask enemy = LayerMask.GetMask("Enemy");
+        var hitDetect = Physics2D.OverlapBox(transform.position, transform.localScale, 0f, enemy);
+        if (hitDetect.gameObject != gameObject)
+        {
+            //enemies should move away from each other
+            _rb2D.velocity = transform.position - hitDetect.transform.position;
+        }
     }
 }
