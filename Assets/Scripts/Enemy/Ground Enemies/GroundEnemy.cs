@@ -101,11 +101,7 @@ public abstract class GroundEnemy : EnemyBase
 
     private void OnDrawGizmos()
     {
-        Vector2 _platformCheck = new Vector2(_wallCheck.position.x, _wallCheck.position.y + _localScale.y + 0.5f);
-        Gizmos.DrawCube(_platformCheck, _localScale);
-
         Gizmos.DrawCube(_wallCheck.position, _localScale);
-        Gizmos.DrawCube(_ceilingCheck.position, _ceilingBoxCastSize);
-        //Gizmos.DrawCube(_groundPlatformCheck.position, _localScale);
+        Gizmos.DrawCube(_groundPlatformCheck.position, _localScale);
     }
 }
