@@ -31,10 +31,6 @@ public class NormalGround : GroundEnemy
         bool isBelowPlatform = Physics2D.BoxCast(transform.position, _localScale, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
         if (isBelowPlatform) return false;
 
-        Vector2 _platformCheck = new Vector2(_wallCheck.position.x, _wallCheck.position.y + _localScale.y + 0.5f);
-        bool isTherePlatform = Physics2D.OverlapBox(_platformCheck, _localScale, 0, _whatIsPlatform);
-        if (isTherePlatform) return true;
-
         return false;
     }
 }
