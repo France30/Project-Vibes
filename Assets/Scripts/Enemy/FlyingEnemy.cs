@@ -42,6 +42,11 @@ public class FlyingEnemy : EnemyBase
         foreach (Collider2D collider in colliders)
             collider.isTrigger = true;
 
+        if (TryGetComponent<Idle>(out Idle idle))
+            idle.SetAction(Hover);
+
+        if (TryGetComponent<Attack>(out Attack attack))
+            attack.SetAction(() => { _isAttacking = true; transform.rotation = EnemyUtilities.LookAtPlayer(transform); });
     }
 
     protected override void FixedUpdate()
