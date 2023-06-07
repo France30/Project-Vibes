@@ -8,7 +8,8 @@ public class NormalGround : GroundEnemy
     {
         if (CurrentTarget == null) return false;
 
-        return !IsTargetReached(CurrentTarget);
+        //Only move if not on target and not attacking
+        return !IsTargetReached(CurrentTarget) && !_isAttacking;
     }
 
     protected override bool JumpCondition()
@@ -27,12 +28,8 @@ public class NormalGround : GroundEnemy
         if (isTargetBelow) return false;
 
         //Disregard jump if obstructed by a ceiling
-        bool isBelowPlatform = Physics2D.BoxCast(_ceilingCheck.position, _ceilingBoxCastSize, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
+        bool isBelowPlatform = Physics2D.BoxCast(transform.position, _localScale, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
         if (isBelowPlatform) return false;
-
-        Vector2 _platformCheck = new Vector2(_wallCheck.position.x, _wallCheck.position.y + _localScale.y + 0.5f);
-        bool isTherePlatform = Physics2D.OverlapBox(_platformCheck, _localScale, 0, _whatIsPlatform);
-        if (isTherePlatform) return true;
 
         return false;
     }

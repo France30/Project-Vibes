@@ -19,9 +19,17 @@ public abstract class EnemyBase : StateMachine, IDamageable
     private int _instanceID = 0;
     private bool _isFacingRight = true;
 
+    public delegate void EnemyAttack();
+    private EnemyAttack AttackEvent;
+
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
 
+
+    public void OnAttack()
+    {
+        AttackEvent?.Invoke();
+    }
 
     public void TakeDamage(int value)
     {
@@ -56,6 +64,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _moveSpeed *= -1;
     }
 
+    protected void SetAttack(EnemyAttack enemyAttack)
+    {
+        AttackEvent = enemyAttack;
     }
 
     protected virtual void Awake()
@@ -64,6 +75,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _instanceID = gameObject.GetInstanceID();
 
         _rb2D = GetComponent<Rigidbody2D>();
+
+        InitializeState();
     }
 
     protected override void FixedUpdate()
@@ -71,6 +84,19 @@ public abstract class EnemyBase : StateMachine, IDamageable
         base.FixedUpdate();
 
         CheckForPlayerCollision();
+        CheckForOtherEnemyCollision();
+    }
+
+    private void InitializeState()
+    {
+        if (TryGetComponent<Idle>(out Idle idle))
+            SetState(idle);
+        else if (TryGetComponent<Patrol>(out Patrol patrol))
+            SetState(patrol);
+        else if (TryGetComponent<Chase>(out Chase chase)) //for test
+            SetState(chase);
+        else if (TryGetComponent<Attack>(out Attack attack)) //for test
+            SetState(attack);
     }
 
     private void CheckForPlayerCollision()
@@ -78,5 +104,16 @@ public abstract class EnemyBase : StateMachine, IDamageable
         LayerMask player = LayerMask.GetMask("Player");
         if (Physics2D.OverlapBox(transform.position, transform.localScale, 0f, player))
             Debug.Log("Player Hit");
+    }
+
+    private void CheckForOtherEnemyCollision()
+    {
+        LayerMask enemy = LayerMask.GetMask("Enemy");
+        var hitDetect = Physics2D.OverlapBox(transform.position, transform.localScale, 0f, enemy);
+        if (hitDetect.gameObject != gameObject)
+        {
+            //enemies should move away from each other
+            _rb2D.velocity = transform.position - hitDetect.transform.position;
+        }
     }
 }

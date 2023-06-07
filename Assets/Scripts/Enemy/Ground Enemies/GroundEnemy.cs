@@ -8,7 +8,6 @@ public abstract class GroundEnemy : EnemyBase
     [SerializeField] private float _fallingThreshold = -5f;
 
     [Header("Platform Checks")]
-    [SerializeField] protected Transform _ceilingCheck;
     [SerializeField] protected Transform _wallCheck;
     [SerializeField] protected Transform _groundPlatformCheck;
     [SerializeField] protected LayerMask _whatIsPlatform;
@@ -79,7 +78,7 @@ public abstract class GroundEnemy : EnemyBase
         if (isTargetAbove)
         {
             //Assume the target is on a platform if self is under a platform
-            bool isBelowPlatform = Physics2D.BoxCast(_ceilingCheck.position, _ceilingBoxCastSize, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
+            bool isBelowPlatform = Physics2D.BoxCast(transform.position, _localScale, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
             if (isBelowPlatform) return true;
         }
 
@@ -93,7 +92,7 @@ public abstract class GroundEnemy : EnemyBase
         if (isTargetBelow)
         {
             //Assume the target is below a platform if self is on a platform
-            bool isOnPlatform = Physics2D.BoxCast(_groundPlatformCheck.position, _localScale, 0, _groundPlatformCheck.position, Mathf.Infinity, _whatIsPlatform);
+            bool isOnPlatform = Physics2D.BoxCast(_groundPlatformCheck.position, _localScale, 0, -transform.up, _groundPlatformCheck.position.y, _whatIsPlatform);
             if (isOnPlatform) return true;
         }
 
@@ -102,11 +101,7 @@ public abstract class GroundEnemy : EnemyBase
 
     private void OnDrawGizmos()
     {
-        Vector2 _platformCheck = new Vector2(_wallCheck.position.x, _wallCheck.position.y + _localScale.y + 0.5f);
-        Gizmos.DrawCube(_platformCheck, _localScale);
-
         Gizmos.DrawCube(_wallCheck.position, _localScale);
-        Gizmos.DrawCube(_ceilingCheck.position, _ceilingBoxCastSize);
-        //Gizmos.DrawCube(_groundPlatformCheck.position, _localScale);
+        Gizmos.DrawCube(_groundPlatformCheck.position, _localScale);
     }
 }
