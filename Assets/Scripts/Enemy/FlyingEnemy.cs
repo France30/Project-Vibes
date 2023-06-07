@@ -47,6 +47,8 @@ public class FlyingEnemy : EnemyBase
 
         if (TryGetComponent<Attack>(out Attack attack))
             attack.SetAction(() => { _isAttacking = true; transform.rotation = EnemyUtilities.LookAtPlayer(transform); });
+
+        SetAttack(() => { _targetVelocity = _flyingAttackConfigs.ApplyAttackVelocity(_moveSpeed, transform); });
     }
 
     protected override void FixedUpdate()
