@@ -64,8 +64,11 @@ public class FlyingEnemy : EnemyBase
         base.Flip();
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
+        theScale.y *= -1;
         transform.localScale = theScale;
 
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     private void Hover()
