@@ -11,6 +11,7 @@ public class FlyingEnemy : EnemyBase
     [SerializeField] private float _hoverDistance = 1f;
 
     private Vector3 _velocity = Vector3.zero;
+    private Vector3 _targetVelocity = Vector3.zero;
 
     private float _currentHoverDistance;
     private bool _isHoveringUp = true;
@@ -23,9 +24,8 @@ public class FlyingEnemy : EnemyBase
         //allows for more free movement
         _moveSpeed = Mathf.Abs(_moveSpeed) * -1; //_moveSpeed value must always be negative
         float move = (_moveSpeed * Time.fixedDeltaTime) * 3f;
-        Vector2 direction = (transform.position - target.position).normalized;
-        Vector3 targetVelocity = direction * move;
-        _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, targetVelocity, ref _velocity, _movementSmoothing);
+        Vector3 direction = (transform.position - target.position).normalized;
+        _targetVelocity = direction * move;
     }
 
     protected override void Awake()
@@ -39,24 +39,26 @@ public class FlyingEnemy : EnemyBase
 
     }
 
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, _targetVelocity, ref _velocity, _movementSmoothing);
+        
+        _targetVelocity = Vector3.zero;
+    }
+
     protected override void Flip()
     {
         base.Flip();
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        if(!_isAttacking)
-            Hover();
     }
 
     private void Hover()
-    {       
+    {
         float hover = _hoverSpeed * Time.fixedDeltaTime;
         _currentHoverDistance += hover;
         if (_currentHoverDistance >= _hoverDistance && _isHoveringUp)
@@ -64,8 +66,7 @@ public class FlyingEnemy : EnemyBase
         else if(_currentHoverDistance <= _hoverDistance && !_isHoveringUp)
             FlipHover();
 
-        Vector3 targetVelocity = new Vector2(_rb2D.velocity.x, hover);
-        _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, targetVelocity, ref _velocity, _movementSmoothing);
+        _targetVelocity = new Vector2(0, hover);
     }
 
     private void FlipHover()
