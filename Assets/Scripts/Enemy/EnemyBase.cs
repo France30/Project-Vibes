@@ -19,9 +19,17 @@ public abstract class EnemyBase : StateMachine, IDamageable
     private int _instanceID = 0;
     private bool _isFacingRight = true;
 
+    public delegate void EnemyAttack();
+    private EnemyAttack AttackEvent;
+
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
 
+
+    public void OnAttack()
+    {
+        AttackEvent?.Invoke();
+    }
 
     public void TakeDamage(int value)
     {
@@ -56,6 +64,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _moveSpeed *= -1;
     }
 
+    protected void SetAttack(EnemyAttack enemyAttack)
+    {
+        AttackEvent = enemyAttack;
     }
 
     protected virtual void Awake()
