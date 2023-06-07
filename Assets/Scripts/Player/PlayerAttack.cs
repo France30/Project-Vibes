@@ -74,7 +74,7 @@ public class PlayerAttack : MonoBehaviour
         _chord.chordClips[_currentChord].source.Play();
 
         bool isChordPlaying = _chord.chordClips[_currentChord].clip != null;
-        SetAttackBehaviour(isChordPlaying);
+        SetAttackComponents(isChordPlaying);
 
         if(isChordPlaying) CheckIfChordIsHalfChord();
 
@@ -82,7 +82,7 @@ public class PlayerAttack : MonoBehaviour
 
         yield return new WaitForSeconds(_chord.time);
 
-        SetAttackBehaviour(false);
+        SetAttackComponents(false);
 
         _isAttackCoroutineRunning = false;
 
@@ -90,7 +90,7 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(PlayAttack());
     }
 
-    private void SetAttackBehaviour(bool value)
+    private void SetAttackComponents(bool value)
     {
         _attackObject.SetActive(value);
         _animator.SetBool("Attack", value);
