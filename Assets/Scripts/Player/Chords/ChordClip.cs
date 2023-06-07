@@ -11,7 +11,7 @@ public class ChordClip
     [Range(.1f, 3f)]
     public float pitch;
 
-    public bool IsHalfChord;
+    public int beats = 1;
 
     [HideInInspector]
     public AudioSource source;

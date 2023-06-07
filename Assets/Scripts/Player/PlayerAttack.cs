@@ -74,15 +74,15 @@ public class PlayerAttack : MonoBehaviour
         _chord.chordClips[_currentChord].source.Play();
 
         bool isChordPlaying = _chord.chordClips[_currentChord].clip != null;
-        SetAttackBehaviour(isChordPlaying);
+        SetAttackComponents(isChordPlaying);
 
-        if(isChordPlaying) CheckIfChordIsHalfChord();
+        if (isChordPlaying) InitializeProximityAttack();
 
         CheckIfSongDone();
 
         yield return new WaitForSeconds(_chord.time);
 
-        SetAttackBehaviour(false);
+        SetAttackComponents(false);
 
         _isAttackCoroutineRunning = false;
 
@@ -90,22 +90,17 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(PlayAttack());
     }
 
-    private void SetAttackBehaviour(bool value)
+    private void SetAttackComponents(bool value)
     {
         _attackObject.SetActive(value);
         _animator.SetBool("Attack", value);
     }
 
-    private void CheckIfChordIsHalfChord()
+    private void InitializeProximityAttack()
     {
-        bool isPlayingHalfChord = _chord.chordClips[_currentChord].IsHalfChord;
-        if (!isPlayingHalfChord) return;
-
-        //increase attack hitbox speed if chord is half chord
-        //reset attack hitbox scale twice before disabling the attack hitbox game object
-        float animationSpeedMultiplier = 2f;
-        _attackObjectController.AnimationSpeed *= animationSpeedMultiplier;
-        _attackObjectController.HitboxScaleResetCounter = 2;
+        _attackObjectController.MaxScale = _attackObjectController.AnimationSpeed * _chord.time;
+        _attackObjectController.AnimationSpeedMultiplier = _chord.chordClips[_currentChord].beats;
+        _attackObjectController.HitboxScaleResetCounter = _chord.chordClips[_currentChord].beats;
     }
 
     private void CheckIfSongDone()
