@@ -31,10 +31,8 @@ public class FlyingEnemy : EnemyBase
         _targetVelocity = direction * move;
     }
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-
         //initialize colliders
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D collider in colliders)
