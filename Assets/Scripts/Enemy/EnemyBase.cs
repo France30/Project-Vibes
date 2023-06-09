@@ -69,7 +69,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         AttackEvent = enemyAttack;
     }
 
-    protected virtual void Awake()
+    private void Awake()
     {
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();

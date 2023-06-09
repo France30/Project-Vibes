@@ -45,10 +45,8 @@ public abstract class GroundEnemy : EnemyBase
     protected abstract bool JumpCondition();
     protected abstract bool MoveCondition();
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-
         _localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
         _controller = GetComponent<CharacterController2D>();
     }
