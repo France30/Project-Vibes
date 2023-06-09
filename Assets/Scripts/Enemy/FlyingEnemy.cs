@@ -13,6 +13,7 @@ public class FlyingEnemy : EnemyBase
 
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _targetVelocity = Vector3.zero;
+    private Quaternion _targetRotation = Quaternion.identity;
 
     private float _currentHoverDistance;
     private bool _isHoveringUp = true;
@@ -42,9 +43,9 @@ public class FlyingEnemy : EnemyBase
             idle.SetAction(Hover);
 
         if (TryGetComponent<Attack>(out Attack attack))
-            attack.SetAction(() => 
+            attack.SetAction(() =>
             {
-                transform.rotation = EnemyUtilities.LookAtPlayer(transform); 
+                _targetRotation = EnemyUtilities.LookAtPlayer(transform);
             });
 
         SetAttack(() => { _targetVelocity = _flyingAttackConfigs.ApplyAttackVelocity(_moveSpeed, transform); });
@@ -55,7 +56,14 @@ public class FlyingEnemy : EnemyBase
         base.FixedUpdate();
 
         _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, _targetVelocity, ref _velocity, _movementSmoothing);
-        
+        transform.rotation = _targetRotation;
+
+        //Default values
+        if(transform.localScale.x > 0)
+            _targetRotation = Quaternion.identity;
+        if (transform.localScale.x < 0)
+            _targetRotation = Quaternion.Euler(0,0,180);
+
         _targetVelocity = Vector3.zero;
     }
 
