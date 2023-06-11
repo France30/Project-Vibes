@@ -10,7 +10,6 @@ public abstract class GroundEnemy : EnemyBase
     [SerializeField] protected Transform _groundPlatformCheck;
     [SerializeField] protected LayerMask _whatIsPlatform;
 
-    protected Vector2 _ceilingBoxCastSize = new Vector2(1.5f, 1f);
     protected Vector2 _localScale;
 
     private CharacterController2D _controller;
