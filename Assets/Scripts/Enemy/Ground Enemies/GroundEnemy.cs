@@ -11,6 +11,8 @@ public abstract class GroundEnemy : EnemyBase
     [SerializeField] protected LayerMask _whatIsPlatform;
 
     protected Vector2 _localScale;
+    protected RaycastHit2D[] _hitDetect = new RaycastHit2D[100];
+    protected Collider2D[] _overlapDetect = new Collider2D[100];
 
     private CharacterController2D _controller;
 
@@ -73,8 +75,8 @@ public abstract class GroundEnemy : EnemyBase
         if (isTargetAbove)
         {
             //Assume the target is on a platform if self is under a platform
-            bool isBelowPlatform = Physics2D.BoxCast(transform.position, _localScale, 0, transform.up, Mathf.Infinity, _whatIsPlatform);
-            if (isBelowPlatform) return true;
+            int colliders = Physics2D.BoxCastNonAlloc(transform.position, _localScale, 0, transform.up, _hitDetect, Mathf.Infinity, _whatIsPlatform);
+            if (colliders > 0) return true;
         }
 
         return false;
@@ -87,8 +89,8 @@ public abstract class GroundEnemy : EnemyBase
         if (isTargetBelow)
         {
             //Assume the target is below a platform if self is on a platform
-            bool isOnPlatform = Physics2D.BoxCast(_groundPlatformCheck.position, _localScale, 0, -transform.up, _groundPlatformCheck.position.y, _whatIsPlatform);
-            if (isOnPlatform) return true;
+            int colliders = Physics2D.BoxCastNonAlloc(_groundPlatformCheck.position, _localScale, 0, -transform.up, _hitDetect, _groundPlatformCheck.position.y, _whatIsPlatform);
+            if (colliders > 0) return true;
         }
 
         return false;
