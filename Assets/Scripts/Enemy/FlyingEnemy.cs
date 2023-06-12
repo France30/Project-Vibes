@@ -42,12 +42,6 @@ public class FlyingEnemy : EnemyBase
         if (TryGetComponent<Idle>(out Idle idle))
             idle.SetAction(Hover);
 
-        if (TryGetComponent<Attack>(out Attack attack))
-            attack.SetAction(() =>
-            {
-                _targetRotation = EnemyUtilities.LookAtPlayer(transform);
-            });
-
         SetAttack(() => { _targetVelocity = _flyingAttackConfigs.ApplyAttackVelocity(_moveSpeed, transform); });
     }
 
