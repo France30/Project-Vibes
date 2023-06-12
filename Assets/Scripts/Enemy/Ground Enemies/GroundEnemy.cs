@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CharacterController2D))]
@@ -12,7 +10,6 @@ public abstract class GroundEnemy : EnemyBase
     [SerializeField] protected Transform _groundPlatformCheck;
     [SerializeField] protected LayerMask _whatIsPlatform;
 
-    protected Vector2 _ceilingBoxCastSize = new Vector2(1.5f, 1f);
     protected Vector2 _localScale;
     protected RaycastHit2D[] _hitDetect = new RaycastHit2D[100];
     protected Collider2D[] _overlapDetect = new Collider2D[100];
@@ -47,10 +44,8 @@ public abstract class GroundEnemy : EnemyBase
     protected abstract bool JumpCondition();
     protected abstract bool MoveCondition();
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-
         _localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
         _controller = GetComponent<CharacterController2D>();
     }
@@ -103,7 +98,7 @@ public abstract class GroundEnemy : EnemyBase
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawCube(_wallCheck.position, _localScale);
-        Gizmos.DrawCube(_groundPlatformCheck.position, _localScale);
+        Gizmos.DrawCube(_wallCheck.position, new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y));
+        Gizmos.DrawCube(_groundPlatformCheck.position, new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y));
     }
 }
