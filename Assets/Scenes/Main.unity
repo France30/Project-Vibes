@@ -342,15 +342,17 @@ GameObject:
   - component: {fileID: 119263557}
   - component: {fileID: 119263556}
   - component: {fileID: 119263555}
-  - component: {fileID: 119263562}
-  - component: {fileID: 119263561}
+  - component: {fileID: 119263567}
+  - component: {fileID: 119263568}
+  - component: {fileID: 119263569}
+  - component: {fileID: 119263564}
   m_Layer: 7
   m_Name: TestFlyEnemy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &119263555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,7 +504,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &119263561
+--- !u!114 &119263564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -514,12 +516,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f479f455d56f984a8dbbee3d6425d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDistanceToAttackState: 20
+  _playerDistanceToAttackState: 5
   OnAttackEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 119263555}
-        m_TargetAssemblyTypeName: FlyingEnemy, Assembly-CSharp
+        m_TargetAssemblyTypeName: EnemyBase, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 1
         m_Arguments:
@@ -530,7 +532,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &119263562
+--- !u!114 &119263567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -542,6 +544,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeca0a005aa03743ad3d624925a5b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idleTime: 2
+--- !u!114 &119263568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119263554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e47a97bf025881488b90c4261d24cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wayPoints:
+  - {fileID: 1306116804}
+  - {fileID: 424687055}
+--- !u!114 &119263569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119263554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bc84d38ee9fe4c8073177927b2f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerDistanceToChaseState: 10
 --- !u!1 &142962749
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,26 +672,15 @@ GameObject:
   - component: {fileID: 179224369}
   - component: {fileID: 179224368}
   - component: {fileID: 179224367}
-  - component: {fileID: 179224366}
+  - component: {fileID: 179224377}
+  - component: {fileID: 179224375}
   m_Layer: 7
   m_Name: TestEnemy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &179224366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 179224365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 209bc84d38ee9fe4c8073177927b2f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_IsActive: 0
 --- !u!114 &179224367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,7 +695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 3
   _healthBar: {fileID: 0}
-  _moveSpeed: 5
+  _moveSpeed: 15
   _fallingThreshold: -5
   _wallCheck: {fileID: 1450585733}
   _groundPlatformCheck: {fileID: 1317322222}
@@ -694,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08f91df3bd212f429df17f53ce2f364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 500
+  m_JumpForce: 600
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -845,7 +865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179224365}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 5.8, z: 0}
+  m_LocalPosition: {x: -11.53, y: -0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -855,6 +875,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &179224375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179224365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bc84d38ee9fe4c8073177927b2f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerDistanceToChaseState: 5
+--- !u!114 &179224377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179224365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e47a97bf025881488b90c4261d24cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wayPoints:
+  - {fileID: 1306116804}
+  - {fileID: 424687055}
 --- !u!1 &200994735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,7 +1077,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424687054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.6, y: 4.16, z: 0.08107295}
+  m_LocalPosition: {x: -0.72, y: 0.17, z: 0.08107295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1890,14 +1938,14 @@ GameObject:
   - component: {fileID: 878823036}
   - component: {fileID: 878823042}
   - component: {fileID: 878823044}
-  - component: {fileID: 878823043}
+  - component: {fileID: 878823045}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!58 &878823036
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2071,22 +2119,6 @@ MonoBehaviour:
   OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &878823043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878823034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e47a97bf025881488b90c4261d24cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerDistanceToNextState: 10
-  _wayPoints:
-  - {fileID: 1306116804}
-  - {fileID: 424687055}
 --- !u!114 &878823044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2108,6 +2140,19 @@ MonoBehaviour:
   _whatIsPlatform:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &878823045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878823034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bc84d38ee9fe4c8073177927b2f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerDistanceToChaseState: 3.4028235e+38
 --- !u!1 &884607916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2122,6 +2167,7 @@ GameObject:
   - component: {fileID: 884607921}
   - component: {fileID: 884607920}
   - component: {fileID: 884607919}
+  - component: {fileID: 884607925}
   - component: {fileID: 884607917}
   m_Layer: 7
   m_Name: TestFlyEnemy (3)
@@ -2309,6 +2355,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &884607925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884607916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aeca0a005aa03743ad3d624925a5b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleTime: 3
 --- !u!1 &944971128
 GameObject:
   m_ObjectHideFlags: 0
@@ -2945,7 +3004,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306116803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.03, y: -0.88, z: 0.08107295}
+  m_LocalPosition: {x: -7.42, y: -0.88, z: 0.08107295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4125,6 +4184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeca0a005aa03743ad3d624925a5b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idleTime: 3
 --- !u!114 &1679576428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4266,7 +4326,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679576425}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 2.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7485,6 +7545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeca0a005aa03743ad3d624925a5b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idleTime: 3
 --- !u!114 &2134598470
 MonoBehaviour:
   m_ObjectHideFlags: 0
