@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class Chase : State
 {
-    private Transform player;
+
+    private Transform _player;
 
     public override void PerformState()
     {
         base.PerformState();
+        _enemyBase.MoveToTargetDirection(_player);
 
-        _enemyBase.MoveToTargetDirection(player);
     }
 
     private void Start()
     {
-        player = GameController.Instance.Player.transform;
+        _player = GameController.Instance.Player.transform;
     }
 }
