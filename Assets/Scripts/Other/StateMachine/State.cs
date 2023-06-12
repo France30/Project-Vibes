@@ -8,6 +8,8 @@ public abstract class State : MonoBehaviour
     public delegate void Action();
     private Action StateAction;   //Callback delegate for state specific actions
 
+    public virtual bool StateCondition { get; }
+
 
     public virtual void PerformState()
     {
@@ -18,6 +20,8 @@ public abstract class State : MonoBehaviour
     {
         StateAction = stateAction;
     }
+
+    public abstract void CheckTransitionCondition();
 
     private void Awake()
     {

@@ -12,6 +12,13 @@ public abstract class StateMachine : MonoBehaviour
         CurrentState = state;
     }
 
+    protected virtual void Update()
+    {
+        if (CurrentState == null) return;
+
+        CurrentState.CheckTransitionCondition();
+    }
+
     protected virtual void FixedUpdate()
     {
         if (CurrentState == null) return;

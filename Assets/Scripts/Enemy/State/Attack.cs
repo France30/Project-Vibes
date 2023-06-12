@@ -8,14 +8,25 @@ public class Attack : State
     [Space]
     public UnityEvent OnAttackEvent;
 
+    private Transform _player;
+
     private State _prevState;
 
     private bool _isAttacking = false;
+
+    public override bool StateCondition { get { return _enemyBase.IsTargetReached(_player, _playerDistanceToAttackState); } }
+
 
     public override void PerformState()
     {
         bool wasAttacking = _isAttacking;
         _isAttacking = false;
+
+        if (!wasAttacking)
+        {
+            base.PerformState(); //Actions that need to happen during attack state
+            _enemyBase.MoveToTargetDirection(_player);
+        }
 
         if (BeatSystemController.Instance.IsBeatPlaying)
         {
@@ -23,41 +34,32 @@ public class Attack : State
             if (!wasAttacking)
             {
                 OnAttackEvent?.Invoke();  //Events that should only happen once on the beat
-                return;
             }
         }
+    }
 
-        base.PerformState(); //Actions that need to happen during attack state
-        _enemyBase.MoveToTargetDirection(GameController.Instance.Player.transform);
+    public override void CheckTransitionCondition()
+    {
+        if (_prevState == null) return;
+
+        if (!StateCondition)
+            _enemyBase.SetState(_prevState);
     }
 
     private void Start()
+    {
+        _player = GameController.Instance.Player.transform;
+
+        TryGetPrevState();
+    }
+
+    private void TryGetPrevState()
     {
         if (TryGetComponent<Chase>(out Chase chase))
             _prevState = chase;
         else if (TryGetComponent<Idle>(out Idle idle))
             _prevState = idle;
-    }
-
-    private void Update()
-    {
-        if (_prevState == null) return;
-
-        CheckTransitionCondition();
-    }
-
-    private void CheckTransitionCondition()
-    {
-        //Enter Attack State
-        bool attackStateCondition = _enemyBase.IsTargetReached(GameController.Instance.Player.transform, _playerDistanceToAttackState);
-        if (attackStateCondition)
-        {
-            _enemyBase.SetState(this);
-            return;
-        }
-
-        //Exit Attack State
-        if (_enemyBase.CurrentState == this)
-            _enemyBase.SetState(_prevState);
+        else if (TryGetComponent<Patrol>(out Patrol patrol))
+            _prevState = patrol;
     }
 }

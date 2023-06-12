@@ -24,6 +24,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
     protected bool IsAttacking { get; private set; }
+    protected bool IsIdle { get; private set; }
 
 
     public void OnAttack()
@@ -77,6 +78,14 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _rb2D = GetComponent<Rigidbody2D>();
 
         InitializeState();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        IsIdle = CurrentState is Idle;
+        IsAttacking = CurrentState is Attack;
     }
 
     protected override void FixedUpdate()

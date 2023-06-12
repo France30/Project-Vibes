@@ -1,61 +1,92 @@
 using UnityEngine;
 
-
 public class Patrol : State
 {
-    [SerializeField] private float _playerDistanceToNextState = 10f;
     [SerializeField] private Transform[] _wayPoints;
 
-    private int _currentWayPoint = 0;
-
+    private State _idleState;
     private State _nextState;
+
+    private int _currentWayPoint = 0;
+    private bool _isWayPointReached = false;
+
 
     public override void PerformState()
     {
-        base.PerformState();
-
         Transform currentPatrol = _wayPoints[_currentWayPoint];
-        if (_enemyBase.IsTargetReached(currentPatrol))
-            currentPatrol = GoToNextWayPoint();
 
-        _enemyBase.MoveToTargetDirection(currentPatrol);
+        if (!_isWayPointReached)
+        {
+            base.PerformState();
+            _enemyBase.MoveToTargetDirection(currentPatrol);
+        }
+
+        if (_enemyBase.IsTargetReached(currentPatrol))
+        {
+            UpdateWayPoint();
+
+            if (_idleState == null) return;
+                
+            _isWayPointReached = true;
+        }
     }
 
-    private Transform GoToNextWayPoint()
+    public override void CheckTransitionCondition()
+    {
+        if (_idleState != null)
+            CheckIdleCondition();
+
+        if (_nextState != null)
+            CheckNextStateCondition();
+    }
+
+    private void CheckIdleCondition()
+    {
+        if (_isWayPointReached)
+            _enemyBase.SetState(_idleState);
+    }
+
+    private void CheckNextStateCondition()
+    {
+        if (_nextState.StateCondition)
+            _enemyBase.SetState(_nextState);
+    }
+
+    private void UpdateWayPoint()
     {
         _currentWayPoint++;
 
         if (_currentWayPoint > _wayPoints.Length - 1)
             _currentWayPoint = 0;
-
-        return _wayPoints[_currentWayPoint];
     }
 
     private void Start()
     {
+        TryGetIdleState();
+        TryGetNextState();
+    }
+
+    private void TryGetIdleState()
+    {
+        if (TryGetComponent<Idle>(out Idle idle))
+            _idleState = idle;
+    }
+
+    private void TryGetNextState()
+    {
         if (TryGetComponent<Chase>(out Chase chase))
             _nextState = chase;
+        else if (TryGetComponent<Attack>(out Attack attack))
+            _nextState = attack;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (_nextState == null) return;
+        //Reset flag
+        if (_enemyBase.CurrentState != this)
+            _isWayPointReached = false;
 
-        CheckTransitionCondition();
-    }
-
-    private void CheckTransitionCondition()
-    {
-        //Exit Patrol State
-        bool nextStateCondition = _enemyBase.IsTargetReached(GameController.Instance.Player.transform, _playerDistanceToNextState);
-        if (nextStateCondition)
-        {
-            _enemyBase.SetState(_nextState);
-            return;
-        }
-
-        //Enter Patrol State
         if (_enemyBase.CurrentState == _nextState)
-            _enemyBase.SetState(this);
+            _currentWayPoint = 0;
     }
 }
