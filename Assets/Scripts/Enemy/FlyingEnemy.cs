@@ -22,6 +22,7 @@ public class FlyingEnemy : EnemyBase
     public override void MoveToTargetDirection(Transform target)
     {
         base.MoveToTargetDirection(target);
+        _targetRotation = EnemyUtilities.LookAtTarget(transform, target);
 
         //Disregard movement if attacking
         if (IsAttacking) return;
