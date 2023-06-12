@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +14,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     protected Rigidbody2D _rb2D;
     protected Health _health;
+    protected bool _isAttacking = false;
 
     private int _instanceID = 0;
     private bool _isFacingRight = true;
@@ -23,7 +26,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
-    protected bool IsAttacking { get; private set; }
 
 
     public void OnAttack()
@@ -69,7 +71,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         AttackEvent = enemyAttack;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
@@ -77,13 +79,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _rb2D = GetComponent<Rigidbody2D>();
 
         InitializeState();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        IsAttacking = CurrentState is Attack;
     }
 
     protected override void FixedUpdate()

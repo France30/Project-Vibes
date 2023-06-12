@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FlyingEnemy : EnemyBase
@@ -23,7 +25,7 @@ public class FlyingEnemy : EnemyBase
         base.MoveToTargetDirection(target);
 
         //Disregard movement if attacking
-        if (IsAttacking) return;
+        if (_isAttacking) return;
 
         _moveSpeed = Mathf.Abs(_moveSpeed) * -1; //moveSpeed value must always be negative
         float move = (_moveSpeed * Time.fixedDeltaTime) * 3f;
@@ -31,8 +33,10 @@ public class FlyingEnemy : EnemyBase
         _targetVelocity = direction * move;
     }
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
+
         //initialize colliders
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D collider in colliders)
@@ -42,10 +46,7 @@ public class FlyingEnemy : EnemyBase
             idle.SetAction(Hover);
 
         if (TryGetComponent<Attack>(out Attack attack))
-            attack.SetAction(() => 
-            {   
-                _targetRotation = EnemyUtilities.LookAtPlayer(transform); 
-            });
+            attack.SetAction(() => { _isAttacking = true; transform.rotation = EnemyUtilities.LookAtPlayer(transform); });
 
         SetAttack(() => { _targetVelocity = _flyingAttackConfigs.ApplyAttackVelocity(_moveSpeed, transform); });
     }
@@ -57,6 +58,7 @@ public class FlyingEnemy : EnemyBase
         _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, _targetVelocity, ref _velocity, _movementSmoothing);
         
         _targetVelocity = Vector3.zero;
+        _isAttacking = false;
     }
 
     protected override void Flip()
