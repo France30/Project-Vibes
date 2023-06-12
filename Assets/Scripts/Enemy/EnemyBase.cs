@@ -15,6 +15,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     private int _instanceID = 0;
     private bool _isFacingRight = true;
+    private Collider2D[] _playerCollider = new Collider2D[1];
+    private Collider2D[] _enemyCollider = new Collider2D[10];
 
     public delegate void EnemyAttack();
     private EnemyAttack AttackEvent;
@@ -107,18 +109,21 @@ public abstract class EnemyBase : StateMachine, IDamageable
     private void CheckForPlayerCollision()
     {
         LayerMask player = LayerMask.GetMask("Player");
-        if (Physics2D.OverlapBox(transform.position, transform.localScale, 0f, player))
+        int hitDetect = Physics2D.OverlapBoxNonAlloc(transform.position, transform.localScale, 0f, _playerCollider, player);
+        if (hitDetect > 0)
             Debug.Log("Player Hit");
     }
 
     private void CheckForOtherEnemyCollision()
     {
         LayerMask enemy = LayerMask.GetMask("Enemy");
-        var hitDetect = Physics2D.OverlapBox(transform.position, transform.localScale, 0f, enemy);
-        if (hitDetect.gameObject != gameObject)
+        int enemyColliders = Physics2D.OverlapBoxNonAlloc(transform.position, transform.localScale, 0f, _enemyCollider, enemy);
+
+        for(int i = 0; i < enemyColliders; i++)
         {
-            //enemies should move away from each other
-            _rb2D.velocity = transform.position - hitDetect.transform.position;
+            if (_enemyCollider[i].gameObject == gameObject) continue;
+
+            _rb2D.velocity = transform.position - _enemyCollider[i].transform.position;
         }
     }
 }
