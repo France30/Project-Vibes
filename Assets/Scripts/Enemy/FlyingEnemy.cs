@@ -58,6 +58,7 @@ public class FlyingEnemy : EnemyBase
         _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, _targetVelocity, ref _velocity, _movementSmoothing);
         transform.rotation = _targetRotation;
 
+        if (IsIdle) LookAhead();
         _targetVelocity = Vector3.zero;
     }
 
