@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NormalGround : GroundEnemy
@@ -8,8 +6,7 @@ public class NormalGround : GroundEnemy
     {
         if (CurrentTarget == null) return false;
 
-        //Only move if not on target and not attacking
-        return !IsTargetReached(CurrentTarget) && !_isAttacking;
+        return !IsTargetReached(CurrentTarget) && !IsAttacking;
     }
 
     protected override bool JumpCondition()
