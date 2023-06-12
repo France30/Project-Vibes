@@ -22,6 +22,7 @@ public class FlyingEnemy : EnemyBase
     public override void MoveToTargetDirection(Transform target)
     {
         base.MoveToTargetDirection(target);
+        _targetRotation = EnemyUtilities.LookAtTarget(transform, target);
 
         //Disregard movement if attacking
         if (IsAttacking) return;
@@ -42,12 +43,6 @@ public class FlyingEnemy : EnemyBase
         if (TryGetComponent<Idle>(out Idle idle))
             idle.SetAction(Hover);
 
-        if (TryGetComponent<Attack>(out Attack attack))
-            attack.SetAction(() =>
-            {
-                _targetRotation = EnemyUtilities.LookAtPlayer(transform);
-            });
-
         SetAttack(() => { _targetVelocity = _flyingAttackConfigs.ApplyAttackVelocity(_moveSpeed, transform); });
     }
 
@@ -58,12 +53,7 @@ public class FlyingEnemy : EnemyBase
         _rb2D.velocity = Vector3.SmoothDamp(_rb2D.velocity, _targetVelocity, ref _velocity, _movementSmoothing);
         transform.rotation = _targetRotation;
 
-        //Default values
-        if(transform.localScale.x > 0)
-            _targetRotation = Quaternion.identity;
-        if (transform.localScale.x < 0)
-            _targetRotation = Quaternion.Euler(0,0,180);
-
+        if (IsIdle) LookAhead();
         _targetVelocity = Vector3.zero;
     }
 
@@ -96,5 +86,13 @@ public class FlyingEnemy : EnemyBase
         _isHoveringUp = !_isHoveringUp;
         _hoverDistance *= -1;
         _hoverSpeed *= -1;
+    }
+
+    private void LookAhead()
+    {
+        if (transform.localScale.x > 0)
+            _targetRotation = Quaternion.identity;
+        if (transform.localScale.x < 0)
+            _targetRotation = Quaternion.Euler(0, 0, 180);
     }
 }
