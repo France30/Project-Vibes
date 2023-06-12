@@ -79,6 +79,13 @@ public abstract class EnemyBase : StateMachine, IDamageable
         InitializeState();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        IsAttacking = CurrentState is Attack;
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
