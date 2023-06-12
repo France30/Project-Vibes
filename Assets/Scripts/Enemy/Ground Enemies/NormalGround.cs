@@ -6,7 +6,7 @@ public class NormalGround : GroundEnemy
     {
         if (CurrentTarget == null) return false;
 
-        return !IsTargetReached(CurrentTarget) && !IsAttacking;
+        return !IsTargetReached(CurrentTarget) && !IsAttacking && !IsIdle;
     }
 
     protected override bool JumpCondition()
