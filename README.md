@@ -1,9 +1,14 @@
 # Project-Vibes
+Bards in their sophomore year from the Virtuoso Conservatory for Symphonic Combative Arts are tasked with practical field tests such as Harmonic Defense whilst partaking in a traditional pilgrimage to attain their sound. Listen to their song for it tells tall tales of their travels and growth and unravel the dissonance against the bardic oath.
 
-### **Unity Guidelines:**
- - Place New GameObjects on the bottom of the scene hierarchy to lessen merge conflicts with scenes
+## Project Update
 
-### **Repository Guidelines:**
- - **DO NOT PUSH FEATURES TO MAIN**
- - Create a branch when working on a feature (ex: France-Movement)
- - Create a Pull Request when done to request for review
+## Controls
+```
+A - Move Left
+D - Move Right
+Spacebar - Jump
+Left Mouse Button - Attack
+```
+## Download Link
+<b>Current Build:</b> https://drive.google.com/file/d/1LQLHb2gm55CqRJHgKEUNp2eCSXhaFWlf/view?usp=drive_link
