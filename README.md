@@ -3,6 +3,10 @@ Bards in their sophomore year from the Virtuoso Conservatory for Symphonic Comba
 
 ## Project Update
 
+
+https://github.com/France30/Project-Vibes/assets/53886711/eccc90a6-0c58-4385-b47d-0352535e010a
+
+
 ## Controls
 ```
 A - Move Left
