@@ -102,9 +102,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
             SetState(idle);
         else if (TryGetComponent<Patrol>(out Patrol patrol))
             SetState(patrol);
-        else if (TryGetComponent<Chase>(out Chase chase)) //for test
+        else if (TryGetComponent<Chase>(out Chase chase))
             SetState(chase);
-        else if (TryGetComponent<Attack>(out Attack attack)) //for test
+        else if (TryGetComponent<Attack>(out Attack attack))
             SetState(attack);
     }
 
