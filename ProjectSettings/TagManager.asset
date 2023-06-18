@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Attack
-  - Enemy
   - Platform
-  - 
-  - 
+  - NormalGroundEnemy
+  - HopperGroundEnemy
+  - FlyingEnemy
   - 
   - 
   - 
