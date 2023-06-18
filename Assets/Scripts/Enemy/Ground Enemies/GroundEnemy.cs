@@ -34,7 +34,10 @@ public abstract class GroundEnemy : EnemyBase
         if (JumpCondition() && _isGrounded)
             Jump();
 
-        if (IsTargetOnPlatform(target) || IsTargetBelowPlatform(target)) return;
+        if (IsTargetOnPlatform(target) || IsTargetBelowPlatform(target))
+        {
+            if (!IsCollidingWithOtherGroundEnemy()) return;
+        }
 
         bool isFalling = _rb2D.velocity.y < _fallingThreshold;
         if (isFalling || _isGrounded)
@@ -57,7 +60,7 @@ public abstract class GroundEnemy : EnemyBase
         if(MoveCondition())
             _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
         else
-            _controller.Move(0, false, _canJump);
+            _controller.Move(0, false, false);
 
         _canJump = false;
     }
@@ -92,6 +95,15 @@ public abstract class GroundEnemy : EnemyBase
             int colliders = Physics2D.BoxCastNonAlloc(_groundPlatformCheck.position, _localScale, 0, -transform.up, _hitDetect, _groundPlatformCheck.position.y, _whatIsPlatform);
             if (colliders > 0) return true;
         }
+
+        return false;
+    }
+
+    private bool IsCollidingWithOtherGroundEnemy()
+    {
+        LayerMask enemyLayer = gameObject.layer;
+        int colliders = Physics2D.BoxCastNonAlloc(transform.position, _localScale, 0, transform.position, _hitDetect, enemyLayer);
+        if (colliders > 0) return true;
 
         return false;
     }

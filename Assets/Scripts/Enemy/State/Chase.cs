@@ -14,6 +14,8 @@ public class Chase : State
 
     public override void PerformState()
     {
+        if (_enemyBase.IsTargetReached(_player)) return;
+
         base.PerformState();
         _enemyBase.MoveToTargetDirection(_player);
     }
