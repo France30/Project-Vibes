@@ -3,6 +3,7 @@ using UnityEngine;
 public class Patrol : State
 {
     [SerializeField] private Transform[] _wayPoints;
+    [Range(1,10)][SerializeField] private float _targetDistanceFromWayPoint = 1f;
 
     private State _idleState;
     private State _nextState;
@@ -21,7 +22,7 @@ public class Patrol : State
             _enemyBase.MoveToTargetDirection(currentPatrol);
         }
 
-        if (_enemyBase.IsTargetReached(currentPatrol))
+        if (_enemyBase.IsTargetReached(currentPatrol,_targetDistanceFromWayPoint))
         {
             UpdateWayPoint();
 
