@@ -35,11 +35,6 @@ public class FlyingEnemy : EnemyBase
 
     private void Start()
     {
-        //initialize colliders
-        Collider2D[] colliders = GetComponents<Collider2D>();
-        foreach (Collider2D collider in colliders)
-            collider.isTrigger = true;
-
         if (TryGetComponent<Idle>(out Idle idle))
             idle.SetAction(Hover);
 
