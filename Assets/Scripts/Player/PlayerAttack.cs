@@ -86,7 +86,9 @@ public class PlayerAttack : MonoBehaviour
 
         _isAttackCoroutineRunning = false;
 
-        if (Input.GetButton("Fire1") && _currentChord != 0) //continue chord progression
+        if (!this.enabled || _currentChord <= 0) yield break;
+
+        if (Input.GetButton("Fire1")) //continue chord progression
             StartCoroutine(PlayAttack());
     }
 
