@@ -27,6 +27,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         yield return new WaitForSeconds(_beatSpeed);
 
+        _currentCount++;
         if (_currentCount < _beatCount)
             PlayTick();
         else
@@ -40,8 +41,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _tickUI.ImageAlpha = 0.5f;
         _beatUI.ImageAlpha = 0f;
 
-        AudioManager.Instance.Play("TickBGM");
-        _currentTime ++;
+        AudioManager.Instance.Play("TickBGM");       
 
         IsBeatPlaying = false;
     }
