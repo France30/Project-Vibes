@@ -1,5 +1,8 @@
+using System.Collections;
 using UnityEngine;
 
+
+[RequireComponent(typeof(SpriteController))]
 public class Player : MonoBehaviour
 {
     [Header("Player Health")]
@@ -15,8 +18,11 @@ public class Player : MonoBehaviour
     [SerializeField] private MonoBehaviour[] _playerActions;
 
     private Animator _animator;
+    private SpriteController _spriteController;
     private Rigidbody2D _rigidbody2D;
     private Health _health;
+
+    private bool _isInvulnerable = false;
 
 
     public void TakeDamage(int value, int knockBackDirection)
@@ -31,13 +37,25 @@ public class Player : MonoBehaviour
         _rigidbody2D.AddForce(new Vector2(horizontalForce, _knockBackForce.y), ForceMode2D.Impulse);
 
         StartCoroutine(HurtDuration());
+        StartCoroutine(_spriteController.Flash());
     }
 
     private void Awake()
     {
         _health = new Health(_maxHealth);
         _animator = GetComponent<Animator>();
+        _spriteController = GetComponent<SpriteController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        _spriteController.OnFlashEvent += SetInvulnerable;
+    }
+
+    private void OnDisable()
+    {
+        _spriteController.OnFlashEvent -= SetInvulnerable;
     }
 
     private IEnumerator HurtDuration()
@@ -55,5 +73,10 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < _playerActions.Length; i++)
             _playerActions[i].enabled = isEnable;
+    }
+
+    private void SetInvulnerable(bool value)
+    {
+        _isInvulnerable = value;
     }
 }
