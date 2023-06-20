@@ -9,7 +9,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
     [SerializeField] private BeatSystemUI _tickUI;
     [SerializeField] private BeatSystemUI _beatUI;
 
-    private float _currentTime = 0;
+    private float _currentCount = 0;
     private WaitForSeconds _waitForBeatSpeed;
 
     public bool IsBeatPlaying { get; private set; }
@@ -27,7 +27,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         yield return new WaitForSeconds(_beatSpeed);
 
-        if (_currentTime < _beatCount)
+        if (_currentCount < _beatCount)
             PlayTick();
         else
             PlayBeat();
@@ -52,7 +52,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _tickUI.ImageAlpha = 0f;
 
         AudioManager.Instance.Play("BeatBGM");
-        _currentTime = 0;
+        _currentCount = 0;
 
         IsBeatPlaying = true;
     }
