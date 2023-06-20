@@ -17,7 +17,7 @@ public class NormalGround : GroundEnemy
         if (IsTargetReached(CurrentTarget)) return false;
 
         //Jump if pathway is possible
-        int wallColliders = Physics2D.OverlapBoxNonAlloc(_wallCheck.position, _localScale, 0, _overlapDetect, _whatIsPlatform);
+        int wallColliders = Physics2D.OverlapBoxNonAlloc(_wallCheck.position, _spriteSize, 0, _overlapDetect, _whatIsPlatform);
         if (wallColliders > 0) return true;
 
         return false;

@@ -10,6 +10,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
     [Header("Enemy Movement")]
     [SerializeField] protected float _moveSpeed = 2f;
 
+    protected Vector2 _spriteSize;
     protected Rigidbody2D _rb2D;
     protected Health _health;
 
@@ -74,6 +75,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
 
+        _spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
         _rb2D = GetComponent<Rigidbody2D>();
 
         InitializeState();
@@ -108,9 +110,14 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     private void CheckForPlayerCollision()
     {
-        LayerMask player = LayerMask.GetMask("Player");
-        int hitDetect = Physics2D.OverlapBoxNonAlloc(transform.position, transform.localScale, 0f, _playerCollider, player);
+        LayerMask playerLayer = LayerMask.GetMask("Player");
+        int hitDetect = Physics2D.OverlapBoxNonAlloc(transform.position, _spriteSize, 0, _playerCollider, playerLayer);
         if (hitDetect > 0)
             Debug.Log("Player Hit");
+    }
+
+    protected virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, _spriteSize);
     }
 }
