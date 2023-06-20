@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float _hurtTime = 1f;
     [SerializeField] private Vector2 _knockBackForce;
 
+    [Space]
+    [SerializeField] private MonoBehaviour[] _playerActions;
+
+    private Animator _animator;
     private Rigidbody2D _rigidbody2D;
     private Health _health;
 
@@ -26,11 +30,30 @@ public class Player : MonoBehaviour
         float horizontalForce = _knockBackForce.x * knockBackDirection;
         _rigidbody2D.AddForce(new Vector2(horizontalForce, _knockBackForce.y), ForceMode2D.Impulse);
 
+        StartCoroutine(HurtDuration());
     }
 
     private void Awake()
     {
         _health = new Health(_maxHealth);
+        _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+    private IEnumerator HurtDuration()
+    {
+        _animator.SetBool("Hurt", true);
+        EnablePlayerActions(false);
+
+        yield return new WaitForSeconds(_hurtTime);
+
+        _animator.SetBool("Hurt", false);
+        EnablePlayerActions(true);
+    }
+
+    private void EnablePlayerActions(bool isEnable)
+    {
+        for (int i = 0; i < _playerActions.Length; i++)
+            _playerActions[i].enabled = isEnable;
     }
 }
