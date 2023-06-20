@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BeatSystemController : Singleton<BeatSystemController>
 {
-    [SerializeField] private float _beatTime = 4.0f;
+    [SerializeField] private int _beatCount = 4;
     [SerializeField] private float _beatSpeed = 1.0f;
 
     [SerializeField] private BeatSystemUI _tickUI;
@@ -27,7 +27,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         yield return new WaitForSeconds(_beatSpeed);
 
-        if (_currentTime < _beatTime - 1)
+        if (_currentTime < _beatCount)
             PlayTick();
         else
             PlayBeat();
