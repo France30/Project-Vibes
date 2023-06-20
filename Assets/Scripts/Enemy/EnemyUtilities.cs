@@ -12,4 +12,10 @@ public static class EnemyUtilities
 
         return rotation;
     }
+
+    public static int GetCollisionDirection(Transform transform, Collider2D otherCollider2D)
+    {
+        bool isCollisionRight = otherCollider2D.transform.position.x > transform.position.x;
+        return (isCollisionRight) ? 1 : -1;
+    }
 }

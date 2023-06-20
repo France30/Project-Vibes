@@ -10,7 +10,6 @@ public abstract class GroundEnemy : EnemyBase
     [SerializeField] protected Transform _groundPlatformCheck;
     [SerializeField] protected LayerMask _whatIsPlatform;
 
-    protected Vector2 _localScale;
     protected RaycastHit2D[] _hitDetect = new RaycastHit2D[100];
     protected Collider2D[] _overlapDetect = new Collider2D[100];
 
@@ -49,7 +48,6 @@ public abstract class GroundEnemy : EnemyBase
 
     private void Start()
     {
-        _localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
         _controller = GetComponent<CharacterController2D>();
     }
 
@@ -78,7 +76,7 @@ public abstract class GroundEnemy : EnemyBase
         if (isTargetAbove)
         {
             //Assume the target is on a platform if self is under a platform
-            int colliders = Physics2D.BoxCastNonAlloc(transform.position, _localScale, 0, transform.up, _hitDetect, Mathf.Infinity, _whatIsPlatform);
+            int colliders = Physics2D.BoxCastNonAlloc(transform.position, _spriteSize, 0, transform.up, _hitDetect, Mathf.Infinity, _whatIsPlatform);
             if (colliders > 0) return true;
         }
 
@@ -92,7 +90,7 @@ public abstract class GroundEnemy : EnemyBase
         if (isTargetBelow)
         {
             //Assume the target is below a platform if self is on a platform
-            int colliders = Physics2D.BoxCastNonAlloc(_groundPlatformCheck.position, _localScale, 0, -transform.up, _hitDetect, _groundPlatformCheck.position.y, _whatIsPlatform);
+            int colliders = Physics2D.BoxCastNonAlloc(_groundPlatformCheck.position, _spriteSize, 0, -transform.up, _hitDetect, _groundPlatformCheck.position.y, _whatIsPlatform);
             if (colliders > 0) return true;
         }
 
@@ -102,15 +100,17 @@ public abstract class GroundEnemy : EnemyBase
     private bool IsCollidingWithOtherGroundEnemy()
     {
         LayerMask enemyLayer = gameObject.layer;
-        int colliders = Physics2D.BoxCastNonAlloc(transform.position, _localScale, 0, transform.position, _hitDetect, enemyLayer);
+        int colliders = Physics2D.BoxCastNonAlloc(transform.position, _spriteSize, 0, transform.position, _hitDetect, enemyLayer);
         if (colliders > 0) return true;
 
         return false;
     }
 
-    private void OnDrawGizmos()
+    protected override void OnDrawGizmos()
     {
-        Gizmos.DrawCube(_wallCheck.position, new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y));
-        Gizmos.DrawCube(_groundPlatformCheck.position, new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y));
+        base.OnDrawGizmos();
+
+        Gizmos.DrawWireCube(_wallCheck.position, _spriteSize);
+        Gizmos.DrawWireCube(_groundPlatformCheck.position, _spriteSize);
     }
 }
