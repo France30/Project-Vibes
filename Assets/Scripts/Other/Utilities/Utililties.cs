@@ -6,4 +6,12 @@ public static class Utilities
     {
         component = (gameObject.GetComponent<T>()) ? gameObject.GetComponent<T>() : gameObject.AddComponent<T>();
     }
+
+    public static void RemoveReferenceOfDisabledComponent<T>(ref T reference) where T : MonoBehaviour
+    {
+        if (reference == null) return;
+
+        if (!reference.enabled)
+            reference = null;
+    }
 }

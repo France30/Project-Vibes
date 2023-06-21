@@ -61,5 +61,7 @@ public class Attack : State
             _prevState = idle;
         else if (TryGetComponent<Patrol>(out Patrol patrol))
             _prevState = patrol;
+
+        Utilities.RemoveReferenceOfDisabledComponent<State>(ref _prevState);
     }
 }

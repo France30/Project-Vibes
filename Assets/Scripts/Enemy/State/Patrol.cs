@@ -71,6 +71,8 @@ public class Patrol : State
     {
         if (TryGetComponent<Idle>(out Idle idle))
             _idleState = idle;
+
+        Utilities.RemoveReferenceOfDisabledComponent<State>(ref _idleState);
     }
 
     private void TryGetNextState()
@@ -79,6 +81,8 @@ public class Patrol : State
             _nextState = chase;
         else if (TryGetComponent<Attack>(out Attack attack))
             _nextState = attack;
+
+        Utilities.RemoveReferenceOfDisabledComponent<State>(ref _nextState);
     }
 
     private void LateUpdate()
