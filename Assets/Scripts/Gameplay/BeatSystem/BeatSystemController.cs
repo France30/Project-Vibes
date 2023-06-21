@@ -11,13 +11,13 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
     private float _currentCount = 0;
     private WaitForSeconds _waitForBeatSpeed;
+    private bool _isBeatPlaying = false;
 
-    public bool IsBeatPlaying { get; private set; }
+    public bool IsBeatPlaying { get { return _isBeatPlaying; } }
 
 
     private void Start()
     {
-        IsBeatPlaying = false;
         _waitForBeatSpeed = new WaitForSeconds(_beatSpeed);
 
         StartCoroutine(BeatSystem());
@@ -43,7 +43,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
         AudioManager.Instance.Play("TickBGM");       
 
-        IsBeatPlaying = false;
+        _isBeatPlaying = false;
     }
 
     private void PlayBeat()
@@ -54,6 +54,6 @@ public class BeatSystemController : Singleton<BeatSystemController>
         AudioManager.Instance.Play("BeatBGM");
         _currentCount = 0;
 
-        IsBeatPlaying = true;
+        _isBeatPlaying = true;
     }
 }
