@@ -39,11 +39,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _health = new Health(_maxHealth);
         _animator = GetComponent<Animator>();
         _spriteController = GetComponent<SpriteController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
+        _health = new Health(_maxHealth, _healthBar);
     }
 
     private IEnumerator HurtDuration()
