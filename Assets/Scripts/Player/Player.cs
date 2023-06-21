@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(SpriteController))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _maxHealth;
+    [SerializeField] private Image _healthBar;
+    [SerializeField] private Image _healthBarOverlay;
 
     [SerializeField] private float _hurtTime = 1f;
     [SerializeField] private Vector2 _knockBackForce;
