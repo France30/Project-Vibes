@@ -22,12 +22,10 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Health _health;
 
-    private bool _isInvulnerable = false;
-
 
     public void TakeDamage(int value, int knockBackDirection)
     {
-        if (_isInvulnerable) return;
+        if (_spriteController.IsFlashing) return;
 
         _health.CurrentHealth -= value;
 
@@ -46,16 +44,7 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _spriteController = GetComponent<SpriteController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-    }
 
-    private void OnEnable()
-    {
-        _spriteController.OnFlashEvent += SetInvulnerable;
-    }
-
-    private void OnDisable()
-    {
-        _spriteController.OnFlashEvent -= SetInvulnerable;
     }
 
     private IEnumerator HurtDuration()
@@ -73,10 +62,5 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < _playerActions.Length; i++)
             _playerActions[i].enabled = isEnable;
-    }
-
-    private void SetInvulnerable(bool value)
-    {
-        _isInvulnerable = value;
     }
 }
