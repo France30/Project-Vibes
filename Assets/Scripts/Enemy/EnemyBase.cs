@@ -41,6 +41,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _health.CurrentHealth -= value;
         Debug.Log(InstanceID + " has been hit");
 
+        if(!_spriteController.IsFlashing)
+            StartCoroutine(_spriteController.Flash());
+
         if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
     }
 
