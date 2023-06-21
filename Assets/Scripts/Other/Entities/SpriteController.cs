@@ -54,4 +54,19 @@ public class SpriteController : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _originalMaterial = _spriteRenderer.material;
     }
+
+    private void OnEnable()
+    {
+        OnFlashEvent += SetIsFlashing;
+    }
+
+    private void OnDisable()
+    {
+        OnFlashEvent -= SetIsFlashing;
+    }
+
+    private void SetIsFlashing(bool isFlashing)
+    {
+        _isFlashing = isFlashing;
+    }
 }
