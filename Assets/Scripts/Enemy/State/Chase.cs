@@ -53,6 +53,8 @@ public class Chase : State
     {
         if (TryGetComponent<Attack>(out Attack attack))
             _attackState = attack;
+
+        Utilities.RemoveReferenceOfDisabledComponent<State>(ref _attackState);
     }
 
     private void TryGetPrevState()
@@ -63,5 +65,7 @@ public class Chase : State
             _prevState = patrol;
         else
             _playerDistanceToChaseState = Mathf.Infinity;
+
+        Utilities.RemoveReferenceOfDisabledComponent<State>(ref _prevState);
     }
 }
