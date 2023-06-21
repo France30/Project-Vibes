@@ -20,6 +20,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
     private int _instanceID = 0;
     private bool _isFacingRight = true;
     private Collider2D[] _playerCollider = new Collider2D[1];
+    private SpriteController _spriteController;
 
     public delegate void EnemyAttack();
     private EnemyAttack AttackEvent;
@@ -39,6 +40,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
     {
         _health.CurrentHealth -= value;
         Debug.Log(InstanceID + " has been hit");
+
+        if(!_spriteController.IsFlashing)
+            StartCoroutine(_spriteController.Flash());
 
         if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
     }
@@ -79,6 +83,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _instanceID = gameObject.GetInstanceID();
 
         _spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
+        _spriteController = GetComponent<SpriteController>();
         _rb2D = GetComponent<Rigidbody2D>();
 
         InitializeState();

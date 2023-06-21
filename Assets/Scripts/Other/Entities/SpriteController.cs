@@ -10,9 +10,12 @@ public class SpriteController : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Material _originalMaterial;
     private int _currentFlashCount = 0;
+    private bool _isFlashing = false;
 
     public delegate void FlashEvent(bool value);
     public event FlashEvent OnFlashEvent;
+
+    public bool IsFlashing { get { return _isFlashing; } }
 
     public IEnumerator Flash()
     {
@@ -50,5 +53,20 @@ public class SpriteController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _originalMaterial = _spriteRenderer.material;
+    }
+
+    private void OnEnable()
+    {
+        OnFlashEvent += SetIsFlashing;
+    }
+
+    private void OnDisable()
+    {
+        OnFlashEvent -= SetIsFlashing;
+    }
+
+    private void SetIsFlashing(bool isFlashing)
+    {
+        _isFlashing = isFlashing;
     }
 }
