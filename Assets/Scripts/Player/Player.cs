@@ -5,12 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteController))]
 public class Player : MonoBehaviour
 {
-    [Header("Player Health")]
     [SerializeField] private int _maxHealth;
-    [SerializeField] private Image _healthBar;
-    [SerializeField] private Image _healthBarOverlay;
 
-    [Header("Player Hit")]
     [SerializeField] private float _hurtTime = 1f;
     [SerializeField] private Vector2 _knockBackForce;
 
