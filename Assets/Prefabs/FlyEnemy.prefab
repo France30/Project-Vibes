@@ -90,6 +90,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2223888450512007851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239234384047992348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae61fb16853392344922b2e21f1fa886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteFlash: {fileID: 11400000, guid: 910971f041f442248bbe5c9e427f273b, type: 2}
 --- !u!50 &2239234384047992344
 Rigidbody2D:
   serializedVersion: 4
