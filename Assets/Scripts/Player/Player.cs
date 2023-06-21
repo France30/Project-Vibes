@@ -1,12 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(SpriteController))]
 public class Player : MonoBehaviour
 {
+    [Header("Player Health")]
     [SerializeField] private int _maxHealth;
+    [SerializeField] private Image _healthBar;
+    [SerializeField] private Image _healthBarOverlay;
 
+    [Header("Player Hit")]
     [SerializeField] private float _hurtTime = 1f;
     [SerializeField] private Vector2 _knockBackForce;
 
@@ -36,11 +41,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _health = new Health(_maxHealth);
         _animator = GetComponent<Animator>();
         _spriteController = GetComponent<SpriteController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
+        _health = new Health(_maxHealth, _healthBar);
     }
 
     private IEnumerator HurtDuration()
