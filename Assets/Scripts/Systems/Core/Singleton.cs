@@ -47,6 +47,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
+        if (_isPersist) return;
+
         _isDestroyed = true;
     }
 
