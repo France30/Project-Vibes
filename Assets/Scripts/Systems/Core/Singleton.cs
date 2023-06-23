@@ -50,6 +50,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (_isPersist) return;
 
         _isDestroyed = true;
+        _instance = null;
     }
 
 }
