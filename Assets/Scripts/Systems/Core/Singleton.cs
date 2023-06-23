@@ -8,7 +8,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         get
         {
             // referencing blocker in the event where the instance is called while OnDestroy
-            if (_applicationIsQuitting)
+            if (_isDestroyed)
                 return null;
 
             if (!_instance)
@@ -25,12 +25,14 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    private static bool _applicationIsQuitting = false;
+    private static bool _isDestroyed = false;
 
     [SerializeField] protected bool _isPersist = false;
 
     protected virtual void Awake()
     {
+        _isDestroyed = false;
+
         if (_instance == null) _instance = this as T;
 
         if (_instance != null)
@@ -45,7 +47,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        _applicationIsQuitting = true;
+        _isDestroyed = true;
     }
 
 }
