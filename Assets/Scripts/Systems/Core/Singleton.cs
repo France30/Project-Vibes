@@ -53,4 +53,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         _instance = null;
     }
 
+    protected virtual void OnApplicationQuit()
+    {
+        _isDestroyed = true;
+    }
 }
