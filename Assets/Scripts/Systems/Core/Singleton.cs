@@ -7,8 +7,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            // referencing blocker in the event where the instance is called while OnDestroy
-            if (_isDestroyed)
+            // referencing blocker in the event where the instance is called while OnApplicationQuit
+            if (_isApplicationQuit)
                 return null;
 
             if (!_instance)
@@ -16,8 +16,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
             if (!_instance)
             {
-                Debug.Log((typeof(T)).Name);
-                T instance = Resources.Load<T>("System/" + (typeof(T)).Name);
+                T instance = Resources.Load<T>("Managers/" + typeof(T).Name);
                 _instance = Instantiate(instance);
             }
 
@@ -25,14 +24,12 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    private static bool _isDestroyed = false;
-
+    private static bool _isApplicationQuit = false;
     [SerializeField] protected bool _isPersist = false;
+
 
     protected virtual void Awake()
     {
-        _isDestroyed = false;
-
         if (_instance == null) _instance = this as T;
 
         if (_instance != null)
@@ -42,19 +39,10 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
 
         if (_isPersist) DontDestroyOnLoad(this.gameObject);
-
-    }
-
-    protected virtual void OnDestroy()
-    {
-        if (_isPersist) return;
-
-        _isDestroyed = true;
-        _instance = null;
     }
 
     protected virtual void OnApplicationQuit()
     {
-        _isDestroyed = true;
+        _isApplicationQuit = true;
     }
 }
