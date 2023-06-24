@@ -16,7 +16,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
             if (!_instance)
             {
-                Debug.Log((typeof(T)).Name);
                 T instance = Resources.Load<T>("Managers/" + typeof(T).Name);
                 _instance = Instantiate(instance);
             }
