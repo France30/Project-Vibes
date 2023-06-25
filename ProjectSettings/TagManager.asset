@@ -50,6 +50,6 @@ TagManager:
   - name: Foreground
     uniqueID: 774142143
     locked: 0
-  - name: Attack
+  - name: AttackHitbox
     uniqueID: 577729755
     locked: 0
