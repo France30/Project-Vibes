@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
 
         StartCoroutine(HurtDuration());
         StartCoroutine(_spriteController.Flash());
+        StartCoroutine(_spriteController.Flash()); //to move, keep here for prototype/alpha purposes
     }
 
     private void Awake()
