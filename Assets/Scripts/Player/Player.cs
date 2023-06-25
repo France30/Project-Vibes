@@ -50,18 +50,19 @@ public class Player : MonoBehaviour
 
     private IEnumerator HurtDuration()
     {
-        _animator.SetBool("Hurt", true);
-        EnablePlayerActions(false);
+        bool isHurt = true;
+        _animator.SetBool("Hurt", isHurt);
+        DisablePlayerActions(isHurt);
 
         yield return new WaitForSeconds(_hurtTime);
 
-        _animator.SetBool("Hurt", false);
-        EnablePlayerActions(true);
+        _animator.SetBool("Hurt", !isHurt);
+        DisablePlayerActions(!isHurt);
     }
 
-    private void EnablePlayerActions(bool isEnable)
+    private void DisablePlayerActions(bool isEnable)
     {
         for (int i = 0; i < _playerActions.Length; i++)
-            _playerActions[i].enabled = isEnable;
+            _playerActions[i].enabled = !isEnable;
     }
 }
