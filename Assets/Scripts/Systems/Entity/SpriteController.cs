@@ -12,7 +12,7 @@ public class SpriteController : MonoBehaviour
     private int _currentFlashCount = 0;
     private bool _isFlashing = false;
 
-    public delegate void FlashEvent(bool value);
+    public delegate void FlashEvent(bool isFlashing);
     public event FlashEvent OnFlashEvent;
 
     public bool IsFlashing { get { return _isFlashing; } }
