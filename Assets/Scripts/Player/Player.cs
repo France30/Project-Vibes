@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         _rigidbody2D.AddForce(new Vector2(horizontalForce, _knockBackForce.y), ForceMode2D.Impulse);
 
         StartCoroutine(HurtDuration());
-        StartCoroutine(_spriteController.Flash());
         StartCoroutine(_spriteController.Flash()); //to move, keep here for prototype/alpha purposes
     }
 
