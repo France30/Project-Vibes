@@ -30,10 +30,8 @@ public class Player : MonoBehaviour
 
         _health.CurrentHealth -= value;
 
-        _rigidbody2D.velocity = Vector2.zero;
-        float horizontalForce = _knockBackForce.x * knockBackDirection;
-        _rigidbody2D.AddForce(new Vector2(horizontalForce, _knockBackForce.y), ForceMode2D.Impulse);
 
+        ApplyKnockBack(knockBackDirection);
         StartCoroutine(HurtDuration());
         StartCoroutine(_spriteController.Flash()); //to move, keep here for prototype/alpha purposes
     }
@@ -45,6 +43,13 @@ public class Player : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
         _health = new Health(_maxHealth, _healthBar);
+    }
+
+    private void ApplyKnockBack(int knockBackDirection = 0)
+    {
+        _rigidbody2D.velocity = Vector2.zero;
+        float horizontalForce = _knockBackForce.x * knockBackDirection;
+        _rigidbody2D.AddForce(new Vector2(horizontalForce, _knockBackForce.y), ForceMode2D.Impulse);
     }
 
     private IEnumerator HurtDuration()
