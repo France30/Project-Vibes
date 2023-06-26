@@ -11,6 +11,7 @@ public class SpriteController : MonoBehaviour
     private Material _originalMaterial;
     private int _currentFlashCount = 0;
     private bool _isFlashing = false;
+    private Vector2 _spriteSize;
 
     public delegate void FlashEvent(bool isFlashing);
     public event FlashEvent OnFlashEvent;
@@ -24,7 +25,17 @@ public class SpriteController : MonoBehaviour
             return _spriteRenderer;
         } 
     }
+    public Vector2 SpriteSize { 
+        get 
+        {
+            if (_spriteSize == null || _spriteSize == Vector2.zero)
+                _spriteSize = SpriteRenderer.sprite.bounds.size;
+
+            return _spriteSize;
+        } 
+    }
     public bool IsFlashing { get { return _isFlashing; } }
+
 
     public IEnumerator Flash()
     {
@@ -62,6 +73,7 @@ public class SpriteController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _originalMaterial = _spriteRenderer.material;
+        _spriteSize = _spriteRenderer.sprite.bounds.size;
     }
 
     private void OnEnable()

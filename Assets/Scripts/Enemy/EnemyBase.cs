@@ -96,9 +96,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
     {
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
-
-        _spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
+   
         _spriteController = GetComponent<SpriteController>();
+        _spriteSize = _spriteController.SpriteSize;
         _rb2D = GetComponent<Rigidbody2D>();
 
         InitializeState();
