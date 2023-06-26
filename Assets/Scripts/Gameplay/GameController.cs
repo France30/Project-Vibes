@@ -41,6 +41,7 @@ public class GameController : Singleton<GameController>
 
     private void Update()
     {
+        if (_isGameOver) return;
 
         if (Input.GetKeyDown(KeyCode.P))
             TogglePause();
