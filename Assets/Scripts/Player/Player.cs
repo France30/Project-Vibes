@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
         if (_health.CurrentHealth <= 0)
         {
+            GameController.Instance.OnPauseEvent -= DisablePlayerActions;
             OnPlayerDeath?.Invoke(true);
             return;
         }
@@ -55,11 +56,14 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        OnPlayerDeath += DisablePlayerActions;
         GameController.Instance.OnPauseEvent += DisablePlayerActions;
     }
 
     private void OnDisable()
     {
+        OnPlayerDeath -= DisablePlayerActions;
+
         if (GameController.Instance == null) return;
 
         GameController.Instance.OnPauseEvent -= DisablePlayerActions;
