@@ -15,6 +15,15 @@ public class SpriteController : MonoBehaviour
     public delegate void FlashEvent(bool isFlashing);
     public event FlashEvent OnFlashEvent;
 
+    public SpriteRenderer SpriteRenderer { 
+        get 
+        {
+            if (_spriteRenderer == null)
+                _spriteRenderer = GetComponent<SpriteRenderer>();
+
+            return _spriteRenderer;
+        } 
+    }
     public bool IsFlashing { get { return _isFlashing; } }
 
     public IEnumerator Flash()
