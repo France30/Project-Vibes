@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
 
         _health.CurrentHealth -= value;
 
-        //Apply KnockBack
         _rigidbody2D.velocity = Vector2.zero;
         float horizontalForce = _knockBackForce.x * knockBackDirection;
         _rigidbody2D.AddForce(new Vector2(horizontalForce, _knockBackForce.y), ForceMode2D.Impulse);
