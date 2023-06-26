@@ -6,6 +6,7 @@ public class GameController : Singleton<GameController>
 {
     [Header("Game Over Settings")]
     [SerializeField] private float _freezeDeathEffectDuration = 1f;
+    [SerializeField] private float _timeTillLevelReset = 2f;
 
     private bool _isPaused = false;
 
@@ -31,6 +32,20 @@ public class GameController : Singleton<GameController>
             TogglePause();
     }
 
+    //Use this method to disable any dependencies first
+    private void DisableGame()
+    {
+        Player.enabled = false;
+
+        EnemyBase[] enemy = FindObjectsOfType<EnemyBase>();
+        for (int i = 0; i < enemy.Length; i++)
+        {
+            if (!enemy[i].enabled) continue;
+
+            enemy[i].enabled = false;
+        }
+    }
+
     private void TogglePause()
     {
         _isPaused = !_isPaused;
@@ -43,6 +58,11 @@ public class GameController : Singleton<GameController>
         yield return StartCoroutine(FreezeDeathEffect());
 
         Player.GetComponent<SpriteRenderer>().enabled = false;
+
+        yield return new WaitForSeconds(_timeTillLevelReset);
+
+        DisableGame();
+        LevelManager.Instance.ResetLevel();
     }
 
     private IEnumerator FreezeDeathEffect()
