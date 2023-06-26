@@ -14,7 +14,7 @@ public class BeatSystemUI : MonoBehaviour
         _image = GetComponent<Image>();
     }
 
-    void Update()
+    private void Update()
     {
         _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, ImageAlpha);
 
