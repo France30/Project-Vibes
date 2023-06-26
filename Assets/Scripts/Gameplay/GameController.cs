@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameController : Singleton<GameController>
 {
+    [Header("Game Over Settings")]
+    [SerializeField] private float _freezeDeathEffectDuration = 1f;
+
     private bool _isPaused = false;
 
     public delegate void OnPause(bool isPaused);
@@ -37,5 +40,15 @@ public class GameController : Singleton<GameController>
 
     private IEnumerator GameOverSequence()
     {
+        yield return StartCoroutine(FreezeDeathEffect());
+    }
+
+    private IEnumerator FreezeDeathEffect()
+    {
+        TogglePause();
+
+        yield return new WaitForSecondsRealtime(_freezeDeathEffectDuration);
+
+        TogglePause();
     }
 }
