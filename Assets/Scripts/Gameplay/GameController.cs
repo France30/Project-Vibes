@@ -9,6 +9,7 @@ public class GameController : Singleton<GameController>
     [SerializeField] private float _timeTillLevelReset = 2f;
 
     private bool _isPaused = false;
+    private bool _isGameOver = false;
 
     public delegate void OnPause(bool isPaused);
     public event OnPause OnPauseEvent;
@@ -23,6 +24,19 @@ public class GameController : Singleton<GameController>
 
             return _player;
         } 
+    }
+
+
+    private void OnEnable()
+    {
+        Player.OnPlayerDeath += GameOver;
+    }
+
+    private void OnDestroy()
+    {
+        if (Player == null) return;
+
+        Player.OnPlayerDeath -= GameOver;
     }
 
     private void Update()
@@ -51,6 +65,14 @@ public class GameController : Singleton<GameController>
         _isPaused = !_isPaused;
         Time.timeScale = (_isPaused) ? 0 : 1;
         OnPauseEvent?.Invoke(_isPaused);
+    }
+
+    private void GameOver(bool isGameOver)
+    {
+        if (isGameOver)
+            StartCoroutine(GameOverSequence());
+
+        _isGameOver = isGameOver;
     }
 
     private IEnumerator GameOverSequence()
