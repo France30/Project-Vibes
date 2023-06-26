@@ -36,6 +36,11 @@ public class PlayerAttack : MonoBehaviour
         } 
     }
 
+    private void OnDisable()
+    {
+        _currentChord = 0;
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -86,9 +91,7 @@ public class PlayerAttack : MonoBehaviour
 
         _isAttackCoroutineRunning = false;
 
-        if (!this.enabled || _currentChord <= 0) yield break;
-
-        if (Input.GetButton("Fire1")) //continue chord progression
+        if (Input.GetButton("Fire1") && _currentChord != 0) //continue chord progression
             StartCoroutine(PlayAttack());
     }
 
