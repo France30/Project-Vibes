@@ -4,12 +4,34 @@ using UnityEngine;
 
 public class GameController : Singleton<GameController>
 {
-    public Player Player { get; private set; }
+    private bool _isPaused = false;
+
+    public delegate void OnPause(bool isPaused);
+    public event OnPause OnPauseEvent;
 
 
-    protected override void Awake()
+    private Player _player;
+    public Player Player { 
+        get 
+        {
+            if (_player == null)
+                _player = FindObjectOfType<Player>();
+
+            return _player;
+        } 
+    }
+
+    private void Update()
     {
-        base.Awake();
-        Player = FindObjectOfType<Player>();
+
+        if (Input.GetKeyDown(KeyCode.P))
+            TogglePause();
+    }
+
+    private void TogglePause()
+    {
+        _isPaused = !_isPaused;
+        Time.timeScale = (_isPaused) ? 0 : 1;
+        OnPauseEvent?.Invoke(_isPaused);
     }
 }
