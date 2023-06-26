@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Health _health;
 
+    public delegate void PlayerDeath(bool isPlayerDead);
+    public event PlayerDeath OnPlayerDeath;
+
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
@@ -30,6 +33,11 @@ public class Player : MonoBehaviour
 
         _health.CurrentHealth -= value;
 
+        if (_health.CurrentHealth <= 0)
+        {
+            OnPlayerDeath?.Invoke(true);
+            return;
+        }
 
         ApplyKnockBack(knockBackDirection);
         StartCoroutine(HurtDuration());
