@@ -41,6 +41,8 @@ public class GameController : Singleton<GameController>
     private IEnumerator GameOverSequence()
     {
         yield return StartCoroutine(FreezeDeathEffect());
+
+        Player.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private IEnumerator FreezeDeathEffect()
