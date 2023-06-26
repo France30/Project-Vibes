@@ -87,6 +87,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _rb2D = GetComponent<Rigidbody2D>();
 
         InitializeState();
+        this.enabled = false;
     }
 
     protected override void Update()
