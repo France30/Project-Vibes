@@ -14,7 +14,6 @@ public class BeatSystemUI : MonoBehaviour
         _image = GetComponent<Image>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, ImageAlpha);
