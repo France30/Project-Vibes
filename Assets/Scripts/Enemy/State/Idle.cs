@@ -55,6 +55,11 @@ public class Idle : State
         TryGetNextState();
     }
 
+    private void OnBecameInvisible()
+    {
+        _currentTime = 0;
+    }
+
     private void TryGetPatrolState()
     {
         if (TryGetComponent<Patrol>(out Patrol patrol))
