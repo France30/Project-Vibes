@@ -104,6 +104,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
         CheckForPlayerCollision();
     }
 
+    private void OnBecameVisible()
+    {
+        this.enabled = true;
+    }
+
     private void InitializeState()
     {
         if (TryGetComponent<Idle>(out Idle idle))
