@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class GameController : Singleton<GameController>
 {
-    public Player Player { get; private set; }
 
 
-    protected override void Awake()
+    private Player _player;
+    public Player Player { 
+        get 
+        {
+            if (_player == null)
+                _player = FindObjectOfType<Player>();
+
+            return _player;
+        } 
+    }
+
+    private void TogglePause()
     {
-        base.Awake();
-        Player = FindObjectOfType<Player>();
     }
 }
