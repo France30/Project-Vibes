@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     private Health _health;
 
 
-    public void TakeDamage(int value, int knockBackDirection)
+    public void TakeDamage(int value, int knockBackDirection = 0)
     {
         if (_spriteController.IsFlashing || _health.CurrentHealth <= 0) return;
 
