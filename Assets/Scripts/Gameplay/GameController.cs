@@ -26,16 +26,22 @@ public class GameController : Singleton<GameController>
     }
 
 
+    protected override void Awake()
+    {
+        base.Awake();
+        _player = FindObjectOfType<Player>();
+    }
+
     private void OnEnable()
     {
-        Player.OnPlayerDeath += GameOver;
+        _player.OnPlayerDeath += GameOver;
     }
 
     private void OnDestroy()
     {
-        if (Player == null) return;
+        if (_player == null) return;
 
-        Player.OnPlayerDeath -= GameOver;
+        _player.OnPlayerDeath -= GameOver;
     }
 
     private void Update()
@@ -49,7 +55,7 @@ public class GameController : Singleton<GameController>
     //Use this method to disable any dependencies first
     private void DisableGame()
     {
-        Player.enabled = false;
+        _player.enabled = false;
 
         EnemyBase[] enemy = FindObjectsOfType<EnemyBase>();
         for (int i = 0; i < enemy.Length; i++)
@@ -79,7 +85,7 @@ public class GameController : Singleton<GameController>
     {
         yield return StartCoroutine(FreezeDeathEffect());
 
-        Player.GetComponent<SpriteRenderer>().enabled = false;
+        _player.GetComponent<SpriteRenderer>().enabled = false;
 
         yield return new WaitForSeconds(_timeTillLevelReset);
 
