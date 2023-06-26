@@ -78,20 +78,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
         AttackEvent = enemyAttack;
     }
 
-    private void Awake()
-    {
-        _basePosition = transform.position;
-        _health = new Health(_maxHealth, _healthBar);
-        _instanceID = gameObject.GetInstanceID();
-
-        _spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
-        _spriteController = GetComponent<SpriteController>();
-        _rb2D = GetComponent<Rigidbody2D>();
-
-        InitializeState();
-        this.enabled = false;
-    }
-
     protected override void Update()
     {
         base.Update();
@@ -105,6 +91,20 @@ public abstract class EnemyBase : StateMachine, IDamageable
         base.FixedUpdate();
 
         CheckForPlayerCollision();
+    }
+
+    private void Awake()
+    {
+        _basePosition = transform.position;
+        _health = new Health(_maxHealth, _healthBar);
+        _instanceID = gameObject.GetInstanceID();
+
+        _spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
+        _spriteController = GetComponent<SpriteController>();
+        _rb2D = GetComponent<Rigidbody2D>();
+
+        InitializeState();
+        this.enabled = false;
     }
 
     private void OnBecameVisible()
