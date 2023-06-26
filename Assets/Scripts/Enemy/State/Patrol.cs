@@ -67,11 +67,6 @@ public class Patrol : State
         TryGetNextState();
     }
 
-    private void OnBecameInvisible()
-    {
-        _currentWayPoint = 0;
-    }
-
     private void TryGetIdleState()
     {
         if (TryGetComponent<Idle>(out Idle idle))
