@@ -19,6 +19,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     private int _instanceID = 0;
     private bool _isFacingRight = true;
+    private Vector2 _basePosition;
     private Collider2D[] _playerCollider = new Collider2D[1];
     private SpriteController _spriteController;
 
@@ -79,6 +80,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     private void Awake()
     {
+        _basePosition = transform.position;
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
 
@@ -112,6 +114,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     private void OnBecameInvisible()
     {
+        transform.position = _basePosition;
         this.enabled = false;
     }
 
