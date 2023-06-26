@@ -8,14 +8,13 @@ public class GameController : Singleton<GameController>
     [SerializeField] private float _freezeDeathEffectDuration = 1f;
     [SerializeField] private float _timeTillLevelReset = 2f;
 
+    private Player _player;
     private bool _isPaused = false;
     private bool _isGameOver = false;
 
     public delegate void OnPause(bool isPaused);
     public event OnPause OnPauseEvent;
 
-
-    private Player _player;
     public Player Player { 
         get 
         {
