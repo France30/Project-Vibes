@@ -34,4 +34,8 @@ public class GameController : Singleton<GameController>
         Time.timeScale = (_isPaused) ? 0 : 1;
         OnPauseEvent?.Invoke(_isPaused);
     }
+
+    private IEnumerator GameOverSequence()
+    {
+    }
 }
