@@ -45,6 +45,18 @@ public class Player : MonoBehaviour
         _health = new Health(_maxHealth, _healthBar);
     }
 
+    private void OnEnable()
+    {
+        GameController.Instance.OnPauseEvent += DisablePlayerActions;
+    }
+
+    private void OnDisable()
+    {
+        if (GameController.Instance == null) return;
+
+        GameController.Instance.OnPauseEvent -= DisablePlayerActions;
+    }
+
     private void ApplyKnockBack(int knockBackDirection = 0)
     {
         _rigidbody2D.velocity = Vector2.zero;
