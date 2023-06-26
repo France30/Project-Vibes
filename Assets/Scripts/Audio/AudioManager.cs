@@ -9,6 +9,8 @@ public class AudioManager : Singleton<AudioManager>
     protected override void Awake()
     {
         base.Awake();
+        _isPersist = true;
+
         foreach(Sound s in _sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
