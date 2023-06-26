@@ -109,6 +109,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
         this.enabled = true;
     }
 
+    private void OnBecameInvisible()
+    {
+        this.enabled = false;
+    }
+
     private void InitializeState()
     {
         if (TryGetComponent<Idle>(out Idle idle))
