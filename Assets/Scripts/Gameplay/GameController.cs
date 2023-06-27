@@ -55,8 +55,6 @@ public class GameController : Singleton<GameController>
     //Use this method to disable any dependencies first
     private void DisableGame()
     {
-        _player.enabled = false;
-
         EnemyBase[] enemy = FindObjectsOfType<EnemyBase>();
         for (int i = 0; i < enemy.Length; i++)
         {
@@ -64,6 +62,8 @@ public class GameController : Singleton<GameController>
 
             enemy[i].enabled = false;
         }
+
+        _player.enabled = false;
     }
 
     private void TogglePause()
