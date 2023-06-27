@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public delegate void PlayerDeath(bool isPlayerDead);
     public event PlayerDeath OnPlayerDeath;
 
+    public int MaxHealth { get { return _maxHealth; } }
+
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
