@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
         ApplyKnockBack(knockBackDirection);
         StartCoroutine(HurtDuration());
-        StartCoroutine(_spriteController.Flash()); //to move, keep here for prototype/alpha purposes
+        StartCoroutine(_spriteController.Flash()); //for placeholder purposes only
     }
 
     private void Awake()
