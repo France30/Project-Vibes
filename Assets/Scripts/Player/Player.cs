@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Health _health;
 
+    private bool _isHurt = false;
+
     public delegate void PlayerDeath(bool isPlayerDead);
     public event PlayerDeath OnPlayerDeath;
 
@@ -79,14 +81,17 @@ public class Player : MonoBehaviour
 
     private IEnumerator HurtDuration()
     {
-        bool isHurt = true;
-        _animator.SetBool("Hurt", isHurt);
-        DisablePlayerActions(isHurt);
+        _isHurt = true;
+        _animator.SetBool("Hurt", _isHurt);
+        DisablePlayerActions(_isHurt);
 
         yield return new WaitForSeconds(_hurtTime);
 
-        _animator.SetBool("Hurt", !isHurt);
-        DisablePlayerActions(!isHurt);
+        _animator.SetBool("Hurt", !_isHurt);
+        DisablePlayerActions(!_isHurt);
+
+        //StartCoroutine(_spriteController.Flash());
+        _isHurt = false;
     }
 
     private void DisablePlayerActions(bool isEnable)
