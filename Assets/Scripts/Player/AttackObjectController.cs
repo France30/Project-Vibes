@@ -23,7 +23,6 @@ public class AttackObjectController : MonoBehaviour
     private void Awake()
     {
         _baseScale = transform.localScale;
-        gameObject.SetActive(false);
     }
 
     private void OnEnable()
