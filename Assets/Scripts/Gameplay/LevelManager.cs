@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    [SerializeField] private GameObject _loadingScreen;
+    [SerializeField] private Slider _loadingBar;
+    [SerializeField] private TextMeshProUGUI _loadingText;
+
     private bool _isLoadingLevel = false;
 
     public void LoadLevelSelect(int sceneIndex)
