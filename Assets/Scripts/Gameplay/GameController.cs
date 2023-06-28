@@ -29,6 +29,9 @@ public class GameController : Singleton<GameController>
     protected override void Awake()
     {
         base.Awake();
+ 
+        GameUIManager intializeGameUI = GameUIManager.Instance; //for easier testing, will remove at a later time
+
         _player = FindObjectOfType<Player>();
     }
 
