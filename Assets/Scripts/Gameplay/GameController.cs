@@ -38,13 +38,20 @@ public class GameController : Singleton<GameController>
     private void OnEnable()
     {
         _player.OnPlayerDeath += GameOver;
+        LevelManager.Instance.OnLevelLoad += DisableGame;
     }
 
     private void OnDestroy()
     {
-        if (_player == null) return;
+        if (_player != null)
+        {
+            _player.OnPlayerDeath -= GameOver;
+        }
 
-        _player.OnPlayerDeath -= GameOver;
+        if(LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnLevelLoad -= DisableGame;
+        }
     }
 
     private void Update()
