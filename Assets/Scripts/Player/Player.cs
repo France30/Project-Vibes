@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
-        if (_spriteController.IsFlashing || _health.CurrentHealth <= 0) return;
+        if (_isHurt || _spriteController.IsFlashing) return;
 
         _health.CurrentHealth -= value;
 
