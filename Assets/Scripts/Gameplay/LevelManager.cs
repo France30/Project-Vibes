@@ -39,8 +39,8 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (!_isLoadingLevel)
         {
-            Time.timeScale = 1;
             _isLoadingLevel = true;
+            Time.timeScale = 1;
             StartCoroutine(RestartLevel());
         }
     }
