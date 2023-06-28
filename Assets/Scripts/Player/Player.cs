@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
 
         if (_health.CurrentHealth <= 0)
         {
-            GameController.Instance.OnPauseEvent -= DisablePlayerActions;
             OnPlayerDeath?.Invoke(true);
             return;
         }
