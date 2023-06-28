@@ -63,9 +63,27 @@ public class LevelManager : Singleton<LevelManager>
 
     private IEnumerator LoadLevel(int sceneIndex)
     {
-        yield return SceneManager.LoadSceneAsync(sceneIndex);
+        OnLevelLoad?.Invoke();
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        yield return StartCoroutine(LoadingScreen(operation));
 
         _isLoadingLevel = false;
+    }
+
+    private IEnumerator LoadingScreen(AsyncOperation operation)
+    {
+        _loadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+            _loadingBar.value = progress;
+            _loadingText.text = progress * 100f + "%";
+            yield return null;
+        }
+
+        _loadingScreen.SetActive(false);
     }
 
     private void LoadPlayerPositionInLevel(PlayerData playerData)
