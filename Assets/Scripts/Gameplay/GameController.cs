@@ -29,19 +29,29 @@ public class GameController : Singleton<GameController>
     protected override void Awake()
     {
         base.Awake();
+ 
+        GameUIManager intializeGameUI = GameUIManager.Instance; //for easier testing, will remove at a later time
+
         _player = FindObjectOfType<Player>();
     }
 
     private void OnEnable()
     {
         _player.OnPlayerDeath += GameOver;
+        LevelManager.Instance.OnLevelLoad += DisableGame;
     }
 
     private void OnDestroy()
     {
-        if (_player == null) return;
+        if (_player != null)
+        {
+            _player.OnPlayerDeath -= GameOver;
+        }
 
-        _player.OnPlayerDeath -= GameOver;
+        if(LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnLevelLoad -= DisableGame;
+        }
     }
 
     private void Update()
@@ -58,12 +68,13 @@ public class GameController : Singleton<GameController>
         EnemyBase[] enemy = FindObjectsOfType<EnemyBase>();
         for (int i = 0; i < enemy.Length; i++)
         {
-            if (!enemy[i].enabled) continue;
+            if (!enemy[i].isActiveAndEnabled) continue;
 
-            enemy[i].enabled = false;
+            enemy[i].gameObject.SetActive(false);
         }
 
-        _player.enabled = false;
+        GameUIManager.Instance.gameObject.SetActive(false);
+        _player.gameObject.SetActive(false);
     }
 
     private void TogglePause()
