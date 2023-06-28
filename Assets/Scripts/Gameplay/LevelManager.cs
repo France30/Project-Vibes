@@ -13,6 +13,10 @@ public class LevelManager : Singleton<LevelManager>
 
     private bool _isLoadingLevel = false;
 
+    public delegate void LevelLoad();
+    public event LevelLoad OnLevelLoad;
+
+
     public void LoadLevelSelect(int sceneIndex)
     {
         if (!_isLoadingLevel)
