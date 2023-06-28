@@ -70,15 +70,17 @@ public class GameController : Singleton<GameController>
     {
         _isPaused = !_isPaused;
         Time.timeScale = (_isPaused) ? 0 : 1;
-        OnPauseEvent?.Invoke(_isPaused);
+
+        if (!_isGameOver)
+            OnPauseEvent?.Invoke(_isPaused);
     }
 
     private void GameOver(bool isGameOver)
     {
-        if (isGameOver)
-            StartCoroutine(GameOverSequence());
-
         _isGameOver = isGameOver;
+
+        if (_isGameOver)
+            StartCoroutine(GameOverSequence());
     }
 
     private IEnumerator GameOverSequence()
