@@ -68,12 +68,13 @@ public class GameController : Singleton<GameController>
         EnemyBase[] enemy = FindObjectsOfType<EnemyBase>();
         for (int i = 0; i < enemy.Length; i++)
         {
-            if (!enemy[i].enabled) continue;
+            if (!enemy[i].isActiveAndEnabled) continue;
 
-            enemy[i].enabled = false;
+            enemy[i].gameObject.SetActive(false);
         }
 
-        _player.enabled = false;
+        GameUIManager.Instance.gameObject.SetActive(false);
+        _player.gameObject.SetActive(false);
     }
 
     private void TogglePause()
