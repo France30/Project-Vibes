@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
 
     private List<Panel> panelHistory = new List<Panel>();
 
+
     private void Start()
     {
         SetupPanels();
@@ -24,19 +25,9 @@ public class MenuManager : MonoBehaviour
         currentPanel.Show();
     }
 
-    private void Update()
-    {
-        //if XR something
-            //GoToPrevious();
-    }
-
     public void GoToPrevious()
     {
-        if (panelHistory.Count == 0)
-        {
-            //OVRManager.PlatformUIConfirmQuit() equivalent for XR
-            return;
-        }
+        if (panelHistory.Count == 0) return;
 
         int lastIndex = panelHistory.Count - 1;
         SetCurrent(panelHistory[lastIndex]);
