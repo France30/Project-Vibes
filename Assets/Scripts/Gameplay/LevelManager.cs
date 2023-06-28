@@ -48,6 +48,7 @@ public class LevelManager : Singleton<LevelManager>
     protected override void Awake()
     {
         base.Awake();
+        _loadingScreen.SetActive(false);
         _isPersist = true;
     }
 
