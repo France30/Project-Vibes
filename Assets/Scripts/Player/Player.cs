@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
         if (_isHurt || _spriteController.IsFlashing) return;
 
         _health.CurrentHealth -= value;
+        _isHurt = true;
 
         if (_health.CurrentHealth <= 0)
         {
@@ -81,7 +82,6 @@ public class Player : MonoBehaviour
 
     private IEnumerator HurtDuration()
     {
-        _isHurt = true;
         _animator.SetBool("Hurt", _isHurt);
         DisablePlayerActions(_isHurt);
 
