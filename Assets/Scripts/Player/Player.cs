@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Health _health;
 
+    private bool _isHurt = false;
+
     public delegate void PlayerDeath(bool isPlayerDead);
     public event PlayerDeath OnPlayerDeath;
 
@@ -31,20 +33,19 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
-        if (_spriteController.IsFlashing || _health.CurrentHealth <= 0) return;
+        if (_isHurt || _spriteController.IsFlashing) return;
 
         _health.CurrentHealth -= value;
 
         if (_health.CurrentHealth <= 0)
         {
-            GameController.Instance.OnPauseEvent -= DisablePlayerActions;
             OnPlayerDeath?.Invoke(true);
             return;
         }
 
         ApplyKnockBack(knockBackDirection);
         StartCoroutine(HurtDuration());
-        StartCoroutine(_spriteController.Flash()); //to move, keep here for prototype/alpha purposes
+        StartCoroutine(_spriteController.Flash()); //for placeholder purposes only
     }
 
     private void Awake()
@@ -80,14 +81,17 @@ public class Player : MonoBehaviour
 
     private IEnumerator HurtDuration()
     {
-        bool isHurt = true;
-        _animator.SetBool("Hurt", isHurt);
-        DisablePlayerActions(isHurt);
+        _isHurt = true;
+        _animator.SetBool("Hurt", _isHurt);
+        DisablePlayerActions(_isHurt);
 
         yield return new WaitForSeconds(_hurtTime);
 
-        _animator.SetBool("Hurt", !isHurt);
-        DisablePlayerActions(!isHurt);
+        _animator.SetBool("Hurt", !_isHurt);
+        DisablePlayerActions(!_isHurt);
+
+        //StartCoroutine(_spriteController.Flash());
+        _isHurt = false;
     }
 
     private void DisablePlayerActions(bool isEnable)
