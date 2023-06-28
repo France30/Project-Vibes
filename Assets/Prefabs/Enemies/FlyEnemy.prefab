@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f479f455d56f984a8dbbee3d6425d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDistanceToAttackState: 10
+  _playerDistanceToAttackState: 5
   OnAttackEvent:
     m_PersistentCalls:
       m_Calls:
