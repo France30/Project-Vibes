@@ -26,6 +26,15 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    public void LoadLevelFromSave()
+    {
+        if (!_isLoadingLevel)
+        {
+            _isLoadingLevel = true;
+            StartCoroutine(LoadSavedLevel());
+        }
+    }
+
     public void ResetLevel()
     {
         if (!_isLoadingLevel)
@@ -36,19 +45,19 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    public IEnumerator LoadSavedLevel()
+    protected override void Awake()
+    {
+        base.Awake();
+        _isPersist = true;
+    }
+
+    private IEnumerator LoadSavedLevel()
     {
         PlayerData playerData = SaveSystem.LoadPlayerData();
 
         yield return StartCoroutine(LoadLevel(playerData.currentLevelSelect));
 
         LoadPlayerPositionInLevel(playerData);
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        _isPersist = true;
     }
 
     private IEnumerator RestartLevel()
