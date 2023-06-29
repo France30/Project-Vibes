@@ -11,12 +11,14 @@ public class PlayerMovement : MonoBehaviour
 
 	private float _horizontalMove = 0f;
 	private bool _jump = false;
+	private bool _isGrounded = false;
 	private bool _crouch = false;
 
 
 	public void OnLanding()
 	{
 		_animator.SetBool("Jump", false);
+		_isGrounded = true;
 	}
 
 	private void Awake()
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 		_horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
 		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
-		if (Input.GetButtonDown("Jump"))
+		if (Input.GetButtonDown("Jump") && _isGrounded)
 			Jump();
 	}
 
@@ -47,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 	private void Jump()
     {
 		_jump = true;
+		_isGrounded = false;
 		_animator.SetBool("Jump", true);
 	}
 }
