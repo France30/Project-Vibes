@@ -41,12 +41,20 @@ public class PlayerMovement : MonoBehaviour
 
 		if (Input.GetButtonDown("Jump") && _isGrounded)
 			Jump();
+
+		if (Input.GetButton("Jump") && _isJumping)
+			JumpBoost();
 	}
 
 	private void FixedUpdate ()
 	{
 		// Move our character
 		_controller.Move(_horizontalMove * Time.fixedDeltaTime, _crouch, _jump);
+
+		//Apply Jump Boost
+		if (_isJumping)
+			_rb2D.AddForce(new Vector2(0, _jumpBoost));
+
 		_jump = false;
 	}
 
