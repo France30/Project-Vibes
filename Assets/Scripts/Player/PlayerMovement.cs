@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField] private float _moveSpeed = 40f;
 
+	private Rigidbody2D _rb2D;
 	private CharacterController2D _controller;
 	private Animator _animator;
 
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Awake()
     {
+		_rb2D = GetComponent<Rigidbody2D>();
 		_controller = GetComponent<CharacterController2D>();
 		_animator = GetComponent<Animator>();
     }
