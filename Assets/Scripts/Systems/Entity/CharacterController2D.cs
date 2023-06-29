@@ -50,7 +50,7 @@ public class CharacterController2D : MonoBehaviour
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
-		//prevent preemptive "OnLandEvent" call by checking if character is jumping
+		//Prevent preemptive "OnLandEvent" call by checking if character is jumping
 		if (_isJumping)
 		{
 			//Character is jumping if the velocity is rising
