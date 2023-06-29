@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 	private void Jump()
     {
 		_jump = true;
+		_isJumping = true;
 		_isGrounded = false;
 		_animator.SetBool("Jump", true);
 	}
