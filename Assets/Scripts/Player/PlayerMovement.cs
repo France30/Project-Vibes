@@ -21,8 +21,17 @@ public class PlayerMovement : MonoBehaviour
 
 	public void OnLanding()
 	{
-		_animator.SetBool("Jump", false);
 		_isGrounded = true;
+
+		Debug.Log("Player Landed");
+	}
+
+	public void OnFall()
+    {
+		_animator.SetBool("Jump", false);
+		_isGrounded = false;
+
+		Debug.Log("Player Falling");
 	}
 
 	private void Awake()

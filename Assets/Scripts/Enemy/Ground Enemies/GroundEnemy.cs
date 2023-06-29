@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(CharacterController2D))]
 public abstract class GroundEnemy : EnemyBase
 {
-    [SerializeField] private float _fallingThreshold = -5f;
-
     [Header("Platform Checks")]
     [SerializeField] protected Transform _wallCheck;
     [SerializeField] protected Transform _groundPlatformCheck;
@@ -17,6 +15,7 @@ public abstract class GroundEnemy : EnemyBase
 
     private bool _canJump = false;
     private bool _isGrounded = true;
+    private bool _isFalling = false;
 
     protected Transform CurrentTarget { get; private set; }
 
@@ -24,6 +23,14 @@ public abstract class GroundEnemy : EnemyBase
     public void OnLanding()
     {
         _isGrounded = true;
+        _isFalling = false;
+        //Debug.Log(this.name + "Enemy Landed");
+    }
+
+    public void OnFall()
+    {
+        _isFalling = true;
+        _isGrounded = false;
     }
 
     public override void MoveToTargetDirection(Transform target)
@@ -38,8 +45,7 @@ public abstract class GroundEnemy : EnemyBase
             if (!IsCollidingWithOtherGroundEnemy()) return;
         }
 
-        bool isFalling = _rb2D.velocity.y < _fallingThreshold;
-        if (isFalling || _isGrounded)
+        if (_isFalling || _isGrounded)
             base.MoveToTargetDirection(target);
     }
 

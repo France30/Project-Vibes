@@ -14,6 +14,8 @@ public class CharacterController2D : MonoBehaviour
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
+	private bool _isJumping = false;
+	private bool _isFalling = false;
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -24,6 +26,7 @@ public class CharacterController2D : MonoBehaviour
 	[Space]
 
 	public UnityEvent OnLandEvent;
+	public UnityEvent OnFallEvent;
 
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
@@ -47,18 +50,40 @@ public class CharacterController2D : MonoBehaviour
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
+		//prevent preemptive "OnLandEvent" call by checking if character is jumping
+		if (_isJumping)
+		{
+			//Character is jumping if the velocity is rising
+			_isJumping = (m_Rigidbody2D.velocity.y >= 0);
+			return;
+		}
+
+		CheckIfFalling(wasGrounded);
+
 		int colliders = Physics2D.OverlapCircleNonAlloc(m_GroundCheck.position, k_GroundedRadius, _groundCollider, m_WhatIsGround);
 		for (int i = 0; i < colliders; i++)
 		{
 			if (_groundCollider[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
+				_isFalling = false;
 				if (!wasGrounded)
 					OnLandEvent?.Invoke();
 			}
 		}
 	}
 
+	private void CheckIfFalling(bool wasGrounded)
+    {
+		if (!wasGrounded)
+		{
+			if (!_isJumping && !_isFalling)
+			{
+				_isFalling = true;
+				OnFallEvent?.Invoke();
+			}
+		}
+	}
 
 	public void Move(float move, bool crouch, bool jump)
 	{
@@ -130,6 +155,8 @@ public class CharacterController2D : MonoBehaviour
 
 			m_Rigidbody2D.velocity = new Vector2(0, 0); //Reset the velocity to prevent unintentional boosts
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce)); // Add a vertical force to the player.
+
+			_isJumping = true;
 		}
 	}
 
