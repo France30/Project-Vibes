@@ -34,10 +34,7 @@ public class PlayerMovement : MonoBehaviour
 		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
 		if (Input.GetButtonDown("Jump"))
-		{
-			_jump = true;
-			_animator.SetBool("Jump", true);
-		}
+			Jump();
 	}
 
 	private void FixedUpdate ()
@@ -45,5 +42,11 @@ public class PlayerMovement : MonoBehaviour
 		// Move our character
 		_controller.Move(_horizontalMove * Time.fixedDeltaTime, _crouch, _jump);
 		_jump = false;
+	}
+
+	private void Jump()
+    {
+		_jump = true;
+		_animator.SetBool("Jump", true);
 	}
 }
