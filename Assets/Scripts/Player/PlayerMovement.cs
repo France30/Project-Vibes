@@ -57,4 +57,13 @@ public class PlayerMovement : MonoBehaviour
 		_isGrounded = false;
 		_animator.SetBool("Jump", true);
 	}
+
+	private void JumpBoost()
+    {
+		_currentJumpTime += Time.deltaTime;
+		if (_currentJumpTime < _jumpTime) return;
+
+		_isJumping = false;
+		_currentJumpTime = 0f;
+    }
 }
