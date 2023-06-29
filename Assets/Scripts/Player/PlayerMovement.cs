@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour 
 {
 	[SerializeField] private float _moveSpeed = 40f;
+	[SerializeField] private float _jumpTime = 0.5f;
+	[Range(0,100)][SerializeField] private float _jumpBoost = 20f;
 
 	private Rigidbody2D _rb2D;
 	private CharacterController2D _controller;
@@ -11,9 +13,11 @@ public class PlayerMovement : MonoBehaviour
 
 	private float _horizontalMove = 0f;
 	private bool _jump = false;
+	private bool _isJumping = false;
 	private bool _isGrounded = false;
 	private bool _crouch = false;
 
+	private float _currentJumpTime = 0f;
 
 	public void OnLanding()
 	{
