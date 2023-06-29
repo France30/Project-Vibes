@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(CharacterController2D))]
 public abstract class GroundEnemy : EnemyBase
 {
-    [SerializeField] private float _fallingThreshold = -5f;
-
     [Header("Platform Checks")]
     [SerializeField] protected Transform _wallCheck;
     [SerializeField] protected Transform _groundPlatformCheck;
