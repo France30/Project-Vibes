@@ -44,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
 
 		if (Input.GetButton("Jump") && _isJumping)
 			JumpBoost();
+
+		if(Input.GetButtonUp("Jump"))
+        {
+			_isJumping = false;
+			_currentJumpTime = 0f;
+        }
+
 	}
 
 	private void FixedUpdate ()
