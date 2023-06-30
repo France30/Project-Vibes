@@ -54,7 +54,7 @@ public class CharacterController2D : MonoBehaviour
 		//Prevent preemptive "OnLandEvent" call by checking if character is jumping
 		if (_isJumping)
 		{
-			//Character is jumping if the velocity is rising
+			//Character is jumping if the y velocity is rising
 			_isJumping = (m_Rigidbody2D.velocity.y >= 0);
 			return;
 		}
