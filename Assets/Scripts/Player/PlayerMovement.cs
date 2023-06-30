@@ -7,17 +7,22 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float _jumpTime = 0.5f;
 	[Range(0,100)][SerializeField] private float _jumpBoost = 20f;
 
+	private float _currentJumpTime = 0f;
+
 	private Rigidbody2D _rb2D;
 	private CharacterController2D _controller;
 	private Animator _animator;
 
 	private float _horizontalMove = 0f;
 	private bool _jump = false;
-	private bool _isJumping = false;
-	private bool _isGrounded = false;
 	private bool _crouch = false;
 
-	private float _currentJumpTime = 0f;
+	private bool _isJumping = false;
+	private bool _isGrounded = false;
+
+
+	private const float _COYOTE_TIME = 0.2f;
+	private float _coyoteTimeCounter = 0f;
 
 	public void OnLanding()
 	{
@@ -48,7 +53,9 @@ public class PlayerMovement : MonoBehaviour
 		_horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
 		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
-		if (Input.GetButtonDown("Jump") && _isGrounded)
+		CoyoteTime();
+
+		if (_coyoteTimeCounter < _COYOTE_TIME && Input.GetButtonDown("Jump"))
 			Jump();
 
 		if (Input.GetButton("Jump") && _isJumping)
@@ -56,9 +63,11 @@ public class PlayerMovement : MonoBehaviour
 
 		if(Input.GetButtonUp("Jump"))
         {
-			_isJumping = false;
-			_currentJumpTime = 0f;
-        }
+			_isJumping = false; //Disable Jump Boost
+			_currentJumpTime = 0f; //Reset Jump Boost Timer
+			
+			_coyoteTimeCounter = _COYOTE_TIME; //Coyote Time Jump Spam Prevention
+		}
 
 	}
 
@@ -89,5 +98,13 @@ public class PlayerMovement : MonoBehaviour
 
 		_isJumping = false;
 		_currentJumpTime = 0f;
+    }
+
+	private void CoyoteTime()
+    {
+		if (_isGrounded)
+			_coyoteTimeCounter = 0f;
+		else
+			_coyoteTimeCounter += Time.deltaTime;
     }
 }
