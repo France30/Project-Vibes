@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
 		CoyoteTime();
+		JumpBuffer();
 
 		if (_coyoteTimeCounter < _COYOTE_TIME && Input.GetButtonDown("Jump"))
 			Jump();
@@ -115,4 +116,12 @@ public class PlayerMovement : MonoBehaviour
 		else
 			_coyoteTimeCounter += Time.deltaTime;
     }
+
+	private void JumpBuffer()
+    {
+		if (Input.GetButtonDown("Jump"))
+			_jumpBufferCounter = 0f;
+		else
+			_jumpBufferCounter += Time.deltaTime;
+	}
 }
