@@ -7,5 +7,6 @@ public class InstantKillObstacles : MonoBehaviour
 {
     private void Awake()
     {
+        GetComponent<BoxCollider2D>().isTrigger = false;
     }
 }
