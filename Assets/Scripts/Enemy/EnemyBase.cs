@@ -22,8 +22,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
     private Collider2D[] _playerCollider = new Collider2D[1];
     private SpriteController _spriteController;
 
-    public delegate void EnemyAttack();
-    private EnemyAttack AttackEvent;
+    public delegate void EnemyEvent();
+    public event EnemyEvent OnEnemyDeath;
+    private EnemyEvent EnemyAttack;
 
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
@@ -33,7 +34,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     public void OnAttack()
     {
-        AttackEvent?.Invoke();
+        EnemyAttack?.Invoke();
     }
 
     public void TakeDamage(int value)
@@ -72,9 +73,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
         _moveSpeed *= -1;
     }
 
-    protected void SetAttack(EnemyAttack enemyAttack)
+    protected void SetAttack(EnemyEvent enemyAttack)
     {
-        AttackEvent = enemyAttack;
+        EnemyAttack = enemyAttack;
     }
 
     protected override void Update()
