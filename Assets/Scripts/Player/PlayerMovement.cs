@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 	private const float _COYOTE_TIME = 0.2f;
-	private float _coyoteTimeCounter = 0f;
+	private float _coyoteTimeCounter = _COYOTE_TIME;
 
 	public void OnLanding()
 	{
