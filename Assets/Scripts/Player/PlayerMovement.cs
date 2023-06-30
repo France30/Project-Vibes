@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
 	private const float _COYOTE_TIME = 0.2f;
 	private float _coyoteTimeCounter = _COYOTE_TIME;
 
+	private const float _JUMP_BUFFER_TIME = 0.2f;
+	private float _jumpBufferCounter = _JUMP_BUFFER_TIME;
+
+
 	public void OnLanding()
 	{
 		_isGrounded = true;
@@ -54,8 +58,11 @@ public class PlayerMovement : MonoBehaviour
 		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
 		CoyoteTime();
+		JumpBuffer();
 
-		if (_coyoteTimeCounter < _COYOTE_TIME && Input.GetButtonDown("Jump"))
+		//Jump Buffer allows player to have jump compensation after landing
+		//This allows players to jump regardless if "Jump" was pressed too early 
+		if (_coyoteTimeCounter < _COYOTE_TIME && _jumpBufferCounter < _JUMP_BUFFER_TIME)
 			Jump();
 
 		if (Input.GetButton("Jump") && _isJumping)
@@ -91,8 +98,10 @@ public class PlayerMovement : MonoBehaviour
     {
 		_jump = true;
 		_isJumping = true;
-		_isGrounded = false;
+		_jumpBufferCounter = _JUMP_BUFFER_TIME;
 		_animator.SetBool("Jump", true);
+
+		_isGrounded = false;
 	}
 
 	private void JumpBoost()
@@ -111,4 +120,12 @@ public class PlayerMovement : MonoBehaviour
 		else
 			_coyoteTimeCounter += Time.deltaTime;
     }
+
+	private void JumpBuffer()
+    {
+		if (Input.GetButtonDown("Jump"))
+			_jumpBufferCounter = 0f;
+		else
+			_jumpBufferCounter += Time.deltaTime;
+	}
 }
