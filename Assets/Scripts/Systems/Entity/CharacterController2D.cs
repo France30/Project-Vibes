@@ -149,7 +149,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (m_Grounded && jump)
+		if (jump)
 		{
 			m_Grounded = false;
 
