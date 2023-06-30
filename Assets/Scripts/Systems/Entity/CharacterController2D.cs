@@ -60,18 +60,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 
 		CheckIfFalling(wasGrounded);
-
-		int colliders = Physics2D.OverlapCircleNonAlloc(m_GroundCheck.position, k_GroundedRadius, _groundCollider, m_WhatIsGround);
-		for (int i = 0; i < colliders; i++)
-		{
-			if (_groundCollider[i].gameObject != gameObject)
-			{
-				m_Grounded = true;
-				_isFalling = false;
-				if (!wasGrounded)
-					OnLandEvent?.Invoke();
-			}
-		}
+		CheckIfGrounded(wasGrounded);
 	}
 
 	private void CheckIfFalling(bool wasGrounded)
@@ -82,6 +71,21 @@ public class CharacterController2D : MonoBehaviour
 			{
 				_isFalling = true;
 				OnFallEvent?.Invoke();
+			}
+		}
+	}
+
+	private void CheckIfGrounded(bool wasGrounded)
+    {
+		int colliders = Physics2D.OverlapCircleNonAlloc(m_GroundCheck.position, k_GroundedRadius, _groundCollider, m_WhatIsGround);
+		for (int i = 0; i < colliders; i++)
+		{
+			if (_groundCollider[i].gameObject != gameObject)
+			{
+				m_Grounded = true;
+				_isFalling = false;
+				if (!wasGrounded)
+					OnLandEvent?.Invoke();
 			}
 		}
 	}
