@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private Health _health;
 
     private bool _isHurt = false;
+    private bool _isDead = false;
 
     public delegate void PlayerDeath(bool isPlayerDead);
     public event PlayerDeath OnPlayerDeath;
