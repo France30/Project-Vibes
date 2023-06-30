@@ -60,7 +60,9 @@ public class PlayerMovement : MonoBehaviour
 		CoyoteTime();
 		JumpBuffer();
 
-		if (_coyoteTimeCounter < _COYOTE_TIME && Input.GetButtonDown("Jump"))
+		//Jump Buffer allows player to have jump compensation after landing
+		//This allows players to jump regardless if "Jump" was pressed too early 
+		if (_coyoteTimeCounter < _COYOTE_TIME && _jumpBufferCounter < _JUMP_BUFFER_TIME)
 			Jump();
 
 		if (Input.GetButton("Jump") && _isJumping)
@@ -96,8 +98,10 @@ public class PlayerMovement : MonoBehaviour
     {
 		_jump = true;
 		_isJumping = true;
-		_isGrounded = false;
+		_jumpBufferCounter = _JUMP_BUFFER_TIME;
 		_animator.SetBool("Jump", true);
+
+		_isGrounded = false;
 	}
 
 	private void JumpBoost()
