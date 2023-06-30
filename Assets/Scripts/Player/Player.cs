@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
     private void ApplyKnockBack(int knockBackDirection = 0)
     {
-        _rigidbody2D.velocity = new Vector2(0,0);
+        _rigidbody2D.velocity = Vector2.zero;
         float horizontalForce = _knockBackForce.x * knockBackDirection;
         _rigidbody2D.AddForce(new Vector2(horizontalForce, _knockBackForce.y), ForceMode2D.Impulse);
     }
