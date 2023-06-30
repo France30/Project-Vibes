@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private float _currentJumpTime = 0f;
 
+	private const float _COYOTE_TIME = 0.2f;
+	private float _coyoteTimeCounter = 0f;
+
 	public void OnLanding()
 	{
 		_isGrounded = true;
