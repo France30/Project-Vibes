@@ -93,4 +93,12 @@ public class PlayerMovement : MonoBehaviour
 		_isJumping = false;
 		_currentJumpTime = 0f;
     }
+
+	private void CoyoteTime()
+    {
+		if (_isGrounded)
+			_coyoteTimeCounter = 0f;
+		else
+			_coyoteTimeCounter += Time.deltaTime;
+    }
 }
