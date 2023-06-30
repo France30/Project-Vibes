@@ -51,7 +51,9 @@ public class PlayerMovement : MonoBehaviour
 		_horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
 		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
 
-		if (Input.GetButtonDown("Jump") && _isGrounded)
+		CoyoteTime();
+
+		if (_coyoteTimeCounter < _COYOTE_TIME && Input.GetButtonDown("Jump"))
 			Jump();
 
 		if (Input.GetButton("Jump") && _isJumping)
