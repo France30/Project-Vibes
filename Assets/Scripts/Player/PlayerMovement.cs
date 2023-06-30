@@ -61,14 +61,18 @@ public class PlayerMovement : MonoBehaviour
 		if (Input.GetButton("Jump") && _isJumping)
 			JumpBoost();
 
-		if(Input.GetButtonUp("Jump"))
+		//Cancel Jump Boost if Jump Button is released
+		if(!Input.GetButton("Jump"))
         {
 			_isJumping = false; //Disable Jump Boost
 			_currentJumpTime = 0f; //Reset Jump Boost Timer
-			
-			_coyoteTimeCounter = _COYOTE_TIME; //Coyote Time Jump Spam Prevention
 		}
 
+		//Coyote Time Jump Spam Prevention
+		if (Input.GetButtonUp("Jump"))
+        {		
+			_coyoteTimeCounter = _COYOTE_TIME; 
+		}
 	}
 
 	private void FixedUpdate ()
