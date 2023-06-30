@@ -44,8 +44,8 @@ public class Player : MonoBehaviour
             return;
         }
 
-        ApplyKnockBack(knockBackDirection);
         StartCoroutine(HurtDuration());
+        ApplyKnockBack(knockBackDirection);
         StartCoroutine(_spriteController.Flash()); //for placeholder purposes only
     }
 
