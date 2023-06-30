@@ -32,13 +32,14 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
-        if (_isHurt || _spriteController.IsFlashing) return;
+        if (_isHurt || _spriteController.IsFlashing || _isDead) return;
 
         _health.CurrentHealth -= value;
         _isHurt = true;
 
         if (_health.CurrentHealth <= 0)
         {
+            _isDead = true;
             OnPlayerDeath?.Invoke(true);
             return;
         }
@@ -70,6 +71,14 @@ public class Player : MonoBehaviour
         if (GameController.Instance == null) return;
 
         GameController.Instance.OnPauseEvent -= DisablePlayerActions;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _isDead) return;
+
+        _isDead = true;
+        OnPlayerDeath?.Invoke(true);
     }
 
     private void ApplyKnockBack(int knockBackDirection = 0)
