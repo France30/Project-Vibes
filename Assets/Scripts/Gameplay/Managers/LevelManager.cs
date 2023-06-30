@@ -98,7 +98,8 @@ public class LevelManager : Singleton<LevelManager>
 
     private void LoadPlayerPositionInLevel(PlayerData playerData)
     {
-        if (playerData == null) return;
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (playerData == null || playerData.currentLevelSelect != currentSceneIndex) return;
         
         Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
         GameController.Instance.Player.transform.position = playerPosition;
