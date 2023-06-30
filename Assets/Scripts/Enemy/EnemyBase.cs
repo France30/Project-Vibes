@@ -45,7 +45,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
         if(!_spriteController.IsFlashing)
             StartCoroutine(_spriteController.Flash());
 
-        if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
+        if (_health.CurrentHealth <= 0)
+        {
+            OnEnemyDeath?.Invoke();
+            gameObject.SetActive(false);
+        }
     }
 
     public bool IsTargetReached(Transform target, float targetDistance = 1)
