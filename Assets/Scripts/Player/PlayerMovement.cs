@@ -7,17 +7,19 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float _jumpTime = 0.5f;
 	[Range(0,100)][SerializeField] private float _jumpBoost = 20f;
 
+	private float _currentJumpTime = 0f;
+
 	private Rigidbody2D _rb2D;
 	private CharacterController2D _controller;
 	private Animator _animator;
 
 	private float _horizontalMove = 0f;
 	private bool _jump = false;
-	private bool _isJumping = false;
-	private bool _isGrounded = false;
 	private bool _crouch = false;
 
-	private float _currentJumpTime = 0f;
+	private bool _isJumping = false;
+	private bool _isGrounded = false;
+
 
 	private const float _COYOTE_TIME = 0.2f;
 	private float _coyoteTimeCounter = 0f;
