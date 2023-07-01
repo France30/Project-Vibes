@@ -25,6 +25,10 @@ public class AttackObjectController : MonoBehaviour
         GetComponent<Collider2D>().isTrigger = true;
         
         _baseScale = transform.localScale;
+
+        HitboxScaleResetCounter = 1;
+        AnimationSpeedMultiplier = 1f;
+
     }
 
     private void OnEnable()
