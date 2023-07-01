@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public abstract class EnemyBase : StateMachine, IDamageable
 {
     [Header("Enemy Health")]
