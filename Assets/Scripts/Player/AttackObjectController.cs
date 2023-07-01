@@ -22,7 +22,14 @@ public class AttackObjectController : MonoBehaviour
 
     private void Awake()
     {
+        GetComponent<Collider2D>().isTrigger = true;
+        
         _baseScale = transform.localScale;
+
+        HitboxScaleResetCounter = 1;
+        AnimationSpeedMultiplier = 1f;
+
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
