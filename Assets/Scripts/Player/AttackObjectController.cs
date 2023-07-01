@@ -22,6 +22,8 @@ public class AttackObjectController : MonoBehaviour
 
     private void Awake()
     {
+        GetComponent<Collider2D>().isTrigger = true;
+        
         _baseScale = transform.localScale;
     }
 
