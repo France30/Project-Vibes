@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		_isGrounded = true;
 
-		Debug.Log("Player Landed");
+		//Debug.Log("Player Landed");
 	}
 
 	public void OnFall()
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 		_animator.SetBool("Jump", false);
 		_isGrounded = false;
 
-		Debug.Log("Player Falling");
+		//Debug.Log("Player Falling");
 	}
 
 	private void Awake()
