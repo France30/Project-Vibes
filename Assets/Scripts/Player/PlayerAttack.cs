@@ -34,6 +34,8 @@ public class PlayerAttack : MonoBehaviour
             c.source.volume = c.volume;
             c.source.pitch = c.pitch;
         } 
+        if (_attackObject.activeSelf)
+            _attackObject.SetActive(false);
     }
 
     private void OnDisable()
