@@ -29,6 +29,7 @@ public class AttackObjectController : MonoBehaviour
         HitboxScaleResetCounter = 1;
         AnimationSpeedMultiplier = 1f;
 
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
