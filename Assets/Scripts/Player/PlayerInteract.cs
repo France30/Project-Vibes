@@ -15,7 +15,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (_interactable == null) return;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F))
             _interactable.Interact();
     }
 
