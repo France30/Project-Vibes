@@ -4,8 +4,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject _attackObject;
-    [SerializeField] private Chord _chord;
-    [SerializeField] private GameObject _chordAudioSource;
+    [SerializeField] private PlayerChords _playerChords;
     [SerializeField] private float _penaltyCooldown = 3.0f;
 
     private AttackObjectController _attackObjectController;
@@ -17,23 +16,13 @@ public class PlayerAttack : MonoBehaviour
 
     private WaitForSeconds _waitForPenaltyCooldown;
 
+    public PlayerChords PlayerChords { get { return _playerChords; } }
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
         _attackObjectController = _attackObject.GetComponent<AttackObjectController>();
+        _animator = GetComponent<Animator>();
 
-        _waitForPenaltyCooldown = new WaitForSeconds(_penaltyCooldown);
-        _chord.waitForTime = new WaitForSeconds(_chord.time);
-
-        foreach (ChordClip c in _chord.chordClips)
-        {
-            c.source = _chordAudioSource.AddComponent<AudioSource>();
-            c.source.clip = c.clip;
-
-            c.source.volume = c.volume;
-            c.source.pitch = c.pitch;
-        } 
         if (_attackObject.activeSelf)
             _attackObject.SetActive(false);
     }
@@ -78,16 +67,17 @@ public class PlayerAttack : MonoBehaviour
     {
         _isAttackCoroutineRunning = true;
 
-        _chord.chordClips[_currentChord].source.Play();
+        ChordClip currentChordClip = _playerChords.CurrentChordSet.ChordClips[_currentChord];
+        currentChordClip.source.Play();
 
-        bool isChordPlaying = _chord.chordClips[_currentChord].clip != null;
+        bool isChordPlaying = currentChordClip.clip != null;
         SetAttackComponents(isChordPlaying);
 
         if (isChordPlaying) InitializeProximityAttack();
 
         CheckIfSongDone();
 
-        yield return new WaitForSeconds(_chord.time);
+        yield return new WaitForSeconds(_playerChords.CurrentChordSet.ChordTime);
 
         SetAttackComponents(false);
 
@@ -105,14 +95,16 @@ public class PlayerAttack : MonoBehaviour
 
     private void InitializeProximityAttack()
     {
-        _attackObjectController.MaxScale = _attackObjectController.AnimationSpeed * _chord.time;
-        _attackObjectController.AnimationSpeedMultiplier = _chord.chordClips[_currentChord].beats;
-        _attackObjectController.HitboxScaleResetCounter = _chord.chordClips[_currentChord].beats;
+        ChordSet currentChordSet = _playerChords.CurrentChordSet;
+
+        _attackObjectController.MaxScale = _attackObjectController.AnimationSpeed * currentChordSet.ChordTime;
+        _attackObjectController.AnimationSpeedMultiplier = currentChordSet.ChordClips[_currentChord].beats;
+        _attackObjectController.HitboxScaleResetCounter = currentChordSet.ChordClips[_currentChord].beats;
     }
 
     private void CheckIfSongDone()
     {
-        bool isSongDone = _currentChord >= (_chord.chordClips.Length - 1);
+        bool isSongDone = _currentChord >= (_playerChords.CurrentChordSet.ChordClips.Length - 1);
         if (!isSongDone)
             _currentChord++;
         else
