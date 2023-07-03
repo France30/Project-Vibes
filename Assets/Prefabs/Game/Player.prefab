@@ -245,6 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6717973787746591753}
+  - component: {fileID: 7209192494620814197}
   m_Layer: 3
   m_Name: ChordAudio
   m_TagString: Untagged
@@ -267,6 +268,19 @@ Transform:
   m_Father: {fileID: 6717973789561704269}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7209192494620814197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717973787746591758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9093d0a7cd72049a8d9e713d52968f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chord: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
 --- !u!1 &6717973787863823678
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,8 +747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackObject: {fileID: 6717973788211082656}
-  _chord: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
-  _chordAudioSource: {fileID: 6717973787746591758}
+  _playerChords: {fileID: 7209192494620814197}
   _penaltyCooldown: 3
 --- !u!114 &6717973789561704305
 MonoBehaviour:
