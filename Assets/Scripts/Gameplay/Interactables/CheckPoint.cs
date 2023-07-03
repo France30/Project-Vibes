@@ -7,7 +7,7 @@ public class CheckPoint : Interactable
 {
     public override void Interact()
     {
-        SaveSystem.Save();
+        SaveSystem.SavePlayerData();
         Debug.Log("Game Saved!");
     }
 }
