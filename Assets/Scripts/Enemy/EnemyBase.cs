@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public abstract class EnemyBase : StateMachine, IDamageable
 {
+    [Header("Enemy Configs")]
+    [SerializeField] private EnemyPermaDeathSO _enemyPermaDeath;
+
     [Header("Enemy Health")]
     [SerializeField] protected int _maxHealth = 1;
     [SerializeField] protected Image _healthBar = null;
@@ -100,6 +103,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     private void Awake()
     {
+        _enemyPermaDeath?.InitializeEnemyPermaDeath(this);
+
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
    

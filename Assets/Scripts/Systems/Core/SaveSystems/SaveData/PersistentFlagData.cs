@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class EnemyPermaDeathData
+public class PersistentFlagData
 {
     public string id;
-    public bool isAlive;
+    public bool isTrue;
 
-    public EnemyPermaDeathData(string id, bool isAlive)
+    public PersistentFlagData(string id, bool isTrue)
     {
         this.id = id;
-        this.isAlive = isAlive;
+        this.isTrue = isTrue;
     }
 }
