@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
   m_Name: New Chord
   m_EditorClassIdentifier: 
+  chordType: 0
   time: 0.3
   chordClips:
   - clip: {fileID: 8300000, guid: 62049bba23581fa44b3ce1af1aa0fc5f, type: 3}
