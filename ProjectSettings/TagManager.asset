@@ -12,11 +12,11 @@ TagManager:
   - Water
   - UI
   - Attack
-  - Enemy
-  - 
-  - 
-  - 
-  - 
+  - Platform
+  - NormalGroundEnemy
+  - HopperGroundEnemy
+  - FlyingEnemy
+  - Interactable
   - 
   - 
   - 
@@ -44,12 +44,15 @@ TagManager:
   - name: Background
     uniqueID: 3265940363
     locked: 0
-  - name: Player
+  - name: Ground
+    uniqueID: 126060867
+    locked: 0
+  - name: Object
     uniqueID: 2504487227
     locked: 0
   - name: Foreground
     uniqueID: 774142143
     locked: 0
-  - name: Attack
+  - name: AttackHitbox
     uniqueID: 577729755
     locked: 0

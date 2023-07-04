@@ -1,45 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public abstract class EnemyBase : MonoBehaviour, IDamageable
+
+public abstract class EnemyBase : StateMachine, IDamageable
 {
+    [Header("Enemy Configs")]
+    [SerializeField] private EnemyPermaDeathSO _enemyPermaDeath;
+
+    [Header("Enemy Health")]
     [SerializeField] protected int _maxHealth = 1;
+    [SerializeField] protected Image _healthBar = null;
+
+    [Header("Enemy Damage")]
+    [SerializeField] protected int _damage = 1;
+
+    [Header("Enemy Movement")]
     [SerializeField] protected float _moveSpeed = 2f;
 
+    protected Vector2 _spriteSize;
+    protected Rigidbody2D _rb2D;
     protected Health _health;
-    protected bool _isAttacking = false;
 
+    private int _instanceID = 0;
     private bool _isFacingRight = true;
+    private Collider2D[] _playerCollider = new Collider2D[1];
+    private SpriteController _spriteController;
+
+    public delegate void EnemyEvent();
+    public event EnemyEvent OnEnemyDeath;
+    private EnemyEvent EnemyAttack;
 
     public GameObject GameObject { get { return gameObject; } }
-    public bool IsHit { get; set; }
+    public int InstanceID { get { return _instanceID; } }
+    protected bool IsAttacking { get; private set; }
+    protected bool IsIdle { get; private set; }
 
+
+    public void OnAttack()
+    {
+        EnemyAttack?.Invoke();
+    }
 
     public void TakeDamage(int value)
     {
         _health.CurrentHealth -= value;
-        IsHit = true;
-        Debug.Log(gameObject.name + " has been hit");
+        Debug.Log(InstanceID + " has been hit");
 
-        if (_health.CurrentHealth <= 0) gameObject.SetActive(false);
+        if(!_spriteController.IsFlashing)
+            StartCoroutine(_spriteController.Flash());
+
+        if (_health.CurrentHealth <= 0)
+        {
+            OnEnemyDeath?.Invoke();
+            gameObject.SetActive(false);
+        }
     }
 
-    protected virtual void Awake()
+    public bool IsTargetReached(Transform target, float targetDistance = 1)
     {
-        _health = new Health(_maxHealth);
-    }
-
-    protected bool IsTargetReached(float distanceFromTarget, float targetDistance = 0)
-    {
-        targetDistance = Calculate.RoundedAbsoluteValue(targetDistance);
+        float distanceFromTarget = Vector2.Distance(transform.position, target.position);
         distanceFromTarget = Calculate.RoundedAbsoluteValue(distanceFromTarget);
+        targetDistance = Calculate.RoundedAbsoluteValue(targetDistance);
 
-        //Debug.Log(targetDistance);
+        //Debug.Log(distanceFromTarget);
         return distanceFromTarget <= targetDistance;
     }
 
-    protected virtual void MoveToTargetDirection(Transform target)
+    public virtual void MoveToTargetDirection(Transform target)
     {
         bool isTargetRight = target.position.x > transform.position.x;
         if (isTargetRight && !_isFacingRight)
@@ -54,15 +81,76 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         _moveSpeed *= -1;
     }
 
-    protected virtual void FixedUpdate()
+    protected void SetAttack(EnemyEvent enemyAttack)
     {
+        EnemyAttack = enemyAttack;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        IsIdle = CurrentState is Idle;
+        IsAttacking = CurrentState is Attack;
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
         CheckForPlayerCollision();
+    }
+
+    private void Awake()
+    {
+        _enemyPermaDeath?.InitializeEnemyPermaDeath(this);
+
+        _health = new Health(_maxHealth, _healthBar);
+        _instanceID = gameObject.GetInstanceID();
+   
+        _spriteController = GetComponent<SpriteController>();
+        _spriteSize = _spriteController.SpriteSize;
+        _rb2D = GetComponent<Rigidbody2D>();
+
+        InitializeState();
+        this.enabled = false;
+    }
+
+    private void OnBecameVisible()
+    {
+        this.enabled = true;
+    }
+
+    private void OnBecameInvisible()
+    {
+        this.enabled = false;
+    }
+
+    private void InitializeState()
+    {
+        if (TryGetComponent<Idle>(out Idle idle))
+            SetState(idle);
+        else if (TryGetComponent<Patrol>(out Patrol patrol))
+            SetState(patrol);
+        else if (TryGetComponent<Chase>(out Chase chase))
+            SetState(chase);
+        else if (TryGetComponent<Attack>(out Attack attack))
+            SetState(attack);
     }
 
     private void CheckForPlayerCollision()
     {
-        LayerMask player = LayerMask.GetMask("Player");
-        if (Physics2D.OverlapBox(transform.position, transform.localScale, 0f, player))
-            Debug.Log("Player Hit");
+        LayerMask playerLayer = LayerMask.GetMask("Player");
+        int hitDetect = Physics2D.OverlapBoxNonAlloc(transform.position, _spriteSize, 0, _playerCollider, playerLayer);
+        if (hitDetect > 0)
+        {
+            Player player = GameController.Instance.Player;
+            player.TakeDamage(_damage, EnemyUtilities.GetCollisionDirection(transform, _playerCollider[0]));
+        }
+    }
+
+    protected virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, _spriteSize);
     }
 }

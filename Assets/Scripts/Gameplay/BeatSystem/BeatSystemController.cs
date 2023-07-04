@@ -1,27 +1,23 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BeatSystemController : Singleton<BeatSystemController>
 {
-    [SerializeField] private float _beatTime = 4.0f;
+    [SerializeField] private int _beatCount = 4;
     [SerializeField] private float _beatSpeed = 1.0f;
 
-    [SerializeField] private ImageController _tickUI;
-    [SerializeField] private ImageController _beatUI;
+    [SerializeField] private BeatSystemUI _tickUI;
+    [SerializeField] private BeatSystemUI _beatUI;
 
-    private float _currentTime = 0;
+    private float _currentCount = 0;
     private WaitForSeconds _waitForBeatSpeed;
+    private bool _isBeatPlaying = false;
 
-    public delegate void OnTick();
-    public event OnTick OnTickEvent;
+    public bool IsBeatPlaying { get { return _isBeatPlaying; } }
 
-    public bool IsBeatPlaying { get; set; }
 
     private void Start()
     {
-        IsBeatPlaying = false;
         _waitForBeatSpeed = new WaitForSeconds(_beatSpeed);
 
         StartCoroutine(BeatSystem());
@@ -31,7 +27,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         yield return new WaitForSeconds(_beatSpeed);
 
-        if (_currentTime < _beatTime - 1)
+        _currentCount++;
+        if (_currentCount < _beatCount)
             PlayTick();
         else
             PlayBeat();
@@ -44,11 +41,9 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _tickUI.ImageAlpha = 0.5f;
         _beatUI.ImageAlpha = 0f;
 
-        AudioManager.Instance.Play("TickBGM");
-        _currentTime ++;
+        AudioManager.Instance.Play("TickBGM");       
 
-        IsBeatPlaying = false;
-        OnTickEvent?.Invoke();
+        _isBeatPlaying = false;
     }
 
     private void PlayBeat()
@@ -57,8 +52,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _tickUI.ImageAlpha = 0f;
 
         AudioManager.Instance.Play("BeatBGM");
-        _currentTime = 0;
+        _currentCount = 0;
 
-        IsBeatPlaying = true;
+        _isBeatPlaying = true;
     }
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject _attackObject;
-    [SerializeField] private Chord _chord;
-    [SerializeField] private GameObject _chordAudioSource;
+    [SerializeField] private PlayerChords _playerChords;
     [SerializeField] private float _penaltyCooldown = 3.0f;
 
     private AttackObjectController _attackObjectController;
@@ -17,23 +16,20 @@ public class PlayerAttack : MonoBehaviour
 
     private WaitForSeconds _waitForPenaltyCooldown;
 
+    public PlayerChords PlayerChords { get { return _playerChords; } }
 
-    private void Start()
+    private void Awake()
     {
-        _animator = GetComponent<Animator>();
         _attackObjectController = _attackObject.GetComponent<AttackObjectController>();
+        _animator = GetComponent<Animator>();
 
-        _waitForPenaltyCooldown = new WaitForSeconds(_penaltyCooldown);
-        _chord.waitForTime = new WaitForSeconds(_chord.time);
+        if (_attackObject.activeSelf)
+            _attackObject.SetActive(false);
+    }
 
-        foreach (ChordClip c in _chord.chordClips)
-        {
-            c.source = _chordAudioSource.AddComponent<AudioSource>();
-            c.source.clip = c.clip;
-
-            c.source.volume = c.volume;
-            c.source.pitch = c.pitch;
-        } 
+    private void OnDisable()
+    {
+        _currentChord = 0;
     }
 
     // Update is called once per frame
@@ -71,18 +67,19 @@ public class PlayerAttack : MonoBehaviour
     {
         _isAttackCoroutineRunning = true;
 
-        _chord.chordClips[_currentChord].source.Play();
+        ChordClip currentChordClip = _playerChords.CurrentChordSet.ChordClips[_currentChord];
+        currentChordClip.source.Play();
 
-        bool isChordPlaying = _chord.chordClips[_currentChord].clip != null;
-        SetAttackBehaviour(isChordPlaying);
+        bool isChordPlaying = currentChordClip.clip != null;
+        SetAttackComponents(isChordPlaying);
 
-        if(isChordPlaying) CheckIfChordIsHalfChord();
+        if (isChordPlaying) InitializeProximityAttack();
 
         CheckIfSongDone();
 
-        yield return new WaitForSeconds(_chord.time);
+        yield return new WaitForSeconds(_playerChords.CurrentChordSet.ChordTime);
 
-        SetAttackBehaviour(false);
+        SetAttackComponents(false);
 
         _isAttackCoroutineRunning = false;
 
@@ -90,27 +87,24 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(PlayAttack());
     }
 
-    private void SetAttackBehaviour(bool value)
+    private void SetAttackComponents(bool value)
     {
         _attackObject.SetActive(value);
         _animator.SetBool("Attack", value);
     }
 
-    private void CheckIfChordIsHalfChord()
+    private void InitializeProximityAttack()
     {
-        bool isPlayingHalfChord = _chord.chordClips[_currentChord].IsHalfChord;
-        if (!isPlayingHalfChord) return;
+        ChordSet currentChordSet = _playerChords.CurrentChordSet;
 
-        //increase attack hitbox speed if chord is half chord
-        //reset attack hitbox scale twice before disabling the attack hitbox game object
-        float animationSpeedMultiplier = 2f;
-        _attackObjectController.AnimationSpeed *= animationSpeedMultiplier;
-        _attackObjectController.HitboxScaleResetCounter = 2;
+        _attackObjectController.MaxScale = _attackObjectController.AnimationSpeed * currentChordSet.ChordTime;
+        _attackObjectController.AnimationSpeedMultiplier = currentChordSet.ChordClips[_currentChord].beats;
+        _attackObjectController.HitboxScaleResetCounter = currentChordSet.ChordClips[_currentChord].beats;
     }
 
     private void CheckIfSongDone()
     {
-        bool isSongDone = _currentChord >= (_chord.chordClips.Length - 1);
+        bool isSongDone = _currentChord >= (_playerChords.CurrentChordSet.ChordClips.Length - 1);
         if (!isSongDone)
             _currentChord++;
         else

@@ -9,6 +9,8 @@ public class AudioManager : Singleton<AudioManager>
     protected override void Awake()
     {
         base.Awake();
+        _isPersist = true;
+
         foreach(Sound s in _sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -34,6 +36,11 @@ public class AudioManager : Singleton<AudioManager>
     public bool IsPlaying(string name)
     {
         Sound s = Array.Find(_sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found!");
+            return false;
+        }
         return s.source.isPlaying;
     }
 

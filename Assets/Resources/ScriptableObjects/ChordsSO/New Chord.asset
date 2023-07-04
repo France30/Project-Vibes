@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
+  m_Name: New Chord
+  m_EditorClassIdentifier: 
+  chordType: 0
+  time: 0.3
+  chordClips:
+  - clip: {fileID: 8300000, guid: 62049bba23581fa44b3ce1af1aa0fc5f, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 2
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0.1
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 03774f97d9f79e445858f247372f9daf, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 35e7b78b3de430746bfd275d5eb8f622, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 2
+    source: {fileID: 0}
