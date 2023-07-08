@@ -3,21 +3,26 @@ using UnityEditor;
 
 public enum ChordType
 {
-    Chord1 //test
+    Chord1, //test
+    Chord2 //test
 }
 
 [CreateAssetMenu(fileName = "New Chord Set SO", menuName = "ChordSystem/ChordSetSO")]
 public class ChordSetSO : ScriptableObject
 {
-    public ChordType chordType;
+    [HideInInspector] public WaitForSeconds waitForTime;
+
+    [SerializeField] private ChordType _chordType;
+
     public float time = 1f;
     public ChordClip[] chordClips;
 
-    [HideInInspector]
-    public WaitForSeconds waitForTime;
 
     //default values
     private ChordClip[] _chordClips;
+
+    public ChordType ChordType { get { return _chordType; } }
+
 
 
     private void OnEnable()

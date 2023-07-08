@@ -6,24 +6,22 @@ using UnityEngine;
 
 public class ChordSet : MonoBehaviour
 {
-    [SerializeField] private ChordSetSO _chordSO;
+    [SerializeField] private ChordSetSO _chordSetSO;
 
-    public ChordType ChordType { get { return _chordSO.chordType; } }
-    public ChordClip[] ChordClips { get { return _chordSO.chordClips; } }
-    public float ChordTime { get { return _chordSO.time; } }
+    public ChordSetSO ChordSetSO { get { return _chordSetSO; } }
 
 
     public void AddChordClips(ChordClip[] otherChordClips)
     {
-        ChordClip[] chordClips = _chordSO.chordClips.Concat<ChordClip>(otherChordClips).ToArray();
-        _chordSO.chordClips = chordClips;
+        ChordClip[] chordClips = _chordSetSO.chordClips.Concat<ChordClip>(otherChordClips).ToArray();
+        _chordSetSO.chordClips = chordClips;
 
-        InitializeChordAudioSource(_chordSO);
+        InitializeChordAudioSource(_chordSetSO);
     }
 
     private void Awake()
     {
-        InitializeChordAudioSource(_chordSO);
+        InitializeChordAudioSource(_chordSetSO);
     }
 
     private void InitializeChordAudioSource(ChordSetSO chordSO)

@@ -7,8 +7,8 @@ public class PlayerChords : MonoBehaviour
 {
     private ChordSet[] _chordSets;
     private int _currentChordSet = 0;
+    public ChordSetSO CurrentChordSet { get { return _chordSets[_currentChordSet].ChordSetSO; } }
 
-    public ChordSet CurrentChordSet { get { return _chordSets[_currentChordSet]; } }
 
 
     public void AddToChordSet(MusicSheetSO musicSheetSO)
