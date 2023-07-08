@@ -15,9 +15,9 @@ public class PlayerChords : MonoBehaviour
     {
         for(int i = 0; i < _chordSets.Length; i++)
         {
-            if (_chordSets[i].ChordType != musicSheetSO.chordType) continue;
+            if (_chordSets[i].ChordSetSO.ChordType != musicSheetSO.ChordType) continue;
 
-            _chordSets[i].AddChordClips(musicSheetSO.chordClips);
+            _chordSets[i].AddChordClips(musicSheetSO.ChordClips);
             break;
         }
     }

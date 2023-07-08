@@ -6,18 +6,19 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "New Music Sheet SO", menuName = "ChordSystem/MusicSheetSO")]
 public class MusicSheetSO : ScriptableObject
 {
-    public ChordType chordType;
-    public ChordClip[] chordClips;
-
     [SerializeField] private string _id = "0";
+    [SerializeField] private ChordType _chordType;
+    [SerializeField] private ChordClip[] _chordClips;
 
     private ObjectWithPersistentData _musicSheet = ObjectWithPersistentData.musicSheet;
     private bool _isSheetInScene = true;
 
     public bool IsSheetInScene { get { return _isSheetInScene; } }
+    public ChordType ChordType { get { return _chordType; } }
+    public ChordClip[] ChordClips { get { return _chordClips; } }
 
 
-    public void SaveSheet()
+    public void SheetGet()
     {
         _isSheetInScene = false;
         SavePersistentData.SavePersistentFlag(_musicSheet, _id, _isSheetInScene);
