@@ -17,7 +17,7 @@ public class MusicSheetSO : ScriptableObject
     public bool IsSheetInScene { get { return _isSheetInScene; } }
 
 
-    public void SaveSheet()
+    public void SheetGet()
     {
         _isSheetInScene = false;
         SavePersistentData.SavePersistentFlag(_musicSheet, _id, _isSheetInScene);
