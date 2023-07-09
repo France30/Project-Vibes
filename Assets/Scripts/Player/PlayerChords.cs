@@ -11,6 +11,7 @@ public class PlayerChords : MonoBehaviour
     private int _currentChordSet = 0;
     private int _prevChordSet = 0;
 
+    public ChordSet[] PlayerChordSets { get { return _chordSets; } }
     public ChordSetSO CurrentChordSet { get { return _chordSets[_currentChordSet].ChordSetSO; } }
 
 
