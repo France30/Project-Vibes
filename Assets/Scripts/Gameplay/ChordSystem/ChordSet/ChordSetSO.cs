@@ -43,6 +43,7 @@ public class ChordSetSO : ScriptableObject
         _chordClips = chordClips;
         EditorApplication.playModeStateChanged += ResetToDefaultValues;
 #endif
+        if (!_isDrop) return;
 
         _isDrop = SavePersistentData.LoadPersistentFlag(_chordSetDrop, _id);
         _wasDrop = _isDrop;
