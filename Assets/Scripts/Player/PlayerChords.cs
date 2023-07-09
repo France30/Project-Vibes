@@ -10,6 +10,13 @@ public class PlayerChords : MonoBehaviour
     public ChordSetSO CurrentChordSet { get { return _chordSets[_currentChordSet].ChordSetSO; } }
 
 
+    public void AddChordSet(ChordSet chordSet)
+    {
+        chordSet.transform.parent = transform;
+        chordSet.transform.SetAsLastSibling();
+
+        _chordSets = GetComponentsInChildren<ChordSet>();
+    }
 
     public void AddToChordSet(MusicSheetSO musicSheetSO)
     {
