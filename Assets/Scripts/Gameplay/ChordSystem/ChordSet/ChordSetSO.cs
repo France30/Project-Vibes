@@ -62,6 +62,7 @@ public class ChordSetSO : ScriptableObject
 
         chordClips = _chordClips;
         SavePersistentData.ClearPersistentFlagData(_chordSetDrop, _id);
+        _isDrop = _wasDrop;
     }
 #endif
 }
