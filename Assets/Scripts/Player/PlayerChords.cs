@@ -21,6 +21,7 @@ public class PlayerChords : MonoBehaviour
         chordSet.transform.SetAsLastSibling();
 
         _chordSets = GetComponentsInChildren<ChordSet>();
+        SaveSystem.SavePlayerChords(this);
     }
 
     public void AddToChordSet(MusicSheetSO musicSheetSO)
@@ -30,6 +31,7 @@ public class PlayerChords : MonoBehaviour
             if (_chordSets[i].ChordSetSO.ChordType != musicSheetSO.ChordType) continue;
 
             _chordSets[i].AddChordClips(musicSheetSO.ChordClips);
+            SaveSystem.SavePlayerChords(this);
             break;
         }
     }
