@@ -33,6 +33,24 @@ public static class SaveSystem
         stream.Close();
     }
 
+    public static void SavePlayerChords(PlayerChords playerChords)
+    {
+        string playerChordsPath = Application.persistentDataPath + "/playerChords.data";
+        FileStream stream = new FileStream(playerChordsPath, FileMode.Create);
+
+        ChordSetData[] chordSetDatas = new ChordSetData[playerChords.PlayerChordSets.Length];
+
+        for(int i = 0; i < chordSetDatas.Length; i++)
+        {
+            chordSetDatas[i] = new ChordSetData(playerChords.PlayerChordSets[i]);
+        }
+
+        PlayerChordsData playerChordsData = new PlayerChordsData(chordSetDatas);
+
+        formatter.Serialize(stream, playerChordsData);
+        stream.Close();
+    }
+
     public static PlayerData LoadPlayerData()
     {
         PlayerData playerData = null;
@@ -51,5 +69,25 @@ public static class SaveSystem
         }
 
         return playerData;
+    }
+
+    public static PlayerChordsData LoadPlayerChords()
+    {
+        PlayerChordsData playerChordsData = null;
+
+        string playerChordsPath = Application.persistentDataPath + "/playerChords.data";
+        if(File.Exists(playerChordsPath))
+        {
+            FileStream stream = new FileStream(playerChordsPath, FileMode.Open);
+
+            playerChordsData = formatter.Deserialize(stream) as PlayerChordsData;
+            stream.Close();
+        }
+        else
+        {
+            Debug.Log("Player Chords Data not found in" + playerChordsPath + "!");
+        }
+
+        return playerChordsData;
     }
 }
