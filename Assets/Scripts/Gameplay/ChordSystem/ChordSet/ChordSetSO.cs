@@ -23,6 +23,7 @@ public class ChordSetSO : ScriptableObject
 
     //default values
     private ChordClip[] _chordClips;
+    private bool _wasDrop = false;
 
     public bool IsDrop { get { return _isDrop; } }
     public ChordType ChordType { get { return _chordType; } }
@@ -30,6 +31,8 @@ public class ChordSetSO : ScriptableObject
 
     public void DropGet()
     {
+        if (!_isDrop) return;
+
         _isDrop = false;
         SavePersistentData.SavePersistentFlag(_chordSetDrop, _id, _isDrop);
     }
@@ -40,8 +43,10 @@ public class ChordSetSO : ScriptableObject
         _chordClips = chordClips;
         EditorApplication.playModeStateChanged += ResetToDefaultValues;
 #endif
+        if (!_isDrop) return;
 
         _isDrop = SavePersistentData.LoadPersistentFlag(_chordSetDrop, _id);
+        _wasDrop = _isDrop;
     }
 
     private void OnDisable()
@@ -58,6 +63,7 @@ public class ChordSetSO : ScriptableObject
 
         chordClips = _chordClips;
         SavePersistentData.ClearPersistentFlagData(_chordSetDrop, _id);
+        _isDrop = _wasDrop;
     }
 #endif
 }

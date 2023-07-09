@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
   m_Name: New Chord Set SO
   m_EditorClassIdentifier: 
-  chordType: 1
+  _isDrop: 1
+  _id: 1
+  _chordType: 1
   time: 1
   chordClips:
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0.1
+    beats: 0
+    source: {fileID: 0}
   - clip: {fileID: 8300000, guid: ae9cfe84e20994042aa7321a19247cb5, type: 3}
     volume: 1
     pitch: 1
