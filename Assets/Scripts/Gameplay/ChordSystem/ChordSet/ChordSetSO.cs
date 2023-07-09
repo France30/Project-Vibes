@@ -23,6 +23,7 @@ public class ChordSetSO : ScriptableObject
 
     //default values
     private ChordClip[] _chordClips;
+    private bool _wasDrop = false;
 
     public bool IsDrop { get { return _isDrop; } }
     public ChordType ChordType { get { return _chordType; } }
@@ -44,6 +45,7 @@ public class ChordSetSO : ScriptableObject
 #endif
 
         _isDrop = SavePersistentData.LoadPersistentFlag(_chordSetDrop, _id);
+        _wasDrop = _isDrop;
     }
 
     private void OnDisable()
