@@ -30,6 +30,8 @@ public class ChordSetSO : ScriptableObject
 
     public void DropGet()
     {
+        if (!_isDrop) return;
+
         _isDrop = false;
         SavePersistentData.SavePersistentFlag(_chordSetDrop, _id, _isDrop);
     }
