@@ -67,7 +67,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _isAttackCoroutineRunning = true;
 
-        ChordClip currentChordClip = _playerChords.CurrentChordSet.ChordClips[_currentChord];
+        ChordClip currentChordClip = _playerChords.CurrentChordSet.chordClips[_currentChord];
         currentChordClip.source.Play();
 
         bool isChordPlaying = currentChordClip.clip != null;
@@ -77,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
 
         CheckIfSongDone();
 
-        yield return new WaitForSeconds(_playerChords.CurrentChordSet.ChordTime);
+        yield return new WaitForSeconds(_playerChords.CurrentChordSet.time);
 
         SetAttackComponents(false);
 
@@ -95,16 +95,16 @@ public class PlayerAttack : MonoBehaviour
 
     private void InitializeProximityAttack()
     {
-        ChordSet currentChordSet = _playerChords.CurrentChordSet;
+        ChordSetSO currentChordSet = _playerChords.CurrentChordSet;
 
-        _attackObjectController.MaxScale = _attackObjectController.AnimationSpeed * currentChordSet.ChordTime;
-        _attackObjectController.AnimationSpeedMultiplier = currentChordSet.ChordClips[_currentChord].beats;
-        _attackObjectController.HitboxScaleResetCounter = currentChordSet.ChordClips[_currentChord].beats;
+        _attackObjectController.MaxScale = _attackObjectController.AnimationSpeed * currentChordSet.time;
+        _attackObjectController.AnimationSpeedMultiplier = currentChordSet.chordClips[_currentChord].beats;
+        _attackObjectController.HitboxScaleResetCounter = currentChordSet.chordClips[_currentChord].beats;
     }
 
     private void CheckIfSongDone()
     {
-        bool isSongDone = _currentChord >= (_playerChords.CurrentChordSet.ChordClips.Length - 1);
+        bool isSongDone = _currentChord >= (_playerChords.CurrentChordSet.chordClips.Length - 1);
         if (!isSongDone)
             _currentChord++;
         else

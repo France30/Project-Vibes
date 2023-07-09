@@ -3,22 +3,36 @@ using UnityEditor;
 
 public enum ChordType
 {
-    Chord1 //test
+    Chord1, //test
+    Chord2 //test
 }
 
 [CreateAssetMenu(fileName = "New Chord Set SO", menuName = "ChordSystem/ChordSetSO")]
 public class ChordSetSO : ScriptableObject
 {
-    public ChordType chordType;
+    [HideInInspector] public WaitForSeconds waitForTime;
+
+    [SerializeField] private bool _isDrop = false;
+    [SerializeField] private string _id = "0";
+    [SerializeField] private ChordType _chordType;
+
     public float time = 1f;
     public ChordClip[] chordClips;
 
-    [HideInInspector]
-    public WaitForSeconds waitForTime;
+    private ObjectWithPersistentData _chordSetDrop = ObjectWithPersistentData.chordSetDrop;
 
     //default values
     private ChordClip[] _chordClips;
 
+    public bool IsDrop { get { return _isDrop; } }
+    public ChordType ChordType { get { return _chordType; } }
+
+
+    public void DropGet()
+    {
+        _isDrop = false;
+        SavePersistentData.SavePersistentFlag(_chordSetDrop, _id, _isDrop);
+    }
 
     private void OnEnable()
     {
@@ -26,6 +40,8 @@ public class ChordSetSO : ScriptableObject
         _chordClips = chordClips;
         EditorApplication.playModeStateChanged += ResetToDefaultValues;
 #endif
+
+        _isDrop = SavePersistentData.LoadPersistentFlag(_chordSetDrop, _id);
     }
 
     private void OnDisable()
@@ -41,6 +57,7 @@ public class ChordSetSO : ScriptableObject
         if (playModeStateChange != PlayModeStateChange.ExitingPlayMode) return;
 
         chordClips = _chordClips;
+        SavePersistentData.ClearPersistentFlagData(_chordSetDrop, _id);
     }
 #endif
 }
