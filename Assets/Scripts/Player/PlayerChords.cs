@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class PlayerChords : MonoBehaviour
 {
+    private PlayerAttack _playerAttack;
+
     private ChordSet[] _chordSets;
     private int _currentChordSet = 0;
+    private int _prevChordSet = 0;
+
     public ChordSetSO CurrentChordSet { get { return _chordSets[_currentChordSet].ChordSetSO; } }
 
 
@@ -31,6 +35,7 @@ public class PlayerChords : MonoBehaviour
 
     private void Awake()
     {
+        _playerAttack = GameController.Instance.Player.GetComponent<PlayerAttack>();
         _chordSets = GetComponentsInChildren<ChordSet>();
     }
 
@@ -41,6 +46,9 @@ public class PlayerChords : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
             MoveToPreviousChordSet();
+
+        if (_prevChordSet != _currentChordSet)
+            ResetPlayerAttack();
     }
 
     private void MoveToNextChordSet()
@@ -57,5 +65,14 @@ public class PlayerChords : MonoBehaviour
 
         if (_currentChordSet < 0)
             _currentChordSet = _chordSets.Length - 1;
+
+    private void ResetPlayerAttack()
+    {
+        _prevChordSet = _currentChordSet;
+
+        if (!_playerAttack.enabled) return;
+
+        _playerAttack.enabled = false;
+        _playerAttack.enabled = true;
     }
 }
