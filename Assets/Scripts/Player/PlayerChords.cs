@@ -40,6 +40,64 @@ public class PlayerChords : MonoBehaviour
     {
         _playerAttack = GameController.Instance.Player.GetComponent<PlayerAttack>();
         _chordSets = GetComponentsInChildren<ChordSet>();
+
+        InitializeChordSetsOnLoad();
+    }
+
+    private void InitializeChordSetsOnLoad()
+    {
+        PlayerChordsData playerChordsData = SaveSystem.LoadPlayerChords();
+        if (playerChordsData != null)
+        {
+            for (int i = 0; i < _chordSets.Length; i++)
+            {
+                Destroy(_chordSets[i].gameObject);
+            }
+
+            _chordSets = new ChordSet[playerChordsData.chordSetData.Length];
+            for (int i = 0; i < playerChordsData.chordSetData.Length; i++)
+            {
+                GameObject chordSetGO = new GameObject();
+                chordSetGO.transform.parent = transform;
+                chordSetGO.SetActive(false);
+                ChordSet chordSet = chordSetGO.AddComponent<ChordSet>();
+
+                InitializeChordSetValues(chordSet, playerChordsData.chordSetData[i]);
+                chordSet.transform.SetAsLastSibling();
+                chordSetGO.SetActive(true);
+                _chordSets[i] = chordSet;
+            }
+        }
+    }
+
+    private void InitializeChordSetValues(ChordSet chordSet, ChordSetData chordSetData)
+    {
+        ChordSetSO chordSetSO = Resources.Load<ChordSetSO>(chordSetData.chordSetSOPath);
+        chordSet.SetChordSetSO(chordSetSO);
+
+        ChordClip[] chordClips = InitializeChordSetSOClips(chordSetData.chordClipData);
+        chordSet.ChordSetSO.chordClips = chordClips;
+        chordSet.ChordSetSO.time = chordSetData.time;
+    }
+
+    private ChordClip[] InitializeChordSetSOClips(ChordClipData[] chordClipData)
+    {
+        ChordClip[] chordClips = new ChordClip[chordClipData.Length];
+        for (int i = 0; i < chordClips.Length; i++)
+        {
+            ChordClip chordClip = new ChordClip();
+            
+            AudioClip audioClip = Resources.Load<AudioClip>(chordClipData[i].audioClipPath);
+            chordClip.clip = (audioClip == null) ? null : audioClip;
+
+            chordClip.volume = chordClipData[i].volume;
+            chordClip.pitch = chordClipData[i].pitch;
+            chordClip.beats = chordClipData[i].beats;
+
+            chordClips[i] = chordClip;
+        }
+
+        return chordClips;
     }
 
     private void Update()
