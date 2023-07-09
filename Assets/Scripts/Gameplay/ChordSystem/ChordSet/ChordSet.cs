@@ -11,6 +11,13 @@ public class ChordSet : MonoBehaviour
     public ChordSetSO ChordSetSO { get { return _chordSetSO; } }
 
 
+    public void SetChordSetSO(ChordSetSO chordSetSO)
+    {
+        if (_chordSetSO != null) return;
+
+        _chordSetSO = chordSetSO;
+    }
+
     public void AddChordClips(ChordClip[] otherChordClips)
     {
         ChordClip[] chordClips = _chordSetSO.chordClips.Concat<ChordClip>(otherChordClips).ToArray();
