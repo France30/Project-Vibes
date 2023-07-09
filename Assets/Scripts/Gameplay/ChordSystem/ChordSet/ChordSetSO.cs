@@ -12,15 +12,19 @@ public class ChordSetSO : ScriptableObject
 {
     [HideInInspector] public WaitForSeconds waitForTime;
 
+    [SerializeField] private bool _isDrop = false;
+    [SerializeField] private string _id = "0";
     [SerializeField] private ChordType _chordType;
 
     public float time = 1f;
     public ChordClip[] chordClips;
 
+    private ObjectWithPersistentData _chordSetDrop = ObjectWithPersistentData.chordSetDrop;
 
     //default values
     private ChordClip[] _chordClips;
 
+    public bool IsDrop { get { return _isDrop; } }
     public ChordType ChordType { get { return _chordType; } }
 
 
