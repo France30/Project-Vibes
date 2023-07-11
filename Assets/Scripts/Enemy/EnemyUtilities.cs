@@ -2,6 +2,14 @@ using UnityEngine;
 
 public static class EnemyUtilities
 {
+    public static Vector3 FreeMoveTowardsTarget(ref float moveSpeed, Transform transform, Transform target)
+    {
+        moveSpeed = Mathf.Abs(moveSpeed) * -1; //moveSpeed value must always be negative
+        float move = (moveSpeed * Time.fixedDeltaTime) * 3f;
+        Vector3 direction = (transform.position - target.position).normalized;
+        return direction * move;
+    }
+
     public static Quaternion LookAtTarget(Transform transform, Transform target)
     {
         float offset = 0;

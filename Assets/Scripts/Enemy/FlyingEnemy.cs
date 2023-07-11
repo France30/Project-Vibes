@@ -27,10 +27,7 @@ public class FlyingEnemy : EnemyBase
         //Disregard movement if attacking
         if (IsAttacking) return;
 
-        _moveSpeed = Mathf.Abs(_moveSpeed) * -1; //moveSpeed value must always be negative
-        float move = (_moveSpeed * Time.fixedDeltaTime) * 3f;
-        Vector3 direction = (transform.position - target.position).normalized;
-        _targetVelocity = direction * move;
+        _targetVelocity = EnemyUtilities.FreeMoveTowardsTarget(ref _moveSpeed, transform, target);
     }
 
     private void Start()
