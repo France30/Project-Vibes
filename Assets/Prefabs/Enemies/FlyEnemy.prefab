@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee988c85e1f35d4cad527b3924ba4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyPermaDeath: {fileID: 0}
   _maxHealth: 1
   _healthBar: {fileID: 0}
   _damage: 1
@@ -169,7 +170,7 @@ MonoBehaviour:
   _movementSmoothing: 0.2
   _hoverSpeed: 15
   _hoverDistance: 10
-  _flyingAttackConfigs: {fileID: 11400000, guid: 134f9e3f3b757694e82a9210fa4eec14, type: 2}
+  _ability: {fileID: 11400000, guid: 134f9e3f3b757694e82a9210fa4eec14, type: 2}
 --- !u!114 &2239234384047992340
 MonoBehaviour:
   m_ObjectHideFlags: 0
