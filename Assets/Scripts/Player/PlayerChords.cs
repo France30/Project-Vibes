@@ -49,21 +49,24 @@ public class PlayerChords : MonoBehaviour
         PlayerChordsData playerChordsData = SaveSystem.LoadPlayerChords();
         if (playerChordsData != null)
         {
+            //Destroy any existing chord sets
             for (int i = 0; i < _chordSets.Length; i++)
             {
                 Destroy(_chordSets[i].gameObject);
             }
-
+            //Instantiate saved chord sets
             _chordSets = new ChordSet[playerChordsData.chordSetData.Length];
             for (int i = 0; i < playerChordsData.chordSetData.Length; i++)
             {
                 GameObject chordSetGO = new GameObject();
                 chordSetGO.transform.parent = transform;
-                chordSetGO.SetActive(false);
+                //Disable the gameobject to prevent any functions from getting triggered when attaching components
+                chordSetGO.SetActive(false); 
                 ChordSet chordSet = chordSetGO.AddComponent<ChordSet>();
 
                 InitializeChordSetValues(chordSet, playerChordsData.chordSetData[i]);
                 chordSet.transform.SetAsLastSibling();
+                //Enable gameobject to load all components
                 chordSetGO.SetActive(true);
                 _chordSets[i] = chordSet;
             }
