@@ -12,6 +12,12 @@ public class ButtonEvent : ScriptableObject
         AudioManager.Instance.Stop("MainMenuBGM");
     }
 
+    public void ContinueGame()
+    {
+        LevelManager.Instance.LoadLevelFromSave();
+        AudioManager.Instance.Stop("MainMenuBGM");
+    }
+
     public void ResetLevel()
     {
         LevelManager.Instance.ResetLevel();
