@@ -19,6 +19,13 @@ public static class SaveSystem
         }
     }
 
+    public static bool IsSaveFileFound()
+    {
+        string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "/", "*.data");
+
+        return dataPath.Length > 0;
+    }
+
     public static void SavePlayerData()
     {
         string playerPath = Application.persistentDataPath + "/player.data";
