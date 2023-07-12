@@ -23,6 +23,11 @@ public class ButtonEvent : ScriptableObject
         LevelManager.Instance.ResetLevel();
     }
 
+    public void ReturnToMainMenu()
+    {
+        LevelManager.Instance.LoadLevelSelect(0);
+    }
+
     public void ExitGame()
     {
 #if UNITY_STANDALONE
