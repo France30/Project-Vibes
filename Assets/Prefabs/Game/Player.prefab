@@ -82,7 +82,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 23, y: -33}
-  m_SizeDelta: {x: 80, y: 200}
+  m_SizeDelta: {x: 50, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &155997587264579833
 CanvasRenderer:
@@ -241,7 +241,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 200}
+  m_SizeDelta: {x: 45, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8560933837970686146
 CanvasRenderer:
@@ -825,7 +825,7 @@ MonoBehaviour:
   _maxHealth: 10
   _healthBar: {fileID: 8321933013240532515}
   _healthBarOverlay: {fileID: 3628486201433925532}
-  _hurtTime: 1
+  _hurtTime: 0.45
   _knockBackForce: {x: 5, y: 5}
   _playerActions:
   - {fileID: 6717973789561704264}
