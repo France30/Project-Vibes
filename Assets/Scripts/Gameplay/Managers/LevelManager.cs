@@ -40,7 +40,6 @@ public class LevelManager : Singleton<LevelManager>
         if (!_isLoadingLevel)
         {
             _isLoadingLevel = true;
-            Time.timeScale = 1;
             StartCoroutine(RestartLevel());
         }
     }
@@ -73,8 +72,9 @@ public class LevelManager : Singleton<LevelManager>
 
     private IEnumerator LoadLevel(int sceneIndex)
     {
-        OnLevelLoad?.Invoke();
+        Time.timeScale = 1;
 
+        OnLevelLoad?.Invoke();
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         yield return StartCoroutine(LoadingScreen(operation));
 
