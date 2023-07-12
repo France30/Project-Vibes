@@ -236,6 +236,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnFallEvent:
+    m_PersistentCalls:
+      m_Calls: []
   OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -251,11 +254,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2656a4d1ae3a4104082bf9d3a63be0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyPermaDeath: {fileID: 0}
   _maxHealth: 1
   _healthBar: {fileID: 0}
   _damage: 1
   _moveSpeed: 25
-  _fallingThreshold: -5
   _wallCheck: {fileID: 2910925378705959807}
   _groundPlatformCheck: {fileID: 2910925379259472918}
   _whatIsPlatform:
