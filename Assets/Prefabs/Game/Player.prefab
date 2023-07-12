@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1025093773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1025093774}
+  - component: {fileID: 1025093775}
+  m_Layer: 3
+  m_Name: ChordSet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1025093774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025093773}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6717973787746591753}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1025093775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025093773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f57c337d97409a4fbf94bbe2099314d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chordSetSO: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
 --- !u!1 &3053038009713181183
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +292,7 @@ GameObject:
   - component: {fileID: 6717973787746591753}
   - component: {fileID: 7209192494620814197}
   m_Layer: 3
-  m_Name: ChordAudio
+  m_Name: PlayerChords
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,7 +309,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1025093774}
   m_Father: {fileID: 6717973789561704269}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -280,7 +326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9093d0a7cd72049a8d9e713d52968f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chord: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
 --- !u!1 &6717973787863823678
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +561,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6717973789561704259}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -29.67, y: -0.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -548,7 +593,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6717973789561704307
 BoxCollider2D:
@@ -563,7 +608,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07926929, y: 0.23888099}
+  m_Offset: {x: 0.07926929, y: -0.045227587}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -574,7 +619,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.032512, y: 1.4302685}
+  m_Size: {x: 1.032512, y: 1.9984857}
   m_EdgeRadius: 0
 --- !u!58 &6717973789561704304
 CircleCollider2D:
@@ -676,7 +721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08f91df3bd212f429df17f53ce2f364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 700
+  m_JumpForce: 400
   m_CrouchSpeed: 0.4
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -732,8 +777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 40
-  _jumpTime: 0.5
-  _jumpBoost: 20
+  _jumpTime: 0.2
+  _jumpBoost: 50
 --- !u!114 &6717973789561704309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +831,7 @@ MonoBehaviour:
   - {fileID: 6717973789561704264}
   - {fileID: 6717973789561704309}
   - {fileID: 6717973789561704305}
+  - {fileID: 7209192494620814197}
 --- !u!114 &6717973789561704310
 MonoBehaviour:
   m_ObjectHideFlags: 0
