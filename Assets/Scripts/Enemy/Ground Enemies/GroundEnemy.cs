@@ -20,14 +20,14 @@ public abstract class GroundEnemy : EnemyBase
     protected Transform CurrentTarget { get; private set; }
 
 
-    public void OnLanding()
+    public virtual void OnLanding()
     {
         _isGrounded = true;
         _isFalling = false;
         //Debug.Log(this.name + "Enemy Landed");
     }
 
-    public void OnFall()
+    public virtual void OnFall()
     {
         _isFalling = true;
         _isGrounded = false;

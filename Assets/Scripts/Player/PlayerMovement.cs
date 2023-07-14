@@ -31,15 +31,17 @@ public class PlayerMovement : MonoBehaviour
 	public void OnLanding()
 	{
 		_isGrounded = true;
-
+		_animator.SetBool("Jump", false);
+		_animator.SetBool("Fall", false);
 		//Debug.Log("Player Landed");
 	}
 
 	public void OnFall()
     {
-		_animator.SetBool("Jump", false);
 		_isGrounded = false;
 
+		_animator.SetBool("Jump", false);
+		_animator.SetBool("Fall", true);
 		//Debug.Log("Player Falling");
 	}
 
@@ -49,6 +51,18 @@ public class PlayerMovement : MonoBehaviour
 		_controller = GetComponent<CharacterController2D>();
 		_animator = GetComponent<Animator>();
     }
+
+    private void OnEnable()
+    {
+		_controller.enabled = true;
+    }
+
+    private void OnDisable()
+    {
+		_controller.enabled = false;
+		_animator.SetBool("Jump", false);
+		_animator.SetBool("Fall", false);
+	}
 
     // Update is called once per frame
     private void Update () 

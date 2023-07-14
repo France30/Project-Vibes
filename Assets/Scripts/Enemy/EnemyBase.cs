@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
     protected Vector2 _spriteSize;
     protected Rigidbody2D _rb2D;
     protected Health _health;
+    protected Animator _animator;
 
     private int _instanceID = 0;
     private bool _isFacingRight = true;
@@ -32,6 +34,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
+    public int MaxHealth { get { return (int)_health.MaxHealth; } }
     protected bool IsAttacking { get; private set; }
     protected bool IsIdle { get; private set; }
 
@@ -43,17 +46,19 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     public void TakeDamage(int value)
     {
-        _health.CurrentHealth -= value;
-        Debug.Log(InstanceID + " has been hit");
+        if (_health.CurrentHealth <= 0) return;
 
-        if(!_spriteController.IsFlashing)
-            StartCoroutine(_spriteController.Flash());
+        _health.CurrentHealth -= value;
+        _animator.SetFloat("Health", _health.CurrentHealth);
 
         if (_health.CurrentHealth <= 0)
         {
             OnEnemyDeath?.Invoke();
-            gameObject.SetActive(false);
+            return;
         }
+
+        if (!_spriteController.IsFlashing)
+            StartCoroutine(_spriteController.Flash());
     }
 
     public bool IsTargetReached(Transform target, float targetDistance = 1)
@@ -101,29 +106,42 @@ public abstract class EnemyBase : StateMachine, IDamageable
         CheckForPlayerCollision();
     }
 
+    protected virtual void OnBecameVisible()
+    {
+        this.enabled = true;
+    }
+
+    protected virtual void OnBecameInvisible()
+    {
+        this.enabled = false;
+    }
+
     private void Awake()
     {
         _enemyPermaDeath?.InitializeEnemyPermaDeath(this);
 
         _health = new Health(_maxHealth, _healthBar);
         _instanceID = gameObject.GetInstanceID();
-   
+
         _spriteController = GetComponent<SpriteController>();
         _spriteSize = _spriteController.SpriteSize;
         _rb2D = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+
+        _animator.SetFloat("Health", _health.CurrentHealth);
 
         InitializeState();
         this.enabled = false;
     }
 
-    private void OnBecameVisible()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        this.enabled = true;
-    }
+        if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _health.CurrentHealth <= 0) return;
 
-    private void OnBecameInvisible()
-    {
-        this.enabled = false;
+        _health.CurrentHealth = 0;
+        _animator.SetFloat("Health", _health.CurrentHealth);
+
+        OnEnemyDeath?.Invoke();
     }
 
     private void InitializeState()

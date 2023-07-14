@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     private Health _health;
 
     private bool _isHurt = false;
-    private bool _isDead = false;
 
     public delegate void PlayerDeath(bool isPlayerDead);
     public event PlayerDeath OnPlayerDeath;
@@ -32,21 +31,20 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
-        if (_isHurt || _spriteController.IsFlashing || _isDead) return;
+        if (_isHurt || _spriteController.IsFlashing || _health.CurrentHealth <= 0) return;
 
-        _health.CurrentHealth -= value;
         _isHurt = true;
 
+        _health.CurrentHealth -= value;
+        _animator.SetFloat("Health", _health.CurrentHealth);
         if (_health.CurrentHealth <= 0)
         {
-            _isDead = true;
             OnPlayerDeath?.Invoke(true);
             return;
         }
 
         StartCoroutine(HurtDuration());
         ApplyKnockBack(knockBackDirection);
-        StartCoroutine(_spriteController.Flash()); //for placeholder purposes only
     }
 
     private void Awake()
@@ -56,11 +54,13 @@ public class Player : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
         _health = new Health(_maxHealth, _healthBar);
+        _animator.SetFloat("Health", _health.CurrentHealth);
     }
 
     private void OnEnable()
     {
         OnPlayerDeath += DisablePlayerActions;
+        GameController.Instance.OnFreezeEffect += SetHurtAnimation;
         GameController.Instance.OnPauseEvent += DisablePlayerActions;
     }
 
@@ -70,14 +70,18 @@ public class Player : MonoBehaviour
 
         if (GameController.Instance == null) return;
 
+        GameController.Instance.OnFreezeEffect -= SetHurtAnimation;
         GameController.Instance.OnPauseEvent -= DisablePlayerActions;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _isDead) return;
+        if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _health.CurrentHealth <= 0) return;
 
-        _isDead = true;
+        _health.CurrentHealth = 0;
+        _animator.SetFloat("Health", _health.CurrentHealth);
+
+        StopAllCoroutines();
         OnPlayerDeath?.Invoke(true);
     }
 
@@ -90,16 +94,21 @@ public class Player : MonoBehaviour
 
     private IEnumerator HurtDuration()
     {
-        _animator.SetBool("Hurt", _isHurt);
         DisablePlayerActions(_isHurt);
+        SetHurtAnimation(_isHurt);
 
         yield return new WaitForSeconds(_hurtTime);
 
-        _animator.SetBool("Hurt", !_isHurt);
+        SetHurtAnimation(!_isHurt);
         DisablePlayerActions(!_isHurt);
 
-        //StartCoroutine(_spriteController.Flash());
+        StartCoroutine(_spriteController.Flash());
         _isHurt = false;
+    }
+
+    private void SetHurtAnimation(bool isHurt)
+    {
+        _animator.SetBool("Hurt", isHurt);
     }
 
     private void DisablePlayerActions(bool isEnable)
