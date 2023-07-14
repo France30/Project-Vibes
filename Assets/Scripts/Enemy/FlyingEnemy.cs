@@ -9,7 +9,7 @@ public class FlyingEnemy : EnemyBase
     [SerializeField] private float _hoverDistance = 1f;
 
     [Header("Attack Configs")]
-    [SerializeField] private FlyingAttackConfigs _flyingAttackConfigs;
+    [SerializeField] private ScriptableObject _ability;
 
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _targetVelocity = Vector3.zero;
@@ -17,6 +17,8 @@ public class FlyingEnemy : EnemyBase
 
     private float _currentHoverDistance;
     private bool _isHoveringUp = true;
+
+    private IFlyingAttack FlyingAttack { get { return _ability as IFlyingAttack; } }
 
 
     public override void MoveToTargetDirection(Transform target)
@@ -27,10 +29,17 @@ public class FlyingEnemy : EnemyBase
         //Disregard movement if attacking
         if (IsAttacking) return;
 
-        _moveSpeed = Mathf.Abs(_moveSpeed) * -1; //moveSpeed value must always be negative
-        float move = (_moveSpeed * Time.fixedDeltaTime) * 3f;
-        Vector3 direction = (transform.position - target.position).normalized;
-        _targetVelocity = direction * move;
+        _targetVelocity = EnemyUtilities.FreeMoveTowardsTarget(ref _moveSpeed, transform, target);
+    }
+
+    private void OnValidate()
+    {
+        if (!gameObject.activeInHierarchy) return;
+
+        if(_ability is not IFlyingAttack)
+        {
+            throw new System.NullReferenceException("Ability Must Contain Type Of 'IFlyingAttack'");
+        }
     }
 
     private void Start()
@@ -38,7 +47,7 @@ public class FlyingEnemy : EnemyBase
         if (TryGetComponent<Idle>(out Idle idle))
             idle.SetAction(Hover);
 
-        SetAttack(() => { _targetVelocity = _flyingAttackConfigs.ApplyAttackVelocity(_moveSpeed, transform); });
+        SetAttack(() => { _targetVelocity = FlyingAttack.ApplyAttackVelocity(_moveSpeed, transform); });
     }
 
     protected override void FixedUpdate()

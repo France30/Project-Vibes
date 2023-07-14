@@ -4,6 +4,12 @@ public class HopperGround : GroundEnemy
     private int jumpCount = 0;
 
 
+    public override void OnLanding()
+    {
+        base.OnLanding();
+        _animator.SetBool("Jump", false);
+    }
+
     protected override bool JumpCondition()
     {
         bool shouldJump = false;
@@ -12,6 +18,7 @@ public class HopperGround : GroundEnemy
         {
             jumpCount++;
             shouldJump = true;
+            _animator.SetBool("Jump", true);
         }
         else if(!BeatSystemController.Instance.IsBeatPlaying && jumpCount > 0)
         {

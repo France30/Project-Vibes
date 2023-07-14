@@ -20,7 +20,6 @@ public class EnemyPermaDeathSO : ScriptableObject
 
     private void SavePermaDeath()
     {
-        Debug.Log("Enemy no." + _id + " is dead");
         _isAlive = false;
         SavePersistentData.SavePersistentFlag(_enemyPermaDeathVariant, _id, _isAlive);
     }

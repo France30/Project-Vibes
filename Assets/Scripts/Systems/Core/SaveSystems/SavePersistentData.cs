@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ObjectWithPersistentData
 {
     enemy,
-    musicSheet
+    musicSheet,
+    chordSetDrop
 }
 
 public static class SavePersistentData

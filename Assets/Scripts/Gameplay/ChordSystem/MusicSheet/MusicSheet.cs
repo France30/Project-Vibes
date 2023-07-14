@@ -9,6 +9,8 @@ public class MusicSheet : Interactable
 
     public override void Interact()
     {
+        SaveSystem.SavePlayerData(); //Music Sheet Pick-ups also double as checkpoints
+
         PlayerAttack playerAttack = GameController.Instance.Player.GetComponent<PlayerAttack>();
         playerAttack.enabled = false;
 
@@ -16,7 +18,7 @@ public class MusicSheet : Interactable
         playerChords.AddToChordSet(_musicSheetSO);
         playerAttack.enabled = true;
 
-        _musicSheetSO.SaveSheet();
+        _musicSheetSO.SheetGet();
         gameObject.SetActive(false);
     }
 

@@ -15,6 +15,9 @@ public class GameController : Singleton<GameController>
     public delegate void OnPause(bool isPaused);
     public event OnPause OnPauseEvent;
 
+    public delegate void FreezeDeathEvent(bool isFreezeEvent);
+    public event FreezeDeathEvent OnFreezeEffect;
+
     public Player Player { 
         get 
         {
@@ -98,8 +101,6 @@ public class GameController : Singleton<GameController>
     {
         yield return StartCoroutine(FreezeDeathEffect());
 
-        _player.GetComponent<SpriteRenderer>().enabled = false;
-
         yield return new WaitForSeconds(_timeTillLevelReset);
 
         DisableGame();
@@ -108,10 +109,12 @@ public class GameController : Singleton<GameController>
 
     private IEnumerator FreezeDeathEffect()
     {
+        OnFreezeEffect?.Invoke(true);
         TogglePause();
 
         yield return new WaitForSecondsRealtime(_freezeDeathEffectDuration);
 
         TogglePause();
+        OnFreezeEffect?.Invoke(false);
     }
 }
