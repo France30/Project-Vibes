@@ -11,12 +11,19 @@ public static class SaveSystem
 
     public static void ClearAllSaveData()
     {
-        string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "*.data");
+        string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "/","*.data");
 
         for (int i = 0; i < dataPath.Length; i++)
         {
             File.Delete(dataPath[i]);
         }
+    }
+
+    public static bool IsSaveFileFound()
+    {
+        string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "/", "*.data");
+
+        return dataPath.Length > 0;
     }
 
     public static void SavePlayerData()
