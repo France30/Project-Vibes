@@ -72,7 +72,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.Log("Player Data not found in" + playerPath + "!");
+            Debug.Log("Player Data not found in " + playerPath + "!");
         }
 
         return playerData;
@@ -92,7 +92,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.Log("Player Chords Data not found in" + playerChordsPath + "!");
+            Debug.Log("Player Chords Data not found in " + playerChordsPath + "!");
         }
 
         return playerChordsData;
