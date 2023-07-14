@@ -7,7 +7,8 @@ Artist: https://www.artstation.com/zenevergreen
 ## Project Update
 
 
-https://github.com/France30/Project-Vibes/assets/53886711/3cf95145-28bf-47cd-a14c-0ed92e5543a1
+https://github.com/France30/Project-Vibes/assets/53886711/ed2e7c55-3c0f-4f2e-815f-286ccadc3906
+
 
 
 ## Controls
