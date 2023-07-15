@@ -14,6 +14,32 @@ public class GameUIManager : Singleton<GameUIManager>
 
     public TextMeshProUGUI TextNotif { get { return _textNotif; } }
 
+
+    public void FadeInNotificationText()
+    {
+        if (TextNotif.alpha < 1f)
+        {
+            float a = TextNotif.alpha;
+            a += _fadeSpeed * Time.deltaTime;
+            SetTextNotifAlpha(a);
+        }
+    }
+
+    public void FadeOutNotificationText()
+    {
+        if (TextNotif.alpha > 0f)
+        {
+            float a = TextNotif.alpha;
+            a -= _fadeSpeed * Time.deltaTime;
+            SetTextNotifAlpha(a);
+        }
+    }
+
+    public void SetTextNotifAlpha(float a)
+    {
+        _textNotif.color = new Color(_textNotif.color.r, _textNotif.color.g, _textNotif.color.b, a);
+    }
+
     private void OnEnable()
     {
         SetTextNotifAlpha(0);
