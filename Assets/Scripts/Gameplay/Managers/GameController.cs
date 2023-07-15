@@ -105,11 +105,21 @@ public class GameController : Singleton<GameController>
     private IEnumerator GameOverSequence()
     {
         yield return StartCoroutine(FreezeDeathEffect());
-
+        yield return new WaitUntil(IsGameOverNotifDone);
         yield return new WaitForSeconds(_timeTillLevelReset);
 
         DisableGame();
         LevelManager.Instance.ResetLevel();
+    }
+
+    private bool IsGameOverNotifDone()
+    {
+        bool isNotifDone = GameUIManager.Instance.TextNotif.alpha >= 1f;
+        if(!isNotifDone)
+        {
+            GameUIManager.Instance.FadeInNotificationText();
+        }
+        return isNotifDone;
     }
 
     private IEnumerator FreezeDeathEffect()
