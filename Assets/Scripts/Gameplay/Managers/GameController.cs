@@ -95,7 +95,11 @@ public class GameController : Singleton<GameController>
         _isGameOver = isGameOver;
 
         if (_isGameOver)
+        {
+            GameUIManager.Instance.SetTextNotifAlpha(0);
+            GameUIManager.Instance.TextNotif.text = _gameOverText;
             StartCoroutine(GameOverSequence());
+        }
     }
 
     private IEnumerator GameOverSequence()
