@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
     [SerializeField] private GameObject PauseUI;
 
+    [SerializeField] private TextMeshProUGUI _textNotif;
+    [SerializeField] private float _fadeSpeed = 1f;
+
+    public TextMeshProUGUI TextNotif { get { return _textNotif; } }
 
     private void OnEnable()
     {
