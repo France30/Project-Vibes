@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : Singleton<GameController>
 {
     [Header("Game Over Settings")]
+    [SerializeField] private string _gameOverText = "You Died";
     [SerializeField] private float _freezeDeathEffectDuration = 1f;
     [SerializeField] private float _timeTillLevelReset = 2f;
 
