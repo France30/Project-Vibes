@@ -16,6 +16,7 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void OnEnable()
     {
+        SetTextNotifAlpha(0);
         PauseUI.SetActive(false);
         GameController.Instance.OnPauseEvent += EnablePauseUI;
     }
