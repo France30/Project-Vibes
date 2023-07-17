@@ -22,11 +22,11 @@ public class Projectile : MonoBehaviour
     private FireProjectileDirection _fireDirection;
 
 
-    public void SetProjectile(FireProjectile fireProjectile)
+    public void SetProjectile(FireProjectile fireProjectile, int damage = 1)
     {
         if (gameObject.activeSelf) return;
 
-        _damage = fireProjectile.damage;
+        _damage = damage;
         _speed = fireProjectile.speed;
         _isHoming = fireProjectile.isHoming;
         _canHitGround = fireProjectile.canHitGround;

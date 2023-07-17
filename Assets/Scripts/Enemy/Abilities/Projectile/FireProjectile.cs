@@ -14,7 +14,6 @@ public class FireProjectile : ScriptableObject, IFlyingAttack, IGroundAttack
 {
     [SerializeField] private string _id = "Projectile";
 
-    public int damage = 1;
     public float speed = 10f;
     public Sprite sprite;
     public bool isHoming = false;
@@ -24,10 +23,10 @@ public class FireProjectile : ScriptableObject, IFlyingAttack, IGroundAttack
     public AbilityType AbilityType { get { return AbilityType.Projectile; } }
 
 
-    void IAbility.FireProjectile(Transform projectileSpawnPoint)
+    void IAbility.FireProjectile(Transform projectileSpawnPoint, int damage)
     {
         Projectile projectile = ObjectPoolManager.Instance.GetPooledObject(_id).GetComponent<Projectile>();
-        projectile.SetProjectile(this);
+        projectile.SetProjectile(this, damage);
 
         projectile.transform.position = projectileSpawnPoint.position;
         projectile.transform.rotation = projectileSpawnPoint.rotation;
