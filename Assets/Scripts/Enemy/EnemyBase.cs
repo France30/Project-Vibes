@@ -43,7 +43,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         EnemyAttack?.Invoke();
     }
 
-    public void TakeDamage(int value)
+    public virtual void TakeDamage(int value)
     {
         if (_health.CurrentHealth <= 0) return;
 
