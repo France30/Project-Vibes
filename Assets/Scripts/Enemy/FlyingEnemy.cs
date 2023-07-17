@@ -47,7 +47,30 @@ public class FlyingEnemy : EnemyBase
         if (TryGetComponent<Idle>(out Idle idle))
             idle.SetAction(Hover);
 
-        SetAttack(() => { _targetVelocity = FlyingAttack.ApplyAttackVelocity(_moveSpeed, transform); });
+        if (TryGetComponent<Attack>(out Attack attack))
+            attack.SetAction(() =>
+            {
+                _animator.SetBool("Attack", false);
+                _animator.SetBool("ReadyAttack", true);
+            });
+
+        SetAttack(() => 
+        {
+            _targetVelocity = FlyingAttack.ApplyAttackVelocity(_moveSpeed, transform);
+            _animator.SetBool("Attack", true);
+            _animator.SetBool("ReadyAttack", false);
+        });
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if(!IsAttacking)
+        {
+            _animator.SetBool("Attack", false);
+            _animator.SetBool("ReadyAttack", false);
+        }
     }
 
     protected override void FixedUpdate()
