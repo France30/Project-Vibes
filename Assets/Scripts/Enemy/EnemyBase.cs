@@ -137,10 +137,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
     {
         if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _health.CurrentHealth <= 0) return;
 
-        _health.CurrentHealth = 0;
-        _animator.SetFloat("Health", _health.CurrentHealth);
-
-        OnEnemyDeath?.Invoke();
+        TakeDamage((int)_health.MaxHealth);
     }
 
     private void InitializeState()
