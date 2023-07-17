@@ -22,11 +22,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
     protected Rigidbody2D _rb2D;
     protected Health _health;
     protected Animator _animator;
+    protected SpriteController _spriteController;
 
     private int _instanceID = 0;
     private bool _isFacingRight = true;
     private Collider2D[] _playerCollider = new Collider2D[1];
-    private SpriteController _spriteController;
 
     public delegate void EnemyEvent();
     public event EnemyEvent OnEnemyDeath;
