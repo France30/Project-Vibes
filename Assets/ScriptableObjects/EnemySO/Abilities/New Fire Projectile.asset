@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: New Fire Projectile
   m_EditorClassIdentifier: 
   _id: Projectile
-  damage: 1
   speed: 10
   sprite: {fileID: 21300000, guid: 3fc2bbd409bf34ab6af1637bab569da1, type: 3}
   isHoming: 0
   canHitGround: 0
-  fireDirection: 0
+  fireDirection: 1
