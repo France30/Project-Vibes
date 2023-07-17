@@ -38,7 +38,7 @@ public class BossTurret : BossEnemy
     {
         if (_teleportPoints.Length > 0)
         {
-            InitializeTurretBody();
+            InitializeTurretBase();
         }
 
         _currentRotation = _startingRotation;
@@ -60,7 +60,7 @@ public class BossTurret : BossEnemy
         }
     }
 
-    private void InitializeTurretBody()
+    private void InitializeTurretBase()
     {
         transform.position = _teleportPoints[_currentTeleportPoint].position;
         transform.rotation = _teleportPoints[_currentTeleportPoint].rotation;
@@ -89,7 +89,7 @@ public class BossTurret : BossEnemy
         yield return new WaitForSeconds(0.5f); //for test only
 
         _currentRotation = _startingRotation;
-        InitializeTurretBody();
+        InitializeTurretBase();
         _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);
         //to play initialization animation
         _isTeleporting = false;
