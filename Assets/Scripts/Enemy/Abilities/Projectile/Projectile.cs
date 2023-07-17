@@ -22,11 +22,11 @@ public class Projectile : MonoBehaviour
     private FireProjectileDirection _fireDirection;
 
 
-    public void SetProjectile(FireProjectile fireProjectile)
+    public void SetProjectile(FireProjectile fireProjectile, int damage = 1)
     {
         if (gameObject.activeSelf) return;
 
-        _damage = fireProjectile.damage;
+        _damage = damage;
         _speed = fireProjectile.speed;
         _isHoming = fireProjectile.isHoming;
         _canHitGround = fireProjectile.canHitGround;
@@ -89,7 +89,7 @@ public class Projectile : MonoBehaviour
     {
         Vector3 targetVelocity = Vector3.zero;
 
-        _speed = Mathf.Abs(_speed);
+        _speed = Mathf.Abs(_speed) * -1;
         float move = (_speed * Time.fixedDeltaTime) * 3f;
         switch (_fireDirection)
         {

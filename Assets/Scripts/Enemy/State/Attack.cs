@@ -9,7 +9,7 @@ public class Attack : State
     public UnityEvent OnAttackEvent;
 
     private Transform _player;
-    private Animator _animator;
+
     private State _prevState;
 
     private bool _isAttacking = false;
@@ -26,8 +26,6 @@ public class Attack : State
         {
             base.PerformState(); //Actions that need to happen during attack state
             _enemyBase.MoveToTargetDirection(_player);
-            _animator.SetBool("Attack", false);
-            _animator.SetBool("ReadyAttack", true);
         }
 
         if (BeatSystemController.Instance.IsBeatPlaying)
@@ -36,8 +34,6 @@ public class Attack : State
             if (!wasAttacking)
             {
                 OnAttackEvent?.Invoke();  //Events that should only happen once on the beat
-                _animator.SetBool("Attack", true);
-                _animator.SetBool("ReadyAttack", false);
             }
         }
     }
@@ -49,15 +45,12 @@ public class Attack : State
         if (!StateCondition)
         {
             _enemyBase.SetState(_prevState);
-            _animator.SetBool("Attack", false);
-            _animator.SetBool("ReadyAttack", false);
         }
     }
 
     private void Start()
     {
         _player = GameController.Instance.Player.transform;
-        _animator = GetComponent<Animator>();
 
         TryGetPrevState();
     }
@@ -70,6 +63,8 @@ public class Attack : State
             _prevState = idle;
         else if (TryGetComponent<Patrol>(out Patrol patrol))
             _prevState = patrol;
+        else
+            _playerDistanceToAttackState = Mathf.Infinity;
 
         Utilities.RemoveReferenceOfDisabledComponent<State>(ref _prevState);
     }

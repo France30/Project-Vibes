@@ -6,7 +6,7 @@ public class NormalGround : GroundEnemy
     {
         if (CurrentTarget == null) return false;
 
-        return !IsTargetReached(CurrentTarget) && !IsAttacking && !IsIdle;
+        return !IsTargetReached(CurrentTarget) && !IsAttacking && !IsIdle && !_spriteController.IsFlashing;
     }
 
     protected override bool JumpCondition()

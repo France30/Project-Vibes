@@ -22,11 +22,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
     protected Rigidbody2D _rb2D;
     protected Health _health;
     protected Animator _animator;
+    protected SpriteController _spriteController;
 
     private int _instanceID = 0;
     private bool _isFacingRight = true;
     private Collider2D[] _playerCollider = new Collider2D[1];
-    private SpriteController _spriteController;
 
     public delegate void EnemyEvent();
     public event EnemyEvent OnEnemyDeath;
@@ -34,7 +34,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
-    public int MaxHealth { get { return (int)_health.MaxHealth; } }
     protected bool IsAttacking { get; private set; }
     protected bool IsIdle { get; private set; }
 
@@ -44,7 +43,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         EnemyAttack?.Invoke();
     }
 
-    public void TakeDamage(int value)
+    public virtual void TakeDamage(int value)
     {
         if (_health.CurrentHealth <= 0) return;
 
@@ -138,10 +137,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
     {
         if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _health.CurrentHealth <= 0) return;
 
-        _health.CurrentHealth = 0;
-        _animator.SetFloat("Health", _health.CurrentHealth);
-
-        OnEnemyDeath?.Invoke();
+        TakeDamage((int)_health.MaxHealth);
     }
 
     private void InitializeState()
