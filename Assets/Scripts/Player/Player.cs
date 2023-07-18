@@ -28,10 +28,11 @@ public class Player : MonoBehaviour
     public delegate void PlayerDeath(bool isPlayerDead);
     public event PlayerDeath OnPlayerDeath;
 
+    public bool IsInvulnerable { get { return _isHurt || _spriteController.IsFlashing; } }
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
-        if (_isHurt || _spriteController.IsFlashing || _health.CurrentHealth <= 0) return;
+        if (_health.CurrentHealth <= 0) return;
 
         _isHurt = true;
 

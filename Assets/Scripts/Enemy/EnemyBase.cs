@@ -159,6 +159,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
         if (hitDetect > 0)
         {
             Player player = GameController.Instance.Player;
+            if (player.IsInvulnerable) return;
+
             player.TakeDamage(_damage, EnemyUtilities.GetCollisionDirection(transform, _playerCollider[0]));
         }
     }
