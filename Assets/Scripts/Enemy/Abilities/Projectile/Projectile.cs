@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     private float _speed = 10f;
     private bool _isHoming = false;
     private bool _canHitGround = false;
+    private bool _canBeDamaged = false;
     private Sprite _sprite;
     private FireProjectileDirection _fireDirection;
 
@@ -30,6 +31,7 @@ public class Projectile : MonoBehaviour
         _speed = fireProjectile.speed;
         _isHoming = fireProjectile.isHoming;
         _canHitGround = fireProjectile.canHitGround;
+        _canBeDamaged = fireProjectile.canBeDamaged;
         _sprite = fireProjectile.sprite;
         _fireDirection = fireProjectile.fireDirection;
     }
@@ -55,7 +57,9 @@ public class Projectile : MonoBehaviour
     private void FixedUpdate()
     {
         if (_canHitGround)
+        {
             CheckGroundCollision();
+        }
 
         ProjectileMove();
     }
@@ -106,6 +110,12 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.GetComponent<AttackObjectController>())
+        {
+            ObjectPoolManager.Instance.DespawnGameObject(gameObject);
+            return;
+        }
+
         if(collision.TryGetComponent<Player>(out Player player))
         {
             player.TakeDamage(_damage, EnemyUtilities.GetCollisionDirection(transform, collision));

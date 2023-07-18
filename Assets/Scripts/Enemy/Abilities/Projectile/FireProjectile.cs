@@ -18,6 +18,7 @@ public class FireProjectile : ScriptableObject, IFlyingAttack, IGroundAttack, IB
     public Sprite sprite;
     public bool isHoming = false;
     public bool canHitGround = false;
+    public bool canBeDamaged = false;
     public FireProjectileDirection fireDirection;
 
     public AbilityType AbilityType { get { return AbilityType.Projectile; } }

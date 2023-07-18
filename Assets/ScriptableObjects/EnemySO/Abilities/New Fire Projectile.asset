@@ -17,4 +17,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 3fc2bbd409bf34ab6af1637bab569da1, type: 3}
   isHoming: 0
   canHitGround: 0
+  canBeDamaged: 1
   fireDirection: 1
