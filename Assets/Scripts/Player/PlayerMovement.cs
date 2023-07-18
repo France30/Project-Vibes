@@ -60,8 +60,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
 		_controller.enabled = false;
-		_animator.SetBool("Jump", false);
-		_animator.SetBool("Fall", false);
 	}
 
     // Update is called once per frame
