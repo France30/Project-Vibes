@@ -118,6 +118,8 @@ public class Projectile : MonoBehaviour
 
         if(collision.TryGetComponent<Player>(out Player player))
         {
+            if (player.IsInvulnerable) return;
+
             player.TakeDamage(_damage, EnemyUtilities.GetCollisionDirection(transform, collision));
             ObjectPoolManager.Instance.DespawnGameObject(gameObject);
         }
