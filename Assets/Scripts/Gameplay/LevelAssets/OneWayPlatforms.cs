@@ -16,7 +16,7 @@ public class OneWayPlatforms : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S) && _isPlayerOnPlatform)
+        if (Input.GetKey(KeyCode.S) && Input.GetButtonDown("Jump") && _isPlayerOnPlatform)
             _platformEffector2D.rotationalOffset = 180;
     }
 
@@ -36,6 +36,6 @@ public class OneWayPlatforms : MonoBehaviour
 
         _isPlayerOnPlatform = false;
 
-        Debug.Log("Player not on one-way platform");
+        //Debug.Log("Player not on one-way platform");
     }
 }

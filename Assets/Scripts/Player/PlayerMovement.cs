@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void JumpBuffer()
     {
-		if (Input.GetButtonDown("Jump"))
+		if (Input.GetButtonDown("Jump") && !Input.GetKey(KeyCode.S))
 			_jumpBufferCounter = 0f;
 		else
 			_jumpBufferCounter += Time.deltaTime;
