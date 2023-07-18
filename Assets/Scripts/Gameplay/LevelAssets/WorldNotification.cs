@@ -12,10 +12,24 @@ public class WorldNotification : MonoBehaviour
     private TextMeshProUGUI _worldTextNotif;
     private Player _player;
 
+    private static bool _didNotificationTrigger = false;
+
 
     private void Awake()
     {
         GetComponent<BoxCollider2D>().isTrigger = true;
+    }
+
+    private void OnEnable()
+    {
+        LevelManager.Instance.OnLevelLoad += ResetNotificationFlag;
+    }
+
+    private void OnDisable()
+    {
+        if (LevelManager.Instance == null) return;
+
+        LevelManager.Instance.OnLevelLoad -= ResetNotificationFlag;
     }
 
     private void Update()
@@ -43,6 +57,10 @@ public class WorldNotification : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent<Player>(out Player player))
         {
+            if (_didNotificationTrigger) return;
+
+            _didNotificationTrigger = true;
+
             _worldTextNotif = GameUIManager.Instance.TextNotif;
             _worldTextNotif.text = _worldName;
             _player = player;
@@ -55,5 +73,10 @@ public class WorldNotification : MonoBehaviour
         {
             _player = null;
         }
+    }
+
+    private void ResetNotificationFlag()
+    {
+        _didNotificationTrigger = false;
     }
 }
