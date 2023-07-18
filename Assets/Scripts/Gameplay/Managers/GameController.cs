@@ -63,19 +63,16 @@ public class GameController : Singleton<GameController>
         if (_isGameOver) return;
 
         if (Input.GetKeyDown(KeyCode.P))
+        {
             TogglePause();
+        }
     }
 
     //Use this method to disable any dependencies first
     private void DisableGame()
     {
         EnemyBase[] enemy = FindObjectsOfType<EnemyBase>();
-        for (int i = 0; i < enemy.Length; i++)
-        {
-            if (!enemy[i].enabled) continue;
-
-            enemy[i].enabled = false;
-        }
+        Utilities.DisableAllInstancesOfType<EnemyBase>(enemy);
 
         GameUIManager.Instance.enabled = false;
         _player.enabled = false;

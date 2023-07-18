@@ -14,4 +14,14 @@ public static class Utilities
         if (!reference.enabled)
             reference = null;
     }
+
+    public static void DisableAllInstancesOfType<T>(T[] objectsOfType) where T : MonoBehaviour
+    {
+        for (int i = 0; i < objectsOfType.Length; i++)
+        {
+            if (!objectsOfType[i].enabled) continue;
+
+            objectsOfType[i].enabled = false;
+        }
+    }
 }
