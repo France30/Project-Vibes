@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     public event PlayerDeath OnPlayerDeath;
 
     public bool IsInvulnerable { get { return _isHurt || _spriteController.IsFlashing; } }
+    public int MaxHealth { get { return (int)_health.MaxHealth; } }
+
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
@@ -73,17 +75,6 @@ public class Player : MonoBehaviour
 
         GameController.Instance.OnFreezeEffect -= SetHurtAnimation;
         GameController.Instance.OnPauseEvent -= DisablePlayerActions;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _health.CurrentHealth <= 0) return;
-
-        _health.CurrentHealth = 0;
-        _animator.SetFloat("Health", _health.CurrentHealth);
-
-        StopAllCoroutines();
-        OnPlayerDeath?.Invoke(true);
     }
 
     private void ApplyKnockBack(int knockBackDirection = 0)
