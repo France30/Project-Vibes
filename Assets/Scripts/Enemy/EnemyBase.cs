@@ -34,6 +34,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
+    public int MaxHealth { get { return (int)_health.MaxHealth; } }
     protected bool IsAttacking { get; private set; }
     protected bool IsIdle { get; private set; }
 
@@ -133,13 +134,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
         this.enabled = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.GetComponent<InstantKillObstacles>() || _health.CurrentHealth <= 0) return;
-
-        TakeDamage((int)_health.MaxHealth);
-    }
-
     private void InitializeState()
     {
         if (TryGetComponent<Idle>(out Idle idle))
@@ -159,6 +153,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
         if (hitDetect > 0)
         {
             Player player = GameController.Instance.Player;
+            if (player.IsInvulnerable) return;
+
             player.TakeDamage(_damage, EnemyUtilities.GetCollisionDirection(transform, _playerCollider[0]));
         }
     }
