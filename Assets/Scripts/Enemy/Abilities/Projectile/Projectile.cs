@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] private float _lifeTime = 4f;
     [SerializeField] private LayerMask _whatIsGround;
     [Range(0, .3f)] [SerializeField] private float _movementSmoothing = 0.05f;
 
@@ -18,8 +19,12 @@ public class Projectile : MonoBehaviour
     private float _speed = 10f;
     private bool _isHoming = false;
     private bool _canHitGround = false;
+    private bool _canBeDamaged = false;
     private Sprite _sprite;
     private FireProjectileDirection _fireDirection;
+
+    private bool _isDespawning = false;
+    private float _despawnTimer = 0f;
 
 
     public void SetProjectile(FireProjectile fireProjectile, int damage = 1)
@@ -30,6 +35,7 @@ public class Projectile : MonoBehaviour
         _speed = fireProjectile.speed;
         _isHoming = fireProjectile.isHoming;
         _canHitGround = fireProjectile.canHitGround;
+        _canBeDamaged = fireProjectile.canBeDamaged;
         _sprite = fireProjectile.sprite;
         _fireDirection = fireProjectile.fireDirection;
     }
@@ -50,12 +56,51 @@ public class Projectile : MonoBehaviour
 
         _spriteRenderer.sprite = _sprite;
         _boxCollider2D.size = _spriteRenderer.sprite.bounds.size;
+
+        if (!_spriteRenderer.isVisible)
+        {
+            _isDespawning = true;
+        }
+    }
+
+    private void OnBecameVisible()
+    {
+        _isDespawning = false;
+        _despawnTimer = 0f;
+    }
+
+    private void OnBecameInvisible()
+    {
+        _isDespawning = true;
+    }
+
+    private void Update()
+    {
+        if(_isDespawning)
+        {
+            StartDespawnTimer();
+        }
+    }
+
+    private void StartDespawnTimer()
+    {
+        if(_despawnTimer < _lifeTime)
+        {
+            _despawnTimer += Time.deltaTime;
+            return;
+        }
+
+        _isDespawning = false;
+        _despawnTimer = 0f;
+        ObjectPoolManager.Instance.DespawnGameObject(gameObject);
     }
 
     private void FixedUpdate()
     {
         if (_canHitGround)
+        {
             CheckGroundCollision();
+        }
 
         ProjectileMove();
     }
@@ -106,8 +151,16 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.GetComponent<AttackObjectController>())
+        {
+            ObjectPoolManager.Instance.DespawnGameObject(gameObject);
+            return;
+        }
+
         if(collision.TryGetComponent<Player>(out Player player))
         {
+            if (player.IsInvulnerable) return;
+
             player.TakeDamage(_damage, EnemyUtilities.GetCollisionDirection(transform, collision));
             ObjectPoolManager.Instance.DespawnGameObject(gameObject);
         }
