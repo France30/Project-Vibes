@@ -37,7 +37,7 @@ public abstract class BossEnemy : EnemyBase
     protected IEnumerator PlayAttack()
     {
         _isAttackCoroutineRunning = true;
-        Debug.Log("Boss is Attacking");
+        //Debug.Log("Boss is Attacking");
 
         ChordClip currentChordClip = _chordSet.ChordSetSO.chordClips[_currentChord];
         currentChordClip.source.Play();
