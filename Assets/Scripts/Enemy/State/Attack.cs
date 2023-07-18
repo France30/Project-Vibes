@@ -1,9 +1,12 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Attack : State
 {
     [SerializeField] private float _playerDistanceToAttackState = 4f;
+    [SerializeField] private bool _attackOnBeat = true;
+    [SerializeField] private int[] _attackOnTickCount;
 
     [Space]
     public UnityEvent OnAttackEvent;
@@ -28,7 +31,7 @@ public class Attack : State
             _enemyBase.MoveToTargetDirection(_player);
         }
 
-        if (BeatSystemController.Instance.IsBeatPlaying)
+        if (AttackCondition())
         {
             _isAttacking = true;
             if (!wasAttacking)
@@ -67,5 +70,21 @@ public class Attack : State
             _playerDistanceToAttackState = Mathf.Infinity;
 
         Utilities.RemoveReferenceOfDisabledComponent<State>(ref _prevState);
+    }
+
+    private bool AttackCondition()
+    {
+        bool condition = false;
+        if(_attackOnBeat)
+        {
+            condition = BeatSystemController.Instance.IsBeatPlaying;
+        }
+
+        if(_attackOnTickCount.Length > 0)
+        {
+            condition = condition || _attackOnTickCount.Contains(BeatSystemController.Instance.TickCount);
+        }
+
+        return condition;
     }
 }

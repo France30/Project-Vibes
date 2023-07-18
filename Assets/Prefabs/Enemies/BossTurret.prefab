@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerDistanceToAttackState: 4
+  _attackOnBeat: 1
+  _attackOnTickCount: 01000000
   OnAttackEvent:
     m_PersistentCalls:
       m_Calls:
@@ -307,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f57c337d97409a4fbf94bbe2099314d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chordSetSO: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
+  _chordSetSO: {fileID: 11400000, guid: 5c088e4dc7431aa4985d9ee5bff40bdd, type: 2}
 --- !u!1 &6892212548684035032
 GameObject:
   m_ObjectHideFlags: 0
