@@ -61,6 +61,8 @@ public class LevelManager : Singleton<LevelManager>
         base.Awake();
         _loadingScreen.SetActive(false);
         _isPersist = true;
+
+        _levelsUnlocked = SaveSystem.LoadUnlockedLevels();
     }
 
     private IEnumerator LoadSavedLevel()
