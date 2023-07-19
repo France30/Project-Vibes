@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Panel : MonoBehaviour
 {
-    private Canvas canvas = null;
-    private MenuManager menuManager = null;
+    private Canvas canvas;
+    private MenuManager menuManager;
 
 
     private void Awake()

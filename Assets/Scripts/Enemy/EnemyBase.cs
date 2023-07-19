@@ -1,8 +1,7 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[RequireComponent(typeof(EnemyDeathSequence))]
 public abstract class EnemyBase : StateMachine, IDamageable
 {
     [Header("Enemy Configs")]
@@ -32,7 +31,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
     public event EnemyEvent OnEnemyDeath;
     private EnemyEvent EnemyAttack;
 
-    public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
     public int MaxHealth { get { return (int)_health.MaxHealth; } }
     protected bool IsAttacking { get; private set; }
@@ -67,7 +65,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
         distanceFromTarget = Calculate.RoundedAbsoluteValue(distanceFromTarget);
         targetDistance = Calculate.RoundedAbsoluteValue(targetDistance);
 
-        //Debug.Log(distanceFromTarget);
         return distanceFromTarget <= targetDistance;
     }
 

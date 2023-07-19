@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -151,7 +149,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<AttackObjectController>())
+        if(collision.GetComponent<AttackObjectController>() && _canBeDamaged)
         {
             ObjectPoolManager.Instance.DespawnGameObject(gameObject);
             return;

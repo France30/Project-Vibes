@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(PlatformEffector2D))]
@@ -35,7 +33,5 @@ public class OneWayPlatforms : MonoBehaviour
             _platformEffector2D.rotationalOffset = 0;
 
         _isPlayerOnPlatform = false;
-
-        //Debug.Log("Player not on one-way platform");
     }
 }

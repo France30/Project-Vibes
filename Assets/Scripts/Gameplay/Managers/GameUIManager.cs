@@ -9,17 +9,17 @@ public class GameUIManager : Singleton<GameUIManager>
     [SerializeField] private GameObject PauseUI;
 
     [Header("Screen Notification")]
-    [SerializeField] private TextMeshProUGUI _textNotif;
+    [SerializeField] private TextMeshProUGUI _notification;
     [SerializeField] private float _fadeSpeed = 1f;
 
-    public TextMeshProUGUI TextNotif { get { return _textNotif; } }
+    public TextMeshProUGUI Notification { get { return _notification; } }
 
 
     public void FadeInNotificationText()
     {
-        if (TextNotif.alpha < 1f)
+        if (_notification.alpha < 1f)
         {
-            float a = TextNotif.alpha;
+            float a = _notification.alpha;
             a += _fadeSpeed * Time.deltaTime;
             SetTextNotifAlpha(a);
         }
@@ -27,9 +27,9 @@ public class GameUIManager : Singleton<GameUIManager>
 
     public void FadeOutNotificationText()
     {
-        if (TextNotif.alpha > 0f)
+        if (_notification.alpha > 0f)
         {
-            float a = TextNotif.alpha;
+            float a = _notification.alpha;
             a -= _fadeSpeed * Time.deltaTime;
             SetTextNotifAlpha(a);
         }
@@ -37,7 +37,7 @@ public class GameUIManager : Singleton<GameUIManager>
 
     public void SetTextNotifAlpha(float a)
     {
-        _textNotif.color = new Color(_textNotif.color.r, _textNotif.color.g, _textNotif.color.b, a);
+        _notification.color = new Color(_notification.color.r, _notification.color.g, _notification.color.b, a);
     }
 
     private void OnEnable()

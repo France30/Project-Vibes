@@ -24,7 +24,6 @@ public abstract class GroundEnemy : EnemyBase
     {
         _isGrounded = true;
         _isFalling = false;
-        //Debug.Log(this.name + "Enemy Landed");
     }
 
     public virtual void OnFall()

@@ -4,7 +4,6 @@ using UnityEngine;
 public class BeatSystemController : Singleton<BeatSystemController>
 {
     [SerializeField] private Beat[] _beats;
-
     [SerializeField] private BeatSystemUI _tickUI;
     [SerializeField] private BeatSystemUI _beatUI;
 

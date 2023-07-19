@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class MenuManager : MonoBehaviour
 {
-    public Panel currentPanel = null;
+    public Panel currentPanel;
 
     private List<Panel> panelHistory = new List<Panel>();
 
