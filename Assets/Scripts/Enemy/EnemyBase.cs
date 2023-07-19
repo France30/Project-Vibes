@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[RequireComponent(typeof(EnemyDeathSequence))]
 public abstract class EnemyBase : StateMachine, IDamageable
 {
     [Header("Enemy Configs")]
