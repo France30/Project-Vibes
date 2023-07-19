@@ -31,7 +31,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
     public event EnemyEvent OnEnemyDeath;
     private EnemyEvent EnemyAttack;
 
-    public GameObject GameObject { get { return gameObject; } }
     public int InstanceID { get { return _instanceID; } }
     public int MaxHealth { get { return (int)_health.MaxHealth; } }
     protected bool IsAttacking { get; private set; }
