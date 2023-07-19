@@ -93,7 +93,7 @@ public class GameController : Singleton<GameController>
         if (_isGameOver)
         {
             GameUIManager.Instance.SetTextNotifAlpha(0);
-            GameUIManager.Instance.TextNotif.text = _gameOverText;
+            GameUIManager.Instance.Notification.text = _gameOverText;
             StartCoroutine(GameOverSequence());
         }
     }
@@ -101,16 +101,16 @@ public class GameController : Singleton<GameController>
     private IEnumerator GameOverSequence()
     {
         yield return StartCoroutine(FreezeDeathEffect());
-        yield return new WaitUntil(IsGameOverNotifDone);
+        yield return new WaitUntil(IsGameOverNotificationDone);
         yield return new WaitForSeconds(_timeTillLevelReset);
 
         DisableGame();
         LevelManager.Instance.ResetLevel();
     }
 
-    private bool IsGameOverNotifDone()
+    private bool IsGameOverNotificationDone()
     {
-        bool isNotifDone = GameUIManager.Instance.TextNotif.alpha >= 1f;
+        bool isNotifDone = GameUIManager.Instance.Notification.alpha >= 1f;
         if(!isNotifDone)
         {
             GameUIManager.Instance.FadeInNotificationText();

@@ -7,7 +7,7 @@ public class WorldNotification : MonoBehaviour
 {
     [SerializeField] private string _worldName;
 
-    private TextMeshProUGUI _worldTextNotif;
+    private TextMeshProUGUI _worldTextUI;
     private Player _player;
 
     private static bool _didNotificationTrigger = false;
@@ -45,7 +45,7 @@ public class WorldNotification : MonoBehaviour
 
     private void Update()
     {
-        if (_worldTextNotif == null) return;
+        if (_worldTextUI == null) return;
 
         if(_player != null)
         {
@@ -54,9 +54,9 @@ public class WorldNotification : MonoBehaviour
 
         if(_player == null)
         {
-            if(_worldTextNotif.alpha <= 0f)
+            if(_worldTextUI.alpha <= 0f)
             {
-                _worldTextNotif = null;
+                _worldTextUI = null;
                 return;
             }
 
@@ -72,8 +72,8 @@ public class WorldNotification : MonoBehaviour
 
             _didNotificationTrigger = true;
 
-            _worldTextNotif = GameUIManager.Instance.TextNotif;
-            _worldTextNotif.text = _worldName;
+            _worldTextUI = GameUIManager.Instance.Notification;
+            _worldTextUI.text = _worldName;
             _player = player;
         }
     }

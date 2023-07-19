@@ -344,7 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isPersist: 0
   PauseUI: {fileID: 1765728101098983264}
-  _textNotif: {fileID: 1923640075086528583}
+  _notification: {fileID: 1923640075086528583}
+  _fadeSpeed: 1
 --- !u!1 &5258742333479066141
 GameObject:
   m_ObjectHideFlags: 0
