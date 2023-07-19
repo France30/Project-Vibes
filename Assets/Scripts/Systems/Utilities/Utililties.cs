@@ -19,8 +19,6 @@ public static class Utilities
     {
         for (int i = 0; i < objectsOfType.Length; i++)
         {
-            if (!objectsOfType[i].enabled) continue;
-
             objectsOfType[i].enabled = false;
         }
     }
