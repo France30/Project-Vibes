@@ -12,10 +12,22 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private TextMeshProUGUI _loadingText;
 
     private bool _isLoadingLevel = false;
+    private List<int> _levelsUnlocked = new List<int>();
 
     public delegate void LevelLoad();
     public event LevelLoad OnLevelLoad;
 
+    public List<int> LevelsUnlocked { get { return _levelsUnlocked; } }
+
+
+    public void AddCurrentLevel()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        if (!_levelsUnlocked.Contains(currentLevel))
+        {
+            _levelsUnlocked.Add(currentLevel);
+        }
+    }
 
     public void LoadLevelSelect(int sceneIndex)
     {
@@ -49,6 +61,8 @@ public class LevelManager : Singleton<LevelManager>
         base.Awake();
         _loadingScreen.SetActive(false);
         _isPersist = true;
+
+        _levelsUnlocked = SaveSystem.LoadUnlockedLevels();
     }
 
     private IEnumerator LoadSavedLevel()
@@ -101,6 +115,9 @@ public class LevelManager : Singleton<LevelManager>
         if (playerData == null || playerData.currentLevelSelect != currentSceneIndex) return;
         
         Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
-        GameController.Instance.Player.transform.position = playerPosition;
+        if (playerPosition != Vector2.zero)
+        {
+            GameController.Instance.Player.transform.position = playerPosition;
+        }
     }
 }

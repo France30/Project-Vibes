@@ -8,7 +8,10 @@ public class ButtonEvent : ScriptableObject
     public void NewGame()
     {
         SaveSystem.ClearAllSaveData();
+
+        LevelManager.Instance.LevelsUnlocked.Clear();
         LevelManager.Instance.LoadLevelSelect(1);
+
         AudioManager.Instance.Stop("MainMenuBGM");
     }
 
@@ -26,6 +29,12 @@ public class ButtonEvent : ScriptableObject
     public void ReturnToMainMenu()
     {
         LevelManager.Instance.LoadLevelSelect(0);
+    }
+
+    public void LevelSelect(int level)
+    {
+        SaveSystem.ClearSavedPlayerPositionInLevel(level);
+        LevelManager.Instance.LoadLevelSelect(level);
     }
 
     public void ExitGame()

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -18,6 +18,19 @@ public class WorldNotification : MonoBehaviour
     private void Awake()
     {
         GetComponent<BoxCollider2D>().isTrigger = true;
+
+        PlayerData playerData = SaveSystem.LoadPlayerData();
+        if (playerData == null) return;
+
+        Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
+        if (playerData.currentLevelSelect == SceneManager.GetActiveScene().buildIndex && playerPosition != Vector2.zero)
+        {
+            _didNotificationTrigger = true;
+        }
+        else
+        {
+            _didNotificationTrigger = false;
+        }
     }
 
     private void OnEnable()
