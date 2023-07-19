@@ -33,7 +33,5 @@ public class OneWayPlatforms : MonoBehaviour
             _platformEffector2D.rotationalOffset = 0;
 
         _isPlayerOnPlatform = false;
-
-        //Debug.Log("Player not on one-way platform");
     }
 }

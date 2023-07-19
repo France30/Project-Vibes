@@ -6,6 +6,5 @@ public class CheckPoint : Interactable
 
         SaveSystem.Save();
         AudioManager.Instance.Play("GameSavedSfx");
-        //Debug.Log("Game Saved!");
     }
 }

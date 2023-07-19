@@ -66,7 +66,6 @@ public abstract class EnemyBase : StateMachine, IDamageable
         distanceFromTarget = Calculate.RoundedAbsoluteValue(distanceFromTarget);
         targetDistance = Calculate.RoundedAbsoluteValue(targetDistance);
 
-        //Debug.Log(distanceFromTarget);
         return distanceFromTarget <= targetDistance;
     }
 
