@@ -149,7 +149,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<AttackObjectController>())
+        if(collision.GetComponent<AttackObjectController>() && _canBeDamaged)
         {
             ObjectPoolManager.Instance.DespawnGameObject(gameObject);
             return;
