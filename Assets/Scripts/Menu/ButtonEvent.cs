@@ -31,6 +31,12 @@ public class ButtonEvent : ScriptableObject
         LevelManager.Instance.LoadLevelSelect(0);
     }
 
+    public void LevelSelect(int level)
+    {
+        SaveSystem.ClearSavedPlayerPositionInLevel(level);
+        LevelManager.Instance.LoadLevelSelect(level);
+    }
+
     public void ExitGame()
     {
 #if UNITY_STANDALONE

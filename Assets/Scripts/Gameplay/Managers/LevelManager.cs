@@ -115,6 +115,9 @@ public class LevelManager : Singleton<LevelManager>
         if (playerData == null || playerData.currentLevelSelect != currentSceneIndex) return;
         
         Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
-        GameController.Instance.Player.transform.position = playerPosition;
+        if (playerPosition != Vector2.zero)
+        {
+            GameController.Instance.Player.transform.position = playerPosition;
+        }
     }
 }
