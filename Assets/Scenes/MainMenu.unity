@@ -1930,11 +1930,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 311205130}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: SetCurrentWithHistory
-        m_Mode: 2
+        m_MethodName: GoToPrevious
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1334069304}
-          m_ObjectArgumentAssemblyTypeName: Panel, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

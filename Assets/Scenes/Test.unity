@@ -3178,6 +3178,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1025093775, guid: c8b87a18ef642c54ab4dc413d849ea8e, type: 3}
+      propertyPath: _chordSetSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
     - target: {fileID: 6717973789561704259, guid: c8b87a18ef642c54ab4dc413d849ea8e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -14006,7 +14010,7 @@ PrefabInstance:
     - target: {fileID: 4959901799318868592, guid: e4468aeb7681a2344acaaaccf7497fb1, type: 3}
       propertyPath: _chordSetSO
       value: 
-      objectReference: {fileID: 11400000, guid: 5c088e4dc7431aa4985d9ee5bff40bdd, type: 2}
+      objectReference: {fileID: 11400000, guid: 93334ebb3dda77f47a2ceb2ee9db204c, type: 2}
     - target: {fileID: 7453738024675334350, guid: e4468aeb7681a2344acaaaccf7497fb1, type: 3}
       propertyPath: m_Name
       value: ChordSetDrop
@@ -14070,7 +14074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6892212548290453984, guid: 7920b6199f168224897d27788cb7e021, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6892212548290453986, guid: 7920b6199f168224897d27788cb7e021, type: 3}
       propertyPath: m_RootOrder
