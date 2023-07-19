@@ -13,6 +13,7 @@ public static class SavePersistentData
 {
     private static readonly BinaryFormatter formatter = new BinaryFormatter();
 
+
     public static void SavePersistentFlag(ObjectWithPersistentData objectWithPersistentData, string id, bool flag)
     {
         string path = Application.persistentDataPath + "/" + objectWithPersistentData.ToString() + id + ".data";

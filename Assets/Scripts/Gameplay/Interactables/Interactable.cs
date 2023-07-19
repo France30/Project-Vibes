@@ -8,6 +8,8 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _interactableText;
 
     public TextMeshProUGUI InteractableText { get { return _interactableText; } }
+
+
     public abstract void Interact();
 
     protected virtual void Awake()

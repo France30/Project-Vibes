@@ -12,9 +12,7 @@ public class Attack : State
     public UnityEvent OnAttackEvent;
 
     private Transform _player;
-
     private State _prevState;
-
     private bool _isAttacking = false;
 
     public override bool StateCondition { get { return _enemyBase.IsTargetReached(_player, _playerDistanceToAttackState); } }
