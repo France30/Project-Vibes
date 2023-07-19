@@ -37,11 +37,13 @@ public class Player : MonoBehaviour
         if (_health.CurrentHealth <= 0) return;
 
         _isHurt = true;
+        SetHurtAnimation(_isHurt);
 
         _health.CurrentHealth -= value;
         _animator.SetFloat("Health", _health.CurrentHealth);
         if (_health.CurrentHealth <= 0)
         {
+            StopAllCoroutines();
             OnPlayerDeath?.Invoke(true);
             return;
         }
@@ -87,7 +89,6 @@ public class Player : MonoBehaviour
     private IEnumerator HurtDuration()
     {
         DisablePlayerActions(_isHurt);
-        SetHurtAnimation(_isHurt);
 
         yield return new WaitForSeconds(_hurtTime);
 
