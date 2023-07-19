@@ -1,4 +1,5 @@
 using System.IO;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,20 @@ public static class SaveSystem
         }
     }
 
+    public static void ClearSavedPlayerPositionInLevel(int level)
+    {
+        PlayerData loadData = LoadPlayerData();
+        if (loadData == null || loadData.currentLevelSelect != level) return;
+
+        string playerPath = Application.persistentDataPath + "/player.data";
+        FileStream stream = new FileStream(playerPath, FileMode.Create);
+
+        loadData = new PlayerData(level, Vector2.zero);
+
+        formatter.Serialize(stream, loadData);
+        stream.Close();
+    }
+
     public static bool IsSaveFileFound()
     {
         string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "/", "*.data");
@@ -26,18 +41,12 @@ public static class SaveSystem
         return dataPath.Length > 0;
     }
 
-    public static void SavePlayerData()
+    public static void Save()
     {
-        string playerPath = Application.persistentDataPath + "/player.data";
-        FileStream stream = new FileStream(playerPath, FileMode.Create);
+        LevelManager.Instance.AddCurrentLevel();
 
-        //player data
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
-        Transform player = GameController.Instance.Player.transform;
-        PlayerData playerData = new PlayerData(currentLevel, player.position);
-
-        formatter.Serialize(stream, playerData);
-        stream.Close();
+        SavePlayerData();
+        SaveUnlockedLevels();
     }
 
     public static void SavePlayerChords(PlayerChords playerChords)
@@ -96,5 +105,44 @@ public static class SaveSystem
         }
 
         return playerChordsData;
+    }
+
+    public static List<int> LoadUnlockedLevels()
+    {
+        List<int> unlockedLevelsData = new List<int>();
+        string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
+        if (File.Exists(unlockedLevelsPath))
+        {
+            FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Open);
+
+            unlockedLevelsData = formatter.Deserialize(stream) as List<int>;
+            stream.Close();
+        }
+
+        return unlockedLevelsData;
+    }
+
+    private static void SavePlayerData()
+    {
+        string playerPath = Application.persistentDataPath + "/player.data";
+        FileStream stream = new FileStream(playerPath, FileMode.Create);
+
+        //player data
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        Transform player = GameController.Instance.Player.transform;
+        PlayerData playerData = new PlayerData(currentLevel, player.position);
+
+        formatter.Serialize(stream, playerData);
+        stream.Close();
+    }
+
+    private static void SaveUnlockedLevels()
+    {
+        string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
+        FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Create);
+
+        List<int> unlockedLevelsData = LevelManager.Instance.LevelsUnlocked;
+        formatter.Serialize(stream, unlockedLevelsData);
+        stream.Close();
     }
 }

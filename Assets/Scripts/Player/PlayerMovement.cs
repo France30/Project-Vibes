@@ -60,8 +60,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
 		_controller.enabled = false;
-		_animator.SetBool("Jump", false);
-		_animator.SetBool("Fall", false);
 	}
 
     // Update is called once per frame
@@ -137,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void JumpBuffer()
     {
-		if (Input.GetButtonDown("Jump"))
+		if (Input.GetButtonDown("Jump") && !Input.GetKey(KeyCode.S))
 			_jumpBufferCounter = 0f;
 		else
 			_jumpBufferCounter += Time.deltaTime;

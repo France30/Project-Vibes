@@ -13,5 +13,5 @@ public interface IAbility
 {
     public AbilityType AbilityType { get; }
 
-    public virtual void FireProjectile(Transform projectileSpawnPoint) { }
+    public virtual void FireProjectile(Transform projectileSpawnPoint, int damage = 1) { }
 }

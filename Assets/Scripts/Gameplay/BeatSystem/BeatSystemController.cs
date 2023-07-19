@@ -3,32 +3,33 @@ using UnityEngine;
 
 public class BeatSystemController : Singleton<BeatSystemController>
 {
-    [SerializeField] private int _beatCount = 4;
-    [SerializeField] private float _beatSpeed = 1.0f;
+    [SerializeField] private Beat[] _beats;
 
     [SerializeField] private BeatSystemUI _tickUI;
     [SerializeField] private BeatSystemUI _beatUI;
 
-    private float _currentCount = 0;
+    private int _currentBeat = 0;
+    private int _currentCount = 0;
     private WaitForSeconds _waitForBeatSpeed;
     private bool _isBeatPlaying = false;
 
     public bool IsBeatPlaying { get { return _isBeatPlaying; } }
+    public int TickCount { get; private set; }
 
 
     private void Start()
     {
-        _waitForBeatSpeed = new WaitForSeconds(_beatSpeed);
+        _waitForBeatSpeed = new WaitForSeconds(_beats[_currentBeat].beatSpeed);
 
         StartCoroutine(BeatSystem());
     }
 
     private IEnumerator BeatSystem()
     {
-        yield return new WaitForSeconds(_beatSpeed);
+        yield return new WaitForSeconds(_beats[_currentBeat].beatSpeed);
 
         _currentCount++;
-        if (_currentCount < _beatCount)
+        if (_currentCount < _beats[_currentBeat].beatCount)
             PlayTick();
         else
             PlayBeat();
@@ -41,8 +42,9 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _tickUI.ImageAlpha = 0.5f;
         _beatUI.ImageAlpha = 0f;
 
-        AudioManager.Instance.Play("TickBGM");       
+        AudioManager.Instance.Play(_beats[_currentBeat].tickBGM);
 
+        TickCount = _currentCount;
         _isBeatPlaying = false;
     }
 
@@ -51,9 +53,17 @@ public class BeatSystemController : Singleton<BeatSystemController>
         _beatUI.ImageAlpha = 0.5f;
         _tickUI.ImageAlpha = 0f;
 
-        AudioManager.Instance.Play("BeatBGM");
+        AudioManager.Instance.Play(_beats[_currentBeat].beatBGM);
+
         _currentCount = 0;
+        TickCount = _currentCount;
 
         _isBeatPlaying = true;
+
+        _currentBeat++;
+        if(_currentBeat >= _beats.Length)
+        {
+            _currentBeat = 0;
+        }
     }
 }

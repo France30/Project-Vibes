@@ -9,8 +9,8 @@ public class CheckPoint : Interactable
     {
         if (AudioManager.Instance.IsPlaying("GameSavedSfx")) return;
 
-        SaveSystem.SavePlayerData();
+        SaveSystem.Save();
         AudioManager.Instance.Play("GameSavedSfx");
-        Debug.Log("Game Saved!");
+        //Debug.Log("Game Saved!");
     }
 }

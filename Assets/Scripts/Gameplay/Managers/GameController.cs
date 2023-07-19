@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : Singleton<GameController>
 {
     [Header("Game Over Settings")]
+    [SerializeField] private string _gameOverText = "You Died";
     [SerializeField] private float _freezeDeathEffectDuration = 1f;
     [SerializeField] private float _timeTillLevelReset = 2f;
 
@@ -62,19 +63,16 @@ public class GameController : Singleton<GameController>
         if (_isGameOver) return;
 
         if (Input.GetKeyDown(KeyCode.P))
+        {
             TogglePause();
+        }
     }
 
     //Use this method to disable any dependencies first
     private void DisableGame()
     {
         EnemyBase[] enemy = FindObjectsOfType<EnemyBase>();
-        for (int i = 0; i < enemy.Length; i++)
-        {
-            if (!enemy[i].enabled) continue;
-
-            enemy[i].enabled = false;
-        }
+        Utilities.DisableAllInstancesOfType<EnemyBase>(enemy);
 
         GameUIManager.Instance.enabled = false;
         _player.enabled = false;
@@ -94,17 +92,31 @@ public class GameController : Singleton<GameController>
         _isGameOver = isGameOver;
 
         if (_isGameOver)
+        {
+            GameUIManager.Instance.SetTextNotifAlpha(0);
+            GameUIManager.Instance.TextNotif.text = _gameOverText;
             StartCoroutine(GameOverSequence());
+        }
     }
 
     private IEnumerator GameOverSequence()
     {
         yield return StartCoroutine(FreezeDeathEffect());
-
+        yield return new WaitUntil(IsGameOverNotifDone);
         yield return new WaitForSeconds(_timeTillLevelReset);
 
         DisableGame();
         LevelManager.Instance.ResetLevel();
+    }
+
+    private bool IsGameOverNotifDone()
+    {
+        bool isNotifDone = GameUIManager.Instance.TextNotif.alpha >= 1f;
+        if(!isNotifDone)
+        {
+            GameUIManager.Instance.FadeInNotificationText();
+        }
+        return isNotifDone;
     }
 
     private IEnumerator FreezeDeathEffect()

@@ -144,8 +144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPersist: 0
-  _beatCount: 4
-  _beatSpeed: 0.75
+  _beats:
+  - beatCount: 4
+    beatSpeed: 0.75
   _tickUI: {fileID: 7538598843608191637}
   _beatUI: {fileID: 7538598844212517672}
 --- !u!223 &7538598843741560680
