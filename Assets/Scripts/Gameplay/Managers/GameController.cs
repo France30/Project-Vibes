@@ -105,7 +105,15 @@ public class GameController : Singleton<GameController>
         yield return new WaitForSeconds(_timeTillLevelReset);
 
         DisableGame();
-        LevelManager.Instance.ResetLevel();
+        PlayerData playerData = SaveSystem.LoadPlayerData();
+        if(playerData != null)
+        {
+            LevelManager.Instance.LoadLevelFromSave();
+        }
+        else
+        {
+            LevelManager.Instance.ResetLevel();
+        }
     }
 
     private bool IsGameOverNotificationDone()
