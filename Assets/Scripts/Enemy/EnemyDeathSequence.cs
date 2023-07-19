@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyBase))]
-public class EnemyDeath : MonoBehaviour
+public class EnemyDeathSequence : MonoBehaviour
 {
     private EnemyBase _enemyBase;
     private Animator _animator;
 
+    public delegate void AnimationEvent();
+    public event AnimationEvent OnAnimationStart;
+    public event AnimationEvent OnAnimationEnd;
 
     private void Awake()
     {
@@ -17,23 +20,27 @@ public class EnemyDeath : MonoBehaviour
 
     private void OnEnable()
     {
-        _enemyBase.OnEnemyDeath += OnDeath;
+        _enemyBase.OnEnemyDeath += DeathSequence;
     }
 
     private void OnDisable()
     {
-        _enemyBase.OnEnemyDeath -= OnDeath;
+        _enemyBase.OnEnemyDeath -= DeathSequence;
     }
 
-    private void OnDeath()
+    private void DeathSequence()
     {
         _enemyBase.enabled = false;
-        StartCoroutine(DisableGameObjectOnAnimationEnd());
+        StartCoroutine(PlayDeathSequence());
     }
 
-    private IEnumerator DisableGameObjectOnAnimationEnd()
+    private IEnumerator PlayDeathSequence()
     {
+        OnAnimationStart?.Invoke();
+
         yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+
+        OnAnimationEnd?.Invoke();
 
         gameObject.SetActive(false);
     }

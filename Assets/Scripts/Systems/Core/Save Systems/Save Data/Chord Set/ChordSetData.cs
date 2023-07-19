@@ -11,7 +11,7 @@ public class ChordSetData
 
     public ChordSetData(ChordSet chordSet)
     {
-        this.chordSetSOPath = "ScriptableObjects/ChordsSO/" + chordSet.ChordSetSO.name;
+        this.chordSetSOPath = "Scriptable Objects/ChordSetSO/" + chordSet.ChordSetSO.name;
 
         this.chordClipData = new ChordClipData[chordSet.ChordSetSO.chordClips.Length];
         for(int i = 0; i < chordClipData.Length; i++)
