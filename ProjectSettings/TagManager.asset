@@ -17,8 +17,8 @@ TagManager:
   - HopperGroundEnemy
   - FlyingEnemy
   - Interactable
-  - 
-  - 
+  - Consumable
+  - BossEnemy
   - 
   - 
   - 
