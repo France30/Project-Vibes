@@ -44,11 +44,23 @@ TagManager:
   - name: Background
     uniqueID: 3265940363
     locked: 0
-  - name: Ground
-    uniqueID: 126060867
+  - name: BackgroundProps
+    uniqueID: 3511101629
     locked: 0
   - name: Object
     uniqueID: 2504487227
+    locked: 0
+  - name: Player
+    uniqueID: 3734937499
+    locked: 0
+  - name: ForegroundProps
+    uniqueID: 2234534995
+    locked: 0
+  - name: Ground
+    uniqueID: 126060867
+    locked: 0
+  - name: Enemy
+    uniqueID: 433275869
     locked: 0
   - name: Foreground
     uniqueID: 774142143
