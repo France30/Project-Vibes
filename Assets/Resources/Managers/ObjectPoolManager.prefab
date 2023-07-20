@@ -51,4 +51,9 @@ MonoBehaviour:
     parent: {fileID: 3655312207889894987}
     amountToPool: 10
     shouldExpand: 1
+  - id: EnemyHealthDrop
+    objectToPool: {fileID: 8560526712262273216, guid: 1513c9c8b6edd25429d67ad7483daaf6, type: 3}
+    parent: {fileID: 3655312207889894987}
+    amountToPool: 10
+    shouldExpand: 1
   _pooledObjects: []
