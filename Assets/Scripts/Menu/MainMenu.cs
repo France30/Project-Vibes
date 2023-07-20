@@ -23,7 +23,8 @@ public class MainMenu : MonoBehaviour
         List<int> unlockedLevels = LevelManager.Instance.LevelsUnlocked;
         for (int i = 0; i < unlockedLevels.Count; i++)
         {
-            _levelSelectButtons[i].interactable = true;
+            int levelIndex = unlockedLevels[i];
+            _levelSelectButtons[levelIndex - 1].interactable = true;
         }
     }
 
