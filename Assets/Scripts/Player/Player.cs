@@ -52,6 +52,11 @@ public class Player : MonoBehaviour
         ApplyKnockBack(knockBackDirection);
     }
 
+    public void RecoverHealth(int value)
+    {
+        _health.CurrentHealth += value;
+    }
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();

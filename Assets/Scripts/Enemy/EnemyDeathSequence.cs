@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyBase))]
 public class EnemyDeathSequence : MonoBehaviour
 {
+    [Range(0,100)][SerializeField] private float _chanceForHealthDrop = 10f;
+    [SerializeField] private string _healthDropID = "EnemyHealthDrop";
+
     private EnemyBase _enemyBase;
     private Animator _animator;
 
@@ -37,11 +40,22 @@ public class EnemyDeathSequence : MonoBehaviour
     private IEnumerator PlayDeathSequence()
     {
         OnAnimationStart?.Invoke();
+        AttemptHealthDrop();
 
         yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
 
         OnAnimationEnd?.Invoke();
 
         gameObject.SetActive(false);
+    }
+
+    private void AttemptHealthDrop()
+    {
+        int random = Random.Range(0, 100) + 1;
+        if (random > _chanceForHealthDrop) return;
+
+        GameObject healthDrop = ObjectPoolManager.Instance.GetPooledObject(_healthDropID);
+        healthDrop.transform.position = transform.position;
+        healthDrop.SetActive(true);
     }
 }
