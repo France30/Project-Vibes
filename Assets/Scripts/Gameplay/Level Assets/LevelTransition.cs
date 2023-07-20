@@ -16,6 +16,9 @@ public class LevelTransition : MonoBehaviour
         {
             Time.timeScale = 0;
             LevelManager.Instance.LoadLevelSelect(_transitionToLevel);
+            LevelManager.Instance.AddLevel(_transitionToLevel);
+
+            SaveSystem.SaveUnlockedLevels();
         }
     }
 }
