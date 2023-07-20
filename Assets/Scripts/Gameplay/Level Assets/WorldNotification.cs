@@ -57,6 +57,8 @@ public class WorldNotification : MonoBehaviour
             if(_worldTextUI.alpha <= 0f)
             {
                 _worldTextUI = null;
+                WorldNotification[] worldNotification = FindObjectsOfType<WorldNotification>();
+                Utilities.DisableAllObjectsOfType<WorldNotification>(worldNotification);
                 return;
             }
 
