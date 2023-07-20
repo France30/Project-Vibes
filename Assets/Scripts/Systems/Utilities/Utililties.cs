@@ -22,4 +22,11 @@ public static class Utilities
             objectsOfType[i].enabled = false;
         }
     }
+    public static void DisableAllObjectsOfType<T>(T[] objectsOfType) where T : MonoBehaviour
+    {
+        for (int i = 0; i < objectsOfType.Length; i++)
+        {
+            objectsOfType[i].gameObject.SetActive(false);
+        }
+    }
 }
