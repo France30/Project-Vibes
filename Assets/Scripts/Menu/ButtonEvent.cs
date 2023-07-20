@@ -10,13 +10,11 @@ public class ButtonEvent : ScriptableObject
         LevelManager.Instance.LevelsUnlocked.Clear();
         LevelManager.Instance.LoadLevelSelect(1);
 
-        AudioManager.Instance.Stop("MainMenuBGM");
     }
 
     public void ContinueGame()
     {
         LevelManager.Instance.LoadLevelFromSave();
-        AudioManager.Instance.Stop("MainMenuBGM");
     }
 
     public void ResetLevel()

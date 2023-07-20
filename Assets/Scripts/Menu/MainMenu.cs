@@ -32,4 +32,11 @@ public class MainMenu : MonoBehaviour
     {
         AudioManager.Instance.Play("MainMenuBGM");
     }
+
+    private void OnDestroy()
+    {
+        if (AudioManager.Instance == null) return;
+
+        AudioManager.Instance.Stop("MainMenuBGM");
+    }
 }
