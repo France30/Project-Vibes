@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     public bool IsInvulnerable { get { return _isHurt || _spriteController.IsFlashing; } }
     public int MaxHealth { get { return (int)_health.MaxHealth; } }
-
+    public int CurrentHealth { get { return (int)_health.CurrentHealth; } }
 
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
