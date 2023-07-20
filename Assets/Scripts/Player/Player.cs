@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
 
     public void RecoverHealth(int value)
     {
+        if (_health.CurrentHealth <= 0) return;
+
         _health.CurrentHealth += value;
     }
 
