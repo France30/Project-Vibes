@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6892212547080384186}
   - component: {fileID: 6892212547080384165}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,12 +94,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6892212548290453986}
+  - component: {fileID: 1672938752435947411}
   - component: {fileID: 6892212548290453997}
   - component: {fileID: 6892212548290453993}
   - component: {fileID: 6892212548290453998}
   - component: {fileID: 6892212548290453999}
   - component: {fileID: 6892212548290453996}
-  m_Layer: 0
+  - component: {fileID: 907587385903390582}
+  m_Layer: 13
   m_Name: BossTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,6 +125,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1672938752435947411
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892212548290453984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.64}
+  m_EdgeRadius: 0
 --- !u!114 &6892212548290453997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPermaDeath: {fileID: 0}
-  _maxHealth: 1
+  _maxHealth: 10
   _healthBar: {fileID: 0}
   _damage: 1
   _moveSpeed: 2
@@ -265,6 +293,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &907587385903390582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892212548290453984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a99f6359de2f9d4db2aad7be22205dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chanceForHealthDrop: 0
+  _healthDropID: EnemyHealthDrop
 --- !u!1 &6892212548415755890
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6892212548415755901}
   - component: {fileID: 6892212548415755900}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ChordSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6892212548684035035}
   - component: {fileID: 6892212548684035034}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TurretSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
