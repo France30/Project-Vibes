@@ -15,6 +15,8 @@ public class LevelHealthDrop : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
+            if (player.CurrentHealth <= 0) return;
+
             player.RecoverHealth(_levelHealthDropSO.AmountToRestore);
             _levelHealthDropSO.DropGet();
             gameObject.SetActive(false);
