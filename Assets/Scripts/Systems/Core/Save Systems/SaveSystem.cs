@@ -41,12 +41,28 @@ public static class SaveSystem
         return dataPath.Length > 0;
     }
 
-    public static void Save()
+    public static void SavePlayerData()
     {
-        LevelManager.Instance.AddCurrentLevel();
+        string playerPath = Application.persistentDataPath + "/player.data";
+        FileStream stream = new FileStream(playerPath, FileMode.Create);
 
-        SavePlayerData();
-        SaveUnlockedLevels();
+        //player data
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        Transform player = GameController.Instance.Player.transform;
+        PlayerData playerData = new PlayerData(currentLevel, player.position);
+
+        formatter.Serialize(stream, playerData);
+        stream.Close();
+    }
+
+    public static void SaveUnlockedLevels()
+    {
+        string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
+        FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Create);
+
+        List<int> unlockedLevelsData = LevelManager.Instance.LevelsUnlocked;
+        formatter.Serialize(stream, unlockedLevelsData);
+        stream.Close();
     }
 
     public static void SavePlayerChords(PlayerChords playerChords)
@@ -120,29 +136,5 @@ public static class SaveSystem
         }
 
         return unlockedLevelsData;
-    }
-
-    private static void SavePlayerData()
-    {
-        string playerPath = Application.persistentDataPath + "/player.data";
-        FileStream stream = new FileStream(playerPath, FileMode.Create);
-
-        //player data
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
-        Transform player = GameController.Instance.Player.transform;
-        PlayerData playerData = new PlayerData(currentLevel, player.position);
-
-        formatter.Serialize(stream, playerData);
-        stream.Close();
-    }
-
-    private static void SaveUnlockedLevels()
-    {
-        string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
-        FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Create);
-
-        List<int> unlockedLevelsData = LevelManager.Instance.LevelsUnlocked;
-        formatter.Serialize(stream, unlockedLevelsData);
-        stream.Close();
     }
 }
