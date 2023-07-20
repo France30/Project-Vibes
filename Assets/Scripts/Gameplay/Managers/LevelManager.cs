@@ -20,12 +20,11 @@ public class LevelManager : Singleton<LevelManager>
     public List<int> LevelsUnlocked { get { return _levelsUnlocked; } }
 
 
-    public void AddCurrentLevel()
+    public void AddLevel(int level)
     {
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
-        if (!_levelsUnlocked.Contains(currentLevel))
+        if (!_levelsUnlocked.Contains(level))
         {
-            _levelsUnlocked.Add(currentLevel);
+            _levelsUnlocked.Add(level);
         }
     }
 
