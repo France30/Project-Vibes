@@ -127,6 +127,8 @@ public class PlayerChords : MonoBehaviour
         if (_currentChordSet < 0)
             _currentChordSet = _chordSets.Length - 1;
 
+    }
+
     private void ResetPlayerAttack()
     {
         _prevChordSet = _currentChordSet;
