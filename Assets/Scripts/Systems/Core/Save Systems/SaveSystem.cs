@@ -36,9 +36,8 @@ public static class SaveSystem
 
     public static bool IsSaveFileFound()
     {
-        string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "/", "*.data");
-
-        return dataPath.Length > 0;
+        string playerPath = Application.persistentDataPath + "/player.data";
+        return File.Exists(playerPath);
     }
 
     public static void SavePlayerData()
