@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerChords : MonoBehaviour
 {
+    [SerializeField] private bool _loadSavedChordSet = true;
+
     private PlayerAttack _playerAttack;
 
     private ChordSet[] _chordSets;
@@ -38,7 +40,10 @@ public class PlayerChords : MonoBehaviour
         _playerAttack = GameController.Instance.Player.GetComponent<PlayerAttack>();
         _chordSets = GetComponentsInChildren<ChordSet>();
 
-        InitializeChordSetsOnLoad();
+        if (_loadSavedChordSet)
+        {
+            InitializeChordSetsOnLoad();
+        }
     }
 
     private void InitializeChordSetsOnLoad()
@@ -102,6 +107,7 @@ public class PlayerChords : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.E))
             MoveToNextChordSet();
 
@@ -109,7 +115,7 @@ public class PlayerChords : MonoBehaviour
             MoveToPreviousChordSet();
 
         if (_prevChordSet != _currentChordSet)
-            ResetPlayerAttack();
+            ResetPlayerAttack();*/
     }
 
     private void MoveToNextChordSet()
@@ -118,6 +124,8 @@ public class PlayerChords : MonoBehaviour
 
         if (_currentChordSet > _chordSets.Length - 1)
             _currentChordSet = 0;
+
+        Debug.Log("Switch to ChordSet " + _currentChordSet);
     }
 
     private void MoveToPreviousChordSet()
@@ -127,6 +135,7 @@ public class PlayerChords : MonoBehaviour
         if (_currentChordSet < 0)
             _currentChordSet = _chordSets.Length - 1;
 
+        Debug.Log("Switch to ChordSet " + _currentChordSet);
     }
 
     private void ResetPlayerAttack()
