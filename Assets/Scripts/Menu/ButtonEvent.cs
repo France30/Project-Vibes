@@ -10,8 +10,6 @@ public class ButtonEvent : ScriptableObject
         LevelManager.Instance.LevelsUnlocked.Clear();
         LevelManager.Instance.LoadLevelSelect(1);
         LevelManager.Instance.AddLevel(1);
-
-        SaveSystem.SaveUnlockedLevels();
     }
 
     public void ContinueGame()
