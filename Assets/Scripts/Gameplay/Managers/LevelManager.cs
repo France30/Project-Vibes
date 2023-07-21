@@ -25,6 +25,7 @@ public class LevelManager : Singleton<LevelManager>
         if (!_levelsUnlocked.Contains(level))
         {
             _levelsUnlocked.Add(level);
+            SaveSystem.SaveUnlockedLevels();
         }
     }
 
