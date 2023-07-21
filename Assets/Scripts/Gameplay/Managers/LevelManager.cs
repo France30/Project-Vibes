@@ -16,6 +16,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public delegate void LevelLoad();
     public event LevelLoad OnLevelLoad;
+    public event LevelLoad OnLoadFromSave;
 
     public List<int> LevelsUnlocked { get { return _levelsUnlocked; } }
 
@@ -133,6 +134,7 @@ public class LevelManager : Singleton<LevelManager>
         Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
         if (playerPosition != Vector2.zero)
         {
+            OnLoadFromSave?.Invoke();
             GameController.Instance.Player.transform.position = playerPosition;
         }
     }

@@ -16,24 +16,12 @@ public class WorldNotification : MonoBehaviour
     private void Awake()
     {
         GetComponent<BoxCollider2D>().isTrigger = true;
-
-        PlayerData playerData = SaveSystem.LoadPlayerData();
-        if (playerData == null) return;
-
-        Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
-        if (playerData.currentLevelSelect == SceneManager.GetActiveScene().buildIndex && playerPosition != Vector2.zero)
-        {
-            _didNotificationTrigger = true;
-        }
-        else
-        {
-            _didNotificationTrigger = false;
-        }
     }
 
     private void OnEnable()
     {
         LevelManager.Instance.OnLevelLoad += ResetNotificationFlag;
+        LevelManager.Instance.OnLoadFromSave += DisableObjectsOfWorldNotification;
     }
 
     private void OnDisable()
@@ -41,6 +29,7 @@ public class WorldNotification : MonoBehaviour
         if (LevelManager.Instance == null) return;
 
         LevelManager.Instance.OnLevelLoad -= ResetNotificationFlag;
+        LevelManager.Instance.OnLoadFromSave -= DisableObjectsOfWorldNotification;
     }
 
     private void Update()
