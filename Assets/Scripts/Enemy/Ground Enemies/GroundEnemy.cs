@@ -63,7 +63,7 @@ public abstract class GroundEnemy : EnemyBase
         if(MoveCondition())
             _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
         else
-            _controller.Move(0, false, false);
+            _controller.Move(0, false, _canJump);
 
         _canJump = false;
     }
