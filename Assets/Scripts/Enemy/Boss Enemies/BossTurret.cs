@@ -36,18 +36,22 @@ public class BossTurret : BossEnemy
 
     private void Start()
     {
-        if (_teleportPoints.Length > 0)
-        {
-            InitializeTurretBase();
-        }
+        InitializeTurretBase();
+        _turret.localRotation = Quaternion.Euler(0, 0, 0);
 
-        _currentRotation = _startingRotation;
-        _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);
+        SetAttack(() => 
+        {
+            if (!_isAttackCoroutineRunning && !_isTeleporting)
+            {
+                _currentRotation = _startingRotation;
+                _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);
+
+                StartCoroutine(PlayAttack());
+            }
+        });
 
         SetOnBossAttack(RotateTurret);
         SetOnBossAttackEnd(() => { if (!_isTeleporting) StartCoroutine(Teleport()); });
-
-        SetAttack(() => { if (!_isAttackCoroutineRunning && !_isTeleporting) StartCoroutine(PlayAttack()); });
     }
 
     protected override void ActivateAbility()
@@ -88,9 +92,8 @@ public class BossTurret : BossEnemy
         //yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         yield return new WaitForSeconds(0.5f); //for test only
 
-        _currentRotation = _startingRotation;
         InitializeTurretBase();
-        _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);
+        _turret.localRotation = Quaternion.Euler(0, 0, 0);
         //to play initialization animation
         _isTeleporting = false;
     }
