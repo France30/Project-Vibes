@@ -17,9 +17,6 @@ public abstract class GroundEnemy : EnemyBase
     private bool _isGrounded = true;
     private bool _isFalling = false;
 
-    private bool _isJumpConditionMet = false;
-    private bool _isMoveConditionMet = false;
-
     protected Transform CurrentTarget { get; private set; }
 
 
@@ -39,7 +36,7 @@ public abstract class GroundEnemy : EnemyBase
     {
         CurrentTarget = target;
 
-        if (_isJumpConditionMet && _isGrounded)
+        if (JumpCondition() && _isGrounded)
             Jump();
 
         if (IsTargetOnPlatform(target) || IsTargetBelowPlatform(target))
@@ -59,19 +56,11 @@ public abstract class GroundEnemy : EnemyBase
         _controller = GetComponent<CharacterController2D>();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-
-        _isJumpConditionMet = JumpCondition();
-        _isMoveConditionMet = MoveCondition();
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        if (_isMoveConditionMet)
+        if(MoveCondition())
             _controller.Move(_moveSpeed * Time.fixedDeltaTime, false, _canJump);
         else
             _controller.Move(0, false, false);
