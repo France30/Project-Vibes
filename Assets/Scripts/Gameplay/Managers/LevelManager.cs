@@ -19,7 +19,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public List<int> LevelsUnlocked { get { return _levelsUnlocked; } }
 
-
+    
     public void AddLevel(int level)
     {
         if (!_levelsUnlocked.Contains(level))
