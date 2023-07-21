@@ -73,14 +73,13 @@ public class BossTurret : BossEnemy
 
     private void RotateTurret()
     {
-        _currentRotation += _degreesToRotate;
+        _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);
 
-        if(_currentRotation >= _maxRotation)
+        _currentRotation += _degreesToRotate;
+        if (_currentRotation > _maxRotation)
         {
             _currentRotation = _startingRotation;
         }
-
-        _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);
     }
 
     private IEnumerator Teleport()
