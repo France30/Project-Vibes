@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public int MaxHealth { get { return (int)_health.MaxHealth; } }
     public int CurrentHealth { get { return (int)_health.CurrentHealth; } }
 
+
     public void TakeDamage(int value, int knockBackDirection = 0)
     {
         if (_health.CurrentHealth <= 0) return;
