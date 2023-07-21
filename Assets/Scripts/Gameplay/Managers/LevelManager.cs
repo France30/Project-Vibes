@@ -25,6 +25,7 @@ public class LevelManager : Singleton<LevelManager>
         if (!_levelsUnlocked.Contains(level))
         {
             _levelsUnlocked.Add(level);
+            SaveSystem.SaveUnlockedLevels();
         }
     }
 
@@ -34,6 +35,15 @@ public class LevelManager : Singleton<LevelManager>
         {
             _isLoadingLevel = true;
             StartCoroutine(LoadLevel(sceneIndex));
+        }
+    }
+
+    public void LoadLevelTransition(int sceneIndex, string spawnArea, bool saveOnTransition = false)
+    {
+        if (!_isLoadingLevel)
+        {
+            _isLoadingLevel = true;
+            StartCoroutine(LevelTransition(sceneIndex, spawnArea, saveOnTransition));
         }
     }
 
@@ -83,6 +93,13 @@ public class LevelManager : Singleton<LevelManager>
         LoadPlayerPositionInLevel(playerData);
     }
 
+    private IEnumerator LevelTransition(int sceneIndex, string spawnArea, bool saveOnTransition = false)
+    {
+        yield return StartCoroutine(LoadLevel(sceneIndex));
+
+        SetPlayerPosition(spawnArea, saveOnTransition);
+    }
+
     private IEnumerator LoadLevel(int sceneIndex)
     {
         OnLevelLoad?.Invoke();
@@ -117,6 +134,22 @@ public class LevelManager : Singleton<LevelManager>
         if (playerPosition != Vector2.zero)
         {
             GameController.Instance.Player.transform.position = playerPosition;
+        }
+    }
+
+    private void SetPlayerPosition(string spawnPosition, bool savePlayerPosition = false)
+    {
+        PlayerSpawnArea[] spawnAreas = FindObjectsOfType<PlayerSpawnArea>();
+        for (int i = 0; i < spawnAreas.Length; i++)
+        {
+            if (spawnAreas[i].ID != spawnPosition) continue;
+
+            GameController.Instance.Player.transform.position = spawnAreas[i].transform.position;
+            if(savePlayerPosition)
+            {
+                SaveSystem.SavePlayerData();
+            }
+            break;
         }
     }
 }
