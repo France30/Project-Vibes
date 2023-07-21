@@ -8,12 +8,10 @@ public class LevelTransition : MonoBehaviour
     [SerializeField] private string _playerSpawnAreaId;
     [SerializeField] private bool _saveOnTransition = false;
 
-    private BoxCollider2D _trigger;
 
     private void Awake()
     {
-        _trigger = GetComponent<BoxCollider2D>();
-        _trigger.isTrigger = true;
+        GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
