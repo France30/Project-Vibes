@@ -38,6 +38,15 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    public void LoadLevelTransition(int sceneIndex, string spawnArea)
+    {
+        if (!_isLoadingLevel)
+        {
+            _isLoadingLevel = true;
+            StartCoroutine(LevelTransition(sceneIndex, spawnArea));
+        }
+    }
+
     public void LoadLevelFromSave()
     {
         if (!_isLoadingLevel)
@@ -84,6 +93,13 @@ public class LevelManager : Singleton<LevelManager>
         LoadPlayerPositionInLevel(playerData);
     }
 
+    private IEnumerator LevelTransition(int sceneIndex, string spawnArea)
+    {
+        yield return StartCoroutine(LoadLevel(sceneIndex));
+
+        SetPlayerPosition(spawnArea);
+    }
+
     private IEnumerator LoadLevel(int sceneIndex)
     {
         OnLevelLoad?.Invoke();
@@ -118,6 +134,18 @@ public class LevelManager : Singleton<LevelManager>
         if (playerPosition != Vector2.zero)
         {
             GameController.Instance.Player.transform.position = playerPosition;
+        }
+    }
+
+    private void SetPlayerPosition(string spawnPosition)
+    {
+        PlayerSpawnArea[] spawnAreas = FindObjectsOfType<PlayerSpawnArea>();
+        for (int i = 0; i < spawnAreas.Length; i++)
+        {
+            if (spawnAreas[i].ID != spawnPosition) continue;
+
+            GameController.Instance.Player.transform.position = spawnAreas[i].transform.position;
+            break;
         }
     }
 }

@@ -1,13 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class LevelTransition : MonoBehaviour
 {
     [SerializeField] private int _transitionToLevel = 1;
+    [SerializeField] private string _playerSpawnAreaId;
+
+    private BoxCollider2D _trigger;
 
     private void Awake()
     {
-        GetComponent<BoxCollider2D>().isTrigger = true;
+        _trigger = GetComponent<BoxCollider2D>();
+        _trigger.isTrigger = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,10 +20,8 @@ public class LevelTransition : MonoBehaviour
         if(collision.gameObject.GetComponent<Player>())
         {
             Time.timeScale = 0;
-            LevelManager.Instance.LoadLevelSelect(_transitionToLevel);
             LevelManager.Instance.AddLevel(_transitionToLevel);
-
-            SaveSystem.SaveUnlockedLevels();
+            LevelManager.Instance.LoadLevelTransition(_transitionToLevel, _playerSpawnAreaId);
         }
     }
 }
