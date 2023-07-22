@@ -34,6 +34,14 @@ public static class SaveSystem
         stream.Close();
     }
 
+    public static void ClearCheckpointData()
+    {
+        string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
+        if (!File.Exists(checkpointPath)) return;
+
+        File.Delete(checkpointPath);
+    }
+
     public static bool IsSaveFileFound()
     {
         string playerPath = Application.persistentDataPath + "/player.data";
@@ -61,6 +69,15 @@ public static class SaveSystem
 
         List<int> unlockedLevelsData = LevelManager.Instance.LevelsUnlocked;
         formatter.Serialize(stream, unlockedLevelsData);
+        stream.Close();
+    }
+
+    public static void SaveCheckpointData(string id)
+    {
+        string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
+
+        FileStream stream = new FileStream(checkpointPath, FileMode.Create);
+        formatter.Serialize(stream, id);
         stream.Close();
     }
 
@@ -100,6 +117,25 @@ public static class SaveSystem
         }
 
         return playerData;
+    }
+
+    public static string LoadCheckpointData()
+    {
+        string id = "";
+        string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
+        if (File.Exists(checkpointPath))
+        {
+            FileStream stream = new FileStream(checkpointPath, FileMode.Open);
+
+            id = formatter.Deserialize(stream) as string;
+            stream.Close();
+        }
+        else
+        {
+            Debug.Log("Checkpoint Data not found in " + checkpointPath + "!");
+        }
+
+        return id;
     }
 
     public static PlayerChordsData LoadPlayerChords()
