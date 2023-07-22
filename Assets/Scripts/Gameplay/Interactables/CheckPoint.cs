@@ -5,6 +5,7 @@ public class CheckPoint : Interactable
         if (AudioManager.Instance.IsPlaying("GameSavedSfx")) return;
 
         SaveSystem.SavePlayerData();
+        SaveSystem.SaveCheckpointData(_id);
         AudioManager.Instance.Play("GameSavedSfx");
     }
 }
