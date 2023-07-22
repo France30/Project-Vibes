@@ -76,6 +76,11 @@ public class Player : MonoBehaviour
         GameController.Instance.OnFreezeEffect += SetHurtAnimation;
         GameController.Instance.OnPauseEvent += DisablePlayerActions;
         GameController.Instance.OnPrologueEnd += DisablePlayerActions;
+
+        if(GameController.Instance.Boss != null)
+        {
+            GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd += PlayVictoryAnimation;
+        }
     }
 
     private void OnDisable()
@@ -87,6 +92,11 @@ public class Player : MonoBehaviour
         GameController.Instance.OnFreezeEffect -= SetHurtAnimation;
         GameController.Instance.OnPauseEvent -= DisablePlayerActions;
         GameController.Instance.OnPrologueEnd -= DisablePlayerActions;
+
+        if (GameController.Instance.Boss != null)
+        {
+            GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd -= PlayVictoryAnimation;
+        }
     }
 
     private void ApplyKnockBack(int knockBackDirection = 0)
@@ -118,5 +128,10 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < _playerActions.Length; i++)
             _playerActions[i].enabled = !isEnable;
+    }
+
+    private void PlayVictoryAnimation()
+    {
+        _animator.SetBool("Victory", true);
     }
 }
