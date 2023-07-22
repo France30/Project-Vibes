@@ -30,6 +30,7 @@ public class ButtonEvent : ScriptableObject
     public void LevelSelect(int level)
     {
         SaveSystem.ClearSavedPlayerPositionInLevel(level);
+        SaveSystem.ClearCheckpointData();
         LevelManager.Instance.LoadLevelSelect(level);
     }
 

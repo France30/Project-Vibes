@@ -20,6 +20,10 @@ public class LevelTransition : MonoBehaviour
         {
             Time.timeScale = 0;
             LevelManager.Instance.AddLevel(_transitionToLevel);
+            if (_saveOnTransition)
+            {
+                SaveSystem.ClearCheckpointData();
+            }
             LevelManager.Instance.LoadLevelTransition(_transitionToLevel, _playerSpawnAreaId, _saveOnTransition);
         }
     }
