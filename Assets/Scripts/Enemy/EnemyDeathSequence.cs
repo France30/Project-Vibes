@@ -5,15 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyBase))]
 public class EnemyDeathSequence : MonoBehaviour
 {
+    [SerializeField] private string _deathAnimID = "Particle_Death";
     [Range(0,100)][SerializeField] private float _chanceForHealthDrop = 10f;
     [SerializeField] private string _healthDropID = "EnemyHealthDrop";
 
     private EnemyBase _enemyBase;
     private Animator _animator;
 
-    public delegate void AnimationEvent();
-    public event AnimationEvent OnAnimationStart;
+    public delegate IEnumerator AnimationEvent();
     public event AnimationEvent OnAnimationEnd;
+
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class EnemyDeathSequence : MonoBehaviour
     private void OnDisable()
     {
         _enemyBase.OnEnemyDeath -= DeathSequence;
+        OnAnimationEnd = null;
     }
 
     private void DeathSequence()
@@ -39,12 +41,15 @@ public class EnemyDeathSequence : MonoBehaviour
 
     private IEnumerator PlayDeathSequence()
     {
-        OnAnimationStart?.Invoke();
         AttemptHealthDrop();
 
+        yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).IsName(_deathAnimID));
         yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
 
-        OnAnimationEnd?.Invoke();
+        if (OnAnimationEnd != null)
+        {
+            yield return StartCoroutine(OnAnimationEnd());
+        }
 
         gameObject.SetActive(false);
     }
