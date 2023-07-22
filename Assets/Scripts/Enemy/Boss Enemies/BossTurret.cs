@@ -34,8 +34,20 @@ public class BossTurret : BossEnemy
         }
     }
 
-    private void Start()
+    protected override void InitializeBossAbility()
     {
+        switch (BossAttack.AbilityType)
+        {
+            case AbilityType.Projectile:
+                SetBossAbility(() => BossAttack.FireProjectile(_turretSpawnPoint));
+                break;
+        }
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
         InitializeTurretBase();
         _turret.localRotation = Quaternion.Euler(0, 0, 0);
         GetComponent<EnemyDeathSequence>().OnAnimationEnd += GameUIManager.Instance.FadeInWinUI;
@@ -53,16 +65,6 @@ public class BossTurret : BossEnemy
 
         SetOnBossAttack(RotateTurret);
         SetOnBossAttackEnd(() => { if (!_isTeleporting) StartCoroutine(Teleport()); });
-    }
-
-    protected override void ActivateAbility()
-    {
-        switch(BossAttack.AbilityType)
-        {
-            case AbilityType.Projectile:
-                BossAttack.FireProjectile(_turretSpawnPoint, _damage);
-                break;
-        }
     }
 
     private void InitializeTurretBase()

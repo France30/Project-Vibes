@@ -15,13 +15,21 @@ public abstract class BossEnemy : EnemyBase
 
     protected bool _isAttackCoroutineRunning = false;
 
+    private EnemyEvent BossAbility;
+
     protected IBossAttack BossAttack { get { return _ability as IBossAttack; } }
 
 
-    protected abstract void ActivateAbility();
+    protected abstract void InitializeBossAbility();
+
     protected override void OnBecameInvisible()
     {
         //do nothing
+    }
+
+    protected void SetBossAbility(EnemyEvent bossAbilty)
+    {
+        BossAbility = bossAbilty;
     }
 
     protected void SetOnBossAttack(EnemyEvent onBossAttack)
@@ -62,6 +70,16 @@ public abstract class BossEnemy : EnemyBase
             _isAttackCoroutineRunning = false;
             OnBossAttackEnd?.Invoke();
         }
+    }
+
+    protected virtual void Start()
+    {
+        InitializeBossAbility();
+    }
+
+    private void ActivateAbility()
+    {
+        BossAbility?.Invoke();
     }
 
     private void OnValidate()
