@@ -59,7 +59,9 @@ public class GameController : Singleton<GameController>
     {
         OnPrologueEnd += SetPrologueEnd;
         _player.OnPlayerDeath += GameOver;
-        _boss.EnemyDeathSequence.OnAnimationStart += StartPrologueEnd;
+        if(_boss != null)
+            _boss.EnemyDeathSequence.OnAnimationStart += StartPrologueEnd;
+
         LevelManager.Instance.OnLevelLoad += DisableGame;
     }
 
