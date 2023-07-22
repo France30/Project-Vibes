@@ -50,7 +50,6 @@ public class BossTurret : BossEnemy
 
         InitializeTurretBase();
         _turret.localRotation = Quaternion.Euler(0, 0, 0);
-        GetComponent<EnemyDeathSequence>().OnAnimationEnd += GameUIManager.Instance.FadeInWinUI;
 
         SetAttack(() => 
         {

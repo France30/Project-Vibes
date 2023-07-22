@@ -9,11 +9,16 @@ public class GameController : Singleton<GameController>
     [SerializeField] private float _timeTillLevelReset = 2f;
 
     private Player _player;
+    private BossEnemy _boss;
     private bool _isPaused = false;
     private bool _isGameOver = false;
+    private bool _isPrologueEnd = false;
 
     public delegate void OnPause(bool isPaused);
     public event OnPause OnPauseEvent;
+
+    public delegate void PrologueEnd(bool isEnd);
+    public event PrologueEnd OnPrologueEnd;
 
     public delegate void FreezeDeathEvent(bool isFreezeEvent);
     public event FreezeDeathEvent OnFreezeEffect;
@@ -28,6 +33,17 @@ public class GameController : Singleton<GameController>
         } 
     }
 
+    public BossEnemy Boss
+    {
+        get
+        {
+            if (_boss == null)
+                _boss = FindObjectOfType<BossEnemy>();
+
+            return _boss;
+        }
+    }
+
 
     protected override void Awake()
     {
@@ -36,19 +52,29 @@ public class GameController : Singleton<GameController>
         GameUIManager intializeGameUI = GameUIManager.Instance; //for easier testing, will remove at a later time
 
         _player = FindObjectOfType<Player>();
+        _boss = FindObjectOfType<BossEnemy>();
     }
 
     private void OnEnable()
     {
+        OnPrologueEnd += SetPrologueEnd;
         _player.OnPlayerDeath += GameOver;
+        _boss.EnemyDeathSequence.OnAnimationStart += StartPrologueEnd;
         LevelManager.Instance.OnLevelLoad += DisableGame;
     }
 
     private void OnDestroy()
     {
+        OnPrologueEnd -= SetPrologueEnd;
+
         if (_player != null)
         {
             _player.OnPlayerDeath -= GameOver;
+        }
+
+        if (_boss != null)
+        {
+            _boss.EnemyDeathSequence.OnAnimationStart -= StartPrologueEnd;
         }
 
         if(LevelManager.Instance != null)
@@ -59,12 +85,17 @@ public class GameController : Singleton<GameController>
 
     private void Update()
     {
-        if (_isGameOver) return;
+        if (_isGameOver || _isPrologueEnd) return;
 
         if (Input.GetKeyDown(KeyCode.P))
         {
             TogglePause();
         }
+    }
+
+    private void StartPrologueEnd()
+    {
+        OnPrologueEnd?.Invoke(true);
     }
 
     //Use this method to disable any dependencies first
@@ -135,5 +166,10 @@ public class GameController : Singleton<GameController>
 
         TogglePause();
         OnFreezeEffect?.Invoke(false);
+    }
+
+    private void SetPrologueEnd(bool isEnd)
+    {
+        _isPrologueEnd = isEnd;
     }
 }

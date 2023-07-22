@@ -45,7 +45,41 @@ public class GameUIManager : Singleton<GameUIManager>
         _notification.color = new Color(_notification.color.r, _notification.color.g, _notification.color.b, a);
     }
 
-    public IEnumerator FadeInWinUI()
+    private void OnEnable()
+    {
+        SetTextNotifAlpha(0);
+        PauseUI.SetActive(false);
+        GameController.Instance.OnPauseEvent += EnablePauseUI;
+
+        _winUI.color = new Color(_notification.color.r, _notification.color.g, _notification.color.b, 0);
+        if (GameController.Instance.Boss != null)
+        {
+            GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd += BeginWinUIFadeIn;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (GameController.Instance == null) return;
+
+        GameController.Instance.OnPauseEvent -= EnablePauseUI;
+        if (GameController.Instance.Boss != null)
+        {
+            GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd -= BeginWinUIFadeIn;
+        }
+    }
+
+    private void EnablePauseUI(bool isEnable)
+    {
+        PauseUI.SetActive(isEnable);
+    }
+
+    private void BeginWinUIFadeIn()
+    {
+        StartCoroutine(FadeInWinUI());
+    }
+
+    private IEnumerator FadeInWinUI()
     {
         float a = 0;
         while (a < 1f)
@@ -56,27 +90,5 @@ public class GameUIManager : Singleton<GameUIManager>
         }
 
         LevelManager.Instance.LoadLevelSelect(0); //return to Main Menu
-    }
-
-    private void OnEnable()
-    {
-        SetTextNotifAlpha(0);
-        PauseUI.SetActive(false);
-        GameController.Instance.OnPauseEvent += EnablePauseUI;
-
-        if (_winUI == null) return;
-        _winUI.color = new Color(_notification.color.r, _notification.color.g, _notification.color.b, 0);
-    }
-
-    private void OnDisable()
-    {
-        if (GameController.Instance == null) return;
-
-        GameController.Instance.OnPauseEvent -= EnablePauseUI;
-    }
-
-    private void EnablePauseUI(bool isEnable)
-    {
-        PauseUI.SetActive(isEnable);
     }
 }

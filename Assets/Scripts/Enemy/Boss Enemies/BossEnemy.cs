@@ -17,15 +17,16 @@ public abstract class BossEnemy : EnemyBase
 
     private EnemyEvent BossAttack;
 
+    public EnemyDeathSequence EnemyDeathSequence { get; private set; }
     protected IBossAbility BossAbility { get { return _ability as IBossAbility; } }
 
-
-    protected abstract void InitializeBossAttack();
 
     protected override void OnBecameInvisible()
     {
         //do nothing
     }
+
+    protected abstract void InitializeBossAttack();
 
     protected void SetBossAttack(EnemyEvent bossAttack)
     {
@@ -71,8 +72,14 @@ public abstract class BossEnemy : EnemyBase
         }
     }
 
-    protected virtual void Start()
+    protected override void Awake()
     {
+        base.Awake();
+        EnemyDeathSequence = GetComponent<EnemyDeathSequence>();
+    }
+
+    protected virtual void Start()
+    {       
         InitializeBossAttack();
     }
 
