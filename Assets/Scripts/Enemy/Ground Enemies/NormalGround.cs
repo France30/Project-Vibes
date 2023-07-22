@@ -11,7 +11,7 @@ public class NormalGround : GroundEnemy
 
     protected override bool JumpCondition()
     {
-        if (CurrentTarget == null) return false;
+        if (CurrentTarget == null || _spriteController.IsFlashing) return false;
 
         //Disregard jump if on target
         if (IsTargetReached(CurrentTarget)) return false;
