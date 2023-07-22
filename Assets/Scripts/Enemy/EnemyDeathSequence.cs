@@ -12,8 +12,9 @@ public class EnemyDeathSequence : MonoBehaviour
     private EnemyBase _enemyBase;
     private Animator _animator;
 
-    public delegate IEnumerator AnimationEvent();
-    public event AnimationEvent OnAnimationEnd;
+    public delegate void AnimationEvent();
+    public AnimationEvent OnAnimationStart;
+    public AnimationEvent OnAnimationEnd;
 
 
     private void Awake()
@@ -42,14 +43,12 @@ public class EnemyDeathSequence : MonoBehaviour
     private IEnumerator PlayDeathSequence()
     {
         AttemptHealthDrop();
+        OnAnimationStart?.Invoke();
 
         yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).IsName(_deathAnimID));
         yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
 
-        if (OnAnimationEnd != null)
-        {
-            yield return StartCoroutine(OnAnimationEnd());
-        }
+        OnAnimationEnd?.Invoke();
 
         gameObject.SetActive(false);
     }

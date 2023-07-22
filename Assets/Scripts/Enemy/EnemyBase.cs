@@ -113,7 +113,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
         this.enabled = false;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _enemyPermaDeath?.InitializeEnemyPermaDeath(this);
 
