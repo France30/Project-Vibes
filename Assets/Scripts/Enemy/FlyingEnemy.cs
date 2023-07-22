@@ -18,7 +18,7 @@ public class FlyingEnemy : EnemyBase
     private float _currentHoverDistance;
     private bool _isHoveringUp = true;
 
-    private IFlyingAttack FlyingAttack { get { return _ability as IFlyingAttack; } }
+    private IFlyingAbility FlyingAbility { get { return _ability as IFlyingAbility; } }
 
 
     public override void MoveToTargetDirection(Transform target)
@@ -36,9 +36,9 @@ public class FlyingEnemy : EnemyBase
     {
         if (!gameObject.activeInHierarchy) return;
 
-        if(_ability is not IFlyingAttack)
+        if(_ability is not IFlyingAbility)
         {
-            throw new System.NullReferenceException("Ability Must Contain Type Of 'IFlyingAttack'");
+            throw new System.NullReferenceException("Ability Must Contain Type Of 'IFlyingAbility'");
         }
     }
 
@@ -56,7 +56,7 @@ public class FlyingEnemy : EnemyBase
 
         SetAttack(() => 
         {
-            _targetVelocity = FlyingAttack.ApplyAttackVelocity(_moveSpeed, transform);
+            _targetVelocity = FlyingAbility.ApplyAttackVelocity(_moveSpeed, transform);
             _animator.SetBool("Attack", true);
             _animator.SetBool("ReadyAttack", false);
         });

@@ -10,31 +10,31 @@ public abstract class BossEnemy : EnemyBase
     [SerializeField] private ChordSet _chordSet;
 
     private int _currentChord = 0;
-    private EnemyEvent OnBossAttack;
+    private EnemyEvent OnBossAttackStart;
     private EnemyEvent OnBossAttackEnd;
 
     protected bool _isAttackCoroutineRunning = false;
 
-    private EnemyEvent BossAbility;
+    private EnemyEvent BossAttack;
 
-    protected IBossAttack BossAttack { get { return _ability as IBossAttack; } }
+    protected IBossAbility BossAbility { get { return _ability as IBossAbility; } }
 
 
-    protected abstract void InitializeBossAbility();
+    protected abstract void InitializeBossAttack();
 
     protected override void OnBecameInvisible()
     {
         //do nothing
     }
 
-    protected void SetBossAbility(EnemyEvent bossAbilty)
+    protected void SetBossAttack(EnemyEvent bossAttack)
     {
-        BossAbility = bossAbilty;
+        BossAttack = bossAttack;
     }
 
-    protected void SetOnBossAttack(EnemyEvent onBossAttack)
+    protected void SetOnBossAttackStart(EnemyEvent onBossAttackStart)
     {
-        OnBossAttack = onBossAttack;
+        OnBossAttackStart = onBossAttackStart;
     }
 
     protected void SetOnBossAttackEnd(EnemyEvent onBossAttackEnd)
@@ -45,7 +45,6 @@ public abstract class BossEnemy : EnemyBase
     protected IEnumerator PlayAttack()
     {
         _isAttackCoroutineRunning = true;
-        //Debug.Log("Boss is Attacking");
 
         ChordClip currentChordClip = _chordSet.ChordSetSO.chordClips[_currentChord];
         currentChordClip.source.Play();
@@ -53,8 +52,8 @@ public abstract class BossEnemy : EnemyBase
         bool isChordPlaying = currentChordClip.clip != null;
         if (isChordPlaying)
         {
-            OnBossAttack?.Invoke();
-            ActivateAbility();
+            OnBossAttackStart?.Invoke();
+            BossAttack?.Invoke();
         }
 
         CheckIfSongDone();
@@ -74,21 +73,16 @@ public abstract class BossEnemy : EnemyBase
 
     protected virtual void Start()
     {
-        InitializeBossAbility();
-    }
-
-    private void ActivateAbility()
-    {
-        BossAbility?.Invoke();
+        InitializeBossAttack();
     }
 
     private void OnValidate()
     {
         if (!gameObject.activeInHierarchy) return;
 
-        if (_ability is not IBossAttack)
+        if (_ability is not IBossAbility)
         {
-            throw new System.NullReferenceException("Ability Must Contain Type Of 'IBossAttack'");
+            throw new System.NullReferenceException("Ability Must Contain Type Of 'IBossAbility'");
         }
     }
 

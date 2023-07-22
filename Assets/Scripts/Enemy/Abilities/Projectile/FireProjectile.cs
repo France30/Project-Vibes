@@ -8,7 +8,7 @@ public enum FireProjectileDirection
 }
 
 [CreateAssetMenu(fileName = "New Fire Projectile", menuName = "Abilities/Fire Projectile")]
-public class FireProjectile : ScriptableObject, IFlyingAttack, IGroundAttack, IBossAttack
+public class FireProjectile : ScriptableObject, IFlyingAbility, IGroundAbility, IBossAbility
 {
     [SerializeField] private string _id = "Projectile";
 

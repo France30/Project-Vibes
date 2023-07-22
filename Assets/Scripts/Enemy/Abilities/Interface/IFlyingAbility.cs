@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IFlyingAttack: IAbility
+public interface IFlyingAbility: IAbility
 {
     public virtual Vector3 ApplyAttackVelocity(float moveSpeed, Transform transform)
     {

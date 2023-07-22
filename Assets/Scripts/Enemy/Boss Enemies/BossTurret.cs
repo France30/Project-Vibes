@@ -34,12 +34,12 @@ public class BossTurret : BossEnemy
         }
     }
 
-    protected override void InitializeBossAbility()
+    protected override void InitializeBossAttack()
     {
-        switch (BossAttack.AbilityType)
+        switch (BossAbility.AbilityType)
         {
             case AbilityType.Projectile:
-                SetBossAbility(() => BossAttack.FireProjectile(_turretSpawnPoint));
+                SetBossAttack(() => BossAbility.FireProjectile(_turretSpawnPoint));
                 break;
         }
     }
@@ -63,7 +63,7 @@ public class BossTurret : BossEnemy
             }
         });
 
-        SetOnBossAttack(RotateTurret);
+        SetOnBossAttackStart(RotateTurret);
         SetOnBossAttackEnd(() => { if (!_isTeleporting) StartCoroutine(Teleport()); });
     }
 
