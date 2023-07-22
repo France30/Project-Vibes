@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
         OnPlayerDeath += DisablePlayerActions;
         GameController.Instance.OnFreezeEffect += SetHurtAnimation;
         GameController.Instance.OnPauseEvent += DisablePlayerActions;
+        GameController.Instance.OnPrologueEnd += DisablePlayerActions;
     }
 
     private void OnDisable()
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
 
         GameController.Instance.OnFreezeEffect -= SetHurtAnimation;
         GameController.Instance.OnPauseEvent -= DisablePlayerActions;
+        GameController.Instance.OnPrologueEnd -= DisablePlayerActions;
     }
 
     private void ApplyKnockBack(int knockBackDirection = 0)
