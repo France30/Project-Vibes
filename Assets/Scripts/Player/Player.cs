@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public bool IsInvulnerable { get { return _isHurt || _spriteController.IsFlashing; } }
     public int MaxHealth { get { return (int)_health.MaxHealth; } }
     public int CurrentHealth { get { return (int)_health.CurrentHealth; } }
+    public string SavedCheckPoint { get; set; }
 
 
     public void TakeDamage(int value, int knockBackDirection = 0)
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour
 
         _health = new Health(_maxHealth, _healthBar);
         _animator.SetFloat("Health", _health.CurrentHealth);
+        SavedCheckPoint = SaveSystem.LoadCheckpointData();
     }
 
     private void OnEnable()

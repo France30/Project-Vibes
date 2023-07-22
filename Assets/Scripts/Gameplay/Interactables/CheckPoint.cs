@@ -13,6 +13,7 @@ public class CheckPoint : Interactable
 
         SaveSystem.SavePlayerData();
         SaveSystem.SaveCheckpointData(_id);
+        GameController.Instance.Player.SavedCheckPoint = _id;
         _animator.SetBool("On", true);
         AudioManager.Instance.Play("GameSavedSfx");
     }
@@ -25,13 +26,13 @@ public class CheckPoint : Interactable
 
     private void OnEnable()
     {
-        bool isThisPlayerSpawnPoint = (_id == SaveSystem.LoadCheckpointData());
+        bool isThisPlayerSpawnPoint = (_id == GameController.Instance.Player.SavedCheckPoint);
         _animator.SetBool("On", isThisPlayerSpawnPoint);
     }
 
     private void OnBecameVisible()
     {
-        bool isThisPlayerSpawnPoint = (_id == SaveSystem.LoadCheckpointData());
+        bool isThisPlayerSpawnPoint = (_id == GameController.Instance.Player.SavedCheckPoint);
         _animator.SetBool("On", isThisPlayerSpawnPoint);
     }
 }
