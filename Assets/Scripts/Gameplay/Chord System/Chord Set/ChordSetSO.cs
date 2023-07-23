@@ -27,6 +27,7 @@ public class ChordSetSO : ScriptableObject
 
     public bool IsDrop { get { return _isDrop; } }
     public ChordType ChordType { get { return _chordType; } }
+    public string ID { get { return _id; } }
 
 
     public void DropGet()
