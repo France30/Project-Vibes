@@ -83,6 +83,7 @@ public class BossTurret : BossEnemy
     {
         transform.SetParent(_teleportPoints[_currentTeleportPoint], false);
         transform.position = _teleportPoints[_currentTeleportPoint].position;
+        _turretSpawnPoint.localScale = transform.parent.localScale;
     }
 
     private void RotateTurret()

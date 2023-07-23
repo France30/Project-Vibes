@@ -20,6 +20,7 @@ public class Projectile : MonoBehaviour
     private bool _canBeDamaged = false;
     private Sprite _sprite;
     private FireProjectileDirection _fireDirection;
+    private float _direction = 1f; //indicates which side the projectile is fired from
 
     private bool _isDespawning = false;
     private float _despawnTimer = 0f;
@@ -36,6 +37,7 @@ public class Projectile : MonoBehaviour
         _canBeDamaged = fireProjectile.canBeDamaged;
         _sprite = fireProjectile.sprite;
         _fireDirection = fireProjectile.fireDirection;
+        _direction = fireProjectile.direction;
     }
 
     private void Awake()
@@ -132,7 +134,7 @@ public class Projectile : MonoBehaviour
     {
         Vector3 targetVelocity = Vector3.zero;
 
-        _speed = Mathf.Abs(_speed);
+        _speed = Mathf.Abs(_speed) * _direction;
         float move = (_speed * Time.fixedDeltaTime) * 3f;
         switch (_fireDirection)
         {
