@@ -53,7 +53,7 @@ public class BossTurret : BossEnemy
 
         SetAttack(() => 
         {
-            if (!_isAttackCoroutineRunning && !_isTeleporting)
+            if (!_isAttackCoroutineRunning && !_isTeleporting && !_isCooldown)
             {
                 _currentRotation = _startingRotation;
                 _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);
@@ -62,15 +62,27 @@ public class BossTurret : BossEnemy
             }
         });
 
-        SetOnBossAttackStart(RotateTurret);
-        SetOnBossAttackEnd(() => { if (!_isTeleporting) StartCoroutine(Teleport()); });
+        SetOnBossAttackStart(() =>
+        {
+            _animator.SetBool("Attack", true);
+            RotateTurret();
+        });
+
+        SetOnBossAttackEnd(() => 
+        {
+            if (!_isTeleporting)
+            {
+                _animator.SetBool("Attack", false);
+                _turret.localRotation = Quaternion.Euler(0, 0, 0);
+                StartCoroutine(Teleport());
+            }
+        });
     }
 
     private void InitializeTurretBase()
     {
+        transform.SetParent(_teleportPoints[_currentTeleportPoint], false);
         transform.position = _teleportPoints[_currentTeleportPoint].position;
-        transform.rotation = _teleportPoints[_currentTeleportPoint].rotation;
-        transform.localScale = _teleportPoints[_currentTeleportPoint].localScale;
     }
 
     private void RotateTurret()
@@ -91,25 +103,15 @@ public class BossTurret : BossEnemy
         AssignNewTeleportPoint();
 
         //yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-        yield return new WaitForSeconds(0.5f); //for test only
+        yield return null; //for test only
 
         InitializeTurretBase();
-        _turret.localRotation = Quaternion.Euler(0, 0, 0);
         //to play initialization animation
         _isTeleporting = false;
     }
 
     private void AssignNewTeleportPoint()
     {
-        int newPoint = Random.Range(0, _teleportPoints.Length);
-        
-        if(newPoint == _currentTeleportPoint)
-        {
-            _currentTeleportPoint = (newPoint >= _teleportPoints.Length - 1) ? newPoint - 1 : newPoint + 1;
-        }
-        else
-        {
-            _currentTeleportPoint = newPoint;
-        }
+        _currentTeleportPoint = (_currentTeleportPoint < _teleportPoints.Length - 1) ? _currentTeleportPoint + 1 : 0;
     }
 }

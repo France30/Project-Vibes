@@ -7,17 +7,31 @@ public abstract class BossEnemy : EnemyBase
 {
     [Header("Boss Attack Settings")]
     [SerializeField] private ScriptableObject _ability;
-    [SerializeField] private ChordSet _chordSet;
+    [SerializeField] private float _cooldown = 1f;
+
+    private ChordSet[] _chordSets;
 
     private int _currentChord = 0;
+    private int _currentChordSet = 0;
+    private EnemyDeathSequence _enemyDeathSequence;
     private EnemyEvent OnBossAttackStart;
     private EnemyEvent OnBossAttackEnd;
 
     protected bool _isAttackCoroutineRunning = false;
+    protected bool _isCooldown = false;
 
     private EnemyEvent BossAttack;
 
-    public EnemyDeathSequence EnemyDeathSequence { get; private set; }
+    public EnemyDeathSequence EnemyDeathSequence { 
+        get 
+        {
+            if (_enemyDeathSequence == null)
+                _enemyDeathSequence = GetComponent<EnemyDeathSequence>();
+
+            return _enemyDeathSequence;
+        } 
+    }
+
     protected IBossAbility BossAbility { get { return _ability as IBossAbility; } }
 
 
@@ -47,7 +61,8 @@ public abstract class BossEnemy : EnemyBase
     {
         _isAttackCoroutineRunning = true;
 
-        ChordClip currentChordClip = _chordSet.ChordSetSO.chordClips[_currentChord];
+        ChordSetSO currentChordSetSO = _chordSets[_currentChordSet].ChordSetSO;
+        ChordClip currentChordClip = currentChordSetSO.chordClips[_currentChord];
         currentChordClip.source.Play();
 
         bool isChordPlaying = currentChordClip.clip != null;
@@ -59,28 +74,46 @@ public abstract class BossEnemy : EnemyBase
 
         CheckIfSongDone();
 
-        yield return new WaitForSeconds(_chordSet.ChordSetSO.time);
+        yield return new WaitForSeconds(currentChordSetSO.time);
 
         if (_currentChord != 0) //continue chord progression
         {
             StartCoroutine(PlayAttack());
         }
+        else if (_currentChordSet < _chordSets.Length - 1)
+        {
+            _currentChordSet++;
+            OnBossAttackEnd?.Invoke();
+            StartCoroutine(PlayAttack());
+        }
         else
         {
+            _currentChordSet = 0;
             _isAttackCoroutineRunning = false;
             OnBossAttackEnd?.Invoke();
+            StartCoroutine(Cooldown());
         }
     }
 
     protected override void Awake()
     {
         base.Awake();
-        EnemyDeathSequence = GetComponent<EnemyDeathSequence>();
+        _enemyDeathSequence = GetComponent<EnemyDeathSequence>();
+        _chordSets = GetComponentsInChildren<ChordSet>();
     }
 
     protected virtual void Start()
     {       
         InitializeBossAttack();
+    }
+
+    private IEnumerator Cooldown()
+    {
+        _isCooldown = true;
+
+        yield return new WaitForSeconds(_cooldown);
+
+        _isCooldown = false;
     }
 
     private void OnValidate()
@@ -95,7 +128,7 @@ public abstract class BossEnemy : EnemyBase
 
     private void CheckIfSongDone()
     {
-        bool isSongDone = _currentChord >= (_chordSet.ChordSetSO.chordClips.Length - 1);
+        bool isSongDone = _currentChord >= (_chordSets[_currentChordSet].ChordSetSO.chordClips.Length - 1);
         if (!isSongDone)
             _currentChord++;
         else
