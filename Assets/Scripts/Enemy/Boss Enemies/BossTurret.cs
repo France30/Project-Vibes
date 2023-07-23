@@ -112,15 +112,6 @@ public class BossTurret : BossEnemy
 
     private void AssignNewTeleportPoint()
     {
-        int newPoint = Random.Range(0, _teleportPoints.Length);
-        
-        if(newPoint == _currentTeleportPoint)
-        {
-            _currentTeleportPoint = (newPoint >= _teleportPoints.Length - 1) ? newPoint - 1 : newPoint + 1;
-        }
-        else
-        {
-            _currentTeleportPoint = newPoint;
-        }
+        _currentTeleportPoint = (_currentTeleportPoint < _teleportPoints.Length - 1) ? _currentTeleportPoint + 1 : 0;
     }
 }
