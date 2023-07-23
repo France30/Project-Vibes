@@ -10,6 +10,7 @@ public abstract class BossEnemy : EnemyBase
     [SerializeField] private ChordSet _chordSet;
 
     private int _currentChord = 0;
+    private EnemyDeathSequence _enemyDeathSequence;
     private EnemyEvent OnBossAttackStart;
     private EnemyEvent OnBossAttackEnd;
 
@@ -17,7 +18,16 @@ public abstract class BossEnemy : EnemyBase
 
     private EnemyEvent BossAttack;
 
-    public EnemyDeathSequence EnemyDeathSequence { get; private set; }
+    public EnemyDeathSequence EnemyDeathSequence { 
+        get 
+        {
+            if (_enemyDeathSequence == null)
+                _enemyDeathSequence = GetComponent<EnemyDeathSequence>();
+
+            return _enemyDeathSequence;
+        } 
+    }
+
     protected IBossAbility BossAbility { get { return _ability as IBossAbility; } }
 
 
@@ -75,7 +85,7 @@ public abstract class BossEnemy : EnemyBase
     protected override void Awake()
     {
         base.Awake();
-        EnemyDeathSequence = GetComponent<EnemyDeathSequence>();
+        _enemyDeathSequence = GetComponent<EnemyDeathSequence>();
     }
 
     protected virtual void Start()
