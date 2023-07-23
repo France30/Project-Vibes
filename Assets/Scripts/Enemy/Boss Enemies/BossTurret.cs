@@ -63,7 +63,15 @@ public class BossTurret : BossEnemy
         });
 
         SetOnBossAttackStart(RotateTurret);
-        SetOnBossAttackEnd(() => { if (!_isTeleporting) StartCoroutine(Teleport()); });
+
+        SetOnBossAttackEnd(() => 
+        {
+            if (!_isTeleporting)
+            {
+                _turret.localRotation = Quaternion.Euler(0, 0, 0);
+                StartCoroutine(Teleport());
+            }
+        });
     }
 
     private void InitializeTurretBase()
@@ -90,10 +98,9 @@ public class BossTurret : BossEnemy
         AssignNewTeleportPoint();
 
         //yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-        yield return new WaitForSeconds(0.5f); //for test only
+        yield return null; //for test only
 
         InitializeTurretBase();
-        _turret.localRotation = Quaternion.Euler(0, 0, 0);
         //to play initialization animation
         _isTeleporting = false;
     }
