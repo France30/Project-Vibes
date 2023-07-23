@@ -62,12 +62,17 @@ public class BossTurret : BossEnemy
             }
         });
 
-        SetOnBossAttackStart(RotateTurret);
+        SetOnBossAttackStart(() =>
+        {
+            _animator.SetBool("Attack", true);
+            RotateTurret();
+        });
 
         SetOnBossAttackEnd(() => 
         {
             if (!_isTeleporting)
             {
+                _animator.SetBool("Attack", false);
                 _turret.localRotation = Quaternion.Euler(0, 0, 0);
                 StartCoroutine(Teleport());
             }
