@@ -12,8 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
   m_Name: BossTurretChordSet_Main
   m_EditorClassIdentifier: 
-  _isDrop: 0
-  _id: 0
+  _isDrop: 1
+  _id: 2
   _chordType: 0
-  time: 1
-  chordClips: []
+  time: 0.15
+  chordClips:
+  - clip: {fileID: 8300000, guid: 584264d5109d81e49bcf82e79d4804cd, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 86fd15eaba6e7ac4ea2a67b0a84c8b82, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 8bd823aaadf066f4baf14bd69b40866f, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 8bd823aaadf066f4baf14bd69b40866f, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 0c7d91bcb7bae594cadf6eedf3abff75, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ffa30e591fbf7174dad24a17b4399b6e, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: f3b85a60fe6484e4293c13d452499f6a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 47ebddedbc68cd34fa3f4613e65de188, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ffa30e591fbf7174dad24a17b4399b6e, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
