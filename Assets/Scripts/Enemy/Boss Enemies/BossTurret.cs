@@ -74,6 +74,7 @@ public class BossTurret : BossEnemy
             {
                 _animator.SetBool("Attack", false);
                 _turret.localRotation = Quaternion.Euler(0, 0, 0);
+                _currentRotation = _startingRotation;
                 StartCoroutine(Teleport());
             }
         });
