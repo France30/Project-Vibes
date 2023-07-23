@@ -46,6 +46,11 @@ public class PlayerChords : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        GameUIManager.Instance.SetSongTitleUI(CurrentChordSet.ID);
+    }
+
     private void InitializeChordSetsOnLoad()
     {
         PlayerChordsData playerChordsData = SaveSystem.LoadPlayerChords();
@@ -107,7 +112,7 @@ public class PlayerChords : MonoBehaviour
 
     private void Update()
     {
-        /*
+        
         if (Input.GetKeyDown(KeyCode.E))
             MoveToNextChordSet();
 
@@ -115,7 +120,10 @@ public class PlayerChords : MonoBehaviour
             MoveToPreviousChordSet();
 
         if (_prevChordSet != _currentChordSet)
-            ResetPlayerAttack();*/
+        {
+            GameUIManager.Instance.SetSongTitleUI(CurrentChordSet.ID);
+            ResetPlayerAttack();
+        }
     }
 
     private void MoveToNextChordSet()
@@ -124,8 +132,6 @@ public class PlayerChords : MonoBehaviour
 
         if (_currentChordSet > _chordSets.Length - 1)
             _currentChordSet = 0;
-
-        Debug.Log("Switch to ChordSet " + _currentChordSet);
     }
 
     private void MoveToPreviousChordSet()
@@ -134,8 +140,6 @@ public class PlayerChords : MonoBehaviour
 
         if (_currentChordSet < 0)
             _currentChordSet = _chordSets.Length - 1;
-
-        Debug.Log("Switch to ChordSet " + _currentChordSet);
     }
 
     private void ResetPlayerAttack()

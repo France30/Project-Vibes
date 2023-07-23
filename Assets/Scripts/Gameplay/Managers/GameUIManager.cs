@@ -8,6 +8,7 @@ public class GameUIManager : Singleton<GameUIManager>
 {
     [Header("Game UI")]
     [SerializeField] private GameObject PauseUI;
+    [SerializeField] private TextMeshProUGUI _songTitleUI;
 
     [Header("Screen Notification")]
     [SerializeField] private TextMeshProUGUI _notification;
@@ -43,6 +44,11 @@ public class GameUIManager : Singleton<GameUIManager>
     public void SetTextNotifAlpha(float a)
     {
         _notification.color = new Color(_notification.color.r, _notification.color.g, _notification.color.b, a);
+    }
+
+    public void SetSongTitleUI(string songTitle)
+    {
+        _songTitleUI.text = "| " + songTitle;
     }
 
     private void OnEnable()
