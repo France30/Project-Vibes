@@ -128,18 +128,12 @@ public class PlayerChords : MonoBehaviour
 
     private void MoveToNextChordSet()
     {
-        _currentChordSet++;
-
-        if (_currentChordSet > _chordSets.Length - 1)
-            _currentChordSet = 0;
+        _currentChordSet = (_currentChordSet < _chordSets.Length - 1) ? _currentChordSet + 1 : 0; 
     }
 
     private void MoveToPreviousChordSet()
     {
-        _currentChordSet--;
-
-        if (_currentChordSet < 0)
-            _currentChordSet = _chordSets.Length - 1;
+        _currentChordSet = (_currentChordSet > 0) ? _currentChordSet - 1 : _chordSets.Length - 1;
     }
 
     private void ResetPlayerAttack()

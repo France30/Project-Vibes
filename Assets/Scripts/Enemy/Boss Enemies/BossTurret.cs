@@ -102,18 +102,12 @@ public class BossTurret : BossEnemy
     {
         _isTeleporting = true;
         //to play teleport animation
-        AssignNewTeleportPoint();
-
+        _currentTeleportPoint = (_currentTeleportPoint < _teleportPoints.Length - 1) ? _currentTeleportPoint + 1 : 0;
         //yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         yield return null; //for test only
 
         InitializeTurretBase();
         //to play initialization animation
         _isTeleporting = false;
-    }
-
-    private void AssignNewTeleportPoint()
-    {
-        _currentTeleportPoint = (_currentTeleportPoint < _teleportPoints.Length - 1) ? _currentTeleportPoint + 1 : 0;
     }
 }
