@@ -132,7 +132,7 @@ public class Projectile : MonoBehaviour
     {
         Vector3 targetVelocity = Vector3.zero;
 
-        _speed = Mathf.Abs(_speed) * -1;
+        _speed = Mathf.Abs(_speed);
         float move = (_speed * Time.fixedDeltaTime) * 3f;
         switch (_fireDirection)
         {
