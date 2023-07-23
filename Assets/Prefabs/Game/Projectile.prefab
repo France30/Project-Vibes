@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8032985186894212733}
   - component: {fileID: 5680426900384006614}
   - component: {fileID: -4504101228464814014}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,5 +149,5 @@ MonoBehaviour:
   _lifeTime: 4
   _whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   _movementSmoothing: 0.05
