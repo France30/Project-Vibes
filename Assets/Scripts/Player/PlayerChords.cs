@@ -132,8 +132,6 @@ public class PlayerChords : MonoBehaviour
 
         if (_currentChordSet > _chordSets.Length - 1)
             _currentChordSet = 0;
-
-        Debug.Log("Switch to ChordSet " + _currentChordSet);
     }
 
     private void MoveToPreviousChordSet()
@@ -142,8 +140,6 @@ public class PlayerChords : MonoBehaviour
 
         if (_currentChordSet < 0)
             _currentChordSet = _chordSets.Length - 1;
-
-        Debug.Log("Switch to ChordSet " + _currentChordSet);
     }
 
     private void ResetPlayerAttack()
