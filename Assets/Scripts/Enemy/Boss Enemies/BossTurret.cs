@@ -53,7 +53,7 @@ public class BossTurret : BossEnemy
 
         SetAttack(() => 
         {
-            if (!_isAttackCoroutineRunning && !_isTeleporting)
+            if (!_isAttackCoroutineRunning && !_isTeleporting && !_isCooldown)
             {
                 _currentRotation = _startingRotation;
                 _turret.localRotation = Quaternion.Euler(0, 0, _currentRotation);

@@ -7,7 +7,7 @@ public abstract class BossEnemy : EnemyBase
 {
     [Header("Boss Attack Settings")]
     [SerializeField] private ScriptableObject _ability;
-    [SerializeField] private ChordSet _chordSet;
+    [SerializeField] private float _cooldown = 1f;
 
     private ChordSet[] _chordSets;
 
@@ -18,6 +18,7 @@ public abstract class BossEnemy : EnemyBase
     private EnemyEvent OnBossAttackEnd;
 
     protected bool _isAttackCoroutineRunning = false;
+    protected bool _isCooldown = false;
 
     private EnemyEvent BossAttack;
 
@@ -90,6 +91,7 @@ public abstract class BossEnemy : EnemyBase
             _currentChordSet = 0;
             _isAttackCoroutineRunning = false;
             OnBossAttackEnd?.Invoke();
+            StartCoroutine(Cooldown());
         }
     }
 
@@ -103,6 +105,15 @@ public abstract class BossEnemy : EnemyBase
     protected virtual void Start()
     {       
         InitializeBossAttack();
+    }
+
+    private IEnumerator Cooldown()
+    {
+        _isCooldown = true;
+
+        yield return new WaitForSeconds(_cooldown);
+
+        _isCooldown = false;
     }
 
     private void OnValidate()
