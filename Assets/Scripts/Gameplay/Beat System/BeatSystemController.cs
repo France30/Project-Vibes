@@ -59,10 +59,6 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
         _isBeatPlaying = true;
 
-        _currentBeat++;
-        if(_currentBeat >= _beats.Length)
-        {
-            _currentBeat = 0;
-        }
+        _currentBeat = (_currentBeat < _beats.Length - 1) ? _currentBeat + 1 : 0;
     }
 }
