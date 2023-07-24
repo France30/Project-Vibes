@@ -18,4 +18,5 @@ MonoBehaviour:
   isHoming: 0
   canHitGround: 1
   canBeDamaged: 1
-  fireDirection: 1
+  fireDirection: 0
+  direction: 1
