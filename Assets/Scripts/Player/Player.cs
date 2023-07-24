@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
 
         if(GameController.Instance.Boss != null)
         {
+            GameController.Instance.Boss.EnemyDeathSequence.OnAnimationStart += StopAllCoroutines;
             GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd += PlayVictoryAnimation;
         }
     }
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour
 
         if (GameController.Instance.Boss != null)
         {
+            GameController.Instance.Boss.EnemyDeathSequence.OnAnimationStart -= StopAllCoroutines;
             GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd -= PlayVictoryAnimation;
         }
     }
