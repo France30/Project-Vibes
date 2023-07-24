@@ -98,6 +98,7 @@ public class GameController : Singleton<GameController>
     private void StartPrologueEnd()
     {
         OnPrologueEnd?.Invoke(true);
+        SaveSystem.ClearAllSaveData();
     }
 
     //Use this method to disable any dependencies first
