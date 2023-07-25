@@ -3,8 +3,9 @@ using UnityEditor;
 
 public enum ChordType
 {
-    Chord1, //test
-    Chord2 //test
+    ForestChords,
+    CaveChords,
+    CastleChords
 }
 
 [CreateAssetMenu(fileName = "New Chord Set SO", menuName = "ChordSystem/ChordSetSO")]
