@@ -46,9 +46,6 @@ public class NormalGround : GroundEnemy
 
     private void SetHurtAnimation(bool isHurt)
     {
-        AnimatorControllerParameter hurtParam = Array.Find<AnimatorControllerParameter>(_animator.parameters, animatorParam => animatorParam.name == "Hurt");
-        if (hurtParam == null) return;
-
-        _animator.SetBool(hurtParam.name, isHurt);
+        _animator.SetBool("Hurt", isHurt);
     }
 }
