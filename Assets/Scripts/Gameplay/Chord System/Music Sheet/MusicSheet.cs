@@ -16,6 +16,7 @@ public class MusicSheet : Interactable
         playerChords.AddToChordSet(_musicSheetSO);
         playerAttack.enabled = true;
 
+        GameUIManager.Instance.PlaySongTitleUIPulseAnimation();
         _musicSheetSO.SheetGet();
         gameObject.SetActive(false);
     }
