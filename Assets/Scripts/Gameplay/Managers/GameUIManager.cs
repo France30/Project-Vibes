@@ -8,7 +8,10 @@ public class GameUIManager : Singleton<GameUIManager>
 {
     [Header("Game UI")]
     [SerializeField] private GameObject PauseUI;
+
+    [Header("Song Title UI")]
     [SerializeField] private TextMeshProUGUI _songTitleUI;
+    [SerializeField] private Animator _songTitleUIAnimator;
 
     [Header("Screen Notification")]
     [SerializeField] private TextMeshProUGUI _notification;
@@ -49,6 +52,11 @@ public class GameUIManager : Singleton<GameUIManager>
     public void SetSongTitleUI(string songTitle)
     {
         _songTitleUI.text = "| " + songTitle;
+    }
+
+    public void PlaySongTitleUIPulseAnimation()
+    {
+        _songTitleUIAnimator.SetTrigger("Pulse");
     }
 
     private void OnEnable()
