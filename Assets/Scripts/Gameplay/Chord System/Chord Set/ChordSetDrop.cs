@@ -13,6 +13,7 @@ public class ChordSetDrop : Interactable
         playerChords.AddChordSet(_chordSet);
         playerAttack.enabled = true;
 
+        GameUIManager.Instance.PlaySongTitleUIPulseAnimation();
         _chordSet.ChordSetSO.DropGet();
         gameObject.SetActive(false);
     }
