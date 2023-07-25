@@ -16,6 +16,8 @@ public class PlayerChords : MonoBehaviour
 
     public void AddChordSet(ChordSet chordSet)
     {
+        if (chordSet.ChordSetSO.ChordType == ChordType.SpecialEvent) return;
+
         chordSet.transform.parent = transform;
         chordSet.transform.SetAsLastSibling();
 
