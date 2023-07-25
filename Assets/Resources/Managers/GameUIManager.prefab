@@ -505,6 +505,7 @@ MonoBehaviour:
   _isPersist: 0
   PauseUI: {fileID: 1765728101098983264}
   _songTitleUI: {fileID: 4431353378498597296}
+  _songTitleUIAnimator: {fileID: 5273647585642215647}
   _notification: {fileID: 1923640075086528583}
   _fadeSpeed: 1
   _winUI: {fileID: 23886132}
@@ -1296,6 +1297,7 @@ GameObject:
   - component: {fileID: 1974394629487945177}
   - component: {fileID: 8897597103515786873}
   - component: {fileID: 4431353378498597296}
+  - component: {fileID: 5273647585642215647}
   m_Layer: 5
   m_Name: SongTitle
   m_TagString: Untagged
@@ -1422,3 +1424,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &5273647585642215647
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8961552598240793128}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b1b111f412c7e7478927a35938d65a9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
