@@ -14,17 +14,19 @@ public class Idle : State
     public override void PerformState()
     {
         base.PerformState();
-
-        if (_patrolState == null) return;
-
-        if (_currentTime < _idleTime)
-            _currentTime += Time.fixedDeltaTime;
     }
 
     public override void CheckTransitionCondition()
     {
         if (_patrolState != null)
+        {
+            if (_currentTime < _idleTime)
+            {
+                _currentTime += Time.deltaTime;
+            }
+
             CheckPatrolCondition();
+        }
 
         if (_nextState != null)
             CheckNextStateCondition();

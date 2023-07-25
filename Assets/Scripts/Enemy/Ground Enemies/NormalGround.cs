@@ -1,7 +1,18 @@
+using System;
 using UnityEngine;
 
 public class NormalGround : GroundEnemy
 {
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if(MoveCondition())
+            _animator.SetFloat("Speed", Mathf.Abs(_moveSpeed));
+        else
+            _animator.SetFloat("Speed", 0);
+    }
+
     protected override bool MoveCondition()
     {
         if (CurrentTarget == null) return false;
@@ -21,5 +32,23 @@ public class NormalGround : GroundEnemy
         if (wallColliders > 0) return true;
 
         return false;
+    }
+
+    private void OnEnable()
+    {
+        _spriteController.OnFlashEvent += SetHurtAnimation;
+    }
+
+    private void OnDisable()
+    {
+        _spriteController.OnFlashEvent -= SetHurtAnimation;
+    }
+
+    private void SetHurtAnimation(bool isHurt)
+    {
+        AnimatorControllerParameter hurtParam = Array.Find<AnimatorControllerParameter>(_animator.parameters, animatorParam => animatorParam.name == "Hurt");
+        if (hurtParam == null) return;
+
+        _animator.SetBool(hurtParam.name, isHurt);
     }
 }
