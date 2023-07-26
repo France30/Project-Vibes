@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
   m_Name: PlayerChordSet_Castle
   m_EditorClassIdentifier: 
-  _isDrop: 0
+  _isDrop: 1
   _id: 0
   _chordType: 2
   time: 1
