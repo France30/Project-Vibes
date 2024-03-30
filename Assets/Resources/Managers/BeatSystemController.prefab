@@ -147,6 +147,8 @@ MonoBehaviour:
   _beats:
   - beatCount: 4
     beatSpeed: 0.75
+    tickBGM: TickBGM
+    beatBGM: BeatBGM
   _tickUI: {fileID: 7538598843608191637}
   _beatUI: {fileID: 7538598844212517672}
 --- !u!223 &7538598843741560680

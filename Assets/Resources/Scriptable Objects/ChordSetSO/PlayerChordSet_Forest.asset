@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: PlayerChordSet_Forest
   m_EditorClassIdentifier: 
   _isDrop: 0
-  _id: 0
+  _id: Frolicing - 1st Sonata
   _chordType: 0
-  time: 0.3
+  time: 0.2
   chordClips:
-  - clip: {fileID: 8300000, guid: 62049bba23581fa44b3ce1af1aa0fc5f, type: 3}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: eaae100a5b78b2547a215c5f67a8d1e6, type: 3}
     volume: 1
     pitch: 1
     beats: 1
@@ -27,28 +32,83 @@ MonoBehaviour:
     pitch: 0
     beats: 0
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ff93d11ae372f2c409a709b68a860c64, type: 3}
     volume: 1
     pitch: 1
-    beats: 2
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: eaae100a5b78b2547a215c5f67a8d1e6, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d95e0ba252b806f4883f1b35fe906561, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ff93d11ae372f2c409a709b68a860c64, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 3fd9a8c6832911b4783d4e3bc915d845, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
-    pitch: 0.1
+    pitch: 0
     beats: 0
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 03774f97d9f79e445858f247372f9daf, type: 3}
+  - clip: {fileID: 8300000, guid: 8462887dce94f8547b10bf5ca1399481, type: 3}
     volume: 1
     pitch: 1
     beats: 1
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 35e7b78b3de430746bfd275d5eb8f622, type: 3}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 37f2feb935ec52749b4fe67f1d9cc5a8, type: 3}
     volume: 1
     pitch: 1
     beats: 1
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: c614dec814cf1ee4b8f5b0214cb6cd5a, type: 3}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ffcfbb54aa7a06746a34f5e9574ce684, type: 3}
     volume: 1
     pitch: 1
-    beats: 2
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: eaae100a5b78b2547a215c5f67a8d1e6, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 37f2feb935ec52749b4fe67f1d9cc5a8, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 8462887dce94f8547b10bf5ca1399481, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
     source: {fileID: 0}

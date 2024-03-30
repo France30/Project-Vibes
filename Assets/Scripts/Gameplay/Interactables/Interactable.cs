@@ -17,4 +17,9 @@ public abstract class Interactable : MonoBehaviour
         _interactableText.enabled = false;
         GetComponent<BoxCollider2D>().isTrigger = true;
     }
+
+    private void OnDisable()
+    {
+        _interactableText.enabled = false;
+    }
 }

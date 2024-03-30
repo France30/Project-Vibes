@@ -12,15 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc30b1df987c50043879650c5ca31c6c, type: 3}
   m_Name: New Music Sheet
   m_EditorClassIdentifier: 
-  chordType: 0
-  chordClips:
-  - clip: {fileID: 0}
-    volume: 0
-    pitch: 0.1
-    beats: 0
-    source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: ae9cfe84e20994042aa7321a19247cb5, type: 3}
-    volume: 1
-    pitch: 1
-    beats: 1
-    source: {fileID: 0}
+  _id: Forest Sheet
+  _chordType: 0
+  _chordClips: []

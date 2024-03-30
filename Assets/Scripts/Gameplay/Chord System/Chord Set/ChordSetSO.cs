@@ -40,16 +40,23 @@ public class ChordSetSO : ScriptableObject
         SavePersistentData.SavePersistentFlag(_chordSetDrop, _id, _isDrop);
     }
 
+    public void ResetToDefault()
+    {
+        chordClips = _chordClips;
+        _isDrop = _wasDrop;
+    }
+
     private void OnEnable()
     {
-#if UNITY_EDITOR
         _chordClips = chordClips;
+        _wasDrop = _isDrop;
+
+#if UNITY_EDITOR
         EditorApplication.playModeStateChanged += ResetToDefaultValues;
 #endif
         if (!_isDrop) return;
 
         _isDrop = SavePersistentData.LoadPersistentFlag(_chordSetDrop, _id);
-        _wasDrop = _isDrop;
     }
 
     private void OnDisable()

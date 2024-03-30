@@ -205,7 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a99f6359de2f9d4db2aad7be22205dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chanceForHealthDrop: 100
+  _deathAnimID: Particle_Death
+  _chanceForHealthDrop: 30
   _healthDropID: EnemyHealthDrop
 --- !u!114 &2239234384047992340
 MonoBehaviour:

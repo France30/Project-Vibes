@@ -44,11 +44,10 @@ GameObject:
   - component: {fileID: 2910925378815670021}
   - component: {fileID: -5514024094505109372}
   - component: {fileID: 2910925378815670022}
-  - component: {fileID: 2124841691333199603}
+  - component: {fileID: 7837923543438628753}
   - component: {fileID: 2910925378815670042}
   - component: {fileID: 6697727967652745926}
   - component: {fileID: 8273201107484876880}
-  - component: {fileID: 5708535457389795524}
   - component: {fileID: 7288246317862863369}
   m_Layer: 8
   m_Name: Sturtle
@@ -179,8 +178,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &2124841691333199603
-BoxCollider2D:
+--- !u!70 &7837923543438628753
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -188,23 +187,13 @@ BoxCollider2D:
   m_GameObject: {fileID: 2910925378815670044}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: e33261a5c40f21443afd2d745c01efdb, type: 2}
+  m_Material: {fileID: 6200000, guid: d0056c69a7fd25f439cdb7b26ed3392a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.48, y: 1.42}
-    newSize: {x: 2.0625, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.48, y: 1.41}
-  m_EdgeRadius: 0
+  m_Size: {x: 2.48, y: 1.42}
+  m_Direction: 1
 --- !u!114 &2910925378815670042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPermaDeath: {fileID: 0}
-  _maxHealth: 10
+  _maxHealth: 22
   _healthBar: {fileID: 0}
   _damage: 1
   _moveSpeed: 10
@@ -295,21 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deathAnimID: Particle_Death
-  _chanceForHealthDrop: 100
+  _chanceForHealthDrop: 50
   _healthDropID: EnemyHealthDrop
---- !u!114 &5708535457389795524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2910925378815670044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aeca0a005aa03743ad3d624925a5b3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _idleTime: 2
 --- !u!114 &7288246317862863369
 MonoBehaviour:
   m_ObjectHideFlags: 0

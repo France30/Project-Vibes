@@ -5,6 +5,21 @@ public class ButtonEvent : ScriptableObject
 {
     public void NewGame()
     {
+        if (SaveSystem.IsSaveFileFound())
+        {
+            ChordSetSO[] chordSetSOs = Resources.LoadAll<ChordSetSO>("Scriptable Objects/ChordSetSO");
+            for (int i = 0; i < chordSetSOs.Length; i++)
+            {
+                chordSetSOs[i].ResetToDefault();
+            }
+
+            MusicSheetSO[] musicSheetSO = Resources.LoadAll<MusicSheetSO>("Scriptable Objects/MusicSheetSO");
+            for (int i = 0; i < musicSheetSO.Length; i++)
+            {
+                musicSheetSO[i].Reset();
+            }
+        }
+
         SaveSystem.ClearAllSaveData();
 
         LevelManager.Instance.LevelsUnlocked.Clear();

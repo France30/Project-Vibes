@@ -13,7 +13,142 @@ MonoBehaviour:
   m_Name: PlayerChordSet_Cave
   m_EditorClassIdentifier: 
   _isDrop: 1
-  _id: 1
+  _id: Stalagtite
   _chordType: 1
-  time: 1
-  chordClips: []
+  time: 0.25
+  chordClips:
+  - clip: {fileID: 8300000, guid: eaae100a5b78b2547a215c5f67a8d1e6, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 37f2feb935ec52749b4fe67f1d9cc5a8, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ffcfbb54aa7a06746a34f5e9574ce684, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 9d7d3ec84022aa2439ee0e0b10e32be1, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d95e0ba252b806f4883f1b35fe906561, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ffcfbb54aa7a06746a34f5e9574ce684, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: e54e8f90caefb4c45ba839746dd68e0b, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2fff15066db4ffd4fbded480b105b9dd, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 9d7d3ec84022aa2439ee0e0b10e32be1, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 231f841fdcee4bb4abbf40a1d5af9d6b, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: eaae100a5b78b2547a215c5f67a8d1e6, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cc6a27dc4c39f774999d4b3b06e391e0, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2fff15066db4ffd4fbded480b105b9dd, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 37f2feb935ec52749b4fe67f1d9cc5a8, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ffcfbb54aa7a06746a34f5e9574ce684, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d95e0ba252b806f4883f1b35fe906561, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: eaae100a5b78b2547a215c5f67a8d1e6, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 37f2feb935ec52749b4fe67f1d9cc5a8, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 9d7d3ec84022aa2439ee0e0b10e32be1, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d95e0ba252b806f4883f1b35fe906561, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 231f841fdcee4bb4abbf40a1d5af9d6b, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: eaae100a5b78b2547a215c5f67a8d1e6, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cc6a27dc4c39f774999d4b3b06e391e0, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2fff15066db4ffd4fbded480b105b9dd, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 37f2feb935ec52749b4fe67f1d9cc5a8, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d95e0ba252b806f4883f1b35fe906561, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 37f2feb935ec52749b4fe67f1d9cc5a8, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}

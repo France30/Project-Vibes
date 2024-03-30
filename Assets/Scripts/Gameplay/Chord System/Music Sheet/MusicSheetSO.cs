@@ -22,6 +22,11 @@ public class MusicSheetSO : ScriptableObject
         SavePersistentData.SavePersistentFlag(_musicSheet, _id, _isSheetInScene);
     }
 
+    public void Reset()
+    {
+        _isSheetInScene = true;
+    }
+
     private void OnEnable()
     {
 #if UNITY_EDITOR
