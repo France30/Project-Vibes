@@ -38,27 +38,27 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
     private void PlayTick()
     {
+        TickCount = _currentCount;
+        _isBeatPlaying = false;
+
         _tickUI.ImageAlpha = 0.5f;
         _beatUI.ImageAlpha = 0f;
 
         AudioManager.Instance.Play(_beats[_currentBeat].tickBGM);
-
-        TickCount = _currentCount;
-        _isBeatPlaying = false;
     }
 
     private void PlayBeat()
     {
-        _beatUI.ImageAlpha = 0.5f;
-        _tickUI.ImageAlpha = 0f;
-
-        AudioManager.Instance.Play(_beats[_currentBeat].beatBGM);
-
         _currentCount = 0;
         TickCount = _currentCount;
 
         _isBeatPlaying = true;
 
         _currentBeat = (_currentBeat < _beats.Length - 1) ? _currentBeat + 1 : 0;
+
+        _beatUI.ImageAlpha = 0.5f;
+        _tickUI.ImageAlpha = 0f;
+
+        AudioManager.Instance.Play(_beats[_currentBeat].beatBGM);
     }
 }
