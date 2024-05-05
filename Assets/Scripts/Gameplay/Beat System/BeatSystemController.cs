@@ -21,7 +21,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         moveSpeed = Mathf.Abs(moveSpeed);
         moveSpeed = Mathf.Clamp(moveSpeed, 0f, 1f);
-        Debug.Log(moveSpeed);
+        //Debug.Log(moveSpeed);
         _bpm = _beats[_currentBeat].beatSpeed / (1f + moveSpeed);
         if(_bpm <= 0f)
         {
