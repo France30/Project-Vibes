@@ -9,23 +9,36 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
     private int _currentBeat = 0;
     private int _currentCount = 0;
-    private WaitForSeconds _waitForBeatSpeed;
+    //private WaitForSeconds _waitForBeatSpeed;
     private bool _isBeatPlaying = false;
+    private float _bpm = 0f;
 
     public bool IsBeatPlaying { get { return _isBeatPlaying; } }
     public int TickCount { get; private set; }
 
 
+    public void CalculateBPMWithMovement(float moveSpeed)
+    {
+        moveSpeed = Mathf.Abs(moveSpeed);
+        moveSpeed = Mathf.Clamp(moveSpeed, 0f, 1f);
+        Debug.Log(moveSpeed);
+        _bpm = _beats[_currentBeat].beatSpeed / (1f + moveSpeed);
+        if(_bpm <= 0f)
+        {
+            _bpm = 0.1f;
+        }
+    }
+
     private void Start()
     {
-        _waitForBeatSpeed = new WaitForSeconds(_beats[_currentBeat].beatSpeed);
+        //_waitForBeatSpeed = new WaitForSeconds(_beats[_currentBeat].beatSpeed);
 
         StartCoroutine(BeatSystem());
     }
 
     private IEnumerator BeatSystem()
     {
-        yield return new WaitForSeconds(_beats[_currentBeat].beatSpeed);
+        yield return new WaitForSeconds(_bpm);
 
         _currentCount++;
         if (_currentCount < _beats[_currentBeat].beatCount)

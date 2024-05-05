@@ -35,6 +35,7 @@ public class CharacterController2D : MonoBehaviour
 	public BoolEvent OnCrouchEvent;
 	private bool m_wasCrouching = false;
 
+	public float HorizontalVelocity { get { return m_Rigidbody2D.velocity.x; } }
 
 	private void Awake()
 	{
