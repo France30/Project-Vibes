@@ -8,7 +8,7 @@ public class MusicSheetSO : ScriptableObject
     [SerializeField] private ChordType _chordType;
     [SerializeField] private ChordClip[] _chordClips;
 
-    private ObjectWithPersistentData _musicSheet = ObjectWithPersistentData.musicSheet;
+    private ObjectWithPersistentData _musicSheet = ObjectWithPersistentData.musicSheetDrop;
     private bool _isSheetInScene = true;
 
     public bool IsSheetInScene { get { return _isSheetInScene; } }

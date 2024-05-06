@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerChords : MonoBehaviour
 {
@@ -27,14 +28,26 @@ public class PlayerChords : MonoBehaviour
 
     public void AddToChordSet(MusicSheetSO musicSheetSO)
     {
-        for(int i = 0; i < _chordSets.Length; i++)
+        foreach (ChordSet chordSet in _chordSets)
         {
-            if (_chordSets[i].ChordSetSO.ChordType != musicSheetSO.ChordType) continue;
+            if (chordSet.ChordSetSO.ChordType != musicSheetSO.ChordType) continue;
 
-            _chordSets[i].AddChordClips(musicSheetSO.ChordClips);
-            SaveSystem.SavePlayerChords(this);
-            break;
+            //confirm music sheet is found
+            var sheet = Array.Find(chordSet.MusicSheets, ms => ms.musicSheetSO == musicSheetSO);
+            if (sheet != null)
+                sheet.isFound = true;
+
+            for (int i = 0; i < chordSet.MusicSheets.Length; i++)
+            {
+                //break the loop if prev music sheet has not yet been found
+                if (!chordSet.MusicSheets[i].isFound) break;
+
+                chordSet.AddChordClips(chordSet.MusicSheets[i].musicSheetSO.ChordClips);
+                chordSet.MusicSheets[i].isAddedToChordSet = true;
+            }
         }
+
+        SaveSystem.SavePlayerChords(this);
     }
 
     private void Awake()
@@ -87,9 +100,29 @@ public class PlayerChords : MonoBehaviour
         ChordSetSO chordSetSO = Resources.Load<ChordSetSO>(chordSetData.chordSetSOPath);
         chordSet.SetChordSetSO(chordSetSO);
 
+        MusicSheet[] musicSheets = InitializeMusicSheets(chordSetData.musicSheetData);
+        chordSet.SetMusicSheets(musicSheets);
+
         ChordClip[] chordClips = InitializeChordSetSOClips(chordSetData.chordClipData);
         chordSet.ChordSetSO.chordClips = chordClips;
         chordSet.ChordSetSO.time = chordSetData.time;
+    }
+
+    private MusicSheet[] InitializeMusicSheets(MusicSheetData[] musicSheetData)
+    {
+        MusicSheet[] sheets = new MusicSheet[musicSheetData.Length];
+        for (int i = 0; i < sheets.Length; i++)
+        {
+            MusicSheet musicSheet = new MusicSheet();
+
+            musicSheet.musicSheetSO = Resources.Load<MusicSheetSO>(musicSheetData[i].musicSheetSOPath);
+            musicSheet.isAddedToChordSet = musicSheetData[i].isAddedToChordSet;
+            musicSheet.isFound = musicSheetData[i].isFound;
+
+            sheets[i] = musicSheet;
+        }
+
+        return sheets;
     }
 
     private ChordClip[] InitializeChordSetSOClips(ChordClipData[] chordClipData)

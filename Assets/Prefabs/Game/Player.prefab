@@ -45,6 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chordSetSO: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
+  _musicSheets:
+  - musicSheetSO: {fileID: 11400000, guid: 79993bf0d73c37045847b5c869fd422f, type: 2}
+    isAddedToChordSet: 0
+    isFound: 0
+  - musicSheetSO: {fileID: 11400000, guid: 3d24b76f811f1ae4a8dbbf1959734761, type: 2}
+    isAddedToChordSet: 0
+    isFound: 0
 --- !u!1 &3053038009713181183
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9093d0a7cd72049a8d9e713d52968f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadSavedChordSet: 1
 --- !u!1 &6717973787863823678
 GameObject:
   m_ObjectHideFlags: 0

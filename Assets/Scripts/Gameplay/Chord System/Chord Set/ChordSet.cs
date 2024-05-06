@@ -5,8 +5,10 @@ using UnityEngine;
 public class ChordSet : MonoBehaviour
 {
     [SerializeField] private ChordSetSO _chordSetSO;
+    [SerializeField] private MusicSheet[] _musicSheets;
 
     public ChordSetSO ChordSetSO { get { return _chordSetSO; } }
+    public MusicSheet[] MusicSheets { get { return _musicSheets; } }
 
 
     public void SetChordSetSO(ChordSetSO chordSetSO)
@@ -14,6 +16,13 @@ public class ChordSet : MonoBehaviour
         if (_chordSetSO != null) return;
 
         _chordSetSO = chordSetSO;
+    }
+
+    public void SetMusicSheets(MusicSheet[] musicSheets)
+    {
+        if (_musicSheets != null) return;
+
+        _musicSheets = musicSheets;
     }
 
     public void AddChordClips(ChordClip[] otherChordClips)
