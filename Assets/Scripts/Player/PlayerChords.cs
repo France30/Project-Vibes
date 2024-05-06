@@ -41,6 +41,7 @@ public class PlayerChords : MonoBehaviour
             {
                 //break the loop if prev music sheet has not yet been found
                 if (!chordSet.MusicSheets[i].isFound) break;
+                if (chordSet.MusicSheets[i].isAddedToChordSet) continue;
 
                 chordSet.AddChordClips(chordSet.MusicSheets[i].musicSheetSO.ChordClips);
                 chordSet.MusicSheets[i].isAddedToChordSet = true;
