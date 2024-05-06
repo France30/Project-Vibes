@@ -13,6 +13,7 @@ public class FlyingEnemy : EnemyBase
 
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _targetVelocity = Vector3.zero;
+    private Vector3 _prevAttackVelocity = Vector3.zero;
     private Quaternion _targetRotation = Quaternion.identity;
 
     private float _currentHoverDistance;
@@ -50,6 +51,7 @@ public class FlyingEnemy : EnemyBase
         if (TryGetComponent<Attack>(out Attack attack))
             attack.SetAction(() =>
             {
+                DashBackAfterAttack();
                 _animator.SetBool("Attack", false);
                 _animator.SetBool("ReadyAttack", true);
             });
@@ -57,6 +59,7 @@ public class FlyingEnemy : EnemyBase
         SetAttack(() => 
         {
             _targetVelocity = FlyingAbility.ApplyAttackVelocity(_moveSpeed, transform);
+            _prevAttackVelocity = _targetVelocity;
             _animator.SetBool("Attack", true);
             _animator.SetBool("ReadyAttack", false);
         });
@@ -98,6 +101,9 @@ public class FlyingEnemy : EnemyBase
 
     private void Hover()
     {
+        //prevent dash back when transitioning to attack state
+        _prevAttackVelocity = Vector3.zero;
+
         float hover = _hoverSpeed * Time.fixedDeltaTime;
         _currentHoverDistance += hover;
         if (_currentHoverDistance >= _hoverDistance && _isHoveringUp)
@@ -121,5 +127,15 @@ public class FlyingEnemy : EnemyBase
             _targetRotation = Quaternion.identity;
         if (transform.localScale.x < 0)
             _targetRotation = Quaternion.Euler(0, 0, 180);
+    }
+
+    private void DashBackAfterAttack()
+    {
+        if (_prevAttackVelocity != Vector3.zero)
+        {
+            _rb2D.velocity = Vector2.zero;
+            _targetVelocity = (_prevAttackVelocity / 2) * -1;
+            _prevAttackVelocity = Vector3.zero; //reset the value
+        }
     }
 }
