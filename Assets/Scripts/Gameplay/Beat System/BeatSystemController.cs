@@ -21,7 +21,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
         float horizontalVelocity = Calculate.RoundedAbsoluteValue(velocity.x);
         float verticalVelocity = Calculate.RoundedAbsoluteValue(velocity.y);
-        Debug.Log("horizontal velocity: " + horizontalVelocity + " vertical velocity: " + verticalVelocity);
+        //Debug.Log("horizontal velocity: " + horizontalVelocity + " vertical velocity: " + verticalVelocity);
 
         float moveSpeed = (horizontalVelocity >= verticalVelocity) ? horizontalVelocity : verticalVelocity;
         moveSpeed = Mathf.Clamp(moveSpeed, 0f, 1f);

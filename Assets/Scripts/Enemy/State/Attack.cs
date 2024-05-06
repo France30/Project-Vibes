@@ -45,6 +45,7 @@ public class Attack : State
 
         if (!StateCondition)
         {
+            _isAttacking = false;
             _enemyBase.SetState(_prevState);
         }
     }

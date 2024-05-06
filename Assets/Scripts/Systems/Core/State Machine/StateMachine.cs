@@ -9,7 +9,9 @@ public abstract class StateMachine : MonoBehaviour
     {
         if (state == CurrentState) return;
 
-        CurrentState = state;
+        CurrentState?.PerformEndState(); //if current state exists, end it before beginning the next
+        state.PerformBeginState(); //Initialize the next state
+        CurrentState = state; //set the new state
     }
 
     protected virtual void Update()

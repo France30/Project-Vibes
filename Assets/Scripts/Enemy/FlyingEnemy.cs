@@ -49,12 +49,27 @@ public class FlyingEnemy : EnemyBase
             idle.SetAction(Hover);
 
         if (TryGetComponent<Attack>(out Attack attack))
+        {
+            attack.SetBeginAction(() =>
+            {
+                //prevent dash back when transitioning into attack state
+                _prevAttackVelocity = Vector3.zero;
+            });
+
+            attack.SetEndAction(() =>
+            {
+                //reset attack animations when ending attack state
+                _animator.SetBool("Attack", false);
+                _animator.SetBool("ReadyAttack", false);
+            });
+
             attack.SetAction(() =>
             {
                 DashBackAfterAttack();
                 _animator.SetBool("Attack", false);
                 _animator.SetBool("ReadyAttack", true);
             });
+        }
 
         SetAttack(() => 
         {
@@ -63,17 +78,6 @@ public class FlyingEnemy : EnemyBase
             _animator.SetBool("Attack", true);
             _animator.SetBool("ReadyAttack", false);
         });
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        if(!IsAttacking)
-        {
-            _animator.SetBool("Attack", false);
-            _animator.SetBool("ReadyAttack", false);
-        }
     }
 
     protected override void FixedUpdate()
@@ -101,9 +105,6 @@ public class FlyingEnemy : EnemyBase
 
     private void Hover()
     {
-        //prevent dash back when transitioning to attack state
-        _prevAttackVelocity = Vector3.zero;
-
         float hover = _hoverSpeed * Time.fixedDeltaTime;
         _currentHoverDistance += hover;
         if (_currentHoverDistance >= _hoverDistance && _isHoveringUp)
