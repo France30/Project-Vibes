@@ -17,9 +17,13 @@ public class BeatSystemController : Singleton<BeatSystemController>
     public int TickCount { get; private set; }
 
 
-    public void CalculateBPMWithMovement(float moveSpeed)
+    public void CalculateBPMWithMovement(Vector2 velocity)
     {
-        moveSpeed = Mathf.Abs(moveSpeed);
+        float horizontalVelocity = Calculate.RoundedAbsoluteValue(velocity.x);
+        float verticalVelocity = Calculate.RoundedAbsoluteValue(velocity.y);
+        Debug.Log("horizontal velocity: " + horizontalVelocity + " vertical velocity: " + verticalVelocity);
+
+        float moveSpeed = (horizontalVelocity >= verticalVelocity) ? horizontalVelocity : verticalVelocity;
         moveSpeed = Mathf.Clamp(moveSpeed, 0f, 1f);
         //Debug.Log(moveSpeed);
         _bpm = _beats[_currentBeat].beatSpeed / (1f + moveSpeed);

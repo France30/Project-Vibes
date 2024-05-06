@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		// Move our character
 		_controller.Move(_horizontalMove * Time.fixedDeltaTime, _crouch, _jump);
-		BeatSystemController.Instance.CalculateBPMWithMovement(_controller.HorizontalVelocity); //bpm is affected by player's horizontal velocity
+		BeatSystemController.Instance.CalculateBPMWithMovement(_controller.Velocity); //bpm is affected by player's velocity
 
 		//Apply Jump Boost
 		if (_isJumping)
