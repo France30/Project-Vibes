@@ -143,6 +143,9 @@ public abstract class EnemyBase : StateMachine, IDamageable
             SetState(attack);
     }
 
+    //sometimes the sprite goes past the hitbox during animation, which causes collision to look awkward if using a 2D collider
+    //to prevent awkward collision, we dynamically scale the hitbox with the sprite during runtime
+    //Note: this only works with simple enemy designs, more complicated designs will require manual/fixed hitboxes
     private void CheckForPlayerCollision()
     {
         LayerMask playerLayer = LayerMask.GetMask("Player");
