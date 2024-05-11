@@ -29,4 +29,20 @@ public static class Utilities
             objectsOfType[i].gameObject.SetActive(false);
         }
     }
+
+    public static void EnableComponents<T>(T[] components, bool isEnable) where T : Behaviour
+    {
+        for (int i = 0; i < components.Length; i++)
+        {
+            components[i].enabled = isEnable;
+        }
+    }
+
+    public static void EnableIsTriggerOnColliders(Collider2D[] colliders)
+    {
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].isTrigger = true;
+        }
+    }
 }

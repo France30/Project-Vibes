@@ -25,8 +25,9 @@ public class Player : MonoBehaviour
 
     private bool _isHurt = false;
 
-    public delegate void PlayerDeath(bool isPlayerDead);
-    public event PlayerDeath OnPlayerDeath;
+    public delegate void PlayerEvent(bool isPlayerEvent);
+    public event PlayerEvent OnPlayerDeath;
+    public event PlayerEvent OnPlayerHurt;
 
     public bool IsInvulnerable { get { return _isHurt || _spriteController.IsFlashing; } }
     public int MaxHealth { get { return (int)_health.MaxHealth; } }
@@ -113,13 +114,15 @@ public class Player : MonoBehaviour
     private IEnumerator HurtDuration()
     {
         DisablePlayerActions(_isHurt);
+        OnPlayerHurt?.Invoke(_isHurt);
 
         yield return new WaitForSeconds(_hurtTime);
 
         SetHurtAnimation(!_isHurt);
         DisablePlayerActions(!_isHurt);
+        OnPlayerHurt?.Invoke(!_isHurt);
 
-        StartCoroutine(_spriteController.Flash());
+        StartCoroutine(_spriteController.Flash()); //begin Invincibility Frames
         _isHurt = false;
     }
 
