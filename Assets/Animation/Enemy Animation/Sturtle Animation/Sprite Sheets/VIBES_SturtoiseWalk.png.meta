@@ -107,12 +107,12 @@ TextureImporter:
       name: VIBES_SturtoiseWalk_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 29
-        width: 268
-        height: 142
+        x: 12
+        y: 58
+        width: 265
+        height: 133
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -128,12 +128,12 @@ TextureImporter:
       name: VIBES_SturtoiseWalk_1
       rect:
         serializedVersion: 2
-        x: 287
-        y: 29
-        width: 268
-        height: 142
+        x: 284
+        y: 63
+        width: 270
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

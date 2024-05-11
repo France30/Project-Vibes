@@ -107,12 +107,12 @@ TextureImporter:
       name: VIBES_SturtoiseIdle_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 29
-        width: 248
-        height: 142
+        x: 16
+        y: 58
+        width: 257
+        height: 133
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -120,6 +120,27 @@ TextureImporter:
       bones: []
       spriteID: 6930dc8b6e4bc3f40a4e0388f524a8ef
       internalID: 463442951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VIBES_SturtoiseIdle_1
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 59
+        width: 267
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8b868c642fe5f0428a700dccf6c2085
+      internalID: 824280757
       vertices: []
       indices: 
       edges: []
@@ -135,6 +156,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      VIBES_SturtoiseIdle_1: 824280757
       VIBES_SturtoiseIdle_0: 463442951
   spritePackingTag: 
   pSDRemoveMatte: 0
