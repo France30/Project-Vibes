@@ -143,10 +143,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
             SetState(attack);
     }
 
-    //sometimes the sprite goes past the hitbox during animation, which causes collision to look awkward if using a 2D collider
-    //to prevent awkward collision, we dynamically scale the hitbox with the sprite during runtime
-    //Note: this only works with simple enemy designs, more complicated designs will require manual/fixed hitboxes
-    private void CheckForPlayerCollision()
+    //Player should be able to walk through enemies when damaged
+    //To achieve this, Collision with colliders is turned off in the collision matrix. Instead, we detect collision via casting
+    //Note: More complicated enemy designs will create awkward collision, since this logic scales the hitbox with the sprite.
+    //Note: Bosses will require separate collision logic
+    protected virtual void CheckForPlayerCollision()
     {
         LayerMask playerLayer = LayerMask.GetMask("Player");
         int hitDetect = Physics2D.OverlapBoxNonAlloc(transform.position, _spriteSize, 0, _playerCollider, playerLayer);
