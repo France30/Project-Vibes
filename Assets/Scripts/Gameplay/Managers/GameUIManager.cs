@@ -21,6 +21,10 @@ public class GameUIManager : Singleton<GameUIManager>
 	[SerializeField] private Image _winUI;
 	[SerializeField] private float _winFadeSpeed = 1f;
 
+	[Header("Chord Extender UI")]
+	[SerializeField] private GameObject AddedSheetUI;
+	[SerializeField] private GameObject MissingSheetUI;
+
 	public TextMeshProUGUI Notification { get { return _notification; } }
 
 
@@ -59,7 +63,37 @@ public class GameUIManager : Singleton<GameUIManager>
 		_songTitleUIAnimator.SetTrigger("Pulse");
 	}
 
-	private void OnEnable()
+    public void RefreshChordExtenderUI()
+    {
+		var addedSheetsUI = AddedSheetUI.transform.childCount;
+        for (int i = 0; i < addedSheetsUI; i++)
+        {
+			AddedSheetUI.transform.GetChild(i).gameObject.SetActive(false);
+		}
+
+		var missingSheetsUI = MissingSheetUI.transform.childCount;
+		for (int i = 0; i < missingSheetsUI; i++)
+		{
+			MissingSheetUI.transform.GetChild(i).gameObject.SetActive(false);
+		}
+	}
+
+	public void UpdateChordExtenderUI(ChordSet chordSet)
+    {
+		var musicSheets = chordSet.MusicSheets;
+		for(int i = 0; i < musicSheets.Length; i++)
+        {
+			if (musicSheets[i].isAddedToChordSet)
+			{
+				MissingSheetUI.transform.GetChild(i).gameObject.SetActive(false);
+				AddedSheetUI.transform.GetChild(i).gameObject.SetActive(true);
+			}
+			else
+				MissingSheetUI.transform.GetChild(i).gameObject.SetActive(true);
+		}
+    }
+
+    private void OnEnable()
 	{
 		SetTextNotifAlpha(0);
 		PauseUI.SetActive(false);

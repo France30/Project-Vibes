@@ -48,6 +48,7 @@ public class PlayerChords : MonoBehaviour
 			}
 		}
 
+		GameUIManager.Instance.UpdateChordExtenderUI(_chordSets[_currentChordSet]);
 		SaveSystem.SavePlayerChords(this);
 	}
 
@@ -65,6 +66,8 @@ public class PlayerChords : MonoBehaviour
 	private void Start()
 	{
 		GameUIManager.Instance.SetSongTitleUI(CurrentChordSet.ID);
+		GameUIManager.Instance.RefreshChordExtenderUI();
+		GameUIManager.Instance.UpdateChordExtenderUI(_chordSets[_currentChordSet]);
 	}
 
 	private void InitializeChordSetsOnLoad()
@@ -158,6 +161,8 @@ public class PlayerChords : MonoBehaviour
 		if (_prevChordSet != _currentChordSet)
 		{
 			GameUIManager.Instance.SetSongTitleUI(CurrentChordSet.ID);
+			GameUIManager.Instance.RefreshChordExtenderUI();
+			GameUIManager.Instance.UpdateChordExtenderUI(_chordSets[_currentChordSet]);
 			ResetPlayerAttack();
 		}
 	}
