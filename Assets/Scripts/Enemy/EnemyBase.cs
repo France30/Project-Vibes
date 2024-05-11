@@ -145,8 +145,8 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
     //Player should be able to walk through enemies when damaged
     //To achieve this, Collision with colliders is turned off in the collision matrix. Instead, we detect collision via casting
-    //Note: More complicated enemy designs will create awkward collision, since this logic scales the hitbox with the sprite.
-    //Note: Bosses will require separate collision logic
+    //Note: More complicated enemy designs may create awkward collision, since this logic scales the hitbox with the sprite.
+    //Note: Bosses will either require separate collision logic or separate animations depending on the design
     protected virtual void CheckForPlayerCollision()
     {
         LayerMask playerLayer = LayerMask.GetMask("Player");
