@@ -95,7 +95,7 @@ public class FlyingEnemy : EnemyBase
 
     protected override void Flip()
     {
-        if (IsAttacking && _animator.GetNextAnimatorStateInfo(0).IsName("Buzoo_DashBack")) return;
+        if (IsAttacking && _animator.GetCurrentAnimatorStateInfo(0).IsName("Buzoo_DashBack")) return;
 
         base.Flip();
         Vector3 theScale = transform.localScale;
