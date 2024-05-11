@@ -24,7 +24,7 @@ public class FlyingEnemy : EnemyBase
 
     public override void MoveToTargetDirection(Transform target)
     {
-        if (IsAttacking && _animator.GetNextAnimatorStateInfo(0).IsName("Buzoo_DashBack")) return;
+        if (IsAttacking && _animator.GetCurrentAnimatorStateInfo(0).IsName("Buzoo_DashBack")) return;
 
         base.MoveToTargetDirection(target);
         _targetRotation = EnemyUtilities.LookAtTarget(transform, target);
