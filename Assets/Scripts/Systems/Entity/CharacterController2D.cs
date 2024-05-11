@@ -66,7 +66,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	private void CheckIfFalling(bool wasGrounded)
-    {
+	{
 		if (!wasGrounded)
 		{
 			if (!_isJumping && !_isFalling)
@@ -78,7 +78,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	private void CheckIfGrounded(bool wasGrounded)
-    {
+	{
 		int colliders = Physics2D.OverlapCircleNonAlloc(m_GroundCheck.position, k_GroundedRadius, _groundCollider, m_WhatIsGround);
 		for (int i = 0; i < colliders; i++)
 		{

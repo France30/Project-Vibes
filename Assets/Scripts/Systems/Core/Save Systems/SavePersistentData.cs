@@ -4,49 +4,49 @@ using UnityEngine;
 
 public enum ObjectWithPersistentData
 {
-    enemy,
-    musicSheetDrop,
-    chordSetDrop,
-    levelHealthDrop
+	enemy,
+	musicSheetDrop,
+	chordSetDrop,
+	levelHealthDrop
 }
 
 public static class SavePersistentData
 {
-    private static readonly BinaryFormatter formatter = new BinaryFormatter();
+	private static readonly BinaryFormatter formatter = new BinaryFormatter();
 
 
-    public static void SavePersistentFlag(ObjectWithPersistentData objectWithPersistentData, string id, bool flag)
-    {
-        string path = Application.persistentDataPath + "/" + objectWithPersistentData.ToString() + id + ".data";
-        FileStream stream = new FileStream(path, FileMode.Create);
+	public static void SavePersistentFlag(ObjectWithPersistentData objectWithPersistentData, string id, bool flag)
+	{
+		string path = Application.persistentDataPath + "/" + objectWithPersistentData.ToString() + id + ".data";
+		FileStream stream = new FileStream(path, FileMode.Create);
 
-        PersistentFlagData persistentFlagData = new PersistentFlagData(id, flag);
-        formatter.Serialize(stream, persistentFlagData);
-        stream.Close();
-    }
+		PersistentFlagData persistentFlagData = new PersistentFlagData(id, flag);
+		formatter.Serialize(stream, persistentFlagData);
+		stream.Close();
+	}
 
-    public static bool LoadPersistentFlag(ObjectWithPersistentData objectWithPersistentData, string id)
-    {
-        string path = Application.persistentDataPath + "/" + objectWithPersistentData.ToString() + id + ".data";
-        if (File.Exists(path))
-        {
-            FileStream stream = new FileStream(path, FileMode.Open);
+	public static bool LoadPersistentFlag(ObjectWithPersistentData objectWithPersistentData, string id)
+	{
+		string path = Application.persistentDataPath + "/" + objectWithPersistentData.ToString() + id + ".data";
+		if (File.Exists(path))
+		{
+			FileStream stream = new FileStream(path, FileMode.Open);
 
-            PersistentFlagData persistentFlagData = formatter.Deserialize(stream) as PersistentFlagData;
-            stream.Close();
+			PersistentFlagData persistentFlagData = formatter.Deserialize(stream) as PersistentFlagData;
+			stream.Close();
 
-            return persistentFlagData.isTrue;
-        }
+			return persistentFlagData.isTrue;
+		}
 
-        //Set true as the default value
-        return true;
-    }
+		//Set true as the default value
+		return true;
+	}
 
-    public static void ClearPersistentFlagData(ObjectWithPersistentData objectWithPersistentData, string id)
-    {
-        string path = Application.persistentDataPath + "/" + objectWithPersistentData.ToString() + id + ".data";
-        if (!File.Exists(path)) return;
+	public static void ClearPersistentFlagData(ObjectWithPersistentData objectWithPersistentData, string id)
+	{
+		string path = Application.persistentDataPath + "/" + objectWithPersistentData.ToString() + id + ".data";
+		if (!File.Exists(path)) return;
 
-        File.Delete(path);
-    }
+		File.Delete(path);
+	}
 }

@@ -3,49 +3,49 @@ using UnityEngine;
 
 public class NormalGround : GroundEnemy
 {
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
+	protected override void FixedUpdate()
+	{
+		base.FixedUpdate();
 
-        if(MoveCondition())
-            _animator.SetFloat("Speed", Mathf.Abs(_moveSpeed));
-        else
-            _animator.SetFloat("Speed", 0);
-    }
+		if(MoveCondition())
+			_animator.SetFloat("Speed", Mathf.Abs(_moveSpeed));
+		else
+			_animator.SetFloat("Speed", 0);
+	}
 
-    protected override bool MoveCondition()
-    {
-        if (CurrentTarget == null) return false;
+	protected override bool MoveCondition()
+	{
+		if (CurrentTarget == null) return false;
 
-        return !IsTargetReached(CurrentTarget) && !IsAttacking && !IsIdle && !_spriteController.IsFlashing;
-    }
+		return !IsTargetReached(CurrentTarget) && !IsAttacking && !IsIdle && !_spriteController.IsFlashing;
+	}
 
-    protected override bool JumpCondition()
-    {
-        if (CurrentTarget == null || _spriteController.IsFlashing) return false;
+	protected override bool JumpCondition()
+	{
+		if (CurrentTarget == null || _spriteController.IsFlashing) return false;
 
-        //Disregard jump if on target
-        if (IsTargetReached(CurrentTarget)) return false;
+		//Disregard jump if on target
+		if (IsTargetReached(CurrentTarget)) return false;
 
-        //Jump if pathway is possible
-        int wallColliders = Physics2D.OverlapBoxNonAlloc(_wallCheck.position, _spriteSize, 0, _overlapDetect, _whatIsPlatform);
-        if (wallColliders > 0) return true;
+		//Jump if pathway is possible
+		int wallColliders = Physics2D.OverlapBoxNonAlloc(_wallCheck.position, _spriteSize, 0, _overlapDetect, _whatIsPlatform);
+		if (wallColliders > 0) return true;
 
-        return false;
-    }
+		return false;
+	}
 
-    private void OnEnable()
-    {
-        _spriteController.OnFlashEvent += SetHurtAnimation;
-    }
+	private void OnEnable()
+	{
+		_spriteController.OnFlashEvent += SetHurtAnimation;
+	}
 
-    private void OnDisable()
-    {
-        _spriteController.OnFlashEvent -= SetHurtAnimation;
-    }
+	private void OnDisable()
+	{
+		_spriteController.OnFlashEvent -= SetHurtAnimation;
+	}
 
-    private void SetHurtAnimation(bool isHurt)
-    {
-        _animator.SetBool("Hurt", isHurt);
-    }
+	private void SetHurtAnimation(bool isHurt)
+	{
+		_animator.SetBool("Hurt", isHurt);
+	}
 }

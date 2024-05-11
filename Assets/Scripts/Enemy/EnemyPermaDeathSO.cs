@@ -4,48 +4,48 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "New EnemyPermaDeath SO", menuName = "PersistentData/EnemyPermaDeath" )]
 public class EnemyPermaDeathSO : ScriptableObject
 {
-    [SerializeField] private string _id = "0";
+	[SerializeField] private string _id = "0";
 
-    private ObjectWithPersistentData _enemyPermaDeathVariant = ObjectWithPersistentData.enemy;
-    private bool _isAlive = true;
+	private ObjectWithPersistentData _enemyPermaDeathVariant = ObjectWithPersistentData.enemy;
+	private bool _isAlive = true;
 
 
-    public void InitializeEnemyPermaDeath(EnemyBase enemy)
-    {
-        enemy.gameObject.SetActive(_isAlive);
+	public void InitializeEnemyPermaDeath(EnemyBase enemy)
+	{
+		enemy.gameObject.SetActive(_isAlive);
 
-        if (enemy.gameObject.activeSelf)
-            enemy.OnEnemyDeath += SavePermaDeath;
-    }
+		if (enemy.gameObject.activeSelf)
+			enemy.OnEnemyDeath += SavePermaDeath;
+	}
 
-    private void SavePermaDeath()
-    {
-        _isAlive = false;
-        SavePersistentData.SavePersistentFlag(_enemyPermaDeathVariant, _id, _isAlive);
-    }
+	private void SavePermaDeath()
+	{
+		_isAlive = false;
+		SavePersistentData.SavePersistentFlag(_enemyPermaDeathVariant, _id, _isAlive);
+	}
 
-    private void OnEnable()
-    {
+	private void OnEnable()
+	{
 #if UNITY_EDITOR
-        EditorApplication.playModeStateChanged += ResetFlag;
+		EditorApplication.playModeStateChanged += ResetFlag;
 #endif
 
-        _isAlive = SavePersistentData.LoadPersistentFlag(_enemyPermaDeathVariant, _id);
-    }
+		_isAlive = SavePersistentData.LoadPersistentFlag(_enemyPermaDeathVariant, _id);
+	}
 
-    private void OnDisable()
-    {
+	private void OnDisable()
+	{
 #if UNITY_EDITOR
-        EditorApplication.playModeStateChanged -= ResetFlag;
+		EditorApplication.playModeStateChanged -= ResetFlag;
 #endif
-    }
+	}
 
 #if UNITY_EDITOR
-    private void ResetFlag(PlayModeStateChange playModeStateChange)
-    {
-        if (playModeStateChange != PlayModeStateChange.ExitingPlayMode) return;
+	private void ResetFlag(PlayModeStateChange playModeStateChange)
+	{
+		if (playModeStateChange != PlayModeStateChange.ExitingPlayMode) return;
 
-        SavePersistentData.ClearPersistentFlagData(_enemyPermaDeathVariant, _id);
-    }
+		SavePersistentData.ClearPersistentFlagData(_enemyPermaDeathVariant, _id);
+	}
 #endif
 }

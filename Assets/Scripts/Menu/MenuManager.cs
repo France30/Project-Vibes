@@ -3,46 +3,46 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public Panel currentPanel;
+	public Panel currentPanel;
 
-    private List<Panel> panelHistory = new List<Panel>();
+	private List<Panel> panelHistory = new List<Panel>();
 
 
-    private void Start()
-    {
-        SetupPanels();
-    }
+	private void Start()
+	{
+		SetupPanels();
+	}
 
-    private void SetupPanels()
-    {
-        Panel[] panels = GetComponentsInChildren<Panel>();
+	private void SetupPanels()
+	{
+		Panel[] panels = GetComponentsInChildren<Panel>();
 
-        foreach (Panel panel in panels)
-            panel.Setup(this);
+		foreach (Panel panel in panels)
+			panel.Setup(this);
 
-        currentPanel.Show();
-    }
+		currentPanel.Show();
+	}
 
-    public void GoToPrevious()
-    {
-        if (panelHistory.Count == 0) return;
+	public void GoToPrevious()
+	{
+		if (panelHistory.Count == 0) return;
 
-        int lastIndex = panelHistory.Count - 1;
-        SetCurrent(panelHistory[lastIndex]);
-        panelHistory.RemoveAt(lastIndex);
-    }
+		int lastIndex = panelHistory.Count - 1;
+		SetCurrent(panelHistory[lastIndex]);
+		panelHistory.RemoveAt(lastIndex);
+	}
 
-    public void SetCurrentWithHistory(Panel newPanel)
-    {
-        panelHistory.Add(currentPanel);
-        SetCurrent(newPanel);
-    }
+	public void SetCurrentWithHistory(Panel newPanel)
+	{
+		panelHistory.Add(currentPanel);
+		SetCurrent(newPanel);
+	}
 
-    private void SetCurrent(Panel newPanel)
-    {
-        currentPanel.Hide();
+	private void SetCurrent(Panel newPanel)
+	{
+		currentPanel.Hide();
 
-        currentPanel = newPanel;
-        currentPanel.Show();
-    }
+		currentPanel = newPanel;
+		currentPanel.Show();
+	}
 }

@@ -7,169 +7,169 @@ using UnityEngine.SceneManagement;
 
 public static class SaveSystem
 {
-    private static readonly BinaryFormatter formatter = new BinaryFormatter();
+	private static readonly BinaryFormatter formatter = new BinaryFormatter();
 
 
-    public static void ClearAllSaveData()
-    {
-        string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "/","*.data");
+	public static void ClearAllSaveData()
+	{
+		string[] dataPath = Directory.GetFiles(Application.persistentDataPath + "/","*.data");
 
-        for (int i = 0; i < dataPath.Length; i++)
-        {
-            File.Delete(dataPath[i]);
-        }
-    }
+		for (int i = 0; i < dataPath.Length; i++)
+		{
+			File.Delete(dataPath[i]);
+		}
+	}
 
-    public static void ClearSavedPlayerPositionInLevel(int level)
-    {
-        PlayerData loadData = LoadPlayerData();
-        if (loadData == null || loadData.currentLevelSelect != level) return;
+	public static void ClearSavedPlayerPositionInLevel(int level)
+	{
+		PlayerData loadData = LoadPlayerData();
+		if (loadData == null || loadData.currentLevelSelect != level) return;
 
-        string playerPath = Application.persistentDataPath + "/player.data";
-        FileStream stream = new FileStream(playerPath, FileMode.Create);
+		string playerPath = Application.persistentDataPath + "/player.data";
+		FileStream stream = new FileStream(playerPath, FileMode.Create);
 
-        loadData = new PlayerData(level, Vector2.zero);
+		loadData = new PlayerData(level, Vector2.zero);
 
-        formatter.Serialize(stream, loadData);
-        stream.Close();
-    }
+		formatter.Serialize(stream, loadData);
+		stream.Close();
+	}
 
-    public static void ClearCheckpointData()
-    {
-        string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
-        if (!File.Exists(checkpointPath)) return;
+	public static void ClearCheckpointData()
+	{
+		string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
+		if (!File.Exists(checkpointPath)) return;
 
-        File.Delete(checkpointPath);
-    }
+		File.Delete(checkpointPath);
+	}
 
-    public static bool IsSaveFileFound()
-    {
-        string playerPath = Application.persistentDataPath + "/player.data";
-        return File.Exists(playerPath);
-    }
+	public static bool IsSaveFileFound()
+	{
+		string playerPath = Application.persistentDataPath + "/player.data";
+		return File.Exists(playerPath);
+	}
 
-    public static void SavePlayerData()
-    {
-        string playerPath = Application.persistentDataPath + "/player.data";
-        FileStream stream = new FileStream(playerPath, FileMode.Create);
+	public static void SavePlayerData()
+	{
+		string playerPath = Application.persistentDataPath + "/player.data";
+		FileStream stream = new FileStream(playerPath, FileMode.Create);
 
-        //player data
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
-        Transform player = GameController.Instance.Player.transform;
-        PlayerData playerData = new PlayerData(currentLevel, player.position);
+		//player data
+		int currentLevel = SceneManager.GetActiveScene().buildIndex;
+		Transform player = GameController.Instance.Player.transform;
+		PlayerData playerData = new PlayerData(currentLevel, player.position);
 
-        formatter.Serialize(stream, playerData);
-        stream.Close();
-    }
+		formatter.Serialize(stream, playerData);
+		stream.Close();
+	}
 
-    public static void SaveUnlockedLevels()
-    {
-        string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
-        FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Create);
+	public static void SaveUnlockedLevels()
+	{
+		string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
+		FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Create);
 
-        List<int> unlockedLevelsData = LevelManager.Instance.LevelsUnlocked;
-        formatter.Serialize(stream, unlockedLevelsData);
-        stream.Close();
-    }
+		List<int> unlockedLevelsData = LevelManager.Instance.LevelsUnlocked;
+		formatter.Serialize(stream, unlockedLevelsData);
+		stream.Close();
+	}
 
-    public static void SaveCheckpointData(string id)
-    {
-        string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
+	public static void SaveCheckpointData(string id)
+	{
+		string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
 
-        FileStream stream = new FileStream(checkpointPath, FileMode.Create);
-        formatter.Serialize(stream, id);
-        stream.Close();
-    }
+		FileStream stream = new FileStream(checkpointPath, FileMode.Create);
+		formatter.Serialize(stream, id);
+		stream.Close();
+	}
 
-    public static void SavePlayerChords(PlayerChords playerChords)
-    {
-        string playerChordsPath = Application.persistentDataPath + "/playerChords.data";
-        FileStream stream = new FileStream(playerChordsPath, FileMode.Create);
+	public static void SavePlayerChords(PlayerChords playerChords)
+	{
+		string playerChordsPath = Application.persistentDataPath + "/playerChords.data";
+		FileStream stream = new FileStream(playerChordsPath, FileMode.Create);
 
-        ChordSetData[] chordSetDatas = new ChordSetData[playerChords.PlayerChordSets.Length];
+		ChordSetData[] chordSetDatas = new ChordSetData[playerChords.PlayerChordSets.Length];
 
-        for(int i = 0; i < chordSetDatas.Length; i++)
-        {
-            chordSetDatas[i] = new ChordSetData(playerChords.PlayerChordSets[i]);
-        }
+		for(int i = 0; i < chordSetDatas.Length; i++)
+		{
+			chordSetDatas[i] = new ChordSetData(playerChords.PlayerChordSets[i]);
+		}
 
-        PlayerChordsData playerChordsData = new PlayerChordsData(chordSetDatas);
+		PlayerChordsData playerChordsData = new PlayerChordsData(chordSetDatas);
 
-        formatter.Serialize(stream, playerChordsData);
-        stream.Close();
-    }
+		formatter.Serialize(stream, playerChordsData);
+		stream.Close();
+	}
 
-    public static PlayerData LoadPlayerData()
-    {
-        PlayerData playerData = null;
+	public static PlayerData LoadPlayerData()
+	{
+		PlayerData playerData = null;
 
-        string playerPath = Application.persistentDataPath + "/player.data";
-        if (File.Exists(playerPath))
-        {
-            FileStream stream = new FileStream(playerPath, FileMode.Open);
+		string playerPath = Application.persistentDataPath + "/player.data";
+		if (File.Exists(playerPath))
+		{
+			FileStream stream = new FileStream(playerPath, FileMode.Open);
 
-            playerData = formatter.Deserialize(stream) as PlayerData;
-            stream.Close();
-        }
-        else
-        {
-            Debug.Log("Player Data not found in " + playerPath + "!");
-        }
+			playerData = formatter.Deserialize(stream) as PlayerData;
+			stream.Close();
+		}
+		else
+		{
+			Debug.Log("Player Data not found in " + playerPath + "!");
+		}
 
-        return playerData;
-    }
+		return playerData;
+	}
 
-    public static string LoadCheckpointData()
-    {
-        string id = "";
-        string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
-        if (File.Exists(checkpointPath))
-        {
-            FileStream stream = new FileStream(checkpointPath, FileMode.Open);
+	public static string LoadCheckpointData()
+	{
+		string id = "";
+		string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
+		if (File.Exists(checkpointPath))
+		{
+			FileStream stream = new FileStream(checkpointPath, FileMode.Open);
 
-            id = formatter.Deserialize(stream) as string;
-            stream.Close();
-        }
-        else
-        {
-            Debug.Log("Checkpoint Data not found in " + checkpointPath + "!");
-        }
+			id = formatter.Deserialize(stream) as string;
+			stream.Close();
+		}
+		else
+		{
+			Debug.Log("Checkpoint Data not found in " + checkpointPath + "!");
+		}
 
-        return id;
-    }
+		return id;
+	}
 
-    public static PlayerChordsData LoadPlayerChords()
-    {
-        PlayerChordsData playerChordsData = null;
+	public static PlayerChordsData LoadPlayerChords()
+	{
+		PlayerChordsData playerChordsData = null;
 
-        string playerChordsPath = Application.persistentDataPath + "/playerChords.data";
-        if(File.Exists(playerChordsPath))
-        {
-            FileStream stream = new FileStream(playerChordsPath, FileMode.Open);
+		string playerChordsPath = Application.persistentDataPath + "/playerChords.data";
+		if(File.Exists(playerChordsPath))
+		{
+			FileStream stream = new FileStream(playerChordsPath, FileMode.Open);
 
-            playerChordsData = formatter.Deserialize(stream) as PlayerChordsData;
-            stream.Close();
-        }
-        else
-        {
-            Debug.Log("Player Chords Data not found in " + playerChordsPath + "!");
-        }
+			playerChordsData = formatter.Deserialize(stream) as PlayerChordsData;
+			stream.Close();
+		}
+		else
+		{
+			Debug.Log("Player Chords Data not found in " + playerChordsPath + "!");
+		}
 
-        return playerChordsData;
-    }
+		return playerChordsData;
+	}
 
-    public static List<int> LoadUnlockedLevels()
-    {
-        List<int> unlockedLevelsData = new List<int>();
-        string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
-        if (File.Exists(unlockedLevelsPath))
-        {
-            FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Open);
+	public static List<int> LoadUnlockedLevels()
+	{
+		List<int> unlockedLevelsData = new List<int>();
+		string unlockedLevelsPath = Application.persistentDataPath + "/unlockedLevels.data";
+		if (File.Exists(unlockedLevelsPath))
+		{
+			FileStream stream = new FileStream(unlockedLevelsPath, FileMode.Open);
 
-            unlockedLevelsData = formatter.Deserialize(stream) as List<int>;
-            stream.Close();
-        }
+			unlockedLevelsData = formatter.Deserialize(stream) as List<int>;
+			stream.Close();
+		}
 
-        return unlockedLevelsData;
-    }
+		return unlockedLevelsData;
+	}
 }

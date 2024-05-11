@@ -3,13 +3,13 @@ using UnityEngine;
 
 public enum AbilityType
 {
-    Projectile,
-    Dash
+	Projectile,
+	Dash
 }
 
 public interface IAbility
 {
-    public AbilityType AbilityType { get; }
+	public AbilityType AbilityType { get; }
 
-    public virtual void FireProjectile(Transform projectileSpawnPoint, int damage = 1) { }
+	public virtual void FireProjectile(Transform projectileSpawnPoint, int damage = 1) { }
 }

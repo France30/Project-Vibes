@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	public void OnFall()
-    {
+	{
 		_isGrounded = false;
 
 		_animator.SetBool("Jump", false);
@@ -44,24 +44,24 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	private void Awake()
-    {
+	{
 		_rb2D = GetComponent<Rigidbody2D>();
 		_controller = GetComponent<CharacterController2D>();
 		_animator = GetComponent<Animator>();
-    }
+	}
 
-    private void OnEnable()
-    {
+	private void OnEnable()
+	{
 		_controller.enabled = true;
-    }
+	}
 
-    private void OnDisable()
-    {
+	private void OnDisable()
+	{
 		_controller.enabled = false;
 	}
 
-    // Update is called once per frame
-    private void Update () 
+	// Update is called once per frame
+	private void Update () 
 	{
 		//Walk/Run
 		_horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
@@ -80,14 +80,14 @@ public class PlayerMovement : MonoBehaviour
 
 		//Cancel Jump Boost if Jump Button is released
 		if(!Input.GetButton("Jump"))
-        {
+		{
 			_isJumping = false; //Disable Jump Boost
 			_currentJumpTime = 0f; //Reset Jump Boost Timer
 		}
 
 		//Coyote Time Jump Spam Prevention
 		if (Input.GetButtonUp("Jump"))
-        {		
+		{		
 			_coyoteTimeCounter = _COYOTE_TIME; 
 		}
 	}
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	private void Jump()
-    {
+	{
 		_jump = true;
 		_isJumping = true;
 		_jumpBufferCounter = _JUMP_BUFFER_TIME;
@@ -116,24 +116,24 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	private void JumpBoost()
-    {
+	{
 		_currentJumpTime += Time.deltaTime;
 		if (_currentJumpTime < _jumpTime) return;
 
 		_isJumping = false;
 		_currentJumpTime = 0f;
-    }
+	}
 
 	private void CoyoteTime()
-    {
+	{
 		if (_isGrounded)
 			_coyoteTimeCounter = 0f;
 		else
 			_coyoteTimeCounter += Time.deltaTime;
-    }
+	}
 
 	private void JumpBuffer()
-    {
+	{
 		if (Input.GetButtonDown("Jump") && !Input.GetKey(KeyCode.S))
 			_jumpBufferCounter = 0f;
 		else

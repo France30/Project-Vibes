@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSpawnArea : MonoBehaviour
 {
-    [SerializeField] private string _id;
-    
-    public string ID { get { return _id; } }
+	[SerializeField] private string _id;
+	
+	public string ID { get { return _id; } }
 }
