@@ -107,10 +107,10 @@ TextureImporter:
       name: VIBES_BuzooIdle_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 77
-        width: 257
-        height: 99
+        x: 23
+        y: 87
+        width: 225
+        height: 154
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,10 +128,10 @@ TextureImporter:
       name: VIBES_BuzooIdle_1
       rect:
         serializedVersion: 2
-        x: 309
-        y: 100
-        width: 229
-        height: 153
+        x: 282
+        y: 97
+        width: 273
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,6 +141,48 @@ TextureImporter:
       bones: []
       spriteID: 0c76954329815fb4ca31ac7e3360cb15
       internalID: -461487619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VIBES_BuzooIdle_2
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 52
+        width: 256
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bb8f8d53d7585c4aaa47c4c743d1914
+      internalID: 1760371946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VIBES_BuzooIdle_3
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 64
+        width: 272
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00a0d81b76e0ee545b5f1e012ccd476b
+      internalID: -1708927116
       vertices: []
       indices: 
       edges: []
@@ -156,7 +198,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      VIBES_BuzooIdle_3: -1708927116
       VIBES_BuzooIdle_1: -461487619
+      VIBES_BuzooIdle_2: 1760371946
       VIBES_BuzooIdle_0: 324806737
   spritePackingTag: 
   pSDRemoveMatte: 0

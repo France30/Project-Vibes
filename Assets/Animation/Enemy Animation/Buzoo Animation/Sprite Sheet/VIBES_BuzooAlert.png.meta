@@ -107,12 +107,12 @@ TextureImporter:
       name: VIBES_BuzooAlert_0
       rect:
         serializedVersion: 2
-        x: 38
-        y: 49
-        width: 214
-        height: 221
+        x: 18
+        y: 84
+        width: 225
+        height: 154
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -120,6 +120,48 @@ TextureImporter:
       bones: []
       spriteID: 566f6ff2f4941f243b8f82c0a04c8b4a
       internalID: 332549099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VIBES_BuzooAlert_1
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 68
+        width: 248
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4d14f25e20bebd4d8b7716852f794bd
+      internalID: -799834043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VIBES_BuzooAlert_2
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 50
+        width: 211
+        height: 211
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93794d05d5e6d224ca88fd9ab0b1cec7
+      internalID: 725537542
       vertices: []
       indices: 
       edges: []
@@ -136,6 +178,10 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       VIBES_BuzooAlert_0: 332549099
+      VIBES_BuzooAlert_2: 725537542
+      VIBES_BuzooAlert_4: -990354641
+      VIBES_BuzooAlert_3: 1075342551
+      VIBES_BuzooAlert_1: -799834043
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

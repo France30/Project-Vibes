@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af4d87f262ba64a489f50172e439de8b
+guid: e6a49fe7eb9643a43816e882a3cec760
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,22 +104,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: VIBES_BuzooAttack_0
+      name: VIBES_BuzooDashBack_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 93
-        width: 260
-        height: 138
+        x: 23
+        y: 82
+        width: 243
+        height: 129
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf3d95f6d4f586c44a66582e413bc558
-      internalID: 1306817666
+      spriteID: a84be6f3905e0164eae786bee20ead98
+      internalID: -127702141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VIBES_BuzooDashBack_1
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 79
+        width: 243
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f0ea3b242bea6a4dac522cfcfad724d
+      internalID: 394602575
       vertices: []
       indices: 
       edges: []
@@ -135,7 +156,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      VIBES_BuzooAttack_0: 1306817666
+      VIBES_BuzooDashBack_1: 394602575
+      VIBES_BuzooDashBack_0: -127702141
+      VIBES_BuzooDashBack_3: -166575452
+      VIBES_BuzooDashBack_4: -390608559
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

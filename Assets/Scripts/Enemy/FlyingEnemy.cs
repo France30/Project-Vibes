@@ -24,6 +24,8 @@ public class FlyingEnemy : EnemyBase
 
     public override void MoveToTargetDirection(Transform target)
     {
+        if (IsAttacking && _animator.GetNextAnimatorStateInfo(0).IsName("Buzoo_DashBack")) return;
+
         base.MoveToTargetDirection(target);
         _targetRotation = EnemyUtilities.LookAtTarget(transform, target);
 
@@ -65,9 +67,9 @@ public class FlyingEnemy : EnemyBase
 
             attack.SetAction(() =>
             {
-                DashBackAfterAttack();
                 _animator.SetBool("Attack", false);
                 _animator.SetBool("ReadyAttack", true);
+                DashBackAfterAttack();
             });
         }
 
@@ -93,6 +95,8 @@ public class FlyingEnemy : EnemyBase
 
     protected override void Flip()
     {
+        if (IsAttacking && _animator.GetNextAnimatorStateInfo(0).IsName("Buzoo_DashBack")) return;
+
         base.Flip();
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
