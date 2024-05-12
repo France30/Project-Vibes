@@ -20,7 +20,15 @@ public class PlayerInteract : MonoBehaviour
 		}
 	}
 
-	private void FixedUpdate()
+    private void OnDisable()
+    {
+		if (_interactable == null) return;
+
+		_interactable.InteractableText.enabled = false;
+		_interactable = null;
+	}
+
+    private void FixedUpdate()
 	{
 		int interactables = Physics2D.OverlapCircleNonAlloc(transform.position, _interactRadius, _interactCollider, _whatIsInteractable);
 		if (interactables > 0 && _interactable == null)

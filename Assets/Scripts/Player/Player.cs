@@ -82,8 +82,9 @@ public class Player : MonoBehaviour
 		GameController.Instance.OnPauseEvent += DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd += DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls += DisablePlayerActions;
+		GameController.Instance.OnDisableGameControls += DisablePlayerHUD;
 
-		if(GameController.Instance.Boss != null)
+		if (GameController.Instance.Boss != null)
 		{
 			GameController.Instance.Boss.EnemyDeathSequence.OnAnimationStart += StopAllCoroutines;
 			GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd += PlayVictoryAnimation;
@@ -100,6 +101,7 @@ public class Player : MonoBehaviour
 		GameController.Instance.OnPauseEvent -= DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd -= DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls -= DisablePlayerActions;
+		GameController.Instance.OnDisableGameControls -= DisablePlayerHUD;
 
 		if (GameController.Instance.Boss != null)
 		{
@@ -140,6 +142,11 @@ public class Player : MonoBehaviour
 		for (int i = 0; i < _playerActions.Length; i++)
 			_playerActions[i].enabled = !isEnable;
 	}
+
+	private void DisablePlayerHUD(bool isEnable)
+    {
+		_healthBarOverlay.gameObject.SetActive(!isEnable);
+    }
 
 	private void PlayVictoryAnimation()
 	{
