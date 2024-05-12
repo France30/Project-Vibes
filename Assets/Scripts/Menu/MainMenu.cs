@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
 		if (SaveSystem.IsSaveFileFound())
 		{
-			LevelManager.Instance.LoadLevelFromSave(); //load saved scene additively
+			LevelManager.Instance.LoadLevelFromSaveAdditively(); //load saved scene additively
 		}
 		else
 		{

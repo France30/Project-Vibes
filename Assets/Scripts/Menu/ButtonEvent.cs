@@ -20,38 +20,50 @@ public class ButtonEvent : ScriptableObject
 			}
 		}
 
-		if(SaveSystem.IsSaveFileFound() && LevelManager.Instance.CurrentLevel > 1)
-			LevelManager.Instance.LoadLevelSelect(1); //load first level if save file exists
-		else
-			LevelManager.Instance.UnloadLevelScene(0); //we unload the main menu if we are already in the first level
+		if (SaveSystem.IsSaveFileFound())
+		{
+			SaveSystem.ClearAllSaveData();
+			LevelManager.Instance.LevelsUnlocked.Clear();
+			LevelManager.Instance.AddLevel(1);
 
-		SaveSystem.ClearAllSaveData();
-		LevelManager.Instance.LevelsUnlocked.Clear();
-		LevelManager.Instance.AddLevel(1);
+			LevelManager.Instance.LoadLevelSelect(1);
+		}
+		else
+		{
+			LevelManager.Instance.UnloadLevelScene(0); //we unload the main menu if we are already in the first level
+		}
+
 		GameController.Instance.DisableGameControls(false);
 	}
 
 	public void ContinueGame()
 	{
-		//LevelManager.Instance.LoadLevelFromSave();
 		LevelManager.Instance.UnloadLevelScene(0);
 		GameController.Instance.DisableGameControls(false);
 	}
 
 	public void ResetLevel()
 	{
-		LevelManager.Instance.ResetLevel();
+		LevelManager.Instance.ResetLevel(false);
+	}
+
+	public void RetryLastCheckpoint()
+    {
+		LevelManager.Instance.LoadLevelFromSave(false);
 	}
 
 	public void ReturnToMainMenu()
 	{
 		GameController.Instance.ResetGameControllerConfigs();
 
-		LevelManager.Instance.LoadLevelSelectAdditively(0);
-
-		//load last saved checkpoint in level
+		//load last saved checkpoint
 		PlayerData playerData = SaveSystem.LoadPlayerData();
-		LevelManager.Instance.LoadPlayerPositionInLevel(playerData);
+		if (playerData != null)
+			LevelManager.Instance.LoadLevelFromSave(true);
+		else
+        {
+			LevelManager.Instance.ResetLevel(true);
+		}
 	}
 
 	public void LevelSelect(int level)

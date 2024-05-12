@@ -163,11 +163,11 @@ public class GameController : Singleton<GameController>
 		PlayerData playerData = SaveSystem.LoadPlayerData();
 		if(playerData != null)
 		{
-			LevelManager.Instance.LoadLevelFromSave();
+			LevelManager.Instance.LoadLevelFromSave(false);
 		}
 		else
 		{
-			LevelManager.Instance.ResetLevel();
+			LevelManager.Instance.ResetLevel(false);
 		}
 	}
 

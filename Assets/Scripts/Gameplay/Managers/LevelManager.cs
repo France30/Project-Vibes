@@ -64,22 +64,30 @@ public class LevelManager : Singleton<LevelManager>
 		}
 	}
 
-	public void LoadLevelFromSave()
+	public void LoadLevelFromSaveAdditively()
 	{
 		if (!_isLoadingLevel)
 		{
 			_isLoadingLevel = true;
-			//StartCoroutine(LoadSavedLevel());
 			StartCoroutine(LoadSavedLevelAdditively());
 		}
 	}
 
-	public void ResetLevel()
+	public void LoadLevelFromSave(bool withMainMenu)
 	{
 		if (!_isLoadingLevel)
 		{
 			_isLoadingLevel = true;
-			StartCoroutine(RestartLevel());
+			StartCoroutine(LoadSavedLevel(withMainMenu));
+		}
+	}
+
+	public void ResetLevel(bool withMainMenu)
+	{
+		if (!_isLoadingLevel)
+		{
+			_isLoadingLevel = true;
+			StartCoroutine(RestartLevel(withMainMenu));
 		}
 	}
 
@@ -109,16 +117,19 @@ public class LevelManager : Singleton<LevelManager>
 		_levelsUnlocked = SaveSystem.LoadUnlockedLevels();
 	}
 
-	private IEnumerator LoadSavedLevel()
+	//use this to reload last checkpoint
+	private IEnumerator LoadSavedLevel(bool withMainMenu)
 	{
 		PlayerData playerData = SaveSystem.LoadPlayerData();
 
 		yield return StartCoroutine(LoadLevel(playerData.currentLevelSelect));
 
-		LoadPlayerPositionInLevel(playerData);
+        LoadPlayerPositionInLevel(playerData);
+		if(withMainMenu)
+			LevelManager.Instance.LoadLevelSelectAdditively(0);
 	}
 
-	private IEnumerator LoadSavedLevelAdditively()
+    private IEnumerator LoadSavedLevelAdditively()
 	{
 		PlayerData playerData = SaveSystem.LoadPlayerData();
 
@@ -127,7 +138,7 @@ public class LevelManager : Singleton<LevelManager>
 		LoadPlayerPositionInLevel(playerData);
 	}
 
-	private IEnumerator RestartLevel()
+	private IEnumerator RestartLevel(bool withMainMenu)
 	{
 		int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
@@ -135,6 +146,8 @@ public class LevelManager : Singleton<LevelManager>
 
 		PlayerData playerData = SaveSystem.LoadPlayerData();
 		LoadPlayerPositionInLevel(playerData);
+		if(withMainMenu)
+			LevelManager.Instance.LoadLevelSelectAdditively(0);
 	}
 
 	private IEnumerator LevelTransition(int sceneIndex, string spawnArea, bool saveOnTransition = false)
@@ -153,6 +166,7 @@ public class LevelManager : Singleton<LevelManager>
 		if (sceneIndex > 0)
 			_currentLevel = sceneIndex;
 
+		GameController.Instance.DisableGameControls(false);
 		Time.timeScale = 1;
 		_isLoadingLevel = false;
 	}

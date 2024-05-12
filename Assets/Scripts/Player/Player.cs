@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
 
 	private void Awake()
 	{
+		DisablePlayerActions(true);
+
 		_animator = GetComponent<Animator>();
 		_spriteController = GetComponent<SpriteController>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
@@ -73,7 +75,7 @@ public class Player : MonoBehaviour
 		SavedCheckPoint = SaveSystem.LoadCheckpointData();
 	}
 
-	private void OnEnable()
+    private void OnEnable()
 	{
 		OnPlayerDeath += DisablePlayerActions;
 		GameController.Instance.OnFreezeEffect += SetHurtAnimation;

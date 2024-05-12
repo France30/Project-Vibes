@@ -58,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
 	private void OnDisable()
 	{
 		_controller.enabled = false;
+
+		//reset air animations
+		_isGrounded = true;
+		_animator.SetBool("Jump", false);
+		_animator.SetBool("Fall", false);
 	}
 
 	// Update is called once per frame

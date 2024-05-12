@@ -12,6 +12,7 @@ public class EnemyPermaDeathSO : ScriptableObject
 
 	public void InitializeEnemyPermaDeath(EnemyBase enemy)
 	{
+		_isAlive = SavePersistentData.LoadPersistentFlag(_enemyPermaDeathVariant, _id);
 		enemy.gameObject.SetActive(_isAlive);
 
 		if (enemy.gameObject.activeSelf)
@@ -29,8 +30,6 @@ public class EnemyPermaDeathSO : ScriptableObject
 #if UNITY_EDITOR
 		EditorApplication.playModeStateChanged += ResetFlag;
 #endif
-
-		_isAlive = SavePersistentData.LoadPersistentFlag(_enemyPermaDeathVariant, _id);
 	}
 
 	private void OnDisable()
