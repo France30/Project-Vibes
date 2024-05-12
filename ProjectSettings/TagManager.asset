@@ -50,6 +50,15 @@ TagManager:
   - name: Object
     uniqueID: 2504487227
     locked: 0
+  - name: PlayerLegs
+    uniqueID: 4244684385
+    locked: 0
+  - name: PlayerBody
+    uniqueID: 1032731491
+    locked: 0
+  - name: PlayerHead
+    uniqueID: 3740297959
+    locked: 0
   - name: Player
     uniqueID: 3734937499
     locked: 0

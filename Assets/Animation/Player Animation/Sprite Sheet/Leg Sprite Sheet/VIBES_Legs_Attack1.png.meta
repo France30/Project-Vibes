@@ -107,12 +107,12 @@ TextureImporter:
       name: VIBES_Legs_Attack1_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 0
         y: 10
-        width: 187
+        width: 194
         height: 181
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -133,7 +133,7 @@ TextureImporter:
         width: 197
         height: 178
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

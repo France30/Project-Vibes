@@ -37,14 +37,14 @@ public class SpriteController : MonoBehaviour
 		if (_currentFlashCount <= 0)
 			OnFlashEvent?.Invoke(true);
 
-		if (_spriteRenderer != null)
+		if (_spriteRenderer != null && _spriteRenderer.enabled)
 			_spriteRenderer.material = _spriteFlash.FlashMaterial;
 		else if (_customSprite.Length > 0)
 			FlashCustomSprite(_spriteFlash.FlashMaterial);
 
 		yield return waitForFlashSpeed;
 
-		if (_spriteRenderer != null)
+		if (_spriteRenderer != null && _spriteRenderer.enabled)
 			_spriteRenderer.material = _originalMaterial;
 		else if (_customSprite.Length > 0)
 			FlashCustomSprite(_spriteRenderer.material);
