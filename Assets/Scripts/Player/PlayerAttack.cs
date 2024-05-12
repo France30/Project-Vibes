@@ -72,6 +72,7 @@ public class PlayerAttack : MonoBehaviour
 
 		yield return new WaitForSeconds(_penaltyCooldown);
 
+		AudioManager.Instance.Play("AttackReadySFX");
 		_didPlayerMissBeat = false;
 	}
 
