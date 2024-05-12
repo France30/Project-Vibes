@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
 		GameController.Instance.OnFreezeEffect += SetHurtAnimation;
 		GameController.Instance.OnPauseEvent += DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd += DisablePlayerActions;
+		GameController.Instance.OnDisableGameControls += DisablePlayerActions;
 
 		if(GameController.Instance.Boss != null)
 		{
@@ -96,6 +97,7 @@ public class Player : MonoBehaviour
 		GameController.Instance.OnFreezeEffect -= SetHurtAnimation;
 		GameController.Instance.OnPauseEvent -= DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd -= DisablePlayerActions;
+		GameController.Instance.OnDisableGameControls -= DisablePlayerActions;
 
 		if (GameController.Instance.Boss != null)
 		{

@@ -26,6 +26,19 @@ public class MainMenu : MonoBehaviour
 			int levelIndex = unlockedLevels[i];
 			_levelSelectButtons[levelIndex - 1].interactable = true;
 		}
+
+		//if a level is already active in the background, no need to load level again
+		if (LevelManager.Instance.CheckLevelActive()) return;
+
+		if (SaveSystem.IsSaveFileFound())
+		{
+			LevelManager.Instance.LoadLevelFromSave(); //load saved scene additively
+		}
+		else
+		{
+			LevelManager.Instance.LoadLevelSelectAdditively(1);
+			LevelManager.Instance.AddLevel(1);
+		}
 	}
 
 	private void Start()
@@ -33,7 +46,7 @@ public class MainMenu : MonoBehaviour
 		AudioManager.Instance.Play("MainMenuBGM");
 	}
 
-	private void OnDestroy()
+    private void OnDestroy()
 	{
 		if (AudioManager.Instance == null) return;
 

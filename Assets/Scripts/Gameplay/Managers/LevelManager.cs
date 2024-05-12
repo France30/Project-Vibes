@@ -13,12 +13,14 @@ public class LevelManager : Singleton<LevelManager>
 
 	private bool _isLoadingLevel = false;
 	private List<int> _levelsUnlocked = new List<int>();
+	private int _currentLevel = 1;
 
 	public delegate void LevelLoad();
 	public event LevelLoad OnLevelLoad;
 	public event LevelLoad OnLoadFromSave;
 
 	public List<int> LevelsUnlocked { get { return _levelsUnlocked; } }
+	public int CurrentLevel { get { return _currentLevel; } }
 
 	
 	public void AddLevel(int level)
@@ -30,12 +32,26 @@ public class LevelManager : Singleton<LevelManager>
 		}
 	}
 
+	public bool CheckLevelActive()
+    {
+		return SceneManager.sceneCount > 1;
+    }
+
 	public void LoadLevelSelect(int sceneIndex)
 	{
 		if (!_isLoadingLevel)
 		{
 			_isLoadingLevel = true;
 			StartCoroutine(LoadLevel(sceneIndex));
+		}
+	}
+
+	public void LoadLevelSelectAdditively(int sceneIndex)
+    {
+		if (!_isLoadingLevel)
+		{
+			_isLoadingLevel = true;
+			StartCoroutine(LoadLevelAdditively(sceneIndex));
 		}
 	}
 
@@ -53,7 +69,8 @@ public class LevelManager : Singleton<LevelManager>
 		if (!_isLoadingLevel)
 		{
 			_isLoadingLevel = true;
-			StartCoroutine(LoadSavedLevel());
+			//StartCoroutine(LoadSavedLevel());
+			StartCoroutine(LoadSavedLevelAdditively());
 		}
 	}
 
@@ -63,6 +80,23 @@ public class LevelManager : Singleton<LevelManager>
 		{
 			_isLoadingLevel = true;
 			StartCoroutine(RestartLevel());
+		}
+	}
+
+	public void UnloadLevelScene(int sceneIndex)
+    {
+		SceneManager.UnloadSceneAsync(sceneIndex);
+    }
+
+	public void LoadPlayerPositionInLevel(PlayerData playerData)
+	{
+		if (playerData == null || playerData.currentLevelSelect != _currentLevel) return;
+
+		Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
+		if (playerPosition != Vector2.zero)
+		{
+			OnLoadFromSave?.Invoke();
+			GameController.Instance.Player.transform.position = playerPosition;
 		}
 	}
 
@@ -80,6 +114,15 @@ public class LevelManager : Singleton<LevelManager>
 		PlayerData playerData = SaveSystem.LoadPlayerData();
 
 		yield return StartCoroutine(LoadLevel(playerData.currentLevelSelect));
+
+		LoadPlayerPositionInLevel(playerData);
+	}
+
+	private IEnumerator LoadSavedLevelAdditively()
+	{
+		PlayerData playerData = SaveSystem.LoadPlayerData();
+
+		yield return StartCoroutine(LoadLevelAdditively(playerData.currentLevelSelect));
 
 		LoadPlayerPositionInLevel(playerData);
 	}
@@ -107,6 +150,23 @@ public class LevelManager : Singleton<LevelManager>
 		AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 		yield return StartCoroutine(LoadingScreen(operation));
 
+		if (sceneIndex > 0)
+			_currentLevel = sceneIndex;
+
+		Time.timeScale = 1;
+		_isLoadingLevel = false;
+	}
+
+	//used for dynamic real-time main menu
+	private IEnumerator LoadLevelAdditively(int sceneIndex)
+	{ 
+		AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+		yield return StartCoroutine(LoadingScreen(operation));
+
+		if(sceneIndex > 0)
+			_currentLevel = sceneIndex;
+
+		GameController.Instance.DisableGameControls(true);
 		Time.timeScale = 1;
 		_isLoadingLevel = false;
 	}
@@ -124,19 +184,6 @@ public class LevelManager : Singleton<LevelManager>
 		}
 
 		_loadingScreen.SetActive(false);
-	}
-
-	private void LoadPlayerPositionInLevel(PlayerData playerData)
-	{
-		int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-		if (playerData == null || playerData.currentLevelSelect != currentSceneIndex) return;
-		
-		Vector2 playerPosition = new Vector2(playerData.playerPosition[0], playerData.playerPosition[1]);
-		if (playerPosition != Vector2.zero)
-		{
-			OnLoadFromSave?.Invoke();
-			GameController.Instance.Player.transform.position = playerPosition;
-		}
 	}
 
 	private void SetPlayerPosition(string spawnPosition, bool savePlayerPosition = false)

@@ -10,18 +10,18 @@ public class GameController : Singleton<GameController>
 
 	private Player _player;
 	private BossEnemy _boss;
+	private BeatSystemController _beatSystem;
+	private GameUIManager _gameUI;
 	private bool _isPaused = false;
 	private bool _isGameOver = false;
 	private bool _isPrologueEnd = false;
+	private bool _isGameControlsDisabled = false;
 
-	public delegate void OnPause(bool isPaused);
-	public event OnPause OnPauseEvent;
-
-	public delegate void PrologueEnd(bool isEnd);
-	public event PrologueEnd OnPrologueEnd;
-
-	public delegate void FreezeDeathEvent(bool isFreezeEvent);
-	public event FreezeDeathEvent OnFreezeEffect;
+	public delegate void OnGameEvent(bool isGameEvent);
+	public event OnGameEvent OnPauseEvent;
+	public event OnGameEvent OnPrologueEnd;
+	public event OnGameEvent OnFreezeEffect;
+	public event OnGameEvent OnDisableGameControls;
 
 	public Player Player { 
 		get 
@@ -44,12 +44,31 @@ public class GameController : Singleton<GameController>
 		}
 	}
 
+	public void DisableGameControls(bool isDisable)
+    {
+		_beatSystem.gameObject.SetActive(!isDisable);
+		_gameUI.gameObject.SetActive(!isDisable);
+
+		OnDisableGameControls?.Invoke(isDisable);
+		_isGameControlsDisabled = isDisable;
+    }
+
+	public void ResetGameControllerConfigs()
+    {
+		_isGameOver = false;
+		_isPrologueEnd = false;
+
+		if (_isPaused)
+			TogglePause();
+    }
 
 	protected override void Awake()
 	{
 		base.Awake();
  
-		GameUIManager intializeGameUI = GameUIManager.Instance; //for easier testing, will remove at a later time
+		//cache reference to game systems
+		_gameUI = GameUIManager.Instance;
+		_beatSystem = BeatSystemController.Instance;
 
 		_player = FindObjectOfType<Player>();
 		_boss = FindObjectOfType<BossEnemy>();
@@ -87,7 +106,7 @@ public class GameController : Singleton<GameController>
 
 	private void Update()
 	{
-		if (_isGameOver || _isPrologueEnd) return;
+		if (_isGameOver || _isPrologueEnd || _isGameControlsDisabled) return;
 
 		if (Input.GetKeyDown(KeyCode.P))
 		{
@@ -115,6 +134,8 @@ public class GameController : Singleton<GameController>
 	{
 		_isPaused = !_isPaused;
 		Time.timeScale = (_isPaused) ? 0 : 1;
+		Debug.Log("is Paused: " + _isPaused);
+		Debug.Log("is Game Over: " + _isGameOver);
 
 		if (!_isGameOver)
 			OnPauseEvent?.Invoke(_isPaused);

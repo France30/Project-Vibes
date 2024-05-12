@@ -33,11 +33,20 @@ public class BeatSystemController : Singleton<BeatSystemController>
 		}
 	}
 
-	private void Start()
+	private void OnEnable()
 	{
 		//_waitForBeatSpeed = new WaitForSeconds(_beats[_currentBeat].beatSpeed);
 
 		StartCoroutine(BeatSystem());
+	}
+
+	private void OnDisable()
+    {
+		StopCoroutine(BeatSystem());
+		_currentBeat = 0;
+		_currentCount = 0;
+		_isBeatPlaying = false;
+		_bpm = 0f;
 	}
 
 	private IEnumerator BeatSystem()

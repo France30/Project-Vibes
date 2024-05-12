@@ -99,6 +99,7 @@ public class GameUIManager : Singleton<GameUIManager>
 		PauseUI.SetActive(false);
 		GameController.Instance.OnPauseEvent += EnablePauseUI;
 
+		Debug.Log("enable UI");
 		_winUI.color = new Color(_notification.color.r, _notification.color.g, _notification.color.b, 0);
 		if (GameController.Instance.Boss != null)
 		{
@@ -110,6 +111,7 @@ public class GameUIManager : Singleton<GameUIManager>
 	{
 		if (GameController.Instance == null) return;
 
+		Debug.Log("disable UI");
 		GameController.Instance.OnPauseEvent -= EnablePauseUI;
 		if (GameController.Instance.Boss != null)
 		{
