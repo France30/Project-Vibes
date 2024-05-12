@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 	[Header("Player Health")]
 	[SerializeField] private int _maxHealth;
 	[SerializeField] private Image _healthBar;
-	[SerializeField] private Image _healthBarOverlay;
+	[SerializeField] private Sprite[] _healthBarSprite;
 
 	[Header("Player Hit")]
 	[SerializeField] private float _hurtTime = 1f;
@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
 
 		_health.CurrentHealth -= value;
 		_animator.SetFloat("Health", _health.CurrentHealth);
+		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
+
 		if (_health.CurrentHealth <= 0)
 		{
 			StopAllCoroutines();
@@ -60,6 +62,7 @@ public class Player : MonoBehaviour
 		if (_health.CurrentHealth <= 0) return;
 
 		_health.CurrentHealth += value;
+		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
 	}
 
 	private void Awake()
@@ -70,8 +73,10 @@ public class Player : MonoBehaviour
 		_spriteController = GetComponent<SpriteController>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 
-		_health = new Health(_maxHealth, _healthBar);
+		_health = new Health(_maxHealth);
 		_animator.SetFloat("Health", _health.CurrentHealth);
+		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
+
 		SavedCheckPoint = SaveSystem.LoadCheckpointData();
 	}
 
@@ -145,7 +150,7 @@ public class Player : MonoBehaviour
 
 	private void DisablePlayerHUD(bool isEnable)
     {
-		_healthBarOverlay.gameObject.SetActive(!isEnable);
+		_healthBar.gameObject.SetActive(!isEnable);
     }
 
 	private void PlayVictoryAnimation()
