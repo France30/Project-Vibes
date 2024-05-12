@@ -6,9 +6,9 @@ public class PlayerAttack : MonoBehaviour
 	[SerializeField] private GameObject _attackObject;
 	[SerializeField] private PlayerChords _playerChords;
 	[SerializeField] private float _penaltyCooldown = 3.0f;
+	[SerializeField] private PlayerAnimatorController _animator;
 
 	private AttackObjectController _attackObjectController;
-	private Animator _animator;
 
 	private bool _isAttackCoroutineRunning = false;
 	private bool _didPlayerMissBeat = false;
@@ -21,7 +21,6 @@ public class PlayerAttack : MonoBehaviour
 	private void Awake()
 	{
 		_attackObjectController = _attackObject.GetComponent<AttackObjectController>();
-		_animator = GetComponent<Animator>();
 
 		if (_attackObject.activeSelf)
 			_attackObject.SetActive(false);
@@ -103,7 +102,7 @@ public class PlayerAttack : MonoBehaviour
 	private void SetAttackComponents(bool value)
 	{
 		_attackObject.SetActive(value);
-		_animator.SetBool("Attack", value);
+		_animator.SetAttackParam(value);
 	}
 
 	private void InitializeProximityAttack()

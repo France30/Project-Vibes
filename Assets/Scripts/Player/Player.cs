@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
 
 	[Space]
 	[SerializeField] private MonoBehaviour[] _playerActions;
+	[SerializeField] private PlayerAnimatorController _animator;
 
-	private Animator _animator;
 	private SpriteController _spriteController;
 	private Rigidbody2D _rigidbody2D;
 	private Health _health;
@@ -40,10 +40,10 @@ public class Player : MonoBehaviour
 		if (_health.CurrentHealth <= 0) return;
 
 		_isHurt = true;
-		SetHurtAnimation(_isHurt);
+		_animator.SetHurtParam(_isHurt);
 
 		_health.CurrentHealth -= value;
-		_animator.SetFloat("Health", _health.CurrentHealth);
+		_animator.SetHealthParam(_health.CurrentHealth);
 		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
 
 		if (_health.CurrentHealth <= 0)
@@ -69,12 +69,11 @@ public class Player : MonoBehaviour
 	{
 		DisablePlayerActions(true);
 
-		_animator = GetComponent<Animator>();
 		_spriteController = GetComponent<SpriteController>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 
 		_health = new Health(_maxHealth);
-		_animator.SetFloat("Health", _health.CurrentHealth);
+		_animator.SetHealthParam(_health.CurrentHealth);
 		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
 
 		SavedCheckPoint = SaveSystem.LoadCheckpointData();
@@ -83,7 +82,7 @@ public class Player : MonoBehaviour
     private void OnEnable()
 	{
 		OnPlayerDeath += DisablePlayerActions;
-		GameController.Instance.OnFreezeEffect += SetHurtAnimation;
+		GameController.Instance.OnFreezeEffect += _animator.SetHurtParam;
 		GameController.Instance.OnPauseEvent += DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd += DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls += DisablePlayerActions;
@@ -92,7 +91,6 @@ public class Player : MonoBehaviour
 		if (GameController.Instance.Boss != null)
 		{
 			GameController.Instance.Boss.EnemyDeathSequence.OnAnimationStart += StopAllCoroutines;
-			GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd += PlayVictoryAnimation;
 		}
 	}
 
@@ -102,7 +100,7 @@ public class Player : MonoBehaviour
 
 		if (GameController.Instance == null) return;
 
-		GameController.Instance.OnFreezeEffect -= SetHurtAnimation;
+		GameController.Instance.OnFreezeEffect -= _animator.SetHurtParam;
 		GameController.Instance.OnPauseEvent -= DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd -= DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls -= DisablePlayerActions;
@@ -111,7 +109,6 @@ public class Player : MonoBehaviour
 		if (GameController.Instance.Boss != null)
 		{
 			GameController.Instance.Boss.EnemyDeathSequence.OnAnimationStart -= StopAllCoroutines;
-			GameController.Instance.Boss.EnemyDeathSequence.OnAnimationEnd -= PlayVictoryAnimation;
 		}
 	}
 
@@ -129,17 +126,12 @@ public class Player : MonoBehaviour
 
 		yield return new WaitForSeconds(_hurtTime);
 
-		SetHurtAnimation(!_isHurt);
+		_animator.SetHurtParam(!_isHurt);
 		DisablePlayerActions(!_isHurt);
 		OnPlayerHurt?.Invoke(!_isHurt);
 
 		StartCoroutine(_spriteController.Flash()); //begin Invincibility Frames
 		_isHurt = false;
-	}
-
-	private void SetHurtAnimation(bool isHurt)
-	{
-		_animator.SetBool("Hurt", isHurt);
 	}
 
 	private void DisablePlayerActions(bool isEnable)
@@ -152,9 +144,4 @@ public class Player : MonoBehaviour
     {
 		_healthBar.gameObject.SetActive(!isEnable);
     }
-
-	private void PlayVictoryAnimation()
-	{
-		_animator.SetBool("Victory", true);
-	}
 }

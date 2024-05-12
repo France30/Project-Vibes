@@ -134,8 +134,8 @@ public class GameController : Singleton<GameController>
 	{
 		_isPaused = !_isPaused;
 		Time.timeScale = (_isPaused) ? 0 : 1;
-		Debug.Log("is Paused: " + _isPaused);
-		Debug.Log("is Game Over: " + _isGameOver);
+		//Debug.Log("is Paused: " + _isPaused);
+		//Debug.Log("is Game Over: " + _isGameOver);
 
 		if (!_isGameOver)
 			OnPauseEvent?.Invoke(_isPaused);

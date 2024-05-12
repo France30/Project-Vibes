@@ -5,7 +5,8 @@ using UnityEngine;
 public class SpriteController : MonoBehaviour
 {
 	[SerializeField] private SpriteFlash _spriteFlash;
-
+	[SerializeField] private SpriteRenderer[] _customSprite;
+	
 	private SpriteRenderer _spriteRenderer;
 	private Material _originalMaterial;
 	private int _currentFlashCount = 0;
@@ -15,20 +16,13 @@ public class SpriteController : MonoBehaviour
 	public delegate void FlashEvent(bool isFlashing);
 	public event FlashEvent OnFlashEvent;
 
-	public SpriteRenderer SpriteRenderer { 
-		get 
-		{
-			if (_spriteRenderer == null)
-				_spriteRenderer = GetComponent<SpriteRenderer>();
-
-			return _spriteRenderer;
-		} 
-	}
 	public Vector2 SpriteSize { 
 		get 
 		{
-			if (_spriteSize == null || _spriteSize == Vector2.zero)
-				_spriteSize = SpriteRenderer.sprite.bounds.size;
+			if (_spriteRenderer == null)
+				_spriteSize = Vector2.zero;
+			else if (_spriteSize == null || _spriteSize == Vector2.zero)
+				_spriteSize = _spriteRenderer.sprite.bounds.size;
 
 			return _spriteSize;
 		} 
@@ -43,11 +37,18 @@ public class SpriteController : MonoBehaviour
 		if (_currentFlashCount <= 0)
 			OnFlashEvent?.Invoke(true);
 
-		SpriteRenderer.material = _spriteFlash.FlashMaterial;
+		if (_spriteRenderer != null)
+			_spriteRenderer.material = _spriteFlash.FlashMaterial;
+		else if (_customSprite.Length > 0)
+			FlashCustomSprite(_spriteFlash.FlashMaterial);
 
 		yield return waitForFlashSpeed;
 
-		SpriteRenderer.material = _originalMaterial;
+		if (_spriteRenderer != null)
+			_spriteRenderer.material = _originalMaterial;
+		else if (_customSprite.Length > 0)
+			FlashCustomSprite(_spriteRenderer.material);
+
 		_currentFlashCount++;
 
 		yield return waitForFlashSpeed;
@@ -65,6 +66,14 @@ public class SpriteController : MonoBehaviour
 		{
 			_currentFlashCount = 0;
 			OnFlashEvent?.Invoke(false);
+		}
+	}
+
+	private void FlashCustomSprite(Material material)
+    {
+		for (int i = 0; i < _customSprite.Length; i++)
+		{
+			_customSprite[i].material = material;
 		}
 	}
 

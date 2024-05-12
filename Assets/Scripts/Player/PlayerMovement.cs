@@ -6,12 +6,12 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float _moveSpeed = 40f;
 	[SerializeField] private float _jumpTime = 0.5f;
 	[Range(0,100)][SerializeField] private float _jumpBoost = 20f;
+	[SerializeField] private PlayerAnimatorController _animator;
 
 	private float _currentJumpTime = 0f;
 
 	private Rigidbody2D _rb2D;
 	private CharacterController2D _controller;
-	private Animator _animator;
 
 	private float _horizontalMove = 0f;
 	private bool _jump = false;
@@ -31,23 +31,22 @@ public class PlayerMovement : MonoBehaviour
 	public void OnLanding()
 	{
 		_isGrounded = true;
-		_animator.SetBool("Jump", false);
-		_animator.SetBool("Fall", false);
+		_animator.SetJumpParam(false);
+		_animator.SetFallParam(false);
 	}
 
 	public void OnFall()
 	{
 		_isGrounded = false;
 
-		_animator.SetBool("Jump", false);
-		_animator.SetBool("Fall", true);
+		_animator.SetJumpParam(false);
+		_animator.SetFallParam(true);
 	}
 
 	private void Awake()
 	{
 		_rb2D = GetComponent<Rigidbody2D>();
 		_controller = GetComponent<CharacterController2D>();
-		_animator = GetComponent<Animator>();
 	}
 
 	private void OnEnable()
@@ -61,8 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
 		//reset air animations
 		_isGrounded = true;
-		_animator.SetBool("Jump", false);
-		_animator.SetBool("Fall", false);
+		_animator.SetJumpParam(false);
+		_animator.SetFallParam(false);
 	}
 
 	// Update is called once per frame
@@ -70,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		//Walk/Run
 		_horizontalMove = Input.GetAxisRaw("Horizontal") * _moveSpeed;
-		_animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
+		_animator.SetSpeedParam(Mathf.Abs(_horizontalMove));
 
 		CoyoteTime();
 		JumpBuffer();
@@ -115,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
 		_jump = true;
 		_isJumping = true;
 		_jumpBufferCounter = _JUMP_BUFFER_TIME;
-		_animator.SetBool("Jump", true);
+		_animator.SetJumpParam(true);
 
 		_isGrounded = false;
 	}
