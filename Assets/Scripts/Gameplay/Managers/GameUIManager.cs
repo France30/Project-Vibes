@@ -25,6 +25,12 @@ public class GameUIManager : Singleton<GameUIManager>
 	[SerializeField] private GameObject AddedSheetUI;
 	[SerializeField] private GameObject MissingSheetUI;
 
+	[Header("Cooldown Indicator UI")]
+	[SerializeField] private Image _coolDownIndicator;
+	[SerializeField] private Sprite _coolDownSprite;
+	[SerializeField] private Sprite _tickSprite;
+	[SerializeField] private Sprite _beatSprite;
+
 	public TextMeshProUGUI Notification { get { return _notification; } }
 
 
@@ -52,6 +58,22 @@ public class GameUIManager : Singleton<GameUIManager>
 	{
 		_notification.color = new Color(_notification.color.r, _notification.color.g, _notification.color.b, a);
 	}
+
+	public void UpdateCooldownIndicatorUI(BeatCooldown beatCooldown)
+    {
+		switch(beatCooldown)
+        {
+			case BeatCooldown.Tick:
+				_coolDownIndicator.sprite = _tickSprite;
+				break;
+			case BeatCooldown.Beat:
+				_coolDownIndicator.sprite = _beatSprite;
+				break;
+			case BeatCooldown.MissedBeat:
+				_coolDownIndicator.sprite = _coolDownSprite;
+				break;
+        }
+    }
 
 	public void SetSongTitleUI(string songTitle)
 	{

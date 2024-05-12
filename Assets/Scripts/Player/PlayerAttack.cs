@@ -35,6 +35,14 @@ public class PlayerAttack : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		if(!_didPlayerMissBeat && !_isAttackCoroutineRunning)
+        {
+			if (BeatSystemController.Instance.IsBeatPlaying)
+				GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.Beat);
+			else
+				GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.Tick);
+		}
+
 		if (Input.GetButtonDown("Fire1"))
 		{
 			if (_didPlayerMissBeat) return;
@@ -45,8 +53,11 @@ public class PlayerAttack : MonoBehaviour
 				return;
 			}
 
-			if(!_isAttackCoroutineRunning)
+			if (!_isAttackCoroutineRunning)
+			{
+				GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.Beat);
 				StartCoroutine(PlayAttack());
+			}
 		}
 
 		if (Input.GetButtonUp("Fire1"))
@@ -57,6 +68,7 @@ public class PlayerAttack : MonoBehaviour
 	{
 		_didPlayerMissBeat = true;
 		AudioManager.Instance.Play("PlayerMissedBeat");
+		GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.MissedBeat);
 
 		yield return new WaitForSeconds(_penaltyCooldown);
 

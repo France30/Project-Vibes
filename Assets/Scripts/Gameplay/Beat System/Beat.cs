@@ -1,3 +1,10 @@
+public enum BeatCooldown
+{
+	Tick,
+	Beat,
+	MissedBeat,
+}
+
 [System.Serializable]
 public class Beat
 {
