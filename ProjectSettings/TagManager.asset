@@ -59,6 +59,9 @@ TagManager:
   - name: PlayerHead
     uniqueID: 3740297959
     locked: 0
+  - name: PlayerArm
+    uniqueID: 2565297499
+    locked: 0
   - name: Player
     uniqueID: 3734937499
     locked: 0
