@@ -10,6 +10,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 	[Header("Enemy Health")]
 	[SerializeField] protected int _maxHealth = 1;
 	[SerializeField] protected Image _healthBar = null;
+	[SerializeField] protected Sprite[] _healthBarSprite;
 
 	[Header("Enemy Damage")]
 	[SerializeField] protected int _damage = 1;
@@ -48,6 +49,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
 		_health.CurrentHealth -= value;
 		_animator.SetFloat("Health", _health.CurrentHealth);
+
+		if(_healthBar != null)
+        {
+			_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
+		}
 
 		if (_health.CurrentHealth <= 0)
 		{
@@ -117,7 +123,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 	{
 		_enemyPermaDeath?.InitializeEnemyPermaDeath(this);
 
-		_health = new Health(_maxHealth, _healthBar);
+		_health = new Health(_maxHealth);
 		_instanceID = gameObject.GetInstanceID();
 
 		_spriteController = GetComponent<SpriteController>();

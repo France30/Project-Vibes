@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
 
 	private void Awake()
 	{
-		DisablePlayerActions(true);
+		//DisablePlayerActions(true);
 
 		_spriteController = GetComponent<SpriteController>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();

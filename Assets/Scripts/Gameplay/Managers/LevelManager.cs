@@ -37,12 +37,12 @@ public class LevelManager : Singleton<LevelManager>
 		return SceneManager.sceneCount > 1;
     }
 
-	public void LoadLevelSelect(int sceneIndex)
+	public void LoadLevelSelect(int sceneIndex, bool withMainMenu = false)
 	{
 		if (!_isLoadingLevel)
 		{
 			_isLoadingLevel = true;
-			StartCoroutine(LoadLevel(sceneIndex));
+			StartCoroutine(LoadLevel(sceneIndex, withMainMenu));
 		}
 	}
 
@@ -122,11 +122,9 @@ public class LevelManager : Singleton<LevelManager>
 	{
 		PlayerData playerData = SaveSystem.LoadPlayerData();
 
-		yield return StartCoroutine(LoadLevel(playerData.currentLevelSelect));
+		yield return StartCoroutine(LoadLevel(playerData.currentLevelSelect, withMainMenu));
 
         LoadPlayerPositionInLevel(playerData);
-		if(withMainMenu)
-			LevelManager.Instance.LoadLevelSelectAdditively(0);
 	}
 
     private IEnumerator LoadSavedLevelAdditively()
@@ -142,12 +140,10 @@ public class LevelManager : Singleton<LevelManager>
 	{
 		int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-		yield return StartCoroutine(LoadLevel(currentSceneIndex));
+		yield return StartCoroutine(LoadLevel(currentSceneIndex, withMainMenu));
 
 		PlayerData playerData = SaveSystem.LoadPlayerData();
 		LoadPlayerPositionInLevel(playerData);
-		if(withMainMenu)
-			LevelManager.Instance.LoadLevelSelectAdditively(0);
 	}
 
 	private IEnumerator LevelTransition(int sceneIndex, string spawnArea, bool saveOnTransition = false)
@@ -157,7 +153,7 @@ public class LevelManager : Singleton<LevelManager>
 		SetPlayerPosition(spawnArea, saveOnTransition);
 	}
 
-	private IEnumerator LoadLevel(int sceneIndex)
+	private IEnumerator LoadLevel(int sceneIndex, bool withMainMenu = false)
 	{
 		OnLevelLoad?.Invoke();
 		AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
@@ -166,9 +162,12 @@ public class LevelManager : Singleton<LevelManager>
 		if (sceneIndex > 0)
 			_currentLevel = sceneIndex;
 
-		GameController.Instance.DisableGameControls(false);
+		GameController.Instance.DisableGameControls(withMainMenu);
 		Time.timeScale = 1;
 		_isLoadingLevel = false;
+
+		if (withMainMenu)
+			LevelManager.Instance.LoadLevelSelectAdditively(0);
 	}
 
 	//used for dynamic real-time main menu

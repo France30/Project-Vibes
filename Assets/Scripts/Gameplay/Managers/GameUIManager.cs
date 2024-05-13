@@ -161,6 +161,6 @@ public class GameUIManager : Singleton<GameUIManager>
 			yield return null;
 		}
 
-		LevelManager.Instance.LoadLevelSelect(0); //return to Main Menu
+		LevelManager.Instance.LoadLevelSelect(1, true); //return to Main Menu
 	}
 }
