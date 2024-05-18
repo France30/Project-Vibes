@@ -73,4 +73,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transitionToLevel: 1
   _playerSpawnAreaId: ForestExit
-  _saveOnTransition: 1
+  _saveOnTransition: 0
