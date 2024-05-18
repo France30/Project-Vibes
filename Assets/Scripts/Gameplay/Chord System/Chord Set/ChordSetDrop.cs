@@ -6,6 +6,8 @@ public class ChordSetDrop : Interactable
 
 	public override void Interact()
 	{
+		base.Interact();
+
 		PlayerAttack playerAttack = GameController.Instance.Player.GetComponent<PlayerAttack>();
 		playerAttack.enabled = false;
 

@@ -4,10 +4,9 @@ public class MusicSheetDrop : Interactable
 {
 	[SerializeField] private MusicSheetSO _musicSheetSO;
 
-
 	public override void Interact()
 	{
-		SaveSystem.SavePlayerData(); //Music Sheet Pick-ups also double as checkpoints
+		base.Interact();
 
 		PlayerAttack playerAttack = GameController.Instance.Player.GetComponent<PlayerAttack>();
 		playerAttack.enabled = false;
@@ -18,6 +17,7 @@ public class MusicSheetDrop : Interactable
 
 		GameUIManager.Instance.PlaySongTitleUIPulseAnimation();
 		_musicSheetSO.SheetGet();
+
 		gameObject.SetActive(false);
 	}
 

@@ -11,7 +11,8 @@ public class CheckPoint : Interactable
 	{
 		if (AudioManager.Instance.IsPlaying("GameSavedSfx")) return;
 
-		SaveSystem.SavePlayerData();
+		base.Interact();
+
 		SaveSystem.SaveCheckpointData(_id);
 		GameController.Instance.Player.SavedCheckPoint = _id;
 		_animator.SetBool("On", true);
