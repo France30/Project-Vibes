@@ -7,8 +7,6 @@ public class MusicSheetDrop : Interactable
 
 	public override void Interact()
 	{
-		SaveSystem.SavePlayerData(); //Music Sheet Pick-ups also double as checkpoints
-
 		PlayerAttack playerAttack = GameController.Instance.Player.GetComponent<PlayerAttack>();
 		playerAttack.enabled = false;
 
