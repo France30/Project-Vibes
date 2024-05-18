@@ -105,7 +105,7 @@ public class GameUIManager : Singleton<GameUIManager>
 		var musicSheets = chordSet.MusicSheets;
 		for(int i = 0; i < musicSheets.Length; i++)
         {
-			if (musicSheets[i].isAddedToChordSet)
+			if (musicSheets[i].isFound)
 			{
 				MissingSheetUI.transform.GetChild(i).gameObject.SetActive(false);
 				AddedSheetUI.transform.GetChild(i).gameObject.SetActive(true);
