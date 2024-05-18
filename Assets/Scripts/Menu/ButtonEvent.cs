@@ -5,35 +5,23 @@ public class ButtonEvent : ScriptableObject
 {
 	public void NewGame()
 	{
-		if (SaveSystem.IsSaveFileFound())
+		ChordSetSO[] chordSetSOs = Resources.LoadAll<ChordSetSO>("Scriptable Objects/ChordSetSO");
+		for (int i = 0; i < chordSetSOs.Length; i++)
 		{
-			ChordSetSO[] chordSetSOs = Resources.LoadAll<ChordSetSO>("Scriptable Objects/ChordSetSO");
-			for (int i = 0; i < chordSetSOs.Length; i++)
-			{
-				chordSetSOs[i].ResetToDefault();
-			}
-
-			MusicSheetSO[] musicSheetSO = Resources.LoadAll<MusicSheetSO>("Scriptable Objects/MusicSheetSO");
-			for (int i = 0; i < musicSheetSO.Length; i++)
-			{
-				musicSheetSO[i].Reset();
-			}
+			chordSetSOs[i].ResetToDefault();
 		}
 
-		if (SaveSystem.IsSaveFileFound())
+		MusicSheetSO[] musicSheetSO = Resources.LoadAll<MusicSheetSO>("Scriptable Objects/MusicSheetSO");
+		for (int i = 0; i < musicSheetSO.Length; i++)
 		{
-			SaveSystem.ClearAllSaveData();
-			LevelManager.Instance.LevelsUnlocked.Clear();
-			LevelManager.Instance.AddLevel(1);
-
-			LevelManager.Instance.LoadLevelSelect(1);
-		}
-		else
-		{
-			LevelManager.Instance.UnloadLevelScene(0); //we unload the main menu if we are already in the first level
+			musicSheetSO[i].Reset();
 		}
 
-		GameController.Instance.DisableGameControls(false);
+		SaveSystem.ClearAllSaveData();
+		LevelManager.Instance.LevelsUnlocked.Clear();
+		LevelManager.Instance.AddLevel(1);
+
+		LevelManager.Instance.LoadLevelSelect(1);
 	}
 
 	public void ContinueGame()

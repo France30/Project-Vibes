@@ -34,6 +34,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
 	public int InstanceID { get { return _instanceID; } }
 	public int MaxHealth { get { return (int)_health.MaxHealth; } }
+	public EnemyPermaDeathSO PermaDeath {  get { return _enemyPermaDeath; } }
 	protected bool IsAttacking { get; private set; }
 	protected bool IsIdle { get; private set; }
 

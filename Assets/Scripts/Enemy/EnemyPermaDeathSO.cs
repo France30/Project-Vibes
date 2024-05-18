@@ -16,12 +16,16 @@ public class EnemyPermaDeathSO : ScriptableObject
 		enemy.gameObject.SetActive(_isAlive);
 
 		if (enemy.gameObject.activeSelf)
-			enemy.OnEnemyDeath += SavePermaDeath;
+			enemy.OnEnemyDeath += EnablePermaDeath;
 	}
 
-	private void SavePermaDeath()
+	private void EnablePermaDeath()
 	{
 		_isAlive = false;
+	}
+
+	public void SavePermaDeathState()
+    {
 		SavePersistentData.SavePersistentFlag(_enemyPermaDeathVariant, _id, _isAlive);
 	}
 

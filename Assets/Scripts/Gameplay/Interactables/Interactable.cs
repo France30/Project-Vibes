@@ -16,8 +16,18 @@ public abstract class Interactable : MonoBehaviour
 		SaveSystem.SavePlayerData();
 		for (int i = 0; i < _surroundingEnemies.Length; i++)
 		{
+			if (!_surroundingEnemies[i].gameObject.activeSelf) continue;
+
 			_surroundingEnemies[i].TakeDamage(_surroundingEnemies[i].MaxHealth);
 		}
+
+		EnemyBase[] enemy = FindObjectsOfType<EnemyBase>(true);
+		for(int i = 0; i < enemy.Length; i++)
+        {
+			if (enemy[i].PermaDeath == null) continue;
+
+			enemy[i].PermaDeath.SavePermaDeathState();
+        }
 	}
 
 	protected virtual void Awake()
