@@ -73,4 +73,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transitionToLevel: 2
   _playerSpawnAreaId: CaveExit
-  _saveOnTransition: 0
+  _saveOnTransition: 1
