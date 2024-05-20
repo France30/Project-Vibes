@@ -40,6 +40,8 @@ public class ChordSetSO : ScriptableObject
 		SavePersistentData.SavePersistentFlag(_chordSetDrop, _id, _isDrop);
 	}
 
+	//ChordSetsSOs is reused for both Drops & Player Attacks
+	//When the Player resets the game, we need to reset all the values back to its default state since data in ScriptableObjects persists throughout the Application
 	public void ResetToDefault()
 	{
 		chordClips = _chordClips;

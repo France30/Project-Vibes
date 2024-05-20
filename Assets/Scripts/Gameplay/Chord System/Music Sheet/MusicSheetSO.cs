@@ -22,6 +22,8 @@ public class MusicSheetSO : ScriptableObject
 		SavePersistentData.SavePersistentFlag(_musicSheet, _id, _isSheetInScene);
 	}
 
+	//When the Player resets the game, we need to reset all the values back to its default state since data in ScriptableObjects persists throughout the Application
+	//Apply the same logic in ChordSetSO to MusicSheetSO in case this will require the same behaviour in the future, whether through design iterations or refactoring of codebase
 	public void Reset()
 	{
 		_isSheetInScene = true;
