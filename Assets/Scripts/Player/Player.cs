@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
 	}
 
-	private void Awake()
+	private void Start()
 	{
 		//DisablePlayerActions(true);
 
