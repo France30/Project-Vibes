@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class SpriteController : MonoBehaviour
 
 	public delegate void FlashEvent(bool isFlashing);
 	public event FlashEvent OnFlashEvent;
+
+	private Action<Material> OnFlashCustomSprite;
 
 	public Vector2 SpriteSize { 
 		get 
@@ -40,14 +43,14 @@ public class SpriteController : MonoBehaviour
 		if (_spriteRenderer != null && _spriteRenderer.enabled)
 			_spriteRenderer.material = _spriteFlash.FlashMaterial;
 		else if (_customSprite.Length > 0)
-			FlashCustomSprite(_spriteFlash.FlashMaterial);
+			OnFlashCustomSprite?.Invoke(_spriteFlash.FlashMaterial);
 
 		yield return waitForFlashSpeed;
 
 		if (_spriteRenderer != null && _spriteRenderer.enabled)
 			_spriteRenderer.material = _originalMaterial;
 		else if (_customSprite.Length > 0)
-			FlashCustomSprite(_spriteRenderer.material);
+			OnFlashCustomSprite?.Invoke(_originalMaterial);
 
 		_currentFlashCount++;
 
@@ -69,29 +72,23 @@ public class SpriteController : MonoBehaviour
 		}
 	}
 
-	private void FlashCustomSprite(Material material)
-    {
-		for (int i = 0; i < _customSprite.Length; i++)
-		{
-			_customSprite[i].material = material;
-		}
-	}
-
 	private void Awake()
 	{
+		OnFlashEvent += SetIsFlashing;
+
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		_originalMaterial = _spriteRenderer.material;
+		if (_customSprite.Length > 0)
+        {
+			foreach (SpriteRenderer customSprite in _customSprite)
+			{
+				OnFlashCustomSprite += (Material material) => customSprite.material = material;
+			}
+
+			return;
+		}
+
 		_spriteSize = _spriteRenderer.sprite.bounds.size;
-	}
-
-	private void OnEnable()
-	{
-		OnFlashEvent += SetIsFlashing;
-	}
-
-	private void OnDisable()
-	{
-		OnFlashEvent -= SetIsFlashing;
 	}
 
 	private void SetIsFlashing(bool isFlashing)
