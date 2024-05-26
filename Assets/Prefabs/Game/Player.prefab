@@ -582,11 +582,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _armLayer: {fileID: 3785249816087550453}
   _headTransform: {fileID: 4029161920531956003}
+  _initialHeadTrans: {fileID: 5790095792931933072}
   _jumpTransHead: {fileID: 6541231051861396511}
   _runTransHead: {fileID: 8598060339979133120}
   _fallTransHead: {fileID: 8041011374567167432}
   _hurtTransHead: {fileID: 3347861669943998841}
-  _initialHeadTrans: {fileID: 5790095792931933072}
 --- !u!1 &4835773764215611562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1256,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09802723, y: -0.029994965}
+  m_Offset: {x: 0.09802723, y: -0.07}
   m_Size: {x: 1.1115971, y: 2.3662572}
   m_Direction: 0
 --- !u!58 &6717973789561704304
@@ -1272,7 +1272,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.096045494, y: -0.75}
+  m_Offset: {x: 0.096045494, y: -0.63}
   serializedVersion: 2
   m_Radius: 0.5554266
 --- !u!212 &6717973789561704311
