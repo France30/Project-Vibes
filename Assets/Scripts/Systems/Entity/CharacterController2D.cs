@@ -58,6 +58,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			//Character is jumping if the y velocity is rising
 			_isJumping = (m_Rigidbody2D.velocity.y >= 0);
+			_isFalling = false;
 			return;
 		}
 
