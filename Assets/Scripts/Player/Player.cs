@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
 		{
 			StopAllCoroutines();
 			OnPlayerDeath?.Invoke(true);
+			_cooldownIndicator.gameObject.SetActive(false);
 			return;
 		}
 
