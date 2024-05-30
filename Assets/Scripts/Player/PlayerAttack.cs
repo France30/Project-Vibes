@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class PlayerAttack : MonoBehaviour
 	[SerializeField] private PlayerChords _playerChords;
 	[SerializeField] private float _penaltyCooldown = 3.0f;
 	[SerializeField] private PlayerAnimatorController _animator;
+
+	[Header("Cooldown Indicator UI")]
+	[SerializeField] private Image _coolDownIndicator;
+	[SerializeField] private Sprite _coolDownSprite;
+	[SerializeField] private Sprite _tickSprite;
+	[SerializeField] private Sprite _beatSprite;
 
 	private AttackObjectController _attackObjectController;
 
@@ -37,9 +44,9 @@ public class PlayerAttack : MonoBehaviour
 		if(!_didPlayerMissBeat && !_isAttackCoroutineRunning)
         {
 			if (BeatSystemController.Instance.IsBeatPlaying)
-				GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.Beat);
+				UpdateCooldownIndicatorUI(BeatCooldown.Beat);
 			else
-				GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.Tick);
+				UpdateCooldownIndicatorUI(BeatCooldown.Tick);
 		}
 
 		if (Input.GetButtonDown("Fire1"))
@@ -54,7 +61,7 @@ public class PlayerAttack : MonoBehaviour
 
 			if (!_isAttackCoroutineRunning)
 			{
-				GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.Beat);
+				UpdateCooldownIndicatorUI(BeatCooldown.Beat);
 				StartCoroutine(PlayAttack());
 			}
 		}
@@ -67,12 +74,28 @@ public class PlayerAttack : MonoBehaviour
 	{
 		_didPlayerMissBeat = true;
 		AudioManager.Instance.Play("PlayerMissedBeat");
-		GameUIManager.Instance.UpdateCooldownIndicatorUI(BeatCooldown.MissedBeat);
+		UpdateCooldownIndicatorUI(BeatCooldown.MissedBeat);
 
 		yield return new WaitForSeconds(_penaltyCooldown);
 
 		AudioManager.Instance.Play("AttackReadySFX");
 		_didPlayerMissBeat = false;
+	}
+
+	private void UpdateCooldownIndicatorUI(BeatCooldown beatCooldown)
+	{
+		switch (beatCooldown)
+		{
+			case BeatCooldown.Tick:
+				_coolDownIndicator.sprite = _tickSprite;
+				break;
+			case BeatCooldown.Beat:
+				_coolDownIndicator.sprite = _beatSprite;
+				break;
+			case BeatCooldown.MissedBeat:
+				_coolDownIndicator.sprite = _coolDownSprite;
+				break;
+		}
 	}
 
 	private IEnumerator PlayAttack()
