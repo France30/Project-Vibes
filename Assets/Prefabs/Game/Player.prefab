@@ -1606,8 +1606,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e9ae6b354b4644794794f86baf3781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 6
   _healthBar: {fileID: 3628486201433925532}
+  _cooldownIndicator: {fileID: 5901556524309974970}
+  _maxHealth: 6
   _healthBarSprite:
   - {fileID: 21300000, guid: ce5dec0d026c19348b5d80c52a9be695, type: 3}
   - {fileID: 21300000, guid: 6940e15a1008be54bb36861312637497, type: 3}

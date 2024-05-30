@@ -6,9 +6,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(SpriteController))]
 public class Player : MonoBehaviour
 {
+	[Header("Player HUD")]
+	[SerializeField] private Image _healthBar;
+	[SerializeField] private Image _cooldownIndicator;
+
 	[Header("Player Health")]
 	[SerializeField] private int _maxHealth;
-	[SerializeField] private Image _healthBar;
 	[SerializeField] private Sprite[] _healthBarSprite;
 
 	[Header("Player Hit")]
@@ -143,5 +146,6 @@ public class Player : MonoBehaviour
 	private void DisablePlayerHUD(bool isEnable)
     {
 		_healthBar.gameObject.SetActive(!isEnable);
+		_cooldownIndicator.gameObject.SetActive(!isEnable);
     }
 }
