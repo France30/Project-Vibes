@@ -3,6 +3,7 @@ using UnityEngine;
 public class Chase : State
 {
 	[Range(0,Mathf.Infinity)][SerializeField] private float _playerDistanceToChaseState = 10f;
+	[Range(0, Mathf.Infinity)] [SerializeField] private float _targetDistance = 1f;
 
 	private Transform _player;
 
@@ -14,7 +15,7 @@ public class Chase : State
 
 	public override void PerformState()
 	{
-		if (_enemyBase.IsTargetReached(_player)) return;
+		if (_enemyBase.IsTargetReached(_player, _targetDistance)) return;
 
 		base.PerformState();
 		_enemyBase.MoveToTargetDirection(_player);

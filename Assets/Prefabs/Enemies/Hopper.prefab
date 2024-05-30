@@ -131,7 +131,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 433275869
-  m_SortingLayer: 7
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_Sprite: {fileID: 866797369, guid: c71caa3c959444d4d8bd3a159030c9d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteFlash: {fileID: 11400000, guid: 910971f041f442248bbe5c9e427f273b, type: 2}
+  _customSprite: []
 --- !u!50 &2910925378815670022
 Rigidbody2D:
   serializedVersion: 4
@@ -252,6 +253,7 @@ MonoBehaviour:
   _enemyPermaDeath: {fileID: 0}
   _maxHealth: 1
   _healthBar: {fileID: 0}
+  _healthBarSprite: []
   _damage: 1
   _moveSpeed: 25
   _wallCheck: {fileID: 2910925378705959807}
@@ -287,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerDistanceToChaseState: 100
+  _targetDistance: 0
 --- !u!1 &2910925379259472919
 GameObject:
   m_ObjectHideFlags: 0
