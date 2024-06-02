@@ -71,6 +71,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326c555a0168f684a9f4eb00927f4e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionToLevel: 3
+  _transitionToLevel: 4
   _playerSpawnAreaId: CastleExit
   _saveOnTransition: 1

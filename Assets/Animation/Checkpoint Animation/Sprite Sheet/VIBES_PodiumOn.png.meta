@@ -107,12 +107,12 @@ TextureImporter:
       name: VIBES_PodiumOn_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 7
-        width: 218
-        height: 411
+        x: 2
+        y: 29
+        width: 247
+        height: 433
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

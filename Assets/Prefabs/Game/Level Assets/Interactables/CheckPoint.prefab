@@ -365,4 +365,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableText: {fileID: 3009804130197643744}
+  _surroundingEnemies: []
   _id: 0
