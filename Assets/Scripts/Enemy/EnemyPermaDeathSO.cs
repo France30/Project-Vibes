@@ -8,20 +8,28 @@ public class EnemyPermaDeathSO : ScriptableObject
 
 	private ObjectWithPersistentData _enemyPermaDeathVariant = ObjectWithPersistentData.enemy;
 	private bool _isAlive = true;
+	private GateEvent _gateEvent;
 
 
-	public void InitializeEnemyPermaDeath(EnemyBase enemy)
+	public void InitializeEnemyPermaDeath(EnemyBase enemy, GateEvent gateEvent)
 	{
+		if(gateEvent != null)
+			_gateEvent = gateEvent;
+
 		_isAlive = SavePersistentData.LoadPersistentFlag(_enemyPermaDeathVariant, _id);
 		enemy.gameObject.SetActive(_isAlive);
 
 		if (enemy.gameObject.activeSelf)
 			enemy.OnEnemyDeath += EnablePermaDeath;
+		else
+			_gateEvent?.OpenGateImmediately();
+
 	}
 
 	private void EnablePermaDeath()
 	{
 		_isAlive = false;
+		_gateEvent?.OpenGateImmediately();
 	}
 
 	public void SavePermaDeathState()

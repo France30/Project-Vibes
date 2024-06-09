@@ -6,6 +6,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 {
 	[Header("Enemy Configs")]
 	[SerializeField] private EnemyPermaDeathSO _enemyPermaDeath;
+	[SerializeField] private GateEvent _gateEvent;
 
 	[Header("Enemy Health")]
 	[SerializeField] protected int _maxHealth = 1;
@@ -122,7 +123,7 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
 	protected virtual void Awake()
 	{
-		_enemyPermaDeath?.InitializeEnemyPermaDeath(this);
+		_enemyPermaDeath?.InitializeEnemyPermaDeath(this, _gateEvent);
 
 		_health = new Health(_maxHealth);
 		_instanceID = gameObject.GetInstanceID();

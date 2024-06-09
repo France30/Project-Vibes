@@ -25,7 +25,13 @@ public class CheckPoint : Interactable
 		_animator = GetComponent<Animator>();
 	}
 
-	private void OnEnable()
+    private void Start()
+    {
+		if (SaveSystem.IsSaveFileFound())
+			_gateEvent?.OpenGateImmediately();
+    }
+
+    private void OnEnable()
 	{
 		bool isThisPlayerSpawnPoint = (_id == GameController.Instance.Player.SavedCheckPoint);
 		_animator.SetBool("On", isThisPlayerSpawnPoint);

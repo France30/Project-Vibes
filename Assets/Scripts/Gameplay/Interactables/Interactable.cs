@@ -7,10 +7,10 @@ public abstract class Interactable : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI _interactableText;
 	[SerializeField] private EnemyBase[] _surroundingEnemies;
+	[SerializeField] protected GateEvent _gateEvent;
 
 	public TextMeshProUGUI InteractableText { get { return _interactableText; } }
 
-	//The default behaviour for interactables should save player position & kill surrounding perma death enemies
 	public virtual void Interact()
     {
 		SaveSystem.SavePlayerData();
@@ -28,6 +28,8 @@ public abstract class Interactable : MonoBehaviour
 
 			enemy[i].PermaDeath.SavePermaDeathState();
         }
+
+		_gateEvent?.OpenGateImmediately();
 	}
 
 	protected virtual void Awake()
@@ -39,5 +41,11 @@ public abstract class Interactable : MonoBehaviour
 	private void OnDisable()
 	{
 		_interactableText.enabled = false;
+
+		if (_gateEvent != null)
+		{
+			if (!_gateEvent.IsGateOpen)
+				_gateEvent.OpenGateImmediately();
+		}
 	}
 }
