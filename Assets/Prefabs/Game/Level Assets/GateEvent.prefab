@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6627211521544057581}
-  - component: {fileID: 5632587984860266614}
+  - component: {fileID: 3356400408301618308}
   - component: {fileID: 1845684899399411761}
   - component: {fileID: -8538769637660540536}
   - component: {fileID: 326277437463907754}
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5632587984860266614
+--- !u!61 &3356400408301618308
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52,14 +52,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.2}
+    oldSize: {x: 2.6, y: 10}
     newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.92, y: 10}
   m_EdgeRadius: 0
 --- !u!95 &1845684899399411761
 Animator:
@@ -122,7 +122,7 @@ SpriteRenderer:
   m_SortingLayerID: -1790480069
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: bdfb7d21820a42846aef459ba8cc7e1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,4 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3439496a339194f4aa1604dea7c86a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gateOpenSprite: {fileID: 21300000, guid: ecc204495234d40f091d828790c56287, type: 3}
+  _gateOpenSprite: {fileID: 21300000, guid: aa89c3dbe5f09ad45ad357079b9b0366, type: 3}
