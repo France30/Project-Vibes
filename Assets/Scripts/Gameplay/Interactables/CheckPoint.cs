@@ -14,6 +14,10 @@ public class CheckPoint : Interactable
 		base.Interact();
 
 		SaveSystem.SaveCheckpointData(_id);
+
+		if (_gateEvent != null)
+			SaveSystem.SaveGateEventData(_id);
+
 		GameController.Instance.Player.SavedCheckPoint = _id;
 		_animator.SetBool("On", true);
 		AudioManager.Instance.Play("GameSavedSfx");
@@ -27,8 +31,8 @@ public class CheckPoint : Interactable
 
     private void Start()
     {
-		if (SaveSystem.IsSaveFileFound())
-			_gateEvent?.OpenGateImmediately();
+		if(_gateEvent != null && SaveSystem.IsGateEventSaveFound(_id))
+			_gateEvent.OpenGateImmediately();
     }
 
     private void OnEnable()

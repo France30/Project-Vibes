@@ -29,7 +29,7 @@ public class GateEvent : MonoBehaviour
         _gateCollider.enabled = false;
     }
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
         _gateCollider = GetComponent<Collider2D>();

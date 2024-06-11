@@ -48,6 +48,12 @@ public static class SaveSystem
 		return File.Exists(playerPath);
 	}
 
+	public static bool IsGateEventSaveFound(string id)
+	{
+		string gateEventPath = Application.persistentDataPath + "/" + id + "GateEvent.data";
+		return File.Exists(gateEventPath);
+	}
+
 	public static void SavePlayerData()
 	{
 		string playerPath = Application.persistentDataPath + "/player.data";
@@ -77,6 +83,15 @@ public static class SaveSystem
 		string checkpointPath = Application.persistentDataPath + "/checkpoint.data";
 
 		FileStream stream = new FileStream(checkpointPath, FileMode.Create);
+		formatter.Serialize(stream, id);
+		stream.Close();
+	}
+
+	public static void SaveGateEventData(string id)
+	{
+		string gateEventPath = Application.persistentDataPath + "/" + id + "GateEvent.data";
+
+		FileStream stream = new FileStream(gateEventPath, FileMode.Create);
 		formatter.Serialize(stream, id);
 		stream.Close();
 	}
