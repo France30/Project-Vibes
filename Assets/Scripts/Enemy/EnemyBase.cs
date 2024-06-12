@@ -123,15 +123,15 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
 	protected virtual void Awake()
 	{
-		_enemyPermaDeath?.InitializeEnemyPermaDeath(this, _gateEvent);
-
-		_health = new Health(_maxHealth);
-		_instanceID = gameObject.GetInstanceID();
-
 		_spriteController = GetComponent<SpriteController>();
 		_spriteSize = _spriteController.SpriteSize;
 		_rb2D = GetComponent<Rigidbody2D>();
 		_animator = GetComponent<Animator>();
+
+		_enemyPermaDeath?.InitializeEnemyPermaDeath(this, _gateEvent);
+
+		_health = new Health(_maxHealth);
+		_instanceID = gameObject.GetInstanceID();
 
 		_animator.SetFloat("Health", _health.CurrentHealth);
 
