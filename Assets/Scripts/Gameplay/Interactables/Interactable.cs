@@ -44,8 +44,7 @@ public abstract class Interactable : MonoBehaviour
 
 		if (_gateEvent != null)
 		{
-			if (!_gateEvent.IsGateOpen)
-				_gateEvent.OpenGateImmediately();
+			_gateEvent.OpenGateImmediately();
 		}
 	}
 }

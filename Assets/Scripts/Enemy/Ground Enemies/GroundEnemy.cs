@@ -51,8 +51,9 @@ public abstract class GroundEnemy : EnemyBase
 	protected abstract bool JumpCondition();
 	protected abstract bool MoveCondition();
 
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
 		_controller = GetComponent<CharacterController2D>();
 	}
 

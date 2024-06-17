@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CastleLevel.unity
     guid: 063f5db596526fd41ac15c831ed77fff
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/BossLevel.unity
     guid: 776e2bbe643da5544a4923bc01425b1f
   - enabled: 0

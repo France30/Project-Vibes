@@ -122,12 +122,15 @@ public abstract class EnemyBase : StateMachine, IDamageable
 	}
 
 	protected virtual void Awake()
-	{
+    {
 		_spriteController = GetComponent<SpriteController>();
 		_spriteSize = _spriteController.SpriteSize;
 		_rb2D = GetComponent<Rigidbody2D>();
 		_animator = GetComponent<Animator>();
+	}
 
+	protected virtual void Start()
+	{
 		_enemyPermaDeath?.InitializeEnemyPermaDeath(this, _gateEvent);
 
 		_health = new Health(_maxHealth);

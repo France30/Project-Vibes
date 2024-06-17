@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f57c337d97409a4fbf94bbe2099314d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chordSetSO: {fileID: 11400000, guid: 441f72f7afe77d149bd2dc8d3bfe3a81, type: 2}
+  _chordSetSO: {fileID: 11400000, guid: 04418e911637ad8418c6b47e7f04b1e4, type: 2}
   _musicSheets:
-  - musicSheetSO: {fileID: 11400000, guid: 79993bf0d73c37045847b5c869fd422f, type: 2}
+  - musicSheetSO: {fileID: 11400000, guid: bd4d1898cf38d7442a106002b68afddb, type: 2}
     isAddedToChordSet: 0
     isFound: 0
-  - musicSheetSO: {fileID: 11400000, guid: 3d24b76f811f1ae4a8dbbf1959734761, type: 2}
+  - musicSheetSO: {fileID: 11400000, guid: c9c45872b55061046b494a4dd59f536f, type: 2}
     isAddedToChordSet: 0
     isFound: 0
 --- !u!1 &751234904423670195
@@ -503,7 +503,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1729669797
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0718cd5ee27a9464f9974bbdb6e0d184, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -608,7 +608,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50282911
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9eba983b7c0601948b2b9b3cf45b8d99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -714,7 +714,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1032731491
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ec650c09437abfd4f8285d48cf4da4ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -959,7 +959,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -554669337
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 20587cac778206a42bbc8a19ae9b1692, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1345,7 +1345,6 @@ GameObject:
   - component: {fileID: 6717973789561704269}
   - component: {fileID: 6717973789561704268}
   - component: {fileID: 1730351191514082145}
-  - component: {fileID: 6717973789561704304}
   - component: {fileID: 6717973789561704311}
   - component: {fileID: 6717973789561704271}
   - component: {fileID: 6717973789561704264}
@@ -1419,22 +1418,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.09802723, y: -0.07}
   m_Size: {x: 1.1115971, y: 2.3662572}
   m_Direction: 0
---- !u!58 &6717973789561704304
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6717973789561704259}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: d0056c69a7fd25f439cdb7b26ed3392a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.096045494, y: -0.63}
-  serializedVersion: 2
-  m_Radius: 0.5554266
 --- !u!212 &6717973789561704311
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1474,7 +1457,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -560029797
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 94162806, guid: e88e469f1f380794a8336530079dfcc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.38431373}

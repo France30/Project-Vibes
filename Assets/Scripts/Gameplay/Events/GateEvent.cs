@@ -11,7 +11,6 @@ public class GateEvent : MonoBehaviour
     private Animator _animator;
     private Collider2D _gateCollider;
 
-    public bool IsGateOpen { get; private set; }
     public void PlayOpenGateAnim()
     {
 
@@ -25,7 +24,6 @@ public class GateEvent : MonoBehaviour
 
     public void OpenGate()
     {
-        IsGateOpen = true;
         _gateCollider.enabled = false;
     }
 
@@ -34,7 +32,5 @@ public class GateEvent : MonoBehaviour
         _animator = GetComponent<Animator>();
         _gateCollider = GetComponent<Collider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-
-        IsGateOpen = false;
     }
 }

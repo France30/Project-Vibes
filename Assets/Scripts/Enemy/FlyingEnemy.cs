@@ -45,8 +45,10 @@ public class FlyingEnemy : EnemyBase
 		}
 	}
 
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
+
 		if (TryGetComponent<Idle>(out Idle idle))
 			idle.SetAction(Hover);
 

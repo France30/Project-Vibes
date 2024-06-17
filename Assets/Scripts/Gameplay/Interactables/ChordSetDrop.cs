@@ -20,9 +20,8 @@ public class ChordSetDrop : Interactable
 		gameObject.SetActive(false);
 	}
 
-	protected override void Awake()
+	private void Start()
 	{
-		base.Awake();
 		gameObject.SetActive(_chordSet.ChordSetSO.IsDrop);
 	}
 }

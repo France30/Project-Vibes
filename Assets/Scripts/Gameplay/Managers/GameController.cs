@@ -108,7 +108,7 @@ public class GameController : Singleton<GameController>
 	{
 		if (_isGameOver || _isPrologueEnd || _isGameControlsDisabled) return;
 
-		if (Input.GetKeyDown(KeyCode.P))
+		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
 		{
 			TogglePause();
 		}

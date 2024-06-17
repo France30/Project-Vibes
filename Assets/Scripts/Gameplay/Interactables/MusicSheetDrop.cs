@@ -21,9 +21,8 @@ public class MusicSheetDrop : Interactable
 		gameObject.SetActive(false);
 	}
 
-	protected override void Awake()
+	private void Start()
 	{
-		base.Awake();
 		gameObject.SetActive(_musicSheetSO.IsSheetInScene);
 	}
 }

@@ -21,7 +21,7 @@ TagManager:
   - BossEnemy
   - Projectile
   - MainMenuUI
-  - 
+  - Spikes
   - 
   - 
   - 
@@ -50,6 +50,9 @@ TagManager:
   - name: Object
     uniqueID: 2504487227
     locked: 0
+  - name: Ground
+    uniqueID: 126060867
+    locked: 0
   - name: PlayerLegs
     uniqueID: 4244684385
     locked: 0
@@ -67,9 +70,6 @@ TagManager:
     locked: 0
   - name: ForegroundProps
     uniqueID: 2234534995
-    locked: 0
-  - name: Ground
-    uniqueID: 126060867
     locked: 0
   - name: Enemy
     uniqueID: 433275869

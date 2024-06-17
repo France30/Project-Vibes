@@ -23,7 +23,6 @@ public class EnemyPermaDeathSO : ScriptableObject
 			enemy.OnEnemyDeath += EnablePermaDeath;
 		else
 			_gateEvent?.OpenGateImmediately();
-
 	}
 
 	private void EnablePermaDeath()

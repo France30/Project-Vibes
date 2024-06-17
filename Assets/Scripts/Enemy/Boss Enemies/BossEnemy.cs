@@ -106,8 +106,9 @@ public abstract class BossEnemy : EnemyBase
 		_chordSets = GetComponentsInChildren<ChordSet>();
 	}
 
-	protected virtual void Start()
-	{       
+	protected override void Start()
+	{
+		base.Start();
 		InitializeBossAttack();
 
 		Physics2D.IgnoreLayerCollision(gameObject.layer, GameController.Instance.Player.gameObject.layer, false);
