@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
+  m_Name: PlayerChordSet_Drill
+  m_EditorClassIdentifier: 
+  _isDrop: 0
+  _id: Basic Drill
+  _chordType: 4
+  time: 0.215
+  chordClips:
+  - clip: {fileID: 8300000, guid: 332562639289a6d41b06e7a67e55f50c, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 513b7c4e567fb624c8e626300e0ba4d7, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: a42b9dc7f5da15043b76935bf138aa4a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ca65e93e76afefa4e9590746db634b35, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 0989e90ef38367d4b942ca7c54dd313c, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 332562639289a6d41b06e7a67e55f50c, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 0989e90ef38367d4b942ca7c54dd313c, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: a42b9dc7f5da15043b76935bf138aa4a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ca65e93e76afefa4e9590746db634b35, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 0989e90ef38367d4b942ca7c54dd313c, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 332562639289a6d41b06e7a67e55f50c, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 513b7c4e567fb624c8e626300e0ba4d7, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: a42b9dc7f5da15043b76935bf138aa4a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ca65e93e76afefa4e9590746db634b35, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 08148211402e9bf4588bff3d2c1fafc5, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: dd82e4e21ac75ad4c8c999a5afd8d923, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 63de44e3540153e4f9363d2240934f6c, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
