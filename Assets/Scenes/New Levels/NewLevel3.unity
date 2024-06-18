@@ -5153,7 +5153,7 @@ PrefabInstance:
     - target: {fileID: 5547755058103044633, guid: 068842b47a4dbe142a3c053621ccb02d, type: 3}
       propertyPath: _musicSheetSO
       value: 
-      objectReference: {fileID: 11400000, guid: bd4d1898cf38d7442a106002b68afddb, type: 2}
+      objectReference: {fileID: 11400000, guid: d6c83e04601e9894fa4b3b747218bdc0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 068842b47a4dbe142a3c053621ccb02d, type: 3}
 --- !u!1001 &1494782304

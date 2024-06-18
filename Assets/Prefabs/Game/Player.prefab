@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f57c337d97409a4fbf94bbe2099314d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chordSetSO: {fileID: 11400000, guid: 04418e911637ad8418c6b47e7f04b1e4, type: 2}
+  _chordSetSO: {fileID: 11400000, guid: b6d5bb1beb730854399563d28ac05360, type: 2}
   _musicSheets:
-  - musicSheetSO: {fileID: 11400000, guid: bd4d1898cf38d7442a106002b68afddb, type: 2}
+  - musicSheetSO: {fileID: 11400000, guid: d6c83e04601e9894fa4b3b747218bdc0, type: 2}
     isAddedToChordSet: 0
     isFound: 0
-  - musicSheetSO: {fileID: 11400000, guid: c9c45872b55061046b494a4dd59f536f, type: 2}
+  - musicSheetSO: {fileID: 11400000, guid: 4c25c2af023824747800102c689d9833, type: 2}
     isAddedToChordSet: 0
     isFound: 0
 --- !u!1 &751234904423670195

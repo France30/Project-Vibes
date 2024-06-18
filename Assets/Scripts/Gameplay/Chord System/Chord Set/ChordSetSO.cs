@@ -6,7 +6,8 @@ public enum ChordType
 	ForestChords,
 	CaveChords,
 	CastleChords,
-	SpecialEvent
+	SpecialEvent,
+	DrillChords
 }
 
 [CreateAssetMenu(fileName = "New Chord Set SO", menuName = "ChordSystem/ChordSetSO")]

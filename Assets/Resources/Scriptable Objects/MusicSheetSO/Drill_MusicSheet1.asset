@@ -9,20 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45df2d4c870bd434e86e93bdf040533f, type: 3}
-  m_Name: PlayerChordSet_Drill
+  m_Script: {fileID: 11500000, guid: dc30b1df987c50043879650c5ca31c6c, type: 3}
+  m_Name: Drill_MusicSheet1
   m_EditorClassIdentifier: 
-  _isDrop: 0
-  _id: Basic Drill
+  _id: Drill_MusicSheet 1
   _chordType: 4
-  time: 0.185
-  chordClips:
+  _chordClips:
   - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
     volume: 1
     pitch: 1
     beats: 1
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 513b7c4e567fb624c8e626300e0ba4d7, type: 3}
+  - clip: {fileID: 8300000, guid: 0989e90ef38367d4b942ca7c54dd313c, type: 3}
     volume: 1
     pitch: 1
     beats: 1
@@ -43,6 +41,26 @@ MonoBehaviour:
     beats: 1
     source: {fileID: 0}
   - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
     volume: 1
     pitch: 1
     beats: 1
@@ -52,33 +70,23 @@ MonoBehaviour:
     pitch: 1
     beats: 1
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 332562639289a6d41b06e7a67e55f50c, type: 3}
+  - clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    beats: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
     volume: 1
     pitch: 1
-    beats: 5
+    beats: 2
     source: {fileID: 0}
   - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
+    volume: 0
+    pitch: 0
     beats: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
+    volume: 0
+    pitch: 0
     beats: 0
     source: {fileID: 0}
