@@ -4,37 +4,66 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-    [SerializeField] private GameObject TutorialPrompt;
-    [SerializeField] private GameObject TutorialUI;
+    [SerializeField] private GameObject _tutorialPrompt;
+    [SerializeField] private GameObject _tutorialUI;
+    [SerializeField] private TutorialData _tutorialData;
 
 
     public void EnableTutorialUI(bool isEnable)
     {
-        TutorialUI.SetActive(isEnable);
-        TutorialPrompt.SetActive(false);
-        GameController.Instance.DisableGameControls(false);
-    }
+        _tutorialData.EnableTutorial(isEnable);
 
-    private void Awake()
-    {
-        if (TutorialUI != null)
-            TutorialUI.SetActive(false);
+        _tutorialUI.SetActive(isEnable);
+        _tutorialPrompt.SetActive(false);
+        GameController.Instance.DisableGameControls(false);
+
+        if(isEnable)
+            GameController.Instance.OnDisableGameControls += DisableTutorialUI;
     }
 
     private void Start()
     {
-        GameController.Instance.DisableGameControls(true);
         GameController.Instance.OnDisableGameControls += DisableTutorialPrompt;
+
+        if (!SaveSystem.IsSaveFileFound())
+            _tutorialData.Reset();
+
+        if (_tutorialData.IsTutorialEnabled)
+        {
+            _tutorialPrompt.SetActive(false);
+            _tutorialUI.SetActive(true);
+
+            GameController.Instance.OnDisableGameControls += DisableTutorialUI;
+            GameController.Instance.OnDisableGameControls -= DisableTutorialPrompt;
+        }
+        else
+        {
+            if (_tutorialUI != null)
+                _tutorialUI.SetActive(false);
+
+            if(SaveSystem.IsSaveFileFound())
+            {
+                _tutorialPrompt.SetActive(false);
+                GameController.Instance.OnDisableGameControls -= DisableTutorialPrompt;
+            }
+            else
+                GameController.Instance.DisableGameControls(true);
+        }
     }
 
     private void DisableTutorialPrompt(bool isDisable)
     {
-        TutorialPrompt.SetActive(!isDisable);
+        _tutorialPrompt.SetActive(!isDisable);
 
         if(!isDisable)
         {
             GameController.Instance.OnDisableGameControls -= DisableTutorialPrompt;
             GameController.Instance.DisableGameControls(true);
         }
+    }
+
+    private void DisableTutorialUI(bool isDisable)
+    {
+        _tutorialUI.SetActive(!isDisable);
     }
 }

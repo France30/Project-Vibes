@@ -7,7 +7,8 @@ public enum ObjectWithPersistentData
 	enemy,
 	musicSheetDrop,
 	chordSetDrop,
-	levelHealthDrop
+	levelHealthDrop,
+	tutorial
 }
 
 public static class SavePersistentData
