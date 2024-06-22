@@ -15,7 +15,7 @@ MonoBehaviour:
   _id: Drill_MusicSheet 2
   _chordType: 4
   _chordClips:
-  - clip: {fileID: 8300000, guid: 294e4f01a189b32488551ba786cdf9ef, type: 3}
+  - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
     volume: 1
     pitch: 1
     beats: 1
@@ -40,13 +40,18 @@ MonoBehaviour:
     pitch: 1
     beats: 1
     source: {fileID: 0}
+  - clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    beats: 1
+    source: {fileID: 0}
   - clip: {fileID: 8300000, guid: dd82e4e21ac75ad4c8c999a5afd8d923, type: 3}
     volume: 1
     pitch: 1
-    beats: 0
+    beats: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 63de44e3540153e4f9363d2240934f6c, type: 3}
     volume: 1
     pitch: 1
-    beats: 1
+    beats: 4
     source: {fileID: 0}
