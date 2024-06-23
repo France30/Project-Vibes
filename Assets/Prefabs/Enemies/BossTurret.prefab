@@ -225,7 +225,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPermaDeath: {fileID: 0}
-  _maxHealth: 20
+  _gateEvent: {fileID: 0}
+  _maxHealth: 10
   _healthBar: {fileID: 7728564465199762774}
   _healthBarSprite:
   - {fileID: 21300000, guid: 7b2a194a4cc46264298c836d08a2873d, type: 3}

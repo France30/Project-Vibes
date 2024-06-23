@@ -117,6 +117,7 @@ public abstract class BossEnemy : EnemyBase
 	protected virtual void OnEnable()
 	{
 		GameController.Instance.Player.OnPlayerHurt += IgnorePlayerBossCollision;
+		GameController.Instance.OnDisableGameControls += DisableBossHUD;
 	}
 
 	protected virtual void OnDisable()
@@ -124,6 +125,7 @@ public abstract class BossEnemy : EnemyBase
 		if (GameController.Instance == null) return;
 
 		GameController.Instance.Player.OnPlayerHurt -= IgnorePlayerBossCollision;
+		GameController.Instance.OnDisableGameControls -= DisableBossHUD;
 	}
 
 	private void IgnorePlayerBossCollision(bool isDisable)
@@ -158,5 +160,10 @@ public abstract class BossEnemy : EnemyBase
 			_currentChord++;
 		else
 			_currentChord = 0;
+	}
+
+	private void DisableBossHUD(bool isEnable)
+	{
+		_healthBar.gameObject.SetActive(!isEnable);
 	}
 }
