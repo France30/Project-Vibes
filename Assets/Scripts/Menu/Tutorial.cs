@@ -41,7 +41,7 @@ public class Tutorial : MonoBehaviour
             if (_tutorialUI != null)
                 _tutorialUI.SetActive(false);
 
-            if(SaveSystem.IsSaveFileFound())
+            if(SaveSystem.IsSaveFileFound() || LevelManager.Instance.CurrentLevel > 1)
             {
                 _tutorialPrompt.SetActive(false);
                 GameController.Instance.OnDisableGameControls -= DisableTutorialPrompt;

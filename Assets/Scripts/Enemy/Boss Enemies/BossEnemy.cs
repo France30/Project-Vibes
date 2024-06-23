@@ -109,6 +109,8 @@ public abstract class BossEnemy : EnemyBase
 	protected override void Start()
 	{
 		base.Start();
+
+		this.enabled = true;
 		InitializeBossAttack();
 
 		Physics2D.IgnoreLayerCollision(gameObject.layer, GameController.Instance.Player.gameObject.layer, false);
@@ -116,16 +118,16 @@ public abstract class BossEnemy : EnemyBase
 
 	protected virtual void OnEnable()
 	{
-		GameController.Instance.Player.OnPlayerHurt += IgnorePlayerBossCollision;
 		GameController.Instance.OnDisableGameControls += DisableBossHUD;
+		GameController.Instance.Player.OnPlayerHurt += IgnorePlayerBossCollision;
 	}
 
 	protected virtual void OnDisable()
 	{
 		if (GameController.Instance == null) return;
 
-		GameController.Instance.Player.OnPlayerHurt -= IgnorePlayerBossCollision;
 		GameController.Instance.OnDisableGameControls -= DisableBossHUD;
+		GameController.Instance.Player.OnPlayerHurt -= IgnorePlayerBossCollision;
 	}
 
 	private void IgnorePlayerBossCollision(bool isDisable)
