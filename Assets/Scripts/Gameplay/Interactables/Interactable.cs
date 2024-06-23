@@ -29,7 +29,7 @@ public abstract class Interactable : MonoBehaviour
 			enemy[i].PermaDeath.SavePermaDeathState();
         }
 
-		_gateEvent?.OpenGateImmediately();
+		_gateEvent?.PlayOpenGateAnim();
 	}
 
 	protected virtual void Awake()

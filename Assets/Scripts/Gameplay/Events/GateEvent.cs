@@ -13,11 +13,12 @@ public class GateEvent : MonoBehaviour
 
     public void PlayOpenGateAnim()
     {
-
+        _animator.SetBool("Open", true);
     }
 
     public void OpenGateImmediately()
     {
+        _animator.enabled = false;
         _spriteRenderer.sprite = _gateOpenSprite;
         OpenGate();
     }

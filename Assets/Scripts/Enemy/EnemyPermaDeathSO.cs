@@ -28,7 +28,7 @@ public class EnemyPermaDeathSO : ScriptableObject
 	private void EnablePermaDeath()
 	{
 		_isAlive = false;
-		_gateEvent?.OpenGateImmediately();
+		_gateEvent?.PlayOpenGateAnim();
 	}
 
 	public void SavePermaDeathState()
