@@ -53,6 +53,9 @@ TagManager:
   - name: Ground
     uniqueID: 126060867
     locked: 0
+  - name: ForegroundTxt
+    uniqueID: 69015643
+    locked: 0
   - name: PlayerLegs
     uniqueID: 4244684385
     locked: 0
