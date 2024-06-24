@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEditor;
 
 public class GameController : Singleton<GameController>
 {
@@ -22,6 +23,11 @@ public class GameController : Singleton<GameController>
 	public event OnGameEvent OnPrologueEnd;
 	public event OnGameEvent OnFreezeEffect;
 	public event OnGameEvent OnDisableGameControls;
+
+#if UNITY_EDITOR
+	private bool _isGameHUDDisable = false;
+	public event OnGameEvent OnDisableGameHUD;
+#endif
 
 	public Player Player { 
 		get 
@@ -52,6 +58,15 @@ public class GameController : Singleton<GameController>
 		OnDisableGameControls?.Invoke(isDisable);
 		_isGameControlsDisabled = isDisable;
     }
+
+#if UNITY_EDITOR
+	public void ToggleGameHUD()
+    {
+		_isGameHUDDisable = !_isGameHUDDisable;
+		_gameUI.gameObject.SetActive(!_isGameHUDDisable);
+		OnDisableGameHUD?.Invoke(_isGameHUDDisable);
+    }
+#endif
 
 	public void ResetGameControllerConfigs()
     {
@@ -106,6 +121,13 @@ public class GameController : Singleton<GameController>
 
 	private void Update()
 	{
+#if UNITY_EDITOR
+		if (Input.GetKeyDown(KeyCode.F1))
+		{
+			ToggleGameHUD();
+		}
+#endif
+
 		if (_isGameOver || _isPrologueEnd || _isGameControlsDisabled) return;
 
 		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))

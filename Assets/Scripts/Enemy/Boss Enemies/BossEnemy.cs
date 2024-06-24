@@ -120,6 +120,10 @@ public abstract class BossEnemy : EnemyBase
 	{
 		GameController.Instance.OnDisableGameControls += DisableBossHUD;
 		GameController.Instance.Player.OnPlayerHurt += IgnorePlayerBossCollision;
+
+#if UNITY_EDITOR
+		GameController.Instance.OnDisableGameHUD += DisableBossHUD;
+#endif
 	}
 
 	protected virtual void OnDisable()
@@ -128,6 +132,10 @@ public abstract class BossEnemy : EnemyBase
 
 		GameController.Instance.OnDisableGameControls -= DisableBossHUD;
 		GameController.Instance.Player.OnPlayerHurt -= IgnorePlayerBossCollision;
+
+#if UNITY_EDITOR
+		GameController.Instance.OnDisableGameHUD -= DisableBossHUD;
+#endif
 	}
 
 	private void IgnorePlayerBossCollision(bool isDisable)

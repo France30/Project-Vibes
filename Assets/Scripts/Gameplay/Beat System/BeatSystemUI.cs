@@ -14,11 +14,33 @@ public class BeatSystemUI : MonoBehaviour
 		_image = GetComponent<Image>();
 	}
 
-	private void Update()
+    private void OnEnable()
+    {
+#if UNITY_EDITOR
+		GameController.Instance.OnDisableGameHUD += DisableUI;
+#endif
+	}
+
+    private void OnDisable()
+    {
+#if UNITY_EDITOR
+		if (GameController.Instance == null) return;
+
+		GameController.Instance.OnDisableGameHUD -= DisableUI;
+#endif
+	}
+
+    private void Update()
 	{
 		_image.color = new Color(_image.color.r, _image.color.g, _image.color.b, ImageAlpha);
 
 		if (ImageAlpha > 0)
 			ImageAlpha -= _fadeSpeed * Time.deltaTime;
 	}
+#if UNITY_EDITOR
+	private void DisableUI(bool isDisable)
+    {
+		_image.enabled = !isDisable;
+    }
+#endif
 }

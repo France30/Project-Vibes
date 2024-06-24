@@ -92,6 +92,10 @@ public class Player : MonoBehaviour
 		GameController.Instance.OnDisableGameControls += DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls += DisablePlayerHUD;
 
+#if UNITY_EDITOR
+		GameController.Instance.OnDisableGameHUD += DisablePlayerHUD;
+#endif
+
 		if (GameController.Instance.Boss != null)
 		{
 			GameController.Instance.Boss.EnemyDeathSequence.OnAnimationStart += StopAllCoroutines;
@@ -109,6 +113,10 @@ public class Player : MonoBehaviour
 		GameController.Instance.OnPrologueEnd -= DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls -= DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls -= DisablePlayerHUD;
+
+#if UNITY_EDITOR
+		GameController.Instance.OnDisableGameHUD -= DisablePlayerHUD;
+#endif
 
 		if (GameController.Instance.Boss != null)
 		{
