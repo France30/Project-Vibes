@@ -14,19 +14,10 @@ public class BeatSystemUI : MonoBehaviour
 		_image = GetComponent<Image>();
 	}
 
-    private void OnEnable()
+    private void Start()
     {
 #if UNITY_EDITOR
 		GameController.Instance.OnDisableGameHUD += DisableUI;
-#endif
-	}
-
-    private void OnDisable()
-    {
-#if UNITY_EDITOR
-		if (GameController.Instance == null) return;
-
-		GameController.Instance.OnDisableGameHUD -= DisableUI;
 #endif
 	}
 
