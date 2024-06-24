@@ -11,13 +11,18 @@ public class GateEvent : MonoBehaviour
     private Animator _animator;
     private Collider2D _gateCollider;
 
+    private bool _isGateOpen = false;
+
     public void PlayOpenGateAnim()
     {
+        _isGateOpen = true;
         _animator.SetBool("Open", true);
     }
 
     public void OpenGateImmediately()
     {
+        if (_isGateOpen) return;
+
         _animator.enabled = false;
         _spriteRenderer.sprite = _gateOpenSprite;
         OpenGate();
