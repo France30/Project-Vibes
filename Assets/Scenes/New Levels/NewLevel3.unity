@@ -1134,11 +1134,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7538598843741560681, guid: 21729f5937d6fd04ba95a6cd45d19ec4, type: 3}
       propertyPath: _beats.Array.data[0].beatBGM
-      value: BeatBGM
+      value: DripGreen
       objectReference: {fileID: 0}
     - target: {fileID: 7538598843741560681, guid: 21729f5937d6fd04ba95a6cd45d19ec4, type: 3}
       propertyPath: _beats.Array.data[0].tickBGM
-      value: TickBGM
+      value: DripRed
       objectReference: {fileID: 0}
     - target: {fileID: 7538598843741560682, guid: 21729f5937d6fd04ba95a6cd45d19ec4, type: 3}
       propertyPath: m_Name

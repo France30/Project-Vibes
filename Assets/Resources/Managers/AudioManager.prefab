@@ -76,6 +76,54 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: ForestRed
+    clip: {fileID: 8300000, guid: bf9d1a3b4c866384bbee20d1898b1588, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ForestGreen
+    clip: {fileID: 8300000, guid: 1ceafd671f5accf4db5532e3d5a83d1c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DripRed
+    clip: {fileID: 8300000, guid: b854e18f6d643a7418922bed26f2cb38, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DripGreen
+    clip: {fileID: 8300000, guid: 97033be36dc9d904f88fac05ccea862f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ChainRed
+    clip: {fileID: 8300000, guid: 906349675362521419467d3029b1b3bd, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ChainGreen
+    clip: {fileID: 8300000, guid: 6beb99c82aaf8434bbc7b2a257bed6b4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BoneRed
+    clip: {fileID: 8300000, guid: 82885c26676d9ee4793638f506880e25, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BoneGreen
+    clip: {fileID: 8300000, guid: 5198f6e0157d1a14281a4cf42c07cf3b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: AttackReadySFX
     clip: {fileID: 8300000, guid: 4c190cb4c839d5e42b45f367bd697abd, type: 3}
     volume: 1

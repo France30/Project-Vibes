@@ -6472,7 +6472,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 774142143
-  m_SortingLayer: 12
+  m_SortingLayer: 13
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -10260,6 +10260,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7538598843741560681, guid: 21729f5937d6fd04ba95a6cd45d19ec4, type: 3}
+      propertyPath: _beats.Array.data[0].beatBGM
+      value: BoneGreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538598843741560681, guid: 21729f5937d6fd04ba95a6cd45d19ec4, type: 3}
+      propertyPath: _beats.Array.data[0].tickBGM
+      value: BoneRed
+      objectReference: {fileID: 0}
     - target: {fileID: 7538598843741560682, guid: 21729f5937d6fd04ba95a6cd45d19ec4, type: 3}
       propertyPath: m_Name
       value: BeatSystemController
@@ -10422,7 +10430,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 774142143
-  m_SortingLayer: 12
+  m_SortingLayer: 13
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
