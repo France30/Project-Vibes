@@ -155,12 +155,12 @@ public class LevelManager : Singleton<LevelManager>
 
 	private IEnumerator LoadLevel(int sceneIndex, bool withMainMenu = false)
 	{
+		if (sceneIndex > 0)
+			_currentLevel = sceneIndex;
+
 		OnLevelLoad?.Invoke();
 		AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 		yield return StartCoroutine(LoadingScreen(operation));
-
-		if (sceneIndex > 0)
-			_currentLevel = sceneIndex;
 
 		GameController.Instance.DisableGameControls(withMainMenu);
 		Time.timeScale = 1;
@@ -172,12 +172,12 @@ public class LevelManager : Singleton<LevelManager>
 
 	//used for dynamic real-time main menu
 	private IEnumerator LoadLevelAdditively(int sceneIndex)
-	{ 
+	{
+		if (sceneIndex > 0)
+			_currentLevel = sceneIndex;
+
 		AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
 		yield return StartCoroutine(LoadingScreen(operation));
-
-		if(sceneIndex > 0)
-			_currentLevel = sceneIndex;
 
 		GameController.Instance.DisableGameControls(true);
 		Time.timeScale = 1;
