@@ -13,4 +13,4 @@ https://github.com/France30/Project-Vibes/assets/53886711/7600eb82-42a2-4e3e-b2e
 
 
 ## Download Link
-<b>Build v1.0:</b> https://drive.google.com/file/d/1LQLHb2gm55CqRJHgKEUNp2eCSXhaFWlf/view?usp=drive_link
+<b>Build v1.0:</b> https://drive.google.com/file/d/1AUuwwWK2Bis8W_QyOIX_fqla8rjSH6ke/view?usp=drive_link
