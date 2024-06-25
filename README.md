@@ -4,20 +4,13 @@ Bards in their sophomore year from the Virtuoso Conservatory for Symphonic Comba
 <b>Credits:</b><br/>
 Programmer: me<br/>
 Artist: https://www.artstation.com/zenevergreen
-## Project Update
-
-
-https://github.com/France30/Project-Vibes/assets/53886711/ed2e7c55-3c0f-4f2e-815f-286ccadc3906
+## Game Trailer
 
 
 
-## Controls
-```
-P - Pause
-A - Move Left
-D - Move Right
-Spacebar - Jump
-Left Mouse Button - Attack
-```
+https://github.com/France30/Project-Vibes/assets/53886711/7600eb82-42a2-4e3e-b2e3-ea1e9caea04e
+
+
+
 ## Download Link
-<b>Current Build:</b> https://drive.google.com/file/d/1LQLHb2gm55CqRJHgKEUNp2eCSXhaFWlf/view?usp=drive_link
+<b>Build v1.0:</b> https://drive.google.com/file/d/1LQLHb2gm55CqRJHgKEUNp2eCSXhaFWlf/view?usp=drive_link
