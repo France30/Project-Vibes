@@ -283,6 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2611909901284611467}
   - component: {fileID: 7741525424529712310}
+  - component: {fileID: 5526465664356213722}
   m_Layer: 3
   m_Name: Feather
   m_TagString: Untagged
@@ -357,6 +358,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5526465664356213722
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404400429775726492}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 6bdd861f5ea3a9d4eb2341f336848eff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3053038009713181183
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +935,7 @@ MonoBehaviour:
   - {fileID: 1037024551555194268}
   - {fileID: 101141194260360061}
   - {fileID: 4111485741444302868}
+  - {fileID: 5526465664356213722}
 --- !u!1 &5290040066175482744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,6 +1648,7 @@ MonoBehaviour:
   - {fileID: 7641731476932702964}
   - {fileID: 1457664711351201153}
   - {fileID: 7176534015097052506}
+  - {fileID: 7741525424529712310}
 --- !u!1 &7802459515638557754
 GameObject:
   m_ObjectHideFlags: 0

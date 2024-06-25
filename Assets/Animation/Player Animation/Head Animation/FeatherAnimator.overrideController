@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FeatherAnimator
+  m_Controller: {fileID: 9100000, guid: 2f107cd154165e44c96bc5cc5f54a090, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 2f85fc9027434854ca9b18a9469d31e3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7f8a53b0ee9a67c4ea0e2eaada432e14, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 79774cd3b3d217243b0fcb3eaa2fb6ce, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7f8a53b0ee9a67c4ea0e2eaada432e14, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9c577d72507db44418632c5881be8fa5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7f8a53b0ee9a67c4ea0e2eaada432e14, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e44351d66e8e13744b45cdf7490415c7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7f8a53b0ee9a67c4ea0e2eaada432e14, type: 2}
