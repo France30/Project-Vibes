@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSoundWaveSize: 10
-  _animationSpeed: 24
+  _animationSpeed: 30
   _damage: 1
 --- !u!58 &6717973788211082671
 CircleCollider2D:
