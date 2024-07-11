@@ -111,6 +111,9 @@ GameObject:
   - component: {fileID: 6892212548290453999}
   - component: {fileID: 6892212548290453996}
   - component: {fileID: 907587385903390582}
+  - component: {fileID: 1264048745854658475}
+  - component: {fileID: 8334196126107091621}
+  - component: {fileID: 1509296747290574209}
   m_Layer: 13
   m_Name: BossTurret
   m_TagString: Untagged
@@ -211,7 +214,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -2.11, y: 0.31}
   serializedVersion: 2
-  m_Radius: 1.06
+  m_Radius: 1.17
 --- !u!114 &6892212548290453997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +262,9 @@ MonoBehaviour:
   - {fileID: 5648215290809325079}
   - {fileID: 5493120656841301800}
   - {fileID: 8873417602377048685}
+  - {fileID: 1264048745854658475}
+  - {fileID: 8334196126107091621}
+  - {fileID: 1509296747290574209}
 --- !u!114 &6892212548290453993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +396,54 @@ MonoBehaviour:
   _deathAnimID: Particle_Death
   _chanceForHealthDrop: 0
   _healthDropID: EnemyHealthDrop
+--- !u!70 &1264048745854658475
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892212548290453984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.41, y: -1.34}
+  m_Size: {x: 2.77, y: 0.61}
+  m_Direction: 1
+--- !u!70 &8334196126107091621
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892212548290453984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.24, y: -1.55}
+  m_Size: {x: 2.57, y: 0.59}
+  m_Direction: 1
+--- !u!70 &1509296747290574209
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892212548290453984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.44, y: -1.54}
+  m_Size: {x: 0.61, y: 0.8}
+  m_Direction: 0
 --- !u!1 &6892212548415755890
 GameObject:
   m_ObjectHideFlags: 0
