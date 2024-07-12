@@ -131,7 +131,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 433275869
-  m_SortingLayer: 11
+  m_SortingLayer: 12
   m_SortingOrder: 0
   m_Sprite: {fileID: 866797369, guid: c71caa3c959444d4d8bd3a159030c9d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPermaDeath: {fileID: 0}
+  _gateEvent: {fileID: 0}
   _maxHealth: 1
   _healthBar: {fileID: 0}
   _healthBarSprite: []
@@ -275,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _deathAnimID: Particle_Death
   _chanceForHealthDrop: 30
-  _healthDropID: EnemyHealthDrop
+  _healthDropID: GuiroHealthDrop
 --- !u!114 &5214643994377371386
 MonoBehaviour:
   m_ObjectHideFlags: 0

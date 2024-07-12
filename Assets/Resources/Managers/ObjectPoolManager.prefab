@@ -51,8 +51,18 @@ MonoBehaviour:
     parent: {fileID: 3655312207889894987}
     amountToPool: 10
     shouldExpand: 1
-  - id: EnemyHealthDrop
-    objectToPool: {fileID: 8560526712262273216, guid: 1513c9c8b6edd25429d67ad7483daaf6, type: 3}
+  - id: BuzzooHealthDrop
+    objectToPool: {fileID: 8560526712262273216, guid: 4fde808ec1cc1c64096fbec4632189e1, type: 3}
+    parent: {fileID: 3655312207889894987}
+    amountToPool: 10
+    shouldExpand: 1
+  - id: GuiroHealthDrop
+    objectToPool: {fileID: 8560526712262273216, guid: 68ee7ff6b94503e428b81b88b07d7b5a, type: 3}
+    parent: {fileID: 3655312207889894987}
+    amountToPool: 10
+    shouldExpand: 1
+  - id: SturtleHealthDrop
+    objectToPool: {fileID: 8560526712262273216, guid: d260713abd99adb4d837eca29985e947, type: 3}
     parent: {fileID: 3655312207889894987}
     amountToPool: 10
     shouldExpand: 1
