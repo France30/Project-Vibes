@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 	private Health _health;
 
 	private bool _isHurt = false;
+	private float _remainingHealthBarDuration = 0f;
 
 	public delegate void PlayerEvent(bool isPlayerEvent);
 	public event PlayerEvent OnPlayerDeath;
@@ -50,7 +51,7 @@ public class Player : MonoBehaviour
 		_health.CurrentHealth -= value;
 		_animator.SetHealthParam(_health.CurrentHealth);
 		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
-		StartCoroutine(ShowHealthBar());
+		ShowHealthBar();
 
 		if (_health.CurrentHealth <= 0)
 		{
@@ -70,8 +71,7 @@ public class Player : MonoBehaviour
 
 		_health.CurrentHealth += value;
 		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
-
-		StartCoroutine(ShowHealthBar());
+		ShowHealthBar();
 	}
 
 	private void Start()
@@ -129,6 +129,17 @@ public class Player : MonoBehaviour
 		}
 	}
 
+    private void Update()
+    {
+		if (_health.CurrentHealth <= 0) return;
+
+		if (_remainingHealthBarDuration > 0)
+			_remainingHealthBarDuration -= Time.deltaTime;
+
+		if (_remainingHealthBarDuration <= 0 && _healthBar.color.a > 0)
+			FadeHealthBarUI();
+    }
+
     private void ApplyKnockBack(int knockBackDirection = 0)
 	{
 		_rigidbody2D.velocity = Vector2.zero;
@@ -163,23 +174,16 @@ public class Player : MonoBehaviour
 		_cooldownIndicator.gameObject.SetActive(!isEnable);
     }
 
-	private IEnumerator ShowHealthBar()
+	private void ShowHealthBar()
     {
 		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, 1);
+		_remainingHealthBarDuration = _healthBarVisibleDuration;
+	}
 
-		if (_health.CurrentHealth <= 0) yield break;
-
-		yield return new WaitForSeconds(_healthBarVisibleDuration);
-
-		yield return new WaitUntil(() => FadeHealthBarUI());
-    }
-
-	private bool FadeHealthBarUI()
+	private void FadeHealthBarUI()
 	{
 		float alpha = _healthBar.color.a - _healthBarFadeSpeed * Time.deltaTime;
 		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, alpha);
-
-		return alpha <= 0;
 	}
 
 }
