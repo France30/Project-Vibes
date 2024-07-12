@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private int _maxHealth;
 	[SerializeField] private Sprite[] _healthBarSprite;
 	[SerializeField] private float _healthBarFadeSpeed = 1f;
+	[SerializeField] private float _healthBarVisibleDuration = 5f;
 
 	[Header("Player Hit")]
 	[SerializeField] private float _hurtTime = 1f;
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
 		_health.CurrentHealth -= value;
 		_animator.SetHealthParam(_health.CurrentHealth);
 		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
-		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, 1);
+		StartCoroutine(ShowHealthBar());
 
 		if (_health.CurrentHealth <= 0)
 		{
@@ -69,6 +70,8 @@ public class Player : MonoBehaviour
 
 		_health.CurrentHealth += value;
 		_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
+
+		StartCoroutine(ShowHealthBar());
 	}
 
 	private void Start()
@@ -126,20 +129,6 @@ public class Player : MonoBehaviour
 		}
 	}
 
-    private void Update()
-    {
-        if(!_isHurt && !_spriteController.IsFlashing && _healthBar.color.a > 0)
-        {
-			FadeHealthBarUI();
-        }
-    }
-
-	private void FadeHealthBarUI()
-    {
-		float alpha = _healthBar.color.a - _healthBarFadeSpeed * Time.deltaTime;
-		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, alpha);
-	}
-
     private void ApplyKnockBack(int knockBackDirection = 0)
 	{
 		_rigidbody2D.velocity = Vector2.zero;
@@ -173,4 +162,24 @@ public class Player : MonoBehaviour
 		_healthBar.gameObject.SetActive(!isEnable);
 		_cooldownIndicator.gameObject.SetActive(!isEnable);
     }
+
+	private IEnumerator ShowHealthBar()
+    {
+		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, 1);
+
+		if (_health.CurrentHealth <= 0) yield break;
+
+		yield return new WaitForSeconds(_healthBarVisibleDuration);
+
+		yield return new WaitUntil(() => FadeHealthBarUI());
+    }
+
+	private bool FadeHealthBarUI()
+	{
+		float alpha = _healthBar.color.a - _healthBarFadeSpeed * Time.deltaTime;
+		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, alpha);
+
+		return alpha <= 0;
+	}
+
 }

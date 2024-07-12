@@ -1629,6 +1629,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4275995b37f0cca4eb9e280e9e242123, type: 3}
   - {fileID: 21300000, guid: 4af7561c76f3f49429fb2718c3d556eb, type: 3}
   _healthBarFadeSpeed: 0.75
+  _healthBarVisibleDuration: 8
   _hurtTime: 0.45
   _knockBackForce: {x: 5, y: 5}
   _playerActions:
