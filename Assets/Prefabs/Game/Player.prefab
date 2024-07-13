@@ -1948,6 +1948,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4af7561c76f3f49429fb2718c3d556eb, type: 3}
   _healthBarFadeSpeed: 0.75
   _healthBarVisibleDuration: 8
+  _visibleIdleTime: 3
   _hurtTime: 0.45
   _knockBackForce: {x: 5, y: 5}
   _playerActions:

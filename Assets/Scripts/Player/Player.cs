@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private Sprite[] _healthBarSprite;
 	[SerializeField] private float _healthBarFadeSpeed = 1f;
 	[SerializeField] private float _healthBarVisibleDuration = 5f;
+	[SerializeField] private float _visibleIdleTime = 5f;
 
 	[Header("Player Hit")]
 	[SerializeField] private float _hurtTime = 1f;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
 
 	private bool _isHurt = false;
 	private float _remainingHealthBarDuration = 0f;
+	private float _currentIdleTime = 0f;
 
 	public delegate void PlayerEvent(bool isPlayerEvent);
 	public event PlayerEvent OnPlayerDeath;
@@ -133,12 +135,31 @@ public class Player : MonoBehaviour
     {
 		if (_health.CurrentHealth <= 0) return;
 
+		if (_rigidbody2D.velocity == Vector2.zero && !BeatSystemController.Instance.IsBeatUIEnabled)
+			ShowHealthBarIdleTime();
+		else
+			_currentIdleTime = 0;
+
+		if(_currentIdleTime < _visibleIdleTime)
+			ShowHealthBarLimitedTime();
+    }
+
+	private void ShowHealthBarIdleTime()
+	{
+		_currentIdleTime += Time.deltaTime;
+
+		if (_currentIdleTime > _visibleIdleTime && _healthBar.color.a < 1)
+			FadeInHealthBarUI();
+	}
+
+	private void ShowHealthBarLimitedTime()
+    {
 		if (_remainingHealthBarDuration > 0)
 			_remainingHealthBarDuration -= Time.deltaTime;
 
 		if (_remainingHealthBarDuration <= 0 && _healthBar.color.a > 0)
-			FadeHealthBarUI();
-    }
+			FadeOutHealthBarUI();
+	}
 
     private void ApplyKnockBack(int knockBackDirection = 0)
 	{
@@ -180,10 +201,15 @@ public class Player : MonoBehaviour
 		_remainingHealthBarDuration = _healthBarVisibleDuration;
 	}
 
-	private void FadeHealthBarUI()
+	private void FadeOutHealthBarUI()
 	{
 		float alpha = _healthBar.color.a - _healthBarFadeSpeed * Time.deltaTime;
 		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, alpha);
 	}
 
+	private void FadeInHealthBarUI()
+	{
+		float alpha = _healthBar.color.a + _healthBarFadeSpeed * Time.deltaTime;
+		_healthBar.color = new Color(_healthBar.color.r, _healthBar.color.g, _healthBar.color.b, alpha);
+	}
 }
