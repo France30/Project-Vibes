@@ -112,10 +112,7 @@ public class PlayerAttack : MonoBehaviour
 			yield break;
 		}
 
-		if(_currentChord != 0)
-			StartCoroutine(NextSheetCombo(nextChordClip));
-		else
-			ResetCurrentChordSet();
+		StartCoroutine(NextSheetCombo(nextChordClip));
 	}
 
 	private IEnumerator NextSheetCombo(ChordClip nextSheetClip)
