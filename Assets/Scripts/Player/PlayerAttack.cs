@@ -8,12 +8,13 @@ public class PlayerAttack : MonoBehaviour
 	[SerializeField] private PlayerChords _playerChords;
 	[SerializeField] private float _penaltyCooldown = 3.0f;
 	[SerializeField] private PlayerAnimatorController _animator;
+	[SerializeField] private float _nextSongComboTime = 3f;
 
 	[Header("Cooldown Indicator UI")]
 	[SerializeField] private Image _coolDownIndicator;
 	[SerializeField] private Sprite _baseSprite;
 	[SerializeField] private Sprite _coolDownSprite;
-	[SerializeField] private Image _playingIndicator;
+	//[SerializeField] private Image _playingIndicator;
 
 	private AttackObjectController _attackObjectController;
 
@@ -21,14 +22,15 @@ public class PlayerAttack : MonoBehaviour
 	private bool _didPlayerMissBeat = false;
 	private int _currentChord = 0;
 
-	private WaitForSeconds _waitForPenaltyCooldown;
+	private float _remainingComboTime;
 
 	public PlayerChords PlayerChords { get { return _playerChords; } }
 
 	private void Awake()
 	{
 		_attackObjectController = _attackObject.GetComponent<AttackObjectController>();
-		_playingIndicator.enabled = false;
+		//_playingIndicator.enabled = false;
+		BeatSystemController.Instance.EnableBeatUI(false);
 
 		if (_attackObject.activeSelf)
 			_attackObject.SetActive(false);
@@ -36,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
 
 	private void OnDisable()
 	{
-		_currentChord = 0;
+		ResetCurrentChordSet();
 	}
 
 	// Update is called once per frame
@@ -46,34 +48,25 @@ public class PlayerAttack : MonoBehaviour
 		{
 			if (_didPlayerMissBeat) return;
 
-			if(!BeatSystemController.Instance.IsBeatPlaying)
+			if (!_isAttackCoroutineRunning && !BeatSystemController.Instance.IsBeatUIEnabled)
 			{
-				StartCoroutine(AttackNotOnBeat());
-				return;
-			}
-
-			if (!_isAttackCoroutineRunning)
-			{
-				_playingIndicator.enabled = true;
+				//_playingIndicator.enabled = true;
+				BeatSystemController.Instance.EnableBeatUI(true);
 				StartCoroutine(PlayAttack());
 			}
 		}
-
-		if (Input.GetButtonUp("Fire1"))
-			_currentChord = 0;
 	}
 
 	private IEnumerator AttackNotOnBeat()
 	{
 		_didPlayerMissBeat = true;
+		ResetCurrentChordSet();
 		AudioManager.Instance.Play("PlayerMissedBeat");
-		BeatSystemController.Instance.EnableBeatUI(false);
 		UpdateCooldownIndicatorUI(BeatCooldown.MissedBeat);
 
 		yield return new WaitForSeconds(_penaltyCooldown);
 
 		UpdateCooldownIndicatorUI(BeatCooldown.Base);
-		BeatSystemController.Instance.EnableBeatUI(true);
 		AudioManager.Instance.Play("AttackReadySFX");
 		_didPlayerMissBeat = false;
 	}
@@ -105,20 +98,49 @@ public class PlayerAttack : MonoBehaviour
 
 		CheckIfSongDone();
 
+		ChordClip nextChordClip = _playerChords.CurrentChordSet.chordClips[_currentChord];
+
 		yield return new WaitForSeconds(_playerChords.CurrentChordSet.time);
 
 		SetAttackComponents(false);
 
 		_isAttackCoroutineRunning = false;
 
-		if (Input.GetButton("Fire1") && _currentChord != 0) //continue chord progression
+		if (!nextChordClip.isStartOfNextSheet) //continue chord progression
 		{
 			StartCoroutine(PlayAttack());
 			yield break;
 		}
 
-		_playingIndicator.enabled = false;
+		if(_currentChord != 0)
+			StartCoroutine(NextSheetCombo(nextChordClip));
+		else
+			ResetCurrentChordSet();
 	}
+
+	private IEnumerator NextSheetCombo(ChordClip nextSheetClip)
+    {
+		_remainingComboTime = _nextSongComboTime;
+		while (_remainingComboTime > 0)
+        {
+			_remainingComboTime -= Time.deltaTime;
+
+			if (Input.GetButtonDown("Fire1") && nextSheetClip.isStartOfNextSheet && BeatSystemController.Instance.IsBeatPlaying)
+			{
+				StartCoroutine(PlayAttack());
+				yield break;
+			}
+			else if (Input.GetButtonDown("Fire1") && !BeatSystemController.Instance.IsBeatPlaying)
+			{
+				StartCoroutine(AttackNotOnBeat());
+				yield break;
+			}
+
+			yield return null;
+        }
+
+		ResetCurrentChordSet();
+    }
 
 	private void SetAttackComponents(bool value)
 	{
@@ -142,5 +164,12 @@ public class PlayerAttack : MonoBehaviour
 			_currentChord++;
 		else
 			_currentChord = 0;
+	}
+
+	private void ResetCurrentChordSet()
+	{
+		_currentChord = 0;
+		if(BeatSystemController.Instance != null)
+			BeatSystemController.Instance.EnableBeatUI(false);
 	}
 }

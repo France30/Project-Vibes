@@ -5,6 +5,7 @@ public class ChordClipData
 	public float volume = 0;
 	public float pitch = 0;
 	public int beats = 0;
+	public bool isStartOfNextSheet = false;
 
 	public ChordClipData(ChordClip chordClip)
 	{
@@ -20,5 +21,6 @@ public class ChordClipData
 		volume = chordClip.volume;
 		pitch = chordClip.pitch;
 		beats = chordClip.beats;
+		isStartOfNextSheet = chordClip.isStartOfNextSheet;
 	}
 }

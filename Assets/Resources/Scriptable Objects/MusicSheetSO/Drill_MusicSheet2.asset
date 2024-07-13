@@ -19,39 +19,47 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 513b7c4e567fb624c8e626300e0ba4d7, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: a42b9dc7f5da15043b76935bf138aa4a, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: ca65e93e76afefa4e9590746db634b35, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 08148211402e9bf4588bff3d2c1fafc5, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: dd82e4e21ac75ad4c8c999a5afd8d923, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 63de44e3540153e4f9363d2240934f6c, type: 3}
     volume: 1
     pitch: 1
     beats: 4
+    isStartOfNextSheet: 0
     source: {fileID: 0}

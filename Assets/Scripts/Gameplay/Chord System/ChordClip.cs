@@ -12,6 +12,7 @@ public class ChordClip
 	public float pitch;
 
 	public int beats = 1;
+	public bool isStartOfNextSheet = false;
 
 	[HideInInspector]
 	public AudioSource source;

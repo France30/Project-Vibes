@@ -19,79 +19,95 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 0989e90ef38367d4b942ca7c54dd313c, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: a42b9dc7f5da15043b76935bf138aa4a, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: ca65e93e76afefa4e9590746db634b35, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 0989e90ef38367d4b942ca7c54dd313c, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
     pitch: 0
     beats: 0
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
     pitch: 0
     beats: 0
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: bc6416643ee0d8b4c9ca7cfb17e3259a, type: 3}
     volume: 1
     pitch: 1
     beats: 1
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
     pitch: 0
     beats: 0
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: cb01b0e15ed8fb64797d4c52b6f1066e, type: 3}
     volume: 1
     pitch: 1
     beats: 2
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
     pitch: 0
     beats: 0
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
     pitch: 0
     beats: 0
+    isStartOfNextSheet: 0
     source: {fileID: 0}
   - clip: {fileID: 0}
     volume: 0
     pitch: 0
     beats: 0
+    isStartOfNextSheet: 0
     source: {fileID: 0}

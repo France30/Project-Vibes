@@ -15,6 +15,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
 	public bool IsBeatPlaying { get { return _isBeatPlaying; } }
 	public int TickCount { get; private set; }
+	public bool IsBeatUIEnabled { get; private set; }
 
 
 	public void CalculateBPMWithMovement(Vector2 velocity)
@@ -37,6 +38,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
     {
 		_tickUI.gameObject.SetActive(enable);
 		_beatUI.gameObject.SetActive(enable);
+
+		IsBeatUIEnabled = enable;
     }
 
 	private void OnEnable()
@@ -52,12 +55,13 @@ public class BeatSystemController : Singleton<BeatSystemController>
 		_currentBeat = 0;
 		_currentCount = 0;
 		_isBeatPlaying = false;
-		_bpm = 0f;
+		//_bpm = 0f;
 	}
 
 	private IEnumerator BeatSystem()
 	{
-		yield return new WaitForSeconds(_bpm);
+		float offset = (IsBeatPlaying) ? _beats[_currentBeat].openingOffset : 0;
+		yield return new WaitForSeconds(_beats[_currentBeat].beatSpeed + offset);
 
 		_currentCount++;
 		if (_currentCount < _beats[_currentBeat].beatCount)

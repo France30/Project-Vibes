@@ -142,6 +142,7 @@ public class PlayerChords : MonoBehaviour
 			chordClip.volume = chordClipData[i].volume;
 			chordClip.pitch = chordClipData[i].pitch;
 			chordClip.beats = chordClipData[i].beats;
+			chordClip.isStartOfNextSheet = chordClipData[i].isStartOfNextSheet;
 
 			chordClips[i] = chordClip;
 		}
