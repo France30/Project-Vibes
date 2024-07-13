@@ -11,9 +11,9 @@ public class PlayerAttack : MonoBehaviour
 
 	[Header("Cooldown Indicator UI")]
 	[SerializeField] private Image _coolDownIndicator;
+	[SerializeField] private Sprite _baseSprite;
 	[SerializeField] private Sprite _coolDownSprite;
-	[SerializeField] private Sprite _tickSprite;
-	[SerializeField] private Sprite _beatSprite;
+	[SerializeField] private Image _playingIndicator;
 
 	private AttackObjectController _attackObjectController;
 
@@ -28,6 +28,7 @@ public class PlayerAttack : MonoBehaviour
 	private void Awake()
 	{
 		_attackObjectController = _attackObject.GetComponent<AttackObjectController>();
+		_playingIndicator.enabled = false;
 
 		if (_attackObject.activeSelf)
 			_attackObject.SetActive(false);
@@ -41,14 +42,6 @@ public class PlayerAttack : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		if(!_didPlayerMissBeat && !_isAttackCoroutineRunning)
-        {
-			if (BeatSystemController.Instance.IsBeatPlaying)
-				UpdateCooldownIndicatorUI(BeatCooldown.Beat);
-			else
-				UpdateCooldownIndicatorUI(BeatCooldown.Tick);
-		}
-
 		if (Input.GetButtonDown("Fire1"))
 		{
 			if (_didPlayerMissBeat) return;
@@ -61,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
 
 			if (!_isAttackCoroutineRunning)
 			{
-				UpdateCooldownIndicatorUI(BeatCooldown.Beat);
+				_playingIndicator.enabled = true;
 				StartCoroutine(PlayAttack());
 			}
 		}
@@ -74,10 +67,13 @@ public class PlayerAttack : MonoBehaviour
 	{
 		_didPlayerMissBeat = true;
 		AudioManager.Instance.Play("PlayerMissedBeat");
+		BeatSystemController.Instance.EnableBeatUI(false);
 		UpdateCooldownIndicatorUI(BeatCooldown.MissedBeat);
 
 		yield return new WaitForSeconds(_penaltyCooldown);
 
+		UpdateCooldownIndicatorUI(BeatCooldown.Base);
+		BeatSystemController.Instance.EnableBeatUI(true);
 		AudioManager.Instance.Play("AttackReadySFX");
 		_didPlayerMissBeat = false;
 	}
@@ -86,11 +82,8 @@ public class PlayerAttack : MonoBehaviour
 	{
 		switch (beatCooldown)
 		{
-			case BeatCooldown.Tick:
-				_coolDownIndicator.sprite = _tickSprite;
-				break;
-			case BeatCooldown.Beat:
-				_coolDownIndicator.sprite = _beatSprite;
+			case BeatCooldown.Base:
+				_coolDownIndicator.sprite = _baseSprite;
 				break;
 			case BeatCooldown.MissedBeat:
 				_coolDownIndicator.sprite = _coolDownSprite;
@@ -119,7 +112,12 @@ public class PlayerAttack : MonoBehaviour
 		_isAttackCoroutineRunning = false;
 
 		if (Input.GetButton("Fire1") && _currentChord != 0) //continue chord progression
+		{
 			StartCoroutine(PlayAttack());
+			yield break;
+		}
+
+		_playingIndicator.enabled = false;
 	}
 
 	private void SetAttackComponents(bool value)

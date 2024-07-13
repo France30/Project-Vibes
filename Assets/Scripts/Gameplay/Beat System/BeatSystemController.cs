@@ -33,6 +33,12 @@ public class BeatSystemController : Singleton<BeatSystemController>
 		}
 	}
 
+	public void EnableBeatUI(bool enable)
+    {
+		_tickUI.gameObject.SetActive(enable);
+		_beatUI.gameObject.SetActive(enable);
+    }
+
 	private void OnEnable()
 	{
 		//_waitForBeatSpeed = new WaitForSeconds(_beats[_currentBeat].beatSpeed);
@@ -82,7 +88,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
 
 		_currentBeat = (_currentBeat < _beats.Length - 1) ? _currentBeat + 1 : 0;
 
-		_beatUI.ImageAlpha = 0.5f;
+		_beatUI.ImageAlpha = 1f;
 		_tickUI.ImageAlpha = 0f;
 
 		AudioManager.Instance.Play(_beats[_currentBeat].beatBGM);
