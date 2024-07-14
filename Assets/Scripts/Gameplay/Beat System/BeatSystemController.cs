@@ -80,7 +80,8 @@ public class BeatSystemController : Singleton<BeatSystemController>
 		_tickUI.ImageAlpha = 0.5f;
 		_beatUI.ImageAlpha = 0f;
 
-		AudioManager.Instance.Play(_beats[_currentBeat].tickBGM);
+		if(IsBeatUIEnabled)
+			AudioManager.Instance.Play(_beats[_currentBeat].tickBGM);
 	}
 
 	private void PlayBeat()
@@ -95,6 +96,7 @@ public class BeatSystemController : Singleton<BeatSystemController>
 		_beatUI.ImageAlpha = 1f;
 		_tickUI.ImageAlpha = 0f;
 
-		AudioManager.Instance.Play(_beats[_currentBeat].beatBGM);
+		if (IsBeatUIEnabled)
+			AudioManager.Instance.Play(_beats[_currentBeat].beatBGM);
 	}
 }
