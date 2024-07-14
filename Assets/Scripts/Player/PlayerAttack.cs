@@ -98,7 +98,6 @@ public class PlayerAttack : MonoBehaviour
 	{
 		if ((_player.CurrentHealth <= 0) || Time.timeScale > 0)
 		{
-			StopAllCoroutines();
 			ResetCurrentChordSet();
 		}
 	}
@@ -175,6 +174,8 @@ public class PlayerAttack : MonoBehaviour
 
 	private IEnumerator PlayAttack()
 	{
+		if (!_isAttackCoroutineRunning) yield break;
+
 		ChordClip currentChordClip = _playerChords.CurrentChordSetSO.chordClips[_currentChord];
 		currentChordClip.source.Play();
 
@@ -205,6 +206,8 @@ public class PlayerAttack : MonoBehaviour
 		_remainingComboTime = _nextSongComboTime;
 		while (_remainingComboTime > 0)
         {
+			if (!_isAttackCoroutineRunning) yield break;
+
 			_remainingComboTime -= Time.deltaTime;
 
 			if (Time.timeScale > 0 && Input.GetButtonDown("Fire1") && nextSheetClip.isStartOfNextSheet && BeatSystemController.Instance.IsBeatPlaying)

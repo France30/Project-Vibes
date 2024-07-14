@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		_controller.enabled = false;
 
+		if (Time.timeScale <= 0) return;
+
 		//reset air animations
 		_isGrounded = true;
 		_animator.SetJumpParam(false);
