@@ -93,21 +93,3 @@ MonoBehaviour:
     beats: 2
     isStartOfNextSheet: 0
     source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 0
-    pitch: 0
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}

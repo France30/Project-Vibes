@@ -65,33 +65,3 @@ MonoBehaviour:
     beats: 4
     isStartOfNextSheet: 0
     source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}
-  - clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    beats: 0
-    isStartOfNextSheet: 0
-    source: {fileID: 0}
