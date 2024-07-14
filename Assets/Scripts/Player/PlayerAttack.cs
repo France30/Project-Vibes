@@ -207,9 +207,7 @@ public class PlayerAttack : MonoBehaviour
         {
 			_remainingComboTime -= Time.deltaTime;
 
-			if (Time.timeScale <= 0) yield return null;
-
-			if (Input.GetButtonDown("Fire1") && nextSheetClip.isStartOfNextSheet && BeatSystemController.Instance.IsBeatPlaying)
+			if (Time.timeScale > 0 && Input.GetButtonDown("Fire1") && nextSheetClip.isStartOfNextSheet && BeatSystemController.Instance.IsBeatPlaying)
 			{
 				_musicPlayer.transform.GetChild(_currentCombo).GetComponent<Image>().sprite = _inactiveMusicSheet;
 				_currentCombo = (_currentChord > 0) ? _currentCombo + 1 : 0;
@@ -218,7 +216,7 @@ public class PlayerAttack : MonoBehaviour
 				StartCoroutine(PlayAttack());
 				yield break;
 			}
-			else if (Input.GetButtonDown("Fire1") && !BeatSystemController.Instance.IsBeatPlaying)
+			else if (Time.timeScale > 0 && Input.GetButtonDown("Fire1") && !BeatSystemController.Instance.IsBeatPlaying)
 			{
 				StartCoroutine(AttackNotOnBeat());
 				yield break;

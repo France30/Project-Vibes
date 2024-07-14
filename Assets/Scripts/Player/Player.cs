@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 	private Health _health;
 
 	private bool _isHurt = false;
+	private bool _isPlayerHUDDisabled = false;
 	private float _remainingHealthBarDuration = 0f;
 	private float _currentIdleTime = 0f;
 
@@ -135,7 +136,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-		if (_health.CurrentHealth <= 0) return;
+		if (_health.CurrentHealth <= 0 || _isPlayerHUDDisabled) return;
 
 		if (_rigidbody2D.velocity == Vector2.zero && !BeatSystemController.Instance.IsBeatUIEnabled)
 			ShowHealthBarIdleTime();
@@ -194,7 +195,9 @@ public class Player : MonoBehaviour
     {
 		_healthBar.gameObject.SetActive(!isEnable);
 		_cooldownIndicator.gameObject.SetActive(!isEnable);
-    }
+
+		_isPlayerHUDDisabled = isEnable;
+	}
 
 	private void ShowHealthBar()
     {
