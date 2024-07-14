@@ -455,6 +455,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5403854456251267181, guid: c8b87a18ef642c54ab4dc413d849ea8e, type: 3}
+      propertyPath: _beats.Array.data[0].beatBGM
+      value: BoneGreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403854456251267181, guid: c8b87a18ef642c54ab4dc413d849ea8e, type: 3}
+      propertyPath: _beats.Array.data[0].tickBGM
+      value: BoneRed
+      objectReference: {fileID: 0}
     - target: {fileID: 6717973789561704259, guid: c8b87a18ef642c54ab4dc413d849ea8e, type: 3}
       propertyPath: m_Name
       value: Player
