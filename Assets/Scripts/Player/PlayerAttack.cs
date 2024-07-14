@@ -93,8 +93,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDisable()
 	{
-		StopAllCoroutines();
-		ResetCurrentChordSet();
+		if ((GameController.Instance != null && GameController.Instance.Player.CurrentHealth <= 0) || Time.timeScale > 0)
+		{
+			StopAllCoroutines();
+			ResetCurrentChordSet();
+		}
 	}
 
 	// Update is called once per frame
@@ -256,7 +259,9 @@ public class PlayerAttack : MonoBehaviour
 		RefreshMusicPlayerUI();
 		UpdateMusicPlayerUI(_playerChords.CurrentChordSet);
 
-		if(BeatSystemController.Instance != null)
+		SetAttackComponents(false);
+
+		if (BeatSystemController.Instance != null)
 			BeatSystemController.Instance.EnableBeatUI(false);
 	}
 }

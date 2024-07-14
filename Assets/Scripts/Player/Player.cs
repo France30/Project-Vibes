@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
 	{
 		OnPlayerDeath += DisablePlayerActions;
 		GameController.Instance.OnFreezeEffect += _animator.SetHurtParam;
-		GameController.Instance.OnPauseEvent += DisablePlayerActions;
+		//GameController.Instance.OnPauseEvent += DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd += DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls += DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls += DisablePlayerHUD;
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
 		if (GameController.Instance == null) return;
 
 		GameController.Instance.OnFreezeEffect -= _animator.SetHurtParam;
-		GameController.Instance.OnPauseEvent -= DisablePlayerActions;
+		//GameController.Instance.OnPauseEvent -= DisablePlayerActions;
 		GameController.Instance.OnPrologueEnd -= DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls -= DisablePlayerActions;
 		GameController.Instance.OnDisableGameControls -= DisablePlayerHUD;
