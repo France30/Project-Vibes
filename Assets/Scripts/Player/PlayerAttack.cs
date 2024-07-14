@@ -74,6 +74,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDisable()
 	{
+		StopAllCoroutines();
 		ResetCurrentChordSet();
 	}
 
