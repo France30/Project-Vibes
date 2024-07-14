@@ -156,8 +156,7 @@ public class Player : MonoBehaviour
 
 	private void ShowHealthBarLimitedTime()
     {
-		if (_remainingHealthBarDuration > 0)
-			_remainingHealthBarDuration -= Time.deltaTime;
+		_remainingHealthBarDuration -= Time.deltaTime;
 
 		if (_remainingHealthBarDuration <= 0 && _healthBar.color.a > 0)
 			FadeOutHealthBarUI();

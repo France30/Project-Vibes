@@ -20,6 +20,8 @@ public class PlayerAttack : MonoBehaviour
 	[SerializeField] private Image _musicPlayer;
 	[SerializeField] private Sprite _inactiveMusicSheet;
 	[SerializeField] private Sprite _playingMusicSheet;
+	[SerializeField] private float _musicPlayerFadeSpeed = 1f;
+	[SerializeField] private float _musicPlayerVisibleDuration = 5f;
 
 	private AttackObjectController _attackObjectController;
 
@@ -27,9 +29,12 @@ public class PlayerAttack : MonoBehaviour
 	private bool _didPlayerMissBeat = false;
 	private int _currentChord = 0;
 
+	private float _remainingMusicPlayerDuration;
 	private float _remainingComboTime;
 	private int _currentCombo = 0;
 
+	public delegate void OnHUDFadeEvent(float alpha);
+	public event OnHUDFadeEvent OnHUDFade;
 	public PlayerChords PlayerChords { get { return _playerChords; } }
 
 
@@ -72,6 +77,20 @@ public class PlayerAttack : MonoBehaviour
 			_attackObject.SetActive(false);
 	}
 
+	private void Start()
+	{
+		OnHUDFade += (float alpha) => { _musicPlayer.color = new Color(_musicPlayer.color.r, _musicPlayer.color.g, _musicPlayer.color.b, alpha); };
+
+		int musicPlayerSheets = _musicPlayer.transform.childCount;
+		for(int i = 0; i < musicPlayerSheets; i++)
+        {
+			var sheet = _musicPlayer.transform.GetChild(i).GetComponent<Image>();
+			OnHUDFade += (float alpha) => {sheet.color = new Color(sheet.color.r, sheet.color.g, sheet.color.b, alpha); };
+		}
+
+		OnHUDFade?.Invoke(0);
+	}
+
     private void OnDisable()
 	{
 		StopAllCoroutines();
@@ -89,11 +108,36 @@ public class PlayerAttack : MonoBehaviour
 			{
 				//_playingIndicator.enabled = true;
 				_isAttackCoroutineRunning = true;
+				_remainingMusicPlayerDuration = _musicPlayerVisibleDuration;
+
 				BeatSystemController.Instance.EnableBeatUI(true);
 				_musicPlayer.transform.GetChild(0).GetComponent<Image>().sprite = _playingMusicSheet;
+
 				StartCoroutine(PlayAttack());
 			}
 		}
+
+		if (_isAttackCoroutineRunning && _musicPlayer.color.a < 1)
+			FadeInMusicPlayerUI();
+
+		if(!_isAttackCoroutineRunning && _musicPlayer.color.a > 0)
+        {
+			_remainingMusicPlayerDuration -= Time.deltaTime;
+			if (_remainingMusicPlayerDuration <= 0 || (_musicPlayer.color.a < 1 && _musicPlayer.color.a > 0))
+				FadeOutMusicPlayerUI();
+        }
+	}
+
+	private void FadeOutMusicPlayerUI()
+	{
+		float alpha = _musicPlayer.color.a - _musicPlayerFadeSpeed * Time.deltaTime;
+		OnHUDFade?.Invoke(alpha);
+	}
+
+	private void FadeInMusicPlayerUI()
+	{
+		float alpha = _musicPlayer.color.a + _musicPlayerFadeSpeed * Time.deltaTime;
+		OnHUDFade?.Invoke(alpha);
 	}
 
 	private IEnumerator AttackNotOnBeat()
