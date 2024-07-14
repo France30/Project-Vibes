@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 		ShowHealthBar();
 	}
 
-	private void Start()
+	private void Awake()
 	{
 		//DisablePlayerActions(true);
 
@@ -195,6 +195,7 @@ public class Player : MonoBehaviour
     {
 		_healthBar.gameObject.SetActive(!isEnable);
 		_cooldownIndicator.gameObject.SetActive(!isEnable);
+		_musicPlayer.gameObject.SetActive(!isEnable);
 
 		_isPlayerHUDDisabled = isEnable;
 	}

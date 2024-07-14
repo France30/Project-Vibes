@@ -80,8 +80,6 @@ public class PlayerAttack : MonoBehaviour
 
 	private void Start()
 	{
-		_player = GameController.Instance.Player;
-
 		OnHUDFade += (float alpha) => { _musicPlayer.color = new Color(_musicPlayer.color.r, _musicPlayer.color.g, _musicPlayer.color.b, alpha); };
 
 		int musicPlayerSheets = _musicPlayer.transform.childCount;
@@ -94,7 +92,12 @@ public class PlayerAttack : MonoBehaviour
 		OnHUDFade?.Invoke(0);
 	}
 
-    private void OnDisable()
+    private void OnEnable()
+    {
+		_player = GameController.Instance.Player;
+	}
+
+	private void OnDisable()
 	{
 		if ((_player.CurrentHealth <= 0) || Time.timeScale > 0)
 		{
