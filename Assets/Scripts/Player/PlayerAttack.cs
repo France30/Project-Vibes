@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
 	[SerializeField] private float _musicPlayerVisibleDuration = 5f;
 
 	private AttackObjectController _attackObjectController;
+	private Player _player;
 
 	private bool _isAttackCoroutineRunning = false;
 	private bool _didPlayerMissBeat = false;
@@ -79,6 +80,8 @@ public class PlayerAttack : MonoBehaviour
 
 	private void Start()
 	{
+		_player = GameController.Instance.Player;
+
 		OnHUDFade += (float alpha) => { _musicPlayer.color = new Color(_musicPlayer.color.r, _musicPlayer.color.g, _musicPlayer.color.b, alpha); };
 
 		int musicPlayerSheets = _musicPlayer.transform.childCount;
@@ -93,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDisable()
 	{
-		if ((GameController.Instance != null && GameController.Instance.Player.CurrentHealth <= 0) || Time.timeScale > 0)
+		if ((_player.CurrentHealth <= 0) || Time.timeScale > 0)
 		{
 			StopAllCoroutines();
 			ResetCurrentChordSet();
@@ -203,6 +206,8 @@ public class PlayerAttack : MonoBehaviour
 		while (_remainingComboTime > 0)
         {
 			_remainingComboTime -= Time.deltaTime;
+
+			if (Time.timeScale <= 0) yield return null;
 
 			if (Input.GetButtonDown("Fire1") && nextSheetClip.isStartOfNextSheet && BeatSystemController.Instance.IsBeatPlaying)
 			{
