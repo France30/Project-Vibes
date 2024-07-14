@@ -15,7 +15,7 @@ public class MusicSheetDrop : Interactable
 		playerChords.AddToChordSet(_musicSheetSO);
 		playerAttack.enabled = true;
 
-		GameUIManager.Instance.PlaySongTitleUIPulseAnimation();
+		//GameUIManager.Instance.PlaySongTitleUIPulseAnimation();
 		_musicSheetSO.SheetGet();
 
 		gameObject.SetActive(false);

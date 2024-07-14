@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 	[Header("Player HUD")]
 	[SerializeField] private Image _healthBar;
 	[SerializeField] private Image _cooldownIndicator;
+	[SerializeField] private Image _musicPlayer;
 
 	[Header("Player Health")]
 	[SerializeField] private int _maxHealth;
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
 			StopAllCoroutines();
 			OnPlayerDeath?.Invoke(true);
 			_cooldownIndicator.gameObject.SetActive(false);
+			_musicPlayer.gameObject.SetActive(false);
 			return;
 		}
 

@@ -63,7 +63,7 @@ public class GameUIManager : Singleton<GameUIManager>
 		_songTitleUIAnimator.SetTrigger("Pulse");
 	}
 
-    public void RefreshChordExtenderUI()
+    /**public void RefreshChordExtenderUI()
     {
 		var addedSheetsUI = AddedSheetUI.transform.childCount;
         for (int i = 0; i < addedSheetsUI; i++)
@@ -91,7 +91,7 @@ public class GameUIManager : Singleton<GameUIManager>
 			else
 				MissingSheetUI.transform.GetChild(i).gameObject.SetActive(true);
 		}
-    }
+    }*/
 
     private void OnEnable()
 	{

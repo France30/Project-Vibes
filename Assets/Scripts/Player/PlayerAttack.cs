@@ -16,6 +16,11 @@ public class PlayerAttack : MonoBehaviour
 	[SerializeField] private Sprite _coolDownSprite;
 	//[SerializeField] private Image _playingIndicator;
 
+	[Header("Music Player UI")]
+	[SerializeField] private Image _musicPlayer;
+	[SerializeField] private Sprite _inactiveMusicSheet;
+	[SerializeField] private Sprite _playingMusicSheet;
+
 	private AttackObjectController _attackObjectController;
 
 	private bool _isAttackCoroutineRunning = false;
@@ -23,8 +28,39 @@ public class PlayerAttack : MonoBehaviour
 	private int _currentChord = 0;
 
 	private float _remainingComboTime;
+	private int _currentCombo = 0;
 
 	public PlayerChords PlayerChords { get { return _playerChords; } }
+
+
+	public void RefreshMusicPlayerUI()
+	{
+		var musicPlayerSheets = _musicPlayer.transform.childCount;
+		for (int i = 0; i < musicPlayerSheets; i++)
+		{
+			var musicSheet = _musicPlayer.transform.GetChild(i);
+			musicSheet.gameObject.SetActive(false);
+			musicSheet.GetComponent<Image>().sprite = _inactiveMusicSheet;
+		}
+	}
+
+	public void UpdateMusicPlayerUI(ChordSet chordSet)
+	{
+		//set initial sheet as active
+		_musicPlayer.transform.GetChild(0).gameObject.SetActive(true);
+
+		var musicSheets = chordSet.MusicSheets;
+		for (int i = 0; i < musicSheets.Length; i++)
+		{
+			if (musicSheets[i].isFound)
+			{
+				var musicSheet = _musicPlayer.transform.GetChild(i + 1);
+				musicSheet.gameObject.SetActive(true);
+			}
+			else
+				_musicPlayer.transform.GetChild(i + 1).gameObject.SetActive(false);
+		}
+	}
 
 	private void Awake()
 	{
@@ -36,7 +72,7 @@ public class PlayerAttack : MonoBehaviour
 			_attackObject.SetActive(false);
 	}
 
-	private void OnDisable()
+    private void OnDisable()
 	{
 		ResetCurrentChordSet();
 	}
@@ -52,6 +88,7 @@ public class PlayerAttack : MonoBehaviour
 			{
 				//_playingIndicator.enabled = true;
 				BeatSystemController.Instance.EnableBeatUI(true);
+				_musicPlayer.transform.GetChild(0).GetComponent<Image>().sprite = _playingMusicSheet;
 				StartCoroutine(PlayAttack());
 			}
 		}
@@ -88,7 +125,7 @@ public class PlayerAttack : MonoBehaviour
 	{
 		_isAttackCoroutineRunning = true;
 
-		ChordClip currentChordClip = _playerChords.CurrentChordSet.chordClips[_currentChord];
+		ChordClip currentChordClip = _playerChords.CurrentChordSetSO.chordClips[_currentChord];
 		currentChordClip.source.Play();
 
 		bool isChordPlaying = currentChordClip.clip != null;
@@ -98,9 +135,9 @@ public class PlayerAttack : MonoBehaviour
 
 		CheckIfSongDone();
 
-		ChordClip nextChordClip = _playerChords.CurrentChordSet.chordClips[_currentChord];
+		ChordClip nextChordClip = _playerChords.CurrentChordSetSO.chordClips[_currentChord];
 
-		yield return new WaitForSeconds(_playerChords.CurrentChordSet.time);
+		yield return new WaitForSeconds(_playerChords.CurrentChordSetSO.time);
 
 		SetAttackComponents(false);
 
@@ -124,6 +161,10 @@ public class PlayerAttack : MonoBehaviour
 
 			if (Input.GetButtonDown("Fire1") && nextSheetClip.isStartOfNextSheet && BeatSystemController.Instance.IsBeatPlaying)
 			{
+				_musicPlayer.transform.GetChild(_currentCombo).GetComponent<Image>().sprite = _inactiveMusicSheet;
+				_currentCombo = (_currentChord > 0) ? _currentCombo + 1 : 0;
+				_musicPlayer.transform.GetChild(_currentCombo).GetComponent<Image>().sprite = _playingMusicSheet;
+
 				StartCoroutine(PlayAttack());
 				yield break;
 			}
@@ -147,7 +188,7 @@ public class PlayerAttack : MonoBehaviour
 
 	private void InitializeProximityAttack()
 	{
-		ChordSetSO currentChordSet = _playerChords.CurrentChordSet;
+		ChordSetSO currentChordSet = _playerChords.CurrentChordSetSO;
 
 		_attackObjectController.MaxScale = _attackObjectController.AnimationSpeed * currentChordSet.time;
 		_attackObjectController.AnimationSpeedMultiplier = currentChordSet.chordClips[_currentChord].beats;
@@ -156,7 +197,7 @@ public class PlayerAttack : MonoBehaviour
 
 	private void CheckIfSongDone()
 	{
-		bool isSongDone = _currentChord >= (_playerChords.CurrentChordSet.chordClips.Length - 1);
+		bool isSongDone = _currentChord >= (_playerChords.CurrentChordSetSO.chordClips.Length - 1);
 		if (!isSongDone)
 			_currentChord++;
 		else
@@ -166,6 +207,11 @@ public class PlayerAttack : MonoBehaviour
 	private void ResetCurrentChordSet()
 	{
 		_currentChord = 0;
+		_currentCombo = 0;
+
+		RefreshMusicPlayerUI();
+		UpdateMusicPlayerUI(_playerChords.CurrentChordSet);
+
 		if(BeatSystemController.Instance != null)
 			BeatSystemController.Instance.EnableBeatUI(false);
 	}

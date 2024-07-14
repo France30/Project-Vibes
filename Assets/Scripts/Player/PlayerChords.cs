@@ -12,7 +12,8 @@ public class PlayerChords : MonoBehaviour
 	private int _prevChordSet = 0;
 
 	public ChordSet[] PlayerChordSets { get { return _chordSets; } }
-	public ChordSetSO CurrentChordSet { get { return _chordSets[_currentChordSet].ChordSetSO; } }
+	public ChordSetSO CurrentChordSetSO { get { return _chordSets[_currentChordSet].ChordSetSO; } }
+	public ChordSet CurrentChordSet { get { return _chordSets[_currentChordSet]; } }
 
 
 	public void AddChordSet(ChordSet chordSet)
@@ -48,7 +49,7 @@ public class PlayerChords : MonoBehaviour
 			}
 		}
 
-		GameUIManager.Instance.UpdateChordExtenderUI(_chordSets[_currentChordSet]);
+		_playerAttack.UpdateMusicPlayerUI(_chordSets[_currentChordSet]);
 		SaveSystem.SavePlayerChords(this);
 	}
 
@@ -65,9 +66,8 @@ public class PlayerChords : MonoBehaviour
 
 	private void Start()
 	{
-		GameUIManager.Instance.SetSongTitleUI(CurrentChordSet.ID);
-		GameUIManager.Instance.RefreshChordExtenderUI();
-		GameUIManager.Instance.UpdateChordExtenderUI(_chordSets[_currentChordSet]);
+		_playerAttack.RefreshMusicPlayerUI();
+		_playerAttack.UpdateMusicPlayerUI(_chordSets[_currentChordSet]);
 	}
 
 	private void InitializeChordSetsOnLoad()
@@ -152,7 +152,7 @@ public class PlayerChords : MonoBehaviour
 
 	private void Update()
 	{
-		
+		/**
 		if (Input.GetKeyDown(KeyCode.E))
 			MoveToNextChordSet();
 
@@ -165,7 +165,7 @@ public class PlayerChords : MonoBehaviour
 			GameUIManager.Instance.RefreshChordExtenderUI();
 			GameUIManager.Instance.UpdateChordExtenderUI(_chordSets[_currentChordSet]);
 			ResetPlayerAttack();
-		}
+		}**/
 	}
 
 	private void MoveToNextChordSet()
