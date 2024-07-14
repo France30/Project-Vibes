@@ -87,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
 			if (!_isAttackCoroutineRunning && !BeatSystemController.Instance.IsBeatUIEnabled)
 			{
 				//_playingIndicator.enabled = true;
+				_isAttackCoroutineRunning = true;
 				BeatSystemController.Instance.EnableBeatUI(true);
 				_musicPlayer.transform.GetChild(0).GetComponent<Image>().sprite = _playingMusicSheet;
 				StartCoroutine(PlayAttack());
@@ -123,8 +124,6 @@ public class PlayerAttack : MonoBehaviour
 
 	private IEnumerator PlayAttack()
 	{
-		_isAttackCoroutineRunning = true;
-
 		ChordClip currentChordClip = _playerChords.CurrentChordSetSO.chordClips[_currentChord];
 		currentChordClip.source.Play();
 
@@ -140,8 +139,6 @@ public class PlayerAttack : MonoBehaviour
 		yield return new WaitForSeconds(_playerChords.CurrentChordSetSO.time);
 
 		SetAttackComponents(false);
-
-		_isAttackCoroutineRunning = false;
 
 		if (!nextChordClip.isStartOfNextSheet) //continue chord progression
 		{
@@ -206,6 +203,8 @@ public class PlayerAttack : MonoBehaviour
 
 	private void ResetCurrentChordSet()
 	{
+		_isAttackCoroutineRunning = false;
+
 		_currentChord = 0;
 		_currentCombo = 0;
 
