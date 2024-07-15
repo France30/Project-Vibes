@@ -190,7 +190,7 @@ MonoBehaviour:
   _healthBar: {fileID: 0}
   _healthBarSprite: []
   _damage: 1
-  _moveSpeed: 25
+  _moveSpeed: 30
   _movementSmoothing: 0.2
   _hoverSpeed: 15
   _hoverDistance: 10
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deathAnimID: Particle_Death
-  _chanceForHealthDrop: 10
+  _chanceForHealthDrop: 5
   _healthDropID: BuzzooHealthDrop
 --- !u!114 &7899991372396123515
 MonoBehaviour:

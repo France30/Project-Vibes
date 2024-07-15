@@ -244,6 +244,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 12a70e49cbf115047aac882af141d7ac, type: 3}
   _damage: 1
   _moveSpeed: 2
+  _healthMultiplier: 3
   _ability: {fileID: 11400000, guid: 9707d40e9e33d904ea258f86f5c56926, type: 2}
   _cooldown: 1
   _startingRotation: -90

@@ -25,7 +25,7 @@ public class SpriteController : MonoBehaviour
 			if (_spriteRenderer == null)
 				_spriteSize = Vector2.zero;
 			else if (_spriteSize == null || _spriteSize == Vector2.zero)
-				_spriteSize = _spriteRenderer.sprite.bounds.size;
+				_spriteSize = new Vector2(_spriteRenderer.sprite.bounds.size.x / 1.7f, _spriteRenderer.sprite.bounds.size.y / 1.7f);
 
 			return _spriteSize;
 		} 
@@ -88,7 +88,7 @@ public class SpriteController : MonoBehaviour
 			return;
 		}
 
-		_spriteSize = _spriteRenderer.sprite.bounds.size;
+		_spriteSize = new Vector2(_spriteRenderer.sprite.bounds.size.x / 1.7f, _spriteRenderer.sprite.bounds.size.y / 1.7f);
 	}
 
 	private void SetIsFlashing(bool isFlashing)

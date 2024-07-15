@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class BossEnemy : EnemyBase
 {
+	[Header("Boss Settings")]
+	[SerializeField] private int _healthMultiplier = 2;
+
 	[Header("Boss Attack Settings")]
 	[SerializeField] private ScriptableObject _ability;
 	[SerializeField] private float _cooldown = 1f;
@@ -32,6 +35,7 @@ public abstract class BossEnemy : EnemyBase
 		} 
 	}
 
+	public int HealthMultiplier { get { return _healthMultiplier; } }
 	protected IBossAbility BossAbility { get { return _ability as IBossAbility; } }
 
 
@@ -110,7 +114,7 @@ public abstract class BossEnemy : EnemyBase
 	{
 		base.Start();
 
-		_health = new Health(_maxHealth * 2);
+		_health = new Health(_maxHealth * _healthMultiplier);
 		this.enabled = true;
 		InitializeBossAttack();
 

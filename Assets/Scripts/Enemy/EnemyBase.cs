@@ -54,9 +54,10 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
 		if(_healthBar != null)
         {
-			if (_health.MaxHealth > _maxHealth && _health.CurrentHealth % 2 == 0) 
+			BossEnemy boss = GetComponent<BossEnemy>();
+			if (boss != null && _health.MaxHealth > _maxHealth && _health.CurrentHealth % boss.HealthMultiplier == 0) 
 			{
-				float healthBar = _health.CurrentHealth/2;
+				float healthBar = _health.CurrentHealth/boss.HealthMultiplier;
 				_healthBar.sprite = _healthBarSprite[(int)healthBar];
 			}
 		}

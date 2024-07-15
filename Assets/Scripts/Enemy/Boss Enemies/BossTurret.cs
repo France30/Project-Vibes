@@ -19,7 +19,7 @@ public class BossTurret : BossEnemy
 	[SerializeField] private Collider2D[] _IdleHitbox;
 	[SerializeField] private Collider2D[] _AttackHitbox;
 
-	[Header("Phase 2 Mob Spawn")]
+	[Header("Mob Spawn")]
 	[SerializeField] private string _enemySpawnID;
 	[SerializeField] private int _randomRangeToSpawn;
 

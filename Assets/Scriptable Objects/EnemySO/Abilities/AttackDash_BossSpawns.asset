@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90bf888a4aa1b7041b9c6c699177fbf5, type: 3}
   m_Name: AttackDash_BossSpawns
   m_EditorClassIdentifier: 
-  speedMultiplier: 150
+  speedMultiplier: 200
