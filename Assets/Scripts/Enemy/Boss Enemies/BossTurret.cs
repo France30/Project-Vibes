@@ -19,6 +19,10 @@ public class BossTurret : BossEnemy
 	[SerializeField] private Collider2D[] _IdleHitbox;
 	[SerializeField] private Collider2D[] _AttackHitbox;
 
+	[Header("Phase 2 Mob Spawn")]
+	[SerializeField] private string _enemySpawnID;
+	[SerializeField] private int _randomRangeToSpawn;
+
 	private float _currentRotation = 0f;
 	private int _currentTeleportPoint = 0;
 
@@ -140,6 +144,9 @@ public class BossTurret : BossEnemy
 		yield return null; //for test only
 
 		InitializeTurretBase();
+
+		if (_health.CurrentHealth <= _health.MaxHealth / 2)
+			SpawnMob();
 		//to play initialization animation
 		_isTeleporting = false;
 	}
@@ -152,4 +159,26 @@ public class BossTurret : BossEnemy
 		Utilities.EnableComponents<Collider2D>(_IdleHitbox, true);
 		Utilities.EnableComponents<Collider2D>(_AttackHitbox, false);
 	}
+
+	private void SpawnMob()
+    {
+		int amount = Random.Range(1, _randomRangeToSpawn + 1);
+		for(int i = 0; i < amount; i++)
+        {
+			GameObject mob = ObjectPoolManager.Instance.GetPooledObject(_enemySpawnID);
+			if (mob == null) break;
+
+			EnemyBase enemy = mob.GetComponent<EnemyBase>();
+			if(enemy.GetComponent<PooledObjectItem>() == null)
+            {
+				enemy.GetComponent<EnemyDeathSequence>().OnAnimationEnd += () => 
+				{
+					ObjectPoolManager.Instance.DespawnGameObject(mob); 
+				};
+            }
+
+			mob.transform.position = _teleportPoints[_currentTeleportPoint].position;
+			mob.SetActive(true);
+		}
+    }
 }

@@ -110,6 +110,7 @@ public abstract class BossEnemy : EnemyBase
 	{
 		base.Start();
 
+		_health = new Health(_maxHealth * 2);
 		this.enabled = true;
 		InitializeBossAttack();
 

@@ -66,4 +66,9 @@ MonoBehaviour:
     parent: {fileID: 3655312207889894987}
     amountToPool: 10
     shouldExpand: 1
+  - id: Buzzoo
+    objectToPool: {fileID: 2239234384047992348, guid: 2003d59b4304dde4bb2745cd1991b756, type: 3}
+    parent: {fileID: 3655312207889894987}
+    amountToPool: 10
+    shouldExpand: 0
   _pooledObjects: []

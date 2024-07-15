@@ -54,12 +54,20 @@ public abstract class EnemyBase : StateMachine, IDamageable
 
 		if(_healthBar != null)
         {
-			_healthBar.sprite = _healthBarSprite[(int)_health.CurrentHealth];
+			if (_health.MaxHealth > _maxHealth && _health.CurrentHealth % 2 == 0) 
+			{
+				float healthBar = _health.CurrentHealth/2;
+				_healthBar.sprite = _healthBarSprite[(int)healthBar];
+			}
 		}
 
 		if (_health.CurrentHealth <= 0)
 		{
 			OnEnemyDeath?.Invoke();
+			if(GetComponent<PooledObjectItem>() != null)
+            {
+				_health.CurrentHealth = MaxHealth;
+			}
 			return;
 		}
 
@@ -126,6 +134,11 @@ public abstract class EnemyBase : StateMachine, IDamageable
 		_spriteController = GetComponent<SpriteController>();
 		_rb2D = GetComponent<Rigidbody2D>();
 		_animator = GetComponent<Animator>();
+
+		_health = new Health(_maxHealth);
+		_instanceID = gameObject.GetInstanceID();
+
+		_animator.SetFloat("Health", _health.CurrentHealth);
 	}
 
 	protected virtual void Start()
@@ -133,16 +146,19 @@ public abstract class EnemyBase : StateMachine, IDamageable
 		_spriteSize = _spriteController.SpriteSize;
 		_enemyPermaDeath?.InitializeEnemyPermaDeath(this, _gateEvent);
 
-		_health = new Health(_maxHealth);
-		_instanceID = gameObject.GetInstanceID();
-
-		_animator.SetFloat("Health", _health.CurrentHealth);
-
 		InitializeState();
 		this.enabled = false;
 	}
 
-	private void InitializeState()
+    private void OnEnable()
+    {
+		if(_health.CurrentHealth >= MaxHealth)
+        {
+			_animator.SetFloat("Health", _health.CurrentHealth);
+		}    
+    }
+
+    private void InitializeState()
 	{
 		if (TryGetComponent<Idle>(out Idle idle))
 			SetState(idle);
