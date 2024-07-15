@@ -99,7 +99,7 @@ public class PlayerAttack : MonoBehaviour
 
 	private void OnDisable()
 	{
-		if ((_player.CurrentHealth <= 0) || Time.timeScale > 0)
+		if (_player.CurrentHealth <= 0 || Time.timeScale > 0)
 		{
 			ResetCurrentChordSet();
 		}
